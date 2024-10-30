@@ -32,7 +32,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 
-    //tomcat
+    // Tomcat
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
     implementation 'jakarta.servlet:jakarta.servlet-api'
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
@@ -41,9 +41,9 @@ dependencies {
     // Mybatis & MySQL Driver
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
     implementation 'com.mysql:mysql-connector-j:8.3.0'
-    // Mysql handler
+    // MySQL handler
     implementation 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
-    // logback SQL
+    // Logback SQL
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
 
     // Properties Encryption
@@ -52,17 +52,17 @@ dependencies {
     // JSON
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 
-    //openCsv 라이브러리
+    // OpenCSV library
     implementation 'com.opencsv:opencsv:5.5.2'
 
-    // pageing
+    // Paging
     implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.4.6'
 
     // Security
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    testImplementation 'org.springframework.security:spring-security-test'
+    // implementation 'org.springframework.boot:spring-boot-starter-security'
+    // testImplementation 'org.springframework.security:spring-security-test'
 
-    // test
+    // Test
     testImplementation 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

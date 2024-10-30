@@ -1,6 +1,6 @@
 # 1. Tomcat Server Setting
 server:
-  port: 81
+  port: 85
   servlet:
     encoding:
       charset: UTF-8
@@ -40,4 +40,3 @@ app:
     uploadimgdir: c:/springsm/imgs/
     # logdir: /root/users/project/logs
     logdir: file:///c:/springsm/logs/
-    readlogdir: c:/springsm/logs/
