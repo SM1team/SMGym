@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -45,7 +44,7 @@
 <!-- Masthead-->
 <header class="masthead">
   <div class="container">
-    <div class="masthead-subheading">Welcome To Our Studio!</div>
+    <div class="masthead-subheading">Welcome To Our Gym!</div>
     <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
     <a class="btn btn-primary btn-xl text-uppercase" href="/services">Tell Me More</a>
   </div>
@@ -628,5 +627,27 @@
 <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+<!-- jQuery 스크립트 로드 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Smooth scrolling for internal links
+    $('a.nav-link').on('click', function(event) {
+      event.preventDefault(); // Prevent the default action
+
+      // Get the target section ID from the link's href
+      var target = $(this).attr('href');
+
+      // Animate scrolling to the target section
+      $('html, body').animate({
+        scrollTop: $(target).offset().top
+      }, 1000); // 1000 milliseconds for the animation duration
+    });
+  });
+</script>
+
+
+
 </body>
 </html>
