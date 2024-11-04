@@ -575,6 +575,26 @@ progress {
   margin-right: 0.5rem;
 }
 
+.team-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%; /* 높이를 고정하여 아이콘 위치를 고정 */
+}
+
+.team-member .text-muted {
+  flex-grow: 1; /* 텍스트 영역을 늘려 동일한 위치로 유지 */
+}
+
+.social-icons {
+  margin-top: auto; /* 항상 가장 아래로 배치 */
+  padding-bottom: 20px; /* 아이콘 아래에 여유 공간 추가 */
+}
+
+
+
+
 .initialism {
   font-size: 0.875em;
   text-transform: uppercase;
@@ -11251,8 +11271,16 @@ header.masthead .masthead-heading {
   margin-bottom: 0;
 }
 
+.counter {
+  font-size: 2rem; /* 숫자 크기 조정 */
+  color: #ffcc00; /* 숫자 색상 조정 */
+  transition: all 0.5s ease; /* 애니메이션 효과 추가 */
+}
+
 .img-brand {
-  height: 2.75rem;
+  max-width: 50%; /* 최대 너비를 80%로 설정 */
+  height: auto; /* 비율을 유지하여 높이 자동 조정 */
+  margin: 0 auto; /* 중앙 정렬 */
 }
 
 section#contact {
@@ -11313,4 +11341,70 @@ section#contact form#contactForm :-ms-input-placeholder {
   text-align: center;
   font-size: 0.9rem;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+body {
+  background-color: #f0f8ff;
+}
+
+.login-container {
+  margin-top: 100px;
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background-color: #007bff;
+  color: white;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.footer-text {
+  font-size: 1.2em; /* 글씨 크기를 키움 */
+}
+
+body {
+  background-color: #f0f8ff;
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background-color: #007bff;
+  color: white;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.footer-text {
+  font-size: 1.2em; /* 글씨 크기를 키움 */
 }
