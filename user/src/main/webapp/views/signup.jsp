@@ -101,7 +101,7 @@
             </div>
             <div class="form-group">
               <label for="cust_phone">전화번호</label>
-              <input type="text" class="form-control" id="cust_phone" name="cust_phone" required maxlength="20">
+              <input type="tel" class="form-control" id="cust_phone" name="cust_phone" required maxlength="20">
             </div>
             <div class="form-group">
               <label>주소</label>
