@@ -76,17 +76,18 @@
         <div class="card-body">
           <form action="<c:url value='/signup' />" method="post">
             <div class="form-group">
-              <label for="cust_id">사용자 이름</label>
+              <label for="cust_id">사용자 id</label>
               <input type="text" class="form-control" id="cust_id" name="cust_id" required maxlength="20">
-            </div>
-            <div class="form-group">
-              <label for="cust_pwd">비밀번호</label>
-              <input type="password" class="form-control" id="cust_pwd" name="cust_pwd" required maxlength="30">
             </div>
             <div class="form-group">
               <label for="cust_name">이름</label>
               <input type="text" class="form-control" id="cust_name" name="cust_name" required maxlength="10">
             </div>
+            <div class="form-group">
+              <label for="cust_pwd">비밀번호</label>
+              <input type="password" class="form-control" id="cust_pwd" name="cust_pwd" required maxlength="30">
+            </div>
+
             <div class="form-group">
               <label for="cust_age">나이</label>
               <input type="number" class="form-control" id="cust_age" name="cust_age" required min="1">
