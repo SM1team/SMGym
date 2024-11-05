@@ -83,7 +83,7 @@
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    <small class="footer-text">계정이 없으신가요??? <a href="<c:url value='/signup' />">여기에서 등록하세요</a></small>
+                    <small class="footer-text">계정이 없으신가요???? <a href="<c:url value='/signup' />">여기에서 등록하세요</a></small>
                 </div>
             </div>
         </div>
