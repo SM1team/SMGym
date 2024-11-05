@@ -23,7 +23,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="<c:url value='/login'/>">Login</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/signup'/>">Sign Up</a></li>
+                        <li><a class="dropdown-item" href="<c:url value='/register'/>">Sign Up</a></li>
                     </ul>
                 </li>
             </ul>

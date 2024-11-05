@@ -25,10 +25,10 @@ public class MainController {
     }
 
     // 회원가입 페이지 엔드포인트
-    @RequestMapping("/signup")
+    @RequestMapping("/register")
     public String showSignUpPage(Model model) {
         log.info("Navigating to Sign Up Page");
         model.addAttribute("pageTitle", "Sign Up"); // 회원가입 페이지 제목 추가
-        return "signup"; // signup.jsp의 경로
+        return "register"; // signup.jsp의 경로
     }
 }

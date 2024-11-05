@@ -72,7 +72,7 @@
                 <div class="card-body">
                     <form action="<c:url value='/login' />" method="post">
                         <div class="form-group">
-                            <label for="username">사용자 이름</label>
+                            <label for="username">사용자 id</label>
                             <input type="text" class="form-control" id="username" name="username" required>
                         </div>
                         <div class="form-group">
