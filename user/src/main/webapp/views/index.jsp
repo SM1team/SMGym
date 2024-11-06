@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="nav.jsp" %>
+<%@ include file="trainer/trainer1.jsp" %>
+<%@ include file="trainer/trainer2.jsp" %>
+<%@ include file="trainer/trainer3.jsp" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
@@ -31,37 +34,7 @@
     </style>
 </head>
 <body id="page-top">
-<%--<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">--%>
-<%--    <div class="container">--%>
-<%--        <a class="navbar-brand" href="#page-top">--%>
-<%--            <img src="<c:url value='/assets/img/navbar-logo.svg'/>" alt="Navbar Logo" />--%>
-<%--        </a>--%>
-<%--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">--%>
-<%--            Menu--%>
-<%--            <i class="fas fa-bars ms-1"></i>--%>
-<%--        </button>--%>
-<%--        <div class="collapse navbar-collapse" id="navbarResponsive">--%>
-<%--            <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">--%>
-<%--                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>--%>
-<%--                <li class="nav-item"><a class="nav-link" href="#trainer">Trainer Profile</a></li>--%>
-<%--                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>--%>
-<%--                <li class="nav-item"><a class="nav-link" href="#location">Location</a></li>--%>
-<%--                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>--%>
 
-<%--                <!-- Dropdown for Sign In and Sign Up -->--%>
-<%--                <li class="nav-item dropdown">--%>
-<%--                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">--%>
-<%--                        Account--%>
-<%--                    </a>--%>
-<%--                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">--%>
-<%--                        <li><a class="dropdown-item" href="<c:url value='/login'/>">Login</a></li>--%>
-<%--                        <li><a class="dropdown-item" href="<c:url value='/signup'/>">Sign Up</a></li>--%>
-<%--                    </ul>--%>
-<%--                </li>--%>
-<%--            </ul>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</nav>--%>
 <header class="masthead">
     <div class="container">
         <div class="masthead-subheading">Welcome To Our Gym!</div>
@@ -151,11 +124,11 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-fluid" src="<c:url value="/assets/img/portfolio/1.jpg"/>" alt="..." />
+                                <img class="img-fluid" src="<c:url value="/assets/img/logos/teacher1.jpg"/>" alt="..." />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Threads</div>
-                                <div class="portfolio-caption-subheading text-muted">Illustration</div>
+                                <div class="portfolio-caption-heading">지피티</div>
+                                <div class="portfolio-caption-subheading text-muted">28세,남성</div>
                             </div>
                         </div>
                     </div>
@@ -166,11 +139,11 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-fluid" src="<c:url value="/assets/img/portfolio/2.jpg"/>" alt="..." />
+                                <img class="img-fluid" src="<c:url value="/assets/img/logos/teacher2.jpg"/>" alt="..." />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Explore</div>
-                                <div class="portfolio-caption-subheading text-muted">Graphic Design</div>
+                                <div class="portfolio-caption-heading">조준</div>
+                                <div class="portfolio-caption-subheading text-muted">27세,남성</div>
                             </div>
                         </div>
                     </div>
@@ -181,11 +154,11 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-fluid" src="<c:url value="/assets/img/portfolio/3.jpg"/>" alt="..." />
+                                <img class="img-fluid" src="<c:url value="/assets/img/logos/teacher3.jpg"/>" alt="..." />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Finish</div>
-                                <div class="portfolio-caption-subheading text-muted">Identity</div>
+                                <div class="portfolio-caption-heading">심으뜸</div>
+                                <div class="portfolio-caption-subheading text-muted">30세,여성</div>
                             </div>
                         </div>
                     </div>
@@ -271,63 +244,138 @@
         </div>
     </section>
 
-    <!-- Team-->
-    <section class="page-section bg-light" id="location">
-        <div class="container">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase">최고의 트레이너팀</h2>
-                <h3 class="section-subheading text-muted">당신의 건강과 목표 달성을 돕기 위해 함께합니다.</h3>
-            </div>
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="team-member d-flex flex-column align-items-center text-center">
-                        <img class="mx-auto rounded-circle" src="<c:url value="/assets/img/team/1.jpg"/>" alt="..." />
-                        <h4>김철수</h4>
-                        <p class="text-muted">퍼스널 트레이너</p>
-                        <p class="text-muted">10년 이상의 경력을 가진 김철수 트레이너는 체력 강화와 기능성 피트니스에 특화된 전문가입니다. 개인 맞춤형 운동 프로그램을 통해 회원들이 자신감을 가지고 체력을 쌓을 수 있도록 돕습니다.</p>
-                        <div class="social-icons mt-auto"> <!-- 아이콘 고정 -->
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="김철수 Twitter Profile"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="김철수 Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="김철수 LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="team-member d-flex flex-column align-items-center text-center">
-                        <img class="mx-auto rounded-circle" src="<c:url value="/assets/img/team/2.jpg"/>" alt="..." />
-                        <h4>이민정</h4>
-                        <p class="text-muted">영양 및 웰니스 코치</p>
-                        <p class="text-muted">이민정 코치는 영양과 웰니스에 대한 깊은 이해를 바탕으로 건강한 식습관 형성을 돕고, 회원들이 운동과 균형 잡힌 생활을 할 수 있도록 지도합니다.</p>
-                        <div class="social-icons mt-auto"> <!-- 아이콘 고정 -->
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="이민정 Twitter Profile"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="이민정 Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="이민정 LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="team-member d-flex flex-column align-items-center text-center">
-                        <img class="mx-auto rounded-circle" src="<c:url value="/assets/img/team/3.jpg"/>" alt="..." />
-                        <h4>박지훈</h4>
-                        <p class="text-muted">그룹 피트니스 강사</p>
-                        <p class="text-muted">에너지가 넘치는 그룹 수업을 이끄는 박지훈 강사는 모든 회원들이 즐겁게 운동할 수 있도록 다양한 프로그램을 제공합니다. HIIT부터 요가까지 모든 수준에 맞는 수업을 통해 함께 운동하는 즐거움을 선사합니다.</p>
-                        <div class="social-icons mt-auto"> <!-- 아이콘 고정 -->
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="박지훈 Twitter Profile"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="박지훈 Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="박지훈 LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
+<!-- Team Section -->
+<section class="page-section bg-light" id="location">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">우리의 지점들</h2>
+            <h3 class="section-subheading text-muted">여러분의 건강과 목표 달성을 돕기 위해 함께합니다.</h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="team-member d-flex flex-column align-items-center text-center">
+                    <img class="mx-auto rounded-circle" src="<c:url value='/assets/img/logos/1.jpg'/>" alt="탕정역점" data-bs-toggle="modal" data-bs-target="#locationModal1" />
+                    <h4>탕정역점</h4>
+                    <p class="text-muted">주소: 충청남도 아산시 탕정면 탕정리 123</p>
+                    <div class="social-icons mt-auto">
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="탕정역점 Twitter Profile"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="탕정역점 Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="탕정역점 LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <p class="large text-muted">저희 트레이너들은 여러분의 건강 목표를 달성할 수 있도록 항상 최선을 다해 돕겠습니다. 체력 강화부터 웰니스까지 다양한 전문 지식을 갖춘 트레이너들이 여러분과 함께하겠습니다.</p>
+            <div class="col-lg-4">
+                <div class="team-member d-flex flex-column align-items-center text-center">
+                    <img class="mx-auto rounded-circle" src="<c:url value='/assets/img/logos/2.jpg'/>" alt="아산역점" data-bs-toggle="modal" data-bs-target="#locationModal2" />
+                    <h4>아산역점</h4>
+                    <p class="text-muted">주소: 충청남도 아산시 배방면 동아리 456</p>
+                    <div class="social-icons mt-auto">
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="아산역점 Twitter Profile"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="아산역점 Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="아산역점 LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="team-member d-flex flex-column align-items-center text-center">
+                    <img class="mx-auto rounded-circle" src="<c:url value='/assets/img/logos/3.jpg'/>" alt="천안역점" data-bs-toggle="modal" data-bs-target="#locationModal3" />
+                    <h4>천안역점</h4>
+                    <p class="text-muted">주소: 충청남도 천안시 동남구 원성동 789</p>
+                    <div class="social-icons mt-auto">
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="천안역점 Twitter Profile"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="천안역점 Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="천안역점 LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <p class="large text-muted">각 지점에서 여러분의 건강 목표를 달성할 수 있도록 항상 최선을 다해 돕겠습니다. 최신 시설과 전문 인력이 여러분을 기다리고 있습니다.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <!-- Clients-->
+<!-- 모달 팝업 -->
+<!-- Location Modal 1 -->
+<div class="portfolio-modal modal fade" id="locationModal1" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="close-modal" data-bs-dismiss="modal"><img src="<c:url value='/assets/img/logos/close-icon.svg'/>" alt="Close modal" /></div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">탕정역점</h2>
+                            <p class="item-intro text-muted">주소: 충청남도 아산시 탕정면 탕정리 123</p>
+                            <img class="img-fluid d-block mx-auto" src="<c:url value='/assets/img/location/tangjeong.jpg'/>" alt="탕정역점" />
+                            <p>탕정역점은 최신 운동 기구와 다양한 프로그램을 통해 회원 여러분의 목표 달성을 돕습니다. 전문 트레이너들이 상주하며 개인 맞춤형 운동을 지원합니다.</p>
+                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                <i class="fas fa-xmark me-1"></i>
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Location Modal 2 -->
+<div class="portfolio-modal modal fade" id="locationModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="close-modal" data-bs-dismiss="modal"><img src="<c:url value='/assets/img/close-icon.svg'/>" alt="Close modal" /></div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">아산역점</h2>
+                            <p class="item-intro text-muted">주소: 충청남도 아산시 배방면 동아리 456</p>
+                            <img class="img-fluid d-block mx-auto" src="<c:url value='/assets/img/location/asan.jpg'/>" alt="아산역점" />
+                            <p>아산역점은 회원님들의 편리한 접근성을 고려하여 최적의 위치에 자리 잡고 있습니다. 다양한 운동 프로그램과 함께 여러분을 기다리고 있습니다.</p>
+                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                <i class="fas fa-xmark me-1"></i>
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Location Modal 3 -->
+<div class="portfolio-modal modal fade" id="locationModal3" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="close-modal" data-bs-dismiss="modal"><img src="<c:url value='/assets/img/close-icon.svg'/>" alt="Close modal" /></div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">천안역점</h2>
+                            <p class="item-intro text-muted">주소: 충청남도 천안시 동남구 원성동 789</p>
+                            <img class="img-fluid d-block mx-auto" src="<c:url value='/assets/img/location/cheonan.jpg'/>" alt="천안역점" />
+                            <p>천안역점은 편리한 접근성과 함께 최고 수준의 서비스를 제공합니다. 다양한 운동 옵션과 전문적인 트레이너가 여러분을 도와드립니다.</p>
+                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                <i class="fas fa-xmark me-1"></i>
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Clients-->
         <div class="py-5">
             <div class="container">
                 <div class="row align-items-center">
@@ -364,218 +412,8 @@
                 </div>
             </div>
         </footer>
-        <!-- Portfolio Modals-->
-        <!-- Portfolio item 1 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="<c:url value="/assets/img/close-icon.svg"/>" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="<c:url value="/assets/img/portfolio/1.jpg"/>" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Threads
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Illustration
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio item 2 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="<c:url value="/assets/img/close-icon.svg"/>" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="<c:url value="/assets/img/portfolio/2.jpg"/>" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Explore
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Graphic Design
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio item 3 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="<c:url value="/assets/img/close-icon.svg"/>" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="<c:url value="/assets/img/portfolio/3.jpg"/>" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Finish
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Identity
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio item 4 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="<c:url value="/assets/img/close-icon.svg"/>" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="<c:url value="/assets/img/portfolio/4.jpg"/>" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Lines
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Branding
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio item 5 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="<c:url value="/assets/img/close-icon.svg"/>" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="<c:url value="/assets/img/portfolio/5.jpg"/>" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Southwest
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Website Design
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Portfolio item 6 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="<c:url value="/assets/img/close-icon.svg"/>" alt="Close modal" /></div>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="<c:url value="/assets/img/portfolio/6.jpg"/>" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Window
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Photography
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-xmark me-1"></i>
-                                        Close Project
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Bootstrap core JS-->
+
+<!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="<c:url value="/js/scripts.js"/>"></script>

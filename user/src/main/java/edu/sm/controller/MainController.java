@@ -31,4 +31,6 @@ public class MainController {
         model.addAttribute("pageTitle", "Sign Up"); // 회원가입 페이지 제목 추가
         return "register"; // signup.jsp의 경로
     }
+
+
 }
