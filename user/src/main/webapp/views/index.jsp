@@ -4,7 +4,7 @@
 <%@ include file="trainer/trainer1.jsp" %>
 <%@ include file="trainer/trainer2.jsp" %>
 <%@ include file="trainer/trainer3.jsp" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%--<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>--%>
 
 
 <%--<!DOCTYPE html>--%>
