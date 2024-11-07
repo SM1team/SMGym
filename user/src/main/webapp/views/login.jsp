@@ -11,7 +11,46 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="<c:url value='/css/styles.css' />"> <!-- styles.css 링크 -->
     <style>
-
+        body {
+            background-color: #f0f2f5;
+        }
+        .masthead {
+            background: url('path/to/your/background-image.jpg') no-repeat center center;
+            background-size: cover;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        .login-container {
+            margin-top: 30px;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        .card-footer {
+            background-color: #f8f9fa;
+        }
+        .footer-text {
+            font-size: 0.9rem;
+        }
+        .btn-primary {
+            background-color: #007bff; /* 기본 버튼 색상 변경 */
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3; /* 버튼 호버 색상 변경 */
+        }
+        .form-group {
+            margin-bottom: 1.5rem; /* 폼 간격 증가 */
+        }
     </style>
 </head>
 <body>
@@ -44,7 +83,7 @@
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    <small class="footer-text">계정이 없으신가요? <a href="<c:url value='/register' />">여기에서 등록하세요</a></small>
+                    <small class="footer-text">계정이 없으신가요???? <a href="<c:url value='/register'/>">여기에서 등록하세요</a></small>
                 </div>
             </div>
         </div>
