@@ -17,7 +17,7 @@
 <body>
 <header class="masthead">
     <div class="container">
-        <div class="masthead-subheading">환영합니다!!</div>
+        <div class="masthead-subheading">환영합니다!</div>
         <div class="masthead-heading text-uppercase">로그인 페이지입니다</div>
         <a class="btn btn-secondary btn-xl text-uppercase" href="/"><i class="fas fa-home"></i> 메인 페이지로 돌아가기</a>
     </div>
