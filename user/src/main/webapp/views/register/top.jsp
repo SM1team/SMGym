@@ -40,40 +40,8 @@
 <header class="masthead">
   <div class="container">
     <div class="masthead-subheading">Welcome To Our Gym!</div>
-    <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-    <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
-    <div class="mt-4 text-center text-white">
-      <h4 class="font-weight-light">
-        <span class="counter" data-target="120">0</span>명의 회원과
-        <span class="counter" data-target="3">0</span>명의 전문 트레이너가 함께하는 활기찬 공간!
-      </h4>
-    </div>
+    <div class="masthead-heading text-uppercase">회원가입 페이지 입니다!!</div>
   </div>
 </header>
 
-<script>
-  // 모든 카운터를 선택
-  const counters = document.querySelectorAll('.counter');
 
-  // 각 카운터에 대해 숫자 증가 기능을 설정
-  counters.forEach(counter => {
-    const updateCount = () => {
-      // 목표 숫자 가져오기
-      const target = +counter.getAttribute('data-target');
-      // 현재 숫자 가져오기
-      const count = +counter.innerText;
-      // 증가 속도 설정
-      const increment = target / 200; // 목표 숫자를 200으로 나눔
-
-      // 목표 숫자에 도달할 때까지 증가
-      if (count < target) {
-        counter.innerText = Math.ceil(count + increment); // 현재 숫자 증가
-        setTimeout(updateCount, 10); // 10ms 후에 다시 업데이트
-      } else {
-        counter.innerText = target; // 목표 숫자 도달 시, 목표 숫자로 설정
-      }
-    };
-
-    updateCount(); // 카운터 시작
-  });
-</script>

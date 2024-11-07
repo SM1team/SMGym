@@ -1,19 +1,15 @@
 package edu.sm.controller;
 
 import edu.sm.app.dto.CustDto;
-
 import edu.sm.app.service.CustService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.sql.SQLIntegrityConstraintViolationException;
 
 @Controller
 @Slf4j
@@ -21,7 +17,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 public class MainInputController {
 
     final CustService custService;
-    final BCryptPasswordEncoder passwordEncoder;//이걸 가지고 암호화..
+    String dir = "register/";
 
 
     @RequestMapping("/logoutimpl")
@@ -37,9 +33,9 @@ public class MainInputController {
                                CustDto custDto,
                                HttpSession session) throws DuplicateKeyException,Exception{
 //        회원가입을 하는동시에 사용자의 정보를 session에 담아서 동작을 시키기 위함
-        log.info("Cust Info: " +custDto.toString());
+        log.info("registerimpl 까지옴");
         try{
-            custDto.setCustPwd(passwordEncoder.encode(custDto.getCustPwd()));//Dto에서 입력된 pwd를 encode로 변환해서
+//            custDto.setCustPwd(passwordEncoder.encode(custDto.getCustPwd()));//Dto에서 입력된 pwd를 encode로 변환해서
             custService.add(custDto);//다시 db에 집어 넣는다.
 
         }catch (DuplicateKeyException e){
@@ -52,6 +48,7 @@ public class MainInputController {
 
         session.setAttribute("loginid", custDto);
         //loginid라는 이름으로 객체를 끄집어내서 id,pwd,name등을 사용가능.
+        model.addAttribute("top",dir + "top");
         model.addAttribute("center","registerok");
 
         return "index";

@@ -1,16 +1,14 @@
 package edu.sm.app.dto;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data //getter setter tostring
-@Builder//constructor
-@AllArgsConstructor
+@Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class CustDto {
-
     private String custId;
     private String custPwd;
     private String custName;
@@ -20,6 +18,4 @@ public class CustDto {
     private String custAddress;
     private String trainerId;
     private int custPoint;
-
-
 }
