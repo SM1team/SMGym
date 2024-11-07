@@ -29,8 +29,8 @@ public class MainController {
     @RequestMapping("/register")
     public String showSignUpPage(Model model) {
         log.info("Register Page success");
-        model.addAttribute("top", dir + "top"); // 회원가입 페이지 제목 추가
-        model.addAttribute("center", dir + "center"); // 회원가입 페이지 제목 추가
+        model.addAttribute("top", "register/" + "top"); // 회원가입 페이지 제목 추가
+        model.addAttribute("center", "register/" + "center"); // 회원가입 페이지 제목 추가
         return "index"; // signup.jsp의 경로
     }
 }
