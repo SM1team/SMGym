@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class MainController {
 
-    String dir = "register/";
-
     // 메인 페이지의 기본 엔드포인트
     @RequestMapping("/")
     public String main(Model model) {
@@ -35,6 +33,4 @@ public class MainController {
         model.addAttribute("center", dir + "center"); // 회원가입 페이지 제목 추가
         return "index"; // signup.jsp의 경로
     }
-
-
 }

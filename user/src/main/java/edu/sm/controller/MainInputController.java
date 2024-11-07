@@ -32,27 +32,13 @@ public class MainInputController {
         String next = "index";
         CustDto custDto = custService.get(id);
 
-        if (custDto == null) {
-            // 로그인 실패 - 사용자가 없음
-            model.addAttribute("top", "login/"+"top");
-            model.addAttribute("center", "loginfail");
-        } else {
-            // 사용자 존재 - 비밀번호 확인
-            if (pwd.equals(custDto.getCustPwd())) {
-                // 로그인 성공
-                session.setAttribute("loginid", custDto);
-                model.addAttribute("top", "login/"+"top");
-                model.addAttribute("center","loginok");
-            } else {
-                // 로그인 실패 - 비밀번호 불일치
-                model.addAttribute("top", "login/"+"top");
-                model.addAttribute("center", "loginfail");
-            }
+    @RequestMapping("/logoutimpl")
+    public String logoutimpl(HttpSession session, Model model) {
+        if(session != null){
+            session.invalidate();
         }
-
-        return "index";
+        return "redirect:/";
     }
-
 
     @RequestMapping("/registerimpl")
     public String registerimpl(Model model,

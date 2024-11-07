@@ -1,15 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 2024-11-06
-  Time: 오후 2:24
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<!-- Services-->
+<!-- Services < 웹사이트 소개 부분 > -->
 <section class="page-section" id="services">
   <div class="container">
     <div class="text-center">
@@ -44,12 +37,14 @@
     </div>
   </div>
 </section>
-<!-- Portfolio Grid-->
+
+
+<!-- 트레이너 소개 페이지-->
 <section class="page-section bg-light" id="trainer">
   <div class="container">
     <div class="text-center">
       <h2 class="section-heading text-uppercase">Trainer Profile</h2>
-      <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+<%--      <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>--%>
     </div>
     <div class="row">
       <div class="col-lg-4 col-sm-6 mb-4">
@@ -100,86 +95,72 @@
     </div>
   </div>
 </section>
-<!-- About-->
-<!-- About-->
+
+<!-- About  < 헬스장의 역사 , 차별점 -->
 <section class="page-section" id="about">
   <div class="container">
     <div class="text-center">
       <h2 class="section-heading text-uppercase">About</h2>
-      <h3 class="section-subheading text-muted">우리의 여정은 이렇게 시작되었습니다.</h3>
+      <h3 class="section-subheading text-muted">다른 헬스장과는 차원이 다른 우리의 헬스 서비스</h3>
     </div>
     <ul class="timeline">
       <li>
-        <div class="timeline-image"><img class="rounded-circle img-fluid" src="<c:url value='/assets/img/about/1.jpg'/>" alt="..." /></div>
+        <div class="timeline-image"><img class="rounded-circle img-fluid" src="<c:url value='/assets/img/about/5.png'/>" alt="..." /></div>
         <div class="timeline-panel">
           <div class="timeline-heading">
-            <h4>2021-2024</h4>
-            <h4 class="subheading">우리의 소박한 시작</h4>
+            <h4>최첨단 IoT 기술 적용</h4>
+            <h4 class="subheading">출근 기록 및 실시간 데이터 확인</h4>
           </div>
-          <div class="timeline-body"><p class="text-muted">우리는 운동과 건강한 삶을 위한 공간을 만들기 위해 열정을 가지고 시작했습니다. 여러분이 꿈꾸는 몸매를 위해 함께하는 첫 걸음을 내딛었던 시기입니다.</p></div>
+          <div class="timeline-body"><p class="text-muted">우리 헬스장은 IoT 기술을 적용하여 회원님들의 출근 기록을 실시간으로 확인할 수 있습니다. 운동 시작 전, 언제든지 자신의 출석 상태를 확인할 수 있습니다.</p></div>
         </div>
       </li>
       <li class="timeline-inverted">
         <div class="timeline-image"><img class="rounded-circle img-fluid" src="<c:url value='/assets/img/about/2.jpg'/>" alt="..." /></div>
         <div class="timeline-panel">
           <div class="timeline-heading">
-            <h4>March 2021</h4>
-            <h4 class="subheading">헬스장의 탄생</h4>
+            <h4>자동 추적 운동 기록</h4>
+            <h4 class="subheading">IoT 기구를 통한 실시간 운동 데이터</h4>
           </div>
-          <div class="timeline-body"><p class="text-muted">여러분의 피트니스 목표를 실현할 수 있도록 헬스장을 개설했습니다. 다양한 운동 프로그램과 전문 트레이너가 여러분을 기다립니다!</p></div>
+          <div class="timeline-body"><p class="text-muted">우리 헬스장은 최신 IoT 기구를 사용하여 운동 기구에 부착된 센서를 통해 사용자의 운동 횟수와 세트 수를 자동으로 기록하고, 실시간으로 피드백을 제공합니다.</p></div>
         </div>
       </li>
       <li>
         <div class="timeline-image"><img class="rounded-circle img-fluid" src="<c:url value='/assets/img/about/3.jpg'/>" alt="..." /></div>
         <div class="timeline-panel">
           <div class="timeline-heading">
-            <h4>December 2022</h4>
-            <h4 class="subheading">종합 헬스 서비스로의 전환</h4>
+            <h4>칼로리 소모 계산</h4>
+            <h4 class="subheading">오늘의 운동량에 따른 소모 칼로리 분석</h4>
           </div>
-          <div class="timeline-body"><p class="text-muted">우리는 단순한 헬스장을 넘어 다양한 운동 프로그램과 맞춤형 트레이닝을 제공하는 종합 헬스 서비스로 발전했습니다. 여러분의 건강을 위한 더 나은 선택이 되겠습니다!</p></div>
+          <div class="timeline-body"><p class="text-muted">오늘 운동한 양을 바탕으로 소모된 칼로리를 자동으로 계산하여 회원님이 얼마나 효과적으로 운동을 했는지 시각적으로 확인할 수 있습니다.</p></div>
         </div>
       </li>
       <li class="timeline-inverted">
         <div class="timeline-image"><img class="rounded-circle img-fluid" src="<c:url value='/assets/img/about/4.jpg'/>" alt="..." /></div>
         <div class="timeline-panel">
           <div class="timeline-heading">
-            <h4>July 2023</h4>
-            <h4 class="subheading">Phase Two Expansion</h4>
+            <h4>홈트레이닝 정보 제공</h4>
+            <h4 class="subheading">언제 어디서나 함께 할 수 있는 홈트레이닝</h4>
           </div>
-          <div class="timeline-body"><p class="text-muted">우리의 여정을 한 단계 더 나아가게 한 확장입니다. 더 많은 시설과 서비스를 통해 여러분의 운동 경험을 극대화하겠습니다.</p></div>
+          <div class="timeline-body"><p class="text-muted">홈트레이닝도 지원합니다. 헬스장에 오지 못한 날에는 앱을 통해 제공되는 맞춤형 홈트레이닝 정보를 통해 운동을 계속 이어갈 수 있습니다.</p></div>
         </div>
       </li>
-      <li class="timeline-inverted">
-        <div class="timeline-image">
-          <h4>
-            새로운 지점 오픈!
-            <br />
-            저희는 충남 지역에
-            <br />
-            탕정점(1호점),
-            <br />
-            아산점(2호점),
-            <br />
-            천안점(3호점)을 새롭게 오픈했습니다!
-            <br />
-            이제 여러분의 편리한 위치에서 헬스를 즐기실 수 있습니다.
-          </h4>
-        </div>
-      </li>
-      <li class="timeline-inverted">
-        <div class="timeline-image">
-          <h4>
-            여러분도
-            <br />
-            우리의 이야기에 함께 해주세요!
-          </h4>
+      <!-- 5번 항목은 왼쪽으로 배치 -->
+      <li>
+        <div class="timeline-image"><img class="rounded-circle img-fluid" src="<c:url value='/assets/img/about/1.jpg'/>" alt="..." /></div>
+        <div class="timeline-panel">
+          <div class="timeline-heading">
+            <h4>언제 어디서든 스마트한 운동 경험</h4>
+            <h4 class="subheading">최신 기술이 적용된 헬스장에서 운동의 새로운 경험을 즐기세요!</h4>
+          </div>
+          <div class="timeline-body"><p class="text-muted">헬스장에 방문하지 않아도 언제든지 최신 기술을 통해 스마트한 운동을 경험할 수 있습니다. IoT 기기와 모바일 앱을 통해 어디서나 연결되고, 실시간 피드백을 제공합니다.</p></div>
         </div>
       </li>
     </ul>
   </div>
 </section>
 
-<!-- Team Section -->
+
+<!-- Location 지점별 위치 소개 -->
 <section class="page-section bg-light" id="location">
   <div class="container">
     <div class="text-center">
@@ -192,11 +173,6 @@
           <img class="mx-auto rounded-circle" src="<c:url value='/assets/img/logos/1.jpg'/>" alt="탕정역점" data-bs-toggle="modal" data-bs-target="#locationModal1" />
           <h4>탕정역점</h4>
           <p class="text-muted">주소: 충청남도 아산시 탕정면 탕정리 123</p>
-          <div class="social-icons mt-auto">
-            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="탕정역점 Twitter Profile"><i class="fab fa-twitter"></i></a>
-            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="탕정역점 Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="탕정역점 LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-          </div>
         </div>
       </div>
       <div class="col-lg-4">
@@ -204,11 +180,6 @@
           <img class="mx-auto rounded-circle" src="<c:url value='/assets/img/logos/2.jpg'/>" alt="아산역점" data-bs-toggle="modal" data-bs-target="#locationModal2" />
           <h4>아산역점</h4>
           <p class="text-muted">주소: 충청남도 아산시 배방면 동아리 456</p>
-          <div class="social-icons mt-auto">
-            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="아산역점 Twitter Profile"><i class="fab fa-twitter"></i></a>
-            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="아산역점 Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="아산역점 LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-          </div>
         </div>
       </div>
       <div class="col-lg-4">
@@ -216,117 +187,32 @@
           <img class="mx-auto rounded-circle" src="<c:url value='/assets/img/logos/3.jpg'/>" alt="천안역점" data-bs-toggle="modal" data-bs-target="#locationModal3" />
           <h4>천안역점</h4>
           <p class="text-muted">주소: 충청남도 천안시 동남구 원성동 789</p>
-          <div class="social-icons mt-auto">
-            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="천안역점 Twitter Profile"><i class="fab fa-twitter"></i></a>
-            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="천안역점 Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="천안역점 LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-          </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-8 mx-auto text-center">
-        <p class="large text-muted">각 지점에서 여러분의 건강 목표를 달성할 수 있도록 항상 최선을 다해 돕겠습니다. 최신 시설과 전문 인력이 여러분을 기다리고 있습니다.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 모달 팝업 -->
-<!-- Location Modal 1 -->
-<div class="portfolio-modal modal fade" id="locationModal1" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="close-modal" data-bs-dismiss="modal"><img src="<c:url value='/assets/img/logos/close-icon.svg'/>" alt="Close modal" /></div>
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <div class="modal-body">
-              <h2 class="text-uppercase">탕정역점</h2>
-              <p class="item-intro text-muted">주소: 충청남도 아산시 탕정면 탕정리 123</p>
-              <img class="img-fluid d-block mx-auto" src="<c:url value='/assets/img/location/tangjeong.jpg'/>" alt="탕정역점" />
-              <p>탕정역점은 최신 운동 기구와 다양한 프로그램을 통해 회원 여러분의 목표 달성을 돕습니다. 전문 트레이너들이 상주하며 개인 맞춤형 운동을 지원합니다.</p>
-              <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                <i class="fas fa-xmark me-1"></i>
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Location Modal 2 -->
-<div class="portfolio-modal modal fade" id="locationModal2" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="close-modal" data-bs-dismiss="modal"><img src="<c:url value='/assets/img/close-icon.svg'/>" alt="Close modal" /></div>
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <div class="modal-body">
-              <h2 class="text-uppercase">아산역점</h2>
-              <p class="item-intro text-muted">주소: 충청남도 아산시 배방면 동아리 456</p>
-              <img class="img-fluid d-block mx-auto" src="<c:url value='/assets/img/location/asan.jpg'/>" alt="아산역점" />
-              <p>아산역점은 회원님들의 편리한 접근성을 고려하여 최적의 위치에 자리 잡고 있습니다. 다양한 운동 프로그램과 함께 여러분을 기다리고 있습니다.</p>
-              <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                <i class="fas fa-xmark me-1"></i>
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Location Modal 3 -->
-<div class="portfolio-modal modal fade" id="locationModal3" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="close-modal" data-bs-dismiss="modal"><img src="<c:url value='/assets/img/close-icon.svg'/>" alt="Close modal" /></div>
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <div class="modal-body">
-              <h2 class="text-uppercase">천안역점</h2>
-              <p class="item-intro text-muted">주소: 충청남도 천안시 동남구 원성동 789</p>
-              <img class="img-fluid d-block mx-auto" src="<c:url value='/assets/img/location/cheonan.jpg'/>" alt="천안역점" />
-              <p>천안역점은 편리한 접근성과 함께 최고 수준의 서비스를 제공합니다. 다양한 운동 옵션과 전문적인 트레이너가 여러분을 도와드립니다.</p>
-              <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                <i class="fas fa-xmark me-1"></i>
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 
 
 <!-- Clients-->
-<div class="py-5">
+<div class="py-5" style="background-color: #f8f9fa;">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-md-3 col-sm-6 my-3">
-        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="<c:url value="/assets/img/logos/under.jpg"/>" alt="..." aria-label="under Logo" /></a>
+        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="<c:url value='/assets/img/logos/under.jpg'/>" alt="..." aria-label="under Logo" /></a>
       </div>
       <div class="col-md-3 col-sm-6 my-3">
-        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="<c:url value="/assets/img/logos/nike.jpg"/>" alt="..." aria-label="nike Logo" /></a>
+        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="<c:url value='/assets/img/logos/nike.jpg'/>" alt="..." aria-label="nike Logo" /></a>
       </div>
       <div class="col-md-3 col-sm-6 my-3">
-        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="<c:url value="/assets/img/logos/puma.jpg"/>" alt="..." aria-label="puma Logo" /></a>
+        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="<c:url value='/assets/img/logos/puma.jpg'/>" alt="..." aria-label="puma Logo" /></a>
       </div>
       <div class="col-md-3 col-sm-6 my-3">
-        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="<c:url value="/assets/img/logos/dynafit.jpg"/>" alt="..." aria-label="dynafit Logo" /></a>
+        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="<c:url value='/assets/img/logos/dynafit.jpg'/>" alt="..." aria-label="dynafit Logo" /></a>
       </div>
     </div>
   </div>
 </div>
+
 <%--<center.jsp end>--%>
