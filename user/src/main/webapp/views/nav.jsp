@@ -1,7 +1,7 @@
 <!-- nav.jsp -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="#page-top">
+        <a class="navbar-brand" href="<c:url value="/"/>">
             <img src="<c:url value='/assets/img/navbar-logo.svg'/>" alt="Navbar Logo" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,7 +16,7 @@
                 <li class="nav-item"><a class="nav-link" href="#location">Location</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/shop"/>">Shop</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/community"/>">Community</a></li>
-                <li class="nav-item"><a class="nav-link" href="<c:url value="/Q&A"/>">Q&A</a></li>
+                <li class="nav-item"><a class="nav-link" href="<c:url value="/qna"/>">Q&A</a></li>
 
                 <!-- Dropdown for Sign In and Sign Up -->
                 <li class="nav-item dropdown">
