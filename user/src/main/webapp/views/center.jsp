@@ -155,15 +155,6 @@
           <div class="timeline-body"><p class="text-muted">헬스장에 방문하지 않아도 언제든지 최신 기술을 통해 스마트한 운동을 경험할 수 있습니다. IoT 기기와 모바일 앱을 통해 어디서나 연결되고, 실시간 피드백을 제공합니다.</p></div>
         </div>
       </li>
-      <li class="timeline-inverted">
-        <div class="timeline-image">
-          <h4>
-            여러분도
-            <br />
-            우리의 이야기에 함께 해주세요!
-          </h4>
-        </div>
-      </li>
     </ul>
   </div>
 </section>
