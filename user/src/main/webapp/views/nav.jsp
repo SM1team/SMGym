@@ -10,10 +10,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                <li class="nav-item"><a class="nav-link" href="#trainer">Trainer Profile</a></li>
-                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#location">Location</a></li>
+                <li class="nav-item"><a class="nav-link" href="<c:url value="/#services"/>">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="<c:url value="/#trainer"/>">Trainer Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="<c:url value="/#about"/>">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="<c:url value="/#location"/>">Location</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/shop"/>">Shop</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/community"/>">Community</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/qna"/>">Q&A</a></li>
