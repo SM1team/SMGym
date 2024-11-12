@@ -31,8 +31,6 @@ public class MainInputController {
 
         CustDto custDto = custService.get(id);
         session.setAttribute("loginid", custDto);
-        model.addAttribute("top", "login/" + "top");
-        model.addAttribute("center", "loginok");
         return "index";
     }
 
