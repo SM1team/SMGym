@@ -21,7 +21,7 @@ public class QnAController {
 
 
     String qdir = "qna/";
-    @RequestMapping("/")
+    @RequestMapping("")
     public String main(Model model){
         model.addAttribute("top",qdir+"top");
         model.addAttribute("center",qdir+"center");

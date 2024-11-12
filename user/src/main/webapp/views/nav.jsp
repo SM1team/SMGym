@@ -24,8 +24,22 @@
                         Account
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="<c:url value='/login'/>">Login</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/register'/>">Sign Up</a></li>
+                        <c:choose>
+                            <c:when test="${sessionScope.loginid == null}">
+
+                                <li><a class="dropdown-item" href="<c:url value='/login'/>">Login</a></li>
+                                <li><a class="dropdown-item" href="<c:url value='/register'/>">Sign Up</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" style="color: black;" >${sessionScope.loginid.custId}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<c:url value="/logoutimpl"/>" style="color: black;" >Logout</a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+
                     </ul>
                 </li>
             </ul>

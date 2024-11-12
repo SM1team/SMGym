@@ -34,6 +34,14 @@ public class MainInputController {
         return "index";
     }
 
+    @RequestMapping("/logoutimpl")
+    public String logoutimpl(HttpSession session, Model model) {
+        if(session != null){
+            session.invalidate();
+        }
+        return "redirect:/";
+    }
+
         @RequestMapping("/registerimpl")
         public String registerimpl (Model model,
                 CustDto custDto,

@@ -7,4 +7,9 @@
   <h5>Title description, Sep 2, 2017</h5>
   <div class="fakeimg">Fake Image</div>
   <hr class="d-sm-none">
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary">Apple</button>
+    <button type="button" class="btn btn-primary">Samsung</button>
+    <button type="button" class="btn btn-primary">Sony</button>
+  </div>
 </div>
