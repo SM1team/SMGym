@@ -1,3 +1,4 @@
+<!-- views/index.jsp -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="nav.jsp" %>
@@ -10,7 +11,6 @@
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-
 <div class="container" style="max-width: 100%">
     <div class="row">
         <c:choose>
@@ -21,6 +21,7 @@
                 <jsp:include page="${top}.jsp"/>
             </c:otherwise>
         </c:choose>
+
         <c:choose>
             <c:when test="${center == null}">
                 <jsp:include page="center.jsp"/>
@@ -29,9 +30,17 @@
                 <jsp:include page="${center}.jsp"/>
             </c:otherwise>
         </c:choose>
+
+         <c:choose>
+            <c:when test="${footer == null}">
+                <jsp:include page="footer.jsp"/>
+            </c:when>
+            <c:otherwise>
+                <jsp:include page="${footer}.jsp"/>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
-
 
 <!-- Footer-->
 <footer class="footer py-4" style="background-color: #f8f9fa;">  <!-- 지점들 section 색상과 동일한 배경색 -->
@@ -52,10 +61,10 @@
 </footer>
 
 <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
-    <script src="<c:url value='/js/scripts.js'/>"></script>
+<script src="<c:url value='/js/scripts.js'/>"></script>
 
-    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-  </body>
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
 </html>

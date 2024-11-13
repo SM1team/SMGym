@@ -14,9 +14,12 @@
                 <li class="nav-item"><a class="nav-link" href="#trainer">Trainer Profile</a></li>
                 <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="#location">Location</a></li>
-                <li class="nav-item"><a class="nav-link" href="<c:url value="/shop"/>">Shop</a></li>
-                <li class="nav-item"><a class="nav-link" href="<c:url value="/community"/>">Community</a></li>
-                <li class="nav-item"><a class="nav-link" href="<c:url value="/Q&A"/>">Q&A</a></li>
+                <li class="nav-item"><a class="nav-link" href="<c:url value='/map'/>">Map</a></li>
+                <li class="nav-item"><a class="nav-link" href="<c:url value='/shop'/>">Shop</a></li>
+                <!-- 수정: community를 board로 수정 -->
+                <li class="nav-item"><a class="nav-link" href="<c:url value='/board'/>">Board</a></li> <!-- community -> board -->
+                <!-- 수정: Q&A를 board로 수정 -->
+                <li class="nav-item"><a class="nav-link" href="<c:url value='/Q&A'/>">Q&A</a></li>
 
                 <!-- Dropdown for Sign In and Sign Up -->
                 <li class="nav-item dropdown">

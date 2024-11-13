@@ -223,7 +223,10 @@ strong {
 small, .small {
   font-size: 0.875em;
 }
-
+#map {
+  width: 100%;  /* 가로 너비는 100%로 설정 */
+  height: 300px; /* 세로 높이는 300px로 설정 */
+}
 mark, .mark {
   padding: 0.1875em;
   background-color: var(--bs-highlight-bg);
@@ -11448,4 +11451,31 @@ body {
 }
 .form-group {
   margin-bottom: 1.5rem; /* 폼 간격 증가 */
+}
+
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination a, .pagination .current {
+  margin: 0 5px;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #007bff;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+}
+
+.pagination .current {
+  background-color: #007bff;
+  color: white;
+}
+
+.pagination a:hover {
+  background-color: #0056b3;
+  color: white;
 }
