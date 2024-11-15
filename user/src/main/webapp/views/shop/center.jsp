@@ -10,7 +10,7 @@
       <div class="col-md-3 mb-4">
         <div class="card h-100">
           <!-- Product image-->
-          <a href="/shop/detail?productNo=${product.productNo}">
+          <a href="<c:url value="/shop/detail"/>?productNo=${product.productNo}">
             <img class="card-img-top" src="${product.productImg}" alt="Product Image" />
           </a>
           <!-- Product details-->
@@ -20,12 +20,13 @@
               <h5 class="fw-bolder">${product.productName}</h5>
               <!-- Product price-->
               ₩${product.productPrice}
+                ${product.placeNo}
             </div>
           </div>
           <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center">
-              <a href="/shop/detail?productNo=${product.productNo}" class="btn btn-outline-dark mt-auto">View options</a>
+              <a href="<c:url value="/shop/detail"/>?productNo=${product.productNo}" class="btn btn-outline-dark mt-auto">View options</a>
             </div>
           </div>
         </div>

@@ -34,12 +34,11 @@ public class ProductController {
 
     @RequestMapping("/detail")
     public String detail(Model model, @RequestParam("productNo") int productNo) throws Exception {
-        ProductDto productDto =null;
-        productDto = productService.get(productNo);
-        model.addAttribute("product", productDto); // productDto를 "product" 이름으로 전달
-        model.addAttribute("center", dir + "detail"); // 중앙 템플릿
-
-        return "index"; // index.jsp를 반환
+        ProductDto productDto = productService.get(productNo);
+        model.addAttribute("product", productDto);
+        model.addAttribute("top", dir + "top"); // 상단 템플릿이 shop/top.jsp로 설정되어 있어야 합니다.
+        model.addAttribute("center", dir + "detail"); // 중앙 템플릿 경로
+        return "index";
     }
 
 

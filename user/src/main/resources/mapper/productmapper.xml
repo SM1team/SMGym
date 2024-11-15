@@ -7,12 +7,24 @@
 
 
 
-    <select id="select" resultType="edu.sm.app.dto.ProductDto">
+    <select id="select" resultType="ProductDto">
         SELECT * FROM product
     </select>
 
-    <select id="selectOne" parameterType="Integer" resultType="edu.sm.app.dto.ProductDto">
+    <select id="selectOne" parameterType="Integer" resultType="ProductDto">
         SELECT * FROM product WHERE product_no=#{productNo}
     </select>
+
+    <insert id="insert" parameterType="ProductDto">
+        INSERT INTO item VALUES (null, #{itemName},#{itemPrice},#{imgName}, SYSDATE(), SYSDATE())
+    </insert>
+
+    <update id="update" parameterType="itemDto">
+        UPDATE item SET item_name=#{itemName},item_price=#{itemPrice}, img_name=#{imgName} WHERE item_id=#{itemId}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM item WHERE item_id=#{id}
+    </delete>
 
 </mapper>
