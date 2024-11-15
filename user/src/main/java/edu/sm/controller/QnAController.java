@@ -2,7 +2,10 @@ package edu.sm.controller;
 
 
 import edu.sm.app.dto.CustDto;
+import edu.sm.app.dto.ReservationDto;
 import edu.sm.app.service.CustService;
+import edu.sm.app.service.ReservationService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class QnAController {
 
+    final ReservationService reservationService;
+
 
 
 
@@ -24,9 +29,64 @@ public class QnAController {
     @RequestMapping("")
     public String main(Model model){
         model.addAttribute("top",qdir+"top");
-        model.addAttribute("center",qdir+"center");
+        model.addAttribute("center",qdir+"question");
         return "index";
     }
+    @RequestMapping("/reservation")
+    public String reservation(Model model){
+        model.addAttribute("top",qdir+"top");
+        model.addAttribute("center",qdir+"reservation");
+        return "index";
+    }
+
+//    @RequestMapping("/history")
+//    public String history(Model model,@RequestParam("id") Integer phone) throws Exception {//id를 받기위함
+//        ReservationDto reservationDto = null;
+//        reservationDto = reservationService.get(phone);
+//        model.addAttribute("reservation",reservationDto);
+//
+//        model.addAttribute("top",qdir +"top");
+//        model.addAttribute("center",qdir+"history");
+//        return "index";
+//
+//    }
+//    @RequestMapping("/history")
+//    public String history(Model model) throws Exception {
+//        List<ReservationDto> reservations = new ArrayList<ReservationDto>();
+//        reservations = reservationService.get();
+//
+//
+//        model.addAttribute("reservations",reservations);
+//        model.addAttribute("top",qdir +"top");
+//        model.addAttribute("center",qdir+"history");
+//        return "index";
+//
+//
+//
+//    }
+
+    @RequestMapping("/history")
+    public String history(Model model, HttpSession session) throws Exception {
+        // 세션에서 로그인된 사용자 정보 가져오기
+        CustDto loggedInUser = (CustDto) session.getAttribute("loginid");
+
+        if (loggedInUser == null) {
+            return "redirect:/login"; // 로그인되지 않은 경우 로그인 페이지로 이동
+        }
+
+        // 사용자 ID를 이용해 예약 내역 조회
+        String custId = loggedInUser.getCustId();
+        List<ReservationDto> reservations = reservationService.getReservationsByCustId(custId);
+
+        // 예약 데이터를 모델에 추가
+        model.addAttribute("reservations", reservations);
+        model.addAttribute("top",qdir+"top");
+        model.addAttribute("center",qdir+"history");
+
+        return "index"; // JSP 페이지 이름
+    }
+
+
 
 
 //    @RequestMapping("/detail")
