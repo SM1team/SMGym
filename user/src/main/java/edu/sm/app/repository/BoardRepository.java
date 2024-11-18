@@ -15,4 +15,10 @@ public interface BoardRepository extends SMRepository<Integer, BoardDto> {
 
     // 전체 게시물 수를 반환하는 메서드
     int countTotal();
+
+    // 제목으로 검색된 게시물 반환 (검색어 포함된 게시물만)
+    List<BoardDto> searchByTitle(@Param("searchKeyword") String searchKeyword, @Param("offset") int offset, @Param("pageSize") int pageSize);
+
+    // 검색된 게시물 수 반환
+    int countSearchResults(@Param("searchKeyword") String searchKeyword);
 }

@@ -47,10 +47,11 @@
                cust_id AS custId,
                board_img AS boardImg
         FROM board
+        ORDER BY notice_date DESC
     </select>
 
     <!-- 페이징된 게시물 조회 -->
-    <select id="selectWithPaging" resultType="edu.sm.app.dto.BoardDto">
+    <select id="selectWithPaging" parameterType="map" resultType="edu.sm.app.dto.BoardDto">
         SELECT notice_no AS noticeNo,
                notice_title AS noticeTitle,
                notice_content AS noticeContent,
@@ -58,11 +59,31 @@
                cust_id AS custId,
                board_img AS boardImg
         FROM board
-        ORDER BY notice_no
+        ORDER BY notice_date DESC
             LIMIT #{offset}, #{pageSize}
     </select>
 
-    <!-- 전체 게시물 수 조회 -->
+    <!-- 제목으로 검색된 게시물 조회 -->
+    <select id="searchByTitle" parameterType="map" resultType="edu.sm.app.dto.BoardDto">
+        SELECT notice_no AS noticeNo,
+               notice_title AS noticeTitle,
+               notice_content AS noticeContent,
+               notice_date AS noticeDate,
+               cust_id AS custId,
+               board_img AS boardImg
+        FROM board
+        WHERE notice_title LIKE CONCAT('%', COALESCE(#{searchKeyword}, ''), '%')
+        ORDER BY notice_date DESC
+            LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <!-- 제목으로 검색된 게시물 수 조회 -->
+    <select id="countSearchResults" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM board
+        WHERE notice_title LIKE CONCAT('%', COALESCE(#{searchKeyword}, ''), '%')
+    </select>
+
+    <!-- 전체 게시물 개수 조회 -->
     <select id="countTotal" resultType="int">
         SELECT COUNT(*) FROM board
     </select>
