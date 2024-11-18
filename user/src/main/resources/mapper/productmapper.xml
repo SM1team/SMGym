@@ -4,27 +4,53 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.sm.app.repository.ProductRepository">
 
-
-
-
+    <!-- SELECT: 모든 제품 조회 -->
     <select id="select" resultType="ProductDto">
         SELECT * FROM product
     </select>
 
+    <!-- SELECT: 특정 제품 조회 -->
     <select id="selectOne" parameterType="Integer" resultType="ProductDto">
         SELECT * FROM product WHERE product_no=#{productNo}
     </select>
 
+    <!-- INSERT: 제품 추가 -->
     <insert id="insert" parameterType="ProductDto">
-        INSERT INTO item VALUES (null, #{itemName},#{itemPrice},#{imgName}, SYSDATE(), SYSDATE())
+        INSERT INTO product (
+            product_no,
+            trainer_gender,
+            trainer_id,
+            product_name,
+            product_price,
+            product_img,
+            place_no
+        ) VALUES (
+                     #{productNo},
+                     #{trainerGender},
+                     #{trainerId},
+                     #{productName},
+                     #{productPrice},
+                     #{productImg},
+                     #{placeNo}
+                 )
     </insert>
 
-    <update id="update" parameterType="itemDto">
-        UPDATE item SET item_name=#{itemName},item_price=#{itemPrice}, img_name=#{imgName} WHERE item_id=#{itemId}
+    <!-- UPDATE: 제품 수정 -->
+    <update id="update" parameterType="ProductDto">
+        UPDATE product
+        SET
+            trainer_gender = #{trainerGender},
+            trainer_id = #{trainerId},
+            product_name = #{productName},
+            product_price = #{productPrice},
+            product_img = #{productImg},
+            place_no = #{placeNo}
+        WHERE product_no = #{productNo}
     </update>
 
+    <!-- DELETE: 특정 제품 삭제 -->
     <delete id="delete" parameterType="Integer">
-        DELETE FROM item WHERE item_id=#{id}
+        DELETE FROM product WHERE product_no = #{productNo}
     </delete>
 
 </mapper>
