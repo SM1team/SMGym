@@ -9,10 +9,8 @@
 
 <div class="col-sm-10">
 
-  <h2>QnA Page</h2>
-  <h5>Title description, Sep 2, 2017</h5>
-  <div class="fakeimg">Fake Image</div>
-  <hr class="d-sm-none">
+  <h2>1대1 문의 채팅 Page</h2>
+
   <div class="btn-group">
     <button type="button" class="btn"
             onclick="location.href='<c:url value="/qna"/>'"
@@ -25,36 +23,6 @@
             style="background-color: white; color: black; border: 1px solid #ccc;">나의 예약내역</button>
   </div>
 
-  <form action="/action_page.php">
-    <div class="form-group">
-      <label for="name">성함:</label>
-      <input type="text" class="form-control half-width" placeholder="성함" id="name">
-    </div>
-
-    <div class="form-group">
-      <label for="phonenum">연락처:</label>
-      <input type="text" class="form-control half-width" placeholder="연락처" id="phonenum">
-    </div>
-
-    <div class="form-group">
-      <label for="content">문의 내용:</label>
-      <textarea class="form-control half-width" placeholder="문의내용" id="content" rows="4"></textarea>
-    </div>
-
-    <div class="form-check">
-      <label class="form-check-label">
-        <input class="form-check-input" type="checkbox"> 개인정보수집에 동의합니다.
-      </label>
-    </div>
-
-    <button type="submit" class="btn btn-primary half-width">등록</button>
-  </form>
-
-  <style>
-    .half-width {
-      width: 50%; /* 너비를 절반으로 설정 */
-    }
-  </style>
 
 
 </div>

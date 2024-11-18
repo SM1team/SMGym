@@ -18,8 +18,8 @@
         SELECT * FROM reservation
     </select>
     <insert id="insert" parameterType="reservationDto">
-        INSERT INTO cust (cust_id, cust_pwd, cust_name, cust_age, cust_gender, cust_phone, cust_address, trainer_id, cust_point)
-        VALUES (#{custId}, #{custPwd}, #{custName}, #{custAge}, #{custGender}, #{custPhone}, #{custAddress},null,0)
+        INSERT INTO reservation (cust_name, cust_phone, reservation_date, reservation_content, cust_id)
+        VALUES (#{custName}, #{custPhone}, #{reservationDate},#{reservationContent}, #{custId})
     </insert>
 
 
