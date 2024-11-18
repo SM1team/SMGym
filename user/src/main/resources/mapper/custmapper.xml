@@ -6,8 +6,6 @@
 
 
 
-
-
     <select id="selectOne" parameterType="String" resultType="custDto">
         SELECT * FROM cust WHERE cust_Id=#{custId}
     </select>

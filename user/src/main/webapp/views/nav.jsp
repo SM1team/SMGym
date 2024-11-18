@@ -15,7 +15,7 @@
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/#about"/>">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/#location"/>">Location</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/shop"/>">Shop</a></li>
-                <li class="nav-item"><a class="nav-link" href="<c:url value="/community"/>">Community</a></li>
+                <li class="nav-item"><a class="nav-link" href="<c:url value="/board"/>">Board</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/qna"/>">Q&A</a></li>
 
                 <!-- Dropdown for Sign In and Sign Up -->

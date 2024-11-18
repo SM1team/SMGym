@@ -67,17 +67,17 @@
                                             <tr>
                                                 <td>user123</td>
                                                 <td>매우 만족합니다!</td>
-                                                <td><img src="<c:url value='/assets/img/reviews/user1.jpg' />" alt="user123" style="width: 50px; height: 50px;" /></td>
+                                                <td><img src="<c:url value='/assets/img/logos/teacher1.jpg' />" alt="user123" style="width: 50px; height: 50px;" /></td>
                                             </tr>
                                             <tr>
                                                 <td>user456</td>
                                                 <td>훈련 방식이 좋습니다.</td>
-                                                <td><img src="<c:url value='/assets/img/reviews/user2.jpg' />" alt="user456" style="width: 50px; height: 50px;" /></td>
+                                                <td><img src="<c:url value='/assets/img/logos/teacher1.jpg' />" alt="user456" style="width: 50px; height: 50px;" /></td>
                                             </tr>
                                             <tr>
                                                 <td>user789</td>
                                                 <td>목표 달성에 큰 도움이 되었습니다.</td>
-                                                <td><img src="<c:url value='/assets/img/reviews/user3.jpg' />" alt="user789" style="width: 50px; height: 50px;" /></td>
+                                                <td><img src="<c:url value='/assets/img/logos/teacher1.jpg' />" alt="user789" style="width: 50px; height: 50px;" /></td>
                                             </tr>
                                             </tbody>
                                         </table>

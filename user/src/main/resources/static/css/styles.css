@@ -223,7 +223,10 @@ strong {
 small, .small {
   font-size: 0.875em;
 }
-
+#map {
+  width: 100%;  /* 가로 너비는 100%로 설정 */
+  height: 300px; /* 세로 높이는 300px로 설정 */
+}
 mark, .mark {
   padding: 0.1875em;
   background-color: var(--bs-highlight-bg);
@@ -11448,4 +11451,192 @@ body {
 }
 .form-group {
   margin-bottom: 1.5rem; /* 폼 간격 증가 */
+}
+
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination a, .pagination .current {
+  margin: 0 5px;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #007bff;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+}
+
+.pagination .current {
+  background-color: #007bff;
+  color: white;
+}
+
+.pagination a:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.pagination ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+.pagination li {
+  margin: 0 5px;
+}
+.pagination a {
+  display: block;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #007bff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+.pagination .active a {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+.pagination .disabled a {
+  background-color: #f1f1f1;
+  color: #ddd;
+  border-color: #ddd;
+}
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+}
+.btn:hover {
+  background-color: #0056b3;
+}
+.form-control {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+.pagination li {
+  margin: 0 5px;
+}
+
+.pagination a {
+  display: block;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #007bff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.pagination .active a {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.pagination .disabled a {
+  background-color: #f1f1f1;
+  color: #ddd;
+  border-color: #ddd;
+}
+
+.pagination .active a:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.pagination a:hover {
+  background-color: #f1f1f1;
+  border-color: #ddd;
+}
+/* pagination 스타일 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+.pagination li {
+  margin: 0 5px;
+}
+
+.pagination a {
+  display: block;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #007bff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.pagination .active a {
+  background-color: #007bff;  /* 현재 페이지 강조 색 */
+  color: white;
+  border-color: #007bff;
+}
+
+.pagination .active a:hover {
+  background-color: #0056b3;  /* 강조된 페이지 버튼의 hover 색 */
+}
+
+.pagination .disabled a {
+  background-color: #f1f1f1;
+  color: #ddd;
+  border-color: #ddd;
+}
+
+.pagination a:hover {
+  background-color: #f1f1f1;
+  border-color: #ddd;
+}
+
+/* 페이지 정보 표시 스타일 */
+.page-info {
+  font-family: 'Arial', sans-serif;  /* 원하는 폰트로 설정 */
+  font-size: 16px;
+  color: #333;
+  margin-top: 10px;
+}
+
+.page-info .current-page {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.page-info .total-pages {
+  font-weight: normal;
+  color: #555;
 }

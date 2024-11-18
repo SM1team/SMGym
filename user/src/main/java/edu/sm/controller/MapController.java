@@ -13,35 +13,35 @@ public class MapController {
 
     String dir = "map/";
 
-    @RequestMapping("")
+    @RequestMapping("/")
     public String map(Model model) {
-        model.addAttribute("left",dir+"left");
-        model.addAttribute("center",dir+"center");
+        model.addAttribute("top", dir + "top"); // 회원가입 페이지 제목 추가
+        model.addAttribute("center", dir + "center"); // 회원가입 페이지 제목 추가
         return "index";
     }
     @RequestMapping("/map1")
-    public String js1(Model model) {
-        model.addAttribute("left",dir+"left");
-        model.addAttribute("center",dir+"map1");
+    public String map1(Model model) {
+        model.addAttribute("top", dir + "top"); // 회원가입 페이지 제목 추가
+        model.addAttribute("center", dir + "center"); // 회원가입 페이지 제목 추가
         return "index";
     }
-    @RequestMapping("/map2")
-    public String js2(Model model) {
-        model.addAttribute("left",dir+"left");
-        model.addAttribute("center",dir+"map2");
-        return "index";
-    }
-    @RequestMapping("/map3")
-    public String js3(Model model) {
-        model.addAttribute("left",dir+"left");
-        model.addAttribute("center",dir+"map3");
-        return "index";
-    }
-    @RequestMapping("/go")
-    public String go(Model model, @RequestParam("target") int target) {
-        model.addAttribute("target",target);
-        model.addAttribute("left",dir+"left");
-        model.addAttribute("center",dir+"go");
-        return "index";
-    }
+//    @RequestMapping("/map2")
+//    public String js2(Model model) {
+//        model.addAttribute("left",dir+"left");
+//        model.addAttribute("center",dir+"map2");
+//        return "index";
+//    }
+//    @RequestMapping("/map3")
+//    public String js3(Model model) {
+//        model.addAttribute("left",dir+"left");
+//        model.addAttribute("center",dir+"map3");
+//        return "index";
+//    }
+//    @RequestMapping("/go")
+//    public String go(Model model, @RequestParam("target") int target) {
+//        model.addAttribute("target",target);
+//        model.addAttribute("left",dir+"left");
+//        model.addAttribute("center",dir+"go");
+//        return "index";
+//    }
 }
