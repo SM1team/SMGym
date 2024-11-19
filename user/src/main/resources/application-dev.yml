@@ -1,45 +1,3 @@
-## 1. Tomcat Server Setting
-#server:
-#  port: 85
-#  servlet:
-#    encoding:
-#      charset: UTF-8
-#      force: true
-#
-## 2. SpringBoot Environment Setting
-#spring:
-#  mvc:
-#    view:
-#      prefix: /views/
-#      suffix: .jsp
-#  datasource:
-#    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-#    url: jdbc:log4jdbc:mysql://210.119.34.205:3306/final_db?characterEncoding=utf8
-#    #driver-class-name: com.mysql.cj.jdbc.Driver
-#    #url: jdbc:mysql://127.0.0.1:3306/smdb?characterEncoding=utf8
-#    username: smuser
-#    password: 111111
-## 3. Mybatis Setting
-#mybatis:
-#  type-aliases-package: edu.sm.app.dto
-#  mapper-locations: classpath:/mapper/*.xml
-#  configuration:
-#    map-underscore-to-camel-case: true
-## 4. Logging Setting
-#logging:
-#  level:
-#    root: info
-#  #  error > info > debug
-#
-## 5. Application Environment Setting
-#app:
-#  url:
-#    server-url: http://172.16.21.91:81
-#  dir:
-#    imgdir: file:///c:/springsm/imgs/
-#    uploadimgdir: c:/springsm/imgs/
-#    # logdir: /root/users/project/logs
-#    logdir: file:///c:/springsm/logs/
 # 1. Tomcat Server Setting
 server:
   port: 85
@@ -57,8 +15,9 @@ spring:
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     url: jdbc:log4jdbc:mysql://210.119.34.205:3306/final_db?characterEncoding=utf8
-    #driver-class-name: com.mysql.cj.jdbc.Driver
-    #url: jdbc:mysql://127.0.0.1:3306/smdb?characterEncoding=utf8
+    # JDBC URL 변경 시 주석 해제하여 사용
+    # driver-class-name: com.mysql.cj.jdbc.Driver
+    # url: jdbc:mysql://127.0.0.1:3306/smdb?characterEncoding=utf8
     username: ENC(OAjB56HlNziHqNDu8ZFSAw==)
     password: ENC(zYoWFnp8CokAEj/HgST7Tw==)
 
@@ -68,30 +27,29 @@ mybatis:
   mapper-locations: classpath:/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
+
 # 4. Logging Setting
 logging:
   level:
     root: info
-  #  error > info > debug
-kakaopay:
-  admin-key: DEV460BDE86A901EBECAACA5029B327D0D862B46
-  cid: TC0ONETIME
+    # logging level: error > info > debug
+
 # 5. Application Environment Setting
 app:
   url:
-    server-url: http://210.119.34.194:85
+    server-url: http://210.119.34.194:85  # 서버 URL 설정
   dir:
-    uploadimgdir: c:/springsm/springsm/imgs/
-    imgdir: file:///c:/springsm/springsm/imgs/
-    #java밑에 config 밑에 webMvcConfig때문에 사용 이 폴더의 정보를 가져오기위해 사용
-    # logdir: /root/users/project/logs
-    logdir: file:///c:/springsm/springsm/logs/
-    readlogdir: c:/springsm/springsm/logs/
+    uploadimgdir: c:/springsm/springsm/imgs/  # 이미지 업로드 디렉토리
+    imgdir: file:///c:/springsm/springsm/imgs/  # 이미지 디렉토리
+    logdir: file:///c:/springsm/springsm/logs/  # 로그 디렉토리
+    readlogdir: c:/springsm/springsm/logs/  # 로그 파일 읽기 디렉토리
 
   key:
     wkey: ENC(kZ7Yfw4X1FM0QoaT2JmRt6kwvym87T1XWJElWSSOdr8cWTt9F4jvIYDSg0ln0yRnaok3xpgvoxnasT6j2AwbYrefa0WzBj01wVM2bffER3Oz/ZgJaHzHsOqVNzSd4X/vgww4gPCvO0MY/uHKWcahQA==)
     wkey2: ENC(IaCxGmepCY1Whp5Er+hrlSw/x8KHH27jDlPonPGZq+FBPK6QzzXBY+ydg+ti50XN)
-    algo: PBEWithMD5AndDES #알고리즘에 따라서 해당 평문에대한 암호화를 결정할 수 있다.
-    skey: mykey
+    algo: PBEWithMD5AndDES  # 암호화 알고리즘 설정
+    skey: mykey  # 암호화에 사용할 키
+
+
 
 

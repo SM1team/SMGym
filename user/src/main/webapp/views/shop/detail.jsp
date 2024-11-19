@@ -47,7 +47,8 @@
             <!-- 버튼들 -->
             <div class="form-actions">
                 <!-- 결제하기 버튼 -->
-                <button id="btn-pay-ready" class="btn btn-primary">결제하기</button>
+                <button id="btn-pay-ready" class="btn btn-primary" onclick="location.href='/kakaoPayReady?productNo=${product.productNo}&productPrice=${product.productPrice}'">결제하기</button>
+
 
                 <!-- 찜하기 버튼 -->
                 <form action="/shop/wishlist/add" method="post" class="d-inline">
@@ -64,45 +65,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<!-- 카카오 결제 준비 AJAX 코드 -->
-<script>
-    $(function() {
-        $("#btn-pay-ready").click(function(e) {
-            e.preventDefault();
-
-            // JSP에서 데이터를 JavaScript로 가져옴
-            const productName = $("#productName").val();
-            const productPrice = $("#productPrice").val().replace("₩", "").trim();
-
-            if (!productName || !productPrice) {
-                alert("상품 정보가 잘못되었습니다. 다시 시도해주세요.");
-                return;
-            }
-
-            // AJAX 요청
-            $.ajax({
-                type: "POST",
-                url: "/payment/prepare",
-                data: JSON.stringify({
-                    productName: productName,
-                    productPrice: productPrice
-                }),
-                contentType: "application/json",
-                success: function(response) {
-                    if (response.next_redirect_pc_url) {
-                        window.location.href = response.next_redirect_pc_url;
-                    } else {
-                        alert("결제 준비 실패: 리다이렉트 URL이 없습니다.");
-                    }
-                },
-                error: function(xhr, status, error) {
-                    alert("결제 요청 중 오류가 발생했습니다: " + error);
-                }
-
-            });
-        });
-    });
-</script>
 
 </body>
 </html>
