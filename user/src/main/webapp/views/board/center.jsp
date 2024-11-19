@@ -6,9 +6,11 @@
 
 <h2>게시판 목록</h2>
 
-<!-- 게시물 작성 버튼 추가 -->
-<div style="margin-bottom: 20px;">
+<!-- 게시물 작성 버튼과 내가 쓴 글 버튼을 추가 -->
+<div style="margin-bottom: 20px; display: flex; gap: 10px;">
+  <!-- 항상 게시물 작성 버튼과 내가 쓴 글 보기 버튼을 표시 -->
   <a href="<c:url value='/board/write' />" class="btn">게시물 작성</a>
+  <a href="<c:url value='/board/history' />" class="btn">내가 쓴 글</a>
 </div>
 
 <!-- 검색 기능 추가 -->

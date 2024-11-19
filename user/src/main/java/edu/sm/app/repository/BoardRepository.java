@@ -21,4 +21,10 @@ public interface BoardRepository extends SMRepository<Integer, BoardDto> {
 
     // 검색된 게시물 수 반환
     int countSearchResults(@Param("searchKeyword") String searchKeyword);
+
+    // 내가 작성한 게시물 목록을 반환하는 메서드
+    List<BoardDto> selectByUser(@Param("userId") String userId, @Param("offset") int offset, @Param("pageSize") int pageSize);
+
+    // 내가 작성한 게시물 수를 반환하는 메서드
+    int countByUser(@Param("userId") String userId);
 }

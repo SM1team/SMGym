@@ -6,23 +6,30 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/board") // 클래스 레벨에서 /board를 설정
 public class BoardController {
 
     private final BoardService boardService;
+    private final String dir = "board/";
+
+    // 파일 업로드 경로
+    private final String uploadDir = "C:/path/to/upload/"; // 실제 업로드 경로로 수정 필요
 
     // 페이징 계산 공통 메서드
     private void addPagingAttributes(Model model, int page, int pageSize, int totalBoardCount) {
         int totalPages = (int) Math.ceil((double) totalBoardCount / pageSize);
 
-        // 페이지 범위 검증
         if (totalPages == 0) { // 게시물이 없는 경우
             page = 1;
         } else if (page > totalPages) { // 초과 요청
@@ -31,43 +38,37 @@ public class BoardController {
             page = 1;
         }
 
-        model.addAttribute("currentPage", page); // 현재 페이지
-        model.addAttribute("pageSize", pageSize); // 페이지 크기
-        model.addAttribute("totalPages", totalPages); // 총 페이지 수
-        model.addAttribute("totalBoardCount", totalBoardCount); // 총 게시물 수
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalBoardCount", totalBoardCount);
     }
 
-    // 게시판 목록 페이지 엔드포인트
-    @RequestMapping("/board")
+    // 게시판 목록 페이지
+    @RequestMapping
     public String showBoardPage(Model model,
                                 @RequestParam(value = "page", defaultValue = "1") int page,
                                 @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) throws Exception {
         log.info("Navigating to Board Page, page: {}, pageSize: {}", page, pageSize);
 
-        // 전체 게시물 수
         int totalBoardCount = boardService.getTotalBoardCount();
-
-        // 페이징 처리 공통 메서드 호출
         addPagingAttributes(model, page, pageSize, totalBoardCount);
 
-        // 페이징 처리된 게시물 목록 가져오기
         List<BoardDto> boardList = boardService.getPagedBoards(page, pageSize);
 
-        // 모델에 데이터 추가
         model.addAttribute("boardList", boardList);
         model.addAttribute("pageTitle", "게시판 목록");
-        model.addAttribute("top", "board/top");
-        model.addAttribute("center", "board/center");
+        model.addAttribute("top", dir + "top");
+        model.addAttribute("center", dir + "center");
 
-        return "index"; // index.jsp 반환
+        return "index";
     }
 
-    // 게시물 상세보기 페이지 엔드포인트
-    @RequestMapping("/board/detail")
+    // 게시물 상세보기 페이지
+    @RequestMapping("detail")
     public String showPostDetails(@RequestParam("noticeNo") int noticeNo, Model model) {
         log.info("Navigating to Board Detail Page for noticeNo: {}", noticeNo);
 
-        // 게시물 데이터 조회
         BoardDto boardDto = null;
         try {
             boardDto = boardService.get(noticeNo);
@@ -75,63 +76,55 @@ public class BoardController {
             log.error("Failed to fetch board details for noticeNo: {}", noticeNo, e);
         }
 
-        model.addAttribute("board", boardDto); // 게시물 데이터 추가
+        model.addAttribute("board", boardDto);
         model.addAttribute("pageTitle", "게시물 상세보기");
-        model.addAttribute("top", "board/top");
-        model.addAttribute("center", "board/boardDetail");
+        model.addAttribute("top", dir + "top");
+        model.addAttribute("center", dir + "boardDetail");
 
-        return "index"; // index.jsp 반환
+        return "index";
     }
 
-    // 게시물 리스트 페이지 (페이징 처리)
-    @RequestMapping("/board/list")
-    public String listBoard(Model model,
-                            @RequestParam(value = "page", defaultValue = "1") int page,
-                            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) throws Exception {
 
-        log.info("Navigating to Board List Page, page: {}, pageSize: {}", page, pageSize);
 
-        // 전체 게시물 수 구하기
-        int totalBoardCount = boardService.getTotalBoardCount();
 
-        // 페이징 처리 공통 메서드 호출
-        addPagingAttributes(model, page, pageSize, totalBoardCount);
-
-        // 페이징 처리된 게시물 조회
-        List<BoardDto> boardList = boardService.getPagedBoards(page, pageSize);
-
-        // 모델에 데이터 추가
-        model.addAttribute("boardList", boardList);
-        model.addAttribute("pageTitle", "게시물 목록");
-        model.addAttribute("top", "board/top");
-        model.addAttribute("center", "board/center");
-
-        return "index"; // index.jsp 반환
-    }
-
-    // 검색 기능을 위한 엔드포인트 추가
-    @RequestMapping("/board/search")
+    // 검색 기능
+    @RequestMapping("search")
     public String searchBoard(Model model,
                               @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
                               @RequestParam(value = "page", defaultValue = "1") int page,
                               @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) throws Exception {
         log.info("Searching for boards with keyword: {}, page: {}, pageSize: {}", searchKeyword, page, pageSize);
 
-        // 검색된 게시물 수 구하기
         int totalBoardCount = boardService.getTotalSearchBoardCount(searchKeyword);
-
-        // 페이징 처리 공통 메서드 호출
         addPagingAttributes(model, page, pageSize, totalBoardCount);
 
-        // 검색된 게시물 목록 가져오기
         List<BoardDto> boardList = boardService.searchBoardsByTitle(searchKeyword, page, pageSize);
 
-        // 모델에 데이터 추가
         model.addAttribute("boardList", boardList);
         model.addAttribute("pageTitle", "검색 결과");
-        model.addAttribute("top", "board/top");
-        model.addAttribute("center", "board/center");
+        model.addAttribute("top", dir + "top");
+        model.addAttribute("center", dir + "center");
 
-        return "index"; // index.jsp 반환
+        return "index";
+    }
+
+    // 내가 작성한 글 목록 보기 (/history)
+    @RequestMapping("history")
+    public String showMyPosts(Model model,
+                              @RequestParam(value = "page", defaultValue = "1") int page,
+                              @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) throws Exception {
+        log.info("Navigating to My Posts Page, page: {}, pageSize: {}", page, pageSize);
+
+        int totalBoardCount = boardService.getTotalBoardCountByUser("dummyUser"); // 로그인 검증을 없앴으므로 임시 사용자 ID를 사용
+        addPagingAttributes(model, page, pageSize, totalBoardCount);
+
+        List<BoardDto> boardList = boardService.getPagedBoardsByUser("dummyUser", page, pageSize);
+
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("pageTitle", "내가 작성한 글");
+        model.addAttribute("top", dir + "top");
+        model.addAttribute("center", dir + "myPosts");
+
+        return "index";
     }
 }

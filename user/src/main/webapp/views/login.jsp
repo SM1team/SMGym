@@ -1,3 +1,4 @@
+<!-- login.jsp -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -89,6 +90,15 @@
         </div>
     </div>
 </div>
+
+<!-- 로그인 실패 메시지 팝업 -->
+<c:if test="${not empty loginError}">
+    <script type="text/javascript">
+        alert("${loginError}");
+        // 로그인 폼의 내용 초기화
+        document.getElementById("loginForm").reset();
+    </script>
+</c:if>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>

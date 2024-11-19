@@ -5,9 +5,9 @@
 <mapper namespace="edu.sm.app.repository.BoardRepository">
 
     <!-- 게시물 등록 -->
-    <insert id="insert" parameterType="edu.sm.app.dto.BoardDto">
-        INSERT INTO board (notice_no, notice_title, notice_content, notice_date, cust_id, board_img)
-        VALUES (#{noticeNo}, #{noticeTitle}, #{noticeContent}, #{noticeDate}, #{custId}, #{boardImg})
+    <insert id="insert" parameterType="edu.sm.app.dto.BoardDto" useGeneratedKeys="true" keyProperty="noticeNo">
+        INSERT INTO board (notice_title, notice_content, cust_id, board_img, notice_date)
+        VALUES (#{noticeTitle}, #{noticeContent}, #{custId}, #{boardImg}, #{noticeDate})
     </insert>
 
     <!-- 게시물 수정 -->
@@ -79,13 +79,48 @@
 
     <!-- 제목으로 검색된 게시물 수 조회 -->
     <select id="countSearchResults" parameterType="String" resultType="int">
-        SELECT COUNT(*) FROM board
+        SELECT COUNT(*)
+        FROM board
         WHERE notice_title LIKE CONCAT('%', COALESCE(#{searchKeyword}, ''), '%')
     </select>
 
     <!-- 전체 게시물 개수 조회 -->
     <select id="countTotal" resultType="int">
         SELECT COUNT(*) FROM board
+    </select>
+
+    <!-- 내가 쓴 글 조회 -->
+    <select id="selectMyPosts" parameterType="String" resultType="edu.sm.app.dto.BoardDto">
+        SELECT notice_no AS noticeNo,
+               notice_title AS noticeTitle,
+               notice_content AS noticeContent,
+               notice_date AS noticeDate,
+               cust_id AS custId,
+               board_img AS boardImg
+        FROM board
+        WHERE cust_id = #{custId}
+        ORDER BY notice_date DESC
+    </select>
+
+    <!-- 페이징된 내가 쓴 글 조회 -->
+    <select id="selectMyPostsWithPaging" parameterType="map" resultType="edu.sm.app.dto.BoardDto">
+        SELECT notice_no AS noticeNo,
+               notice_title AS noticeTitle,
+               notice_content AS noticeContent,
+               notice_date AS noticeDate,
+               cust_id AS custId,
+               board_img AS boardImg
+        FROM board
+        WHERE cust_id = #{custId}
+        ORDER BY notice_date DESC
+            LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <!-- 내가 쓴 글 개수 조회 -->
+    <select id="countMyPosts" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM board
+        WHERE cust_id = #{custId}
     </select>
 
 </mapper>
