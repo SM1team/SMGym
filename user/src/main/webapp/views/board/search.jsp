@@ -5,7 +5,7 @@
     <title>게시물 검색 결과</title>
 </head>
 <body>
-<h1>게시물 검색 결과</h1>
+<h1>게시물 검색 222결과</h1>
 
 <form action="<c:url value='/board/search' />" method="get" style="margin-bottom: 20px;">
     <input type="text" name="searchKeyword" placeholder="제목으로 검색" class="form-control" style="width: 300px; display: inline-block;" value="${param.searchKeyword}">
@@ -19,6 +19,7 @@
         <th>제목</th>
         <th>내용</th>
         <th>작성일</th>
+        <th>이미지</th>
     </tr>
     </thead>
     <tbody>
@@ -28,6 +29,7 @@
             <td>${board.noticeTitle}</td>
             <td>${board.noticeContent}</td>
             <td>${board.noticeDate}</td>
+            <td><img src="<c:url value='/assets/img/board/${board.boardImg}' />" alt="게시물 이미지" width="50" height="50"></td>
         </tr>
     </c:forEach>
     </tbody>

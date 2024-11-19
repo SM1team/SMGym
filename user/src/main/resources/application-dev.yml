@@ -44,12 +44,12 @@ app:
   url:
     server-url: http://210.119.34.194:85
   dir:
-    uploadimgdir: c:/springsm/springsm/imgs/
-    imgdir: file:///c:/springsm/springsm/imgs/
+    uploadimgdir: c:/SMGym/SMGym/imgs/
+    imgdir: file:///c:/SMGym/SMGym/imgs/
     #java밑에 config 밑에 webMvcConfig때문에 사용 이 폴더의 정보를 가져오기위해 사용
     # logdir: /root/users/project/logs
-    logdir: file:///c:/springsm/springsm/logs/
-    readlogdir: c:/springsm/springsm/logs/
+    logdir: file:///c:/SMGym/SMGym/logs/
+    readlogdir: c:/SMGym/SMGym/logs/
 
   key:
     wkey: ENC(kZ7Yfw4X1FM0QoaT2JmRt6kwvym87T1XWJElWSSOdr8cWTt9F4jvIYDSg0ln0yRnaok3xpgvoxnasT6j2AwbYrefa0WzBj01wVM2bffER3Oz/ZgJaHzHsOqVNzSd4X/vgww4gPCvO0MY/uHKWcahQA==)

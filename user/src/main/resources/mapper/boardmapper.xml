@@ -26,6 +26,13 @@
         DELETE FROM board WHERE notice_no = #{noticeNo}
     </delete>
 
+    <!-- 내가 작성한 게시물 수를 반환하는 메서드 -->
+    <select id="countByUser" resultType="int">
+        SELECT COUNT(*)
+        FROM board
+        WHERE cust_id = #{custId}
+    </select>
+
     <!-- 특정 게시물 조회 -->
     <select id="selectOne" parameterType="int" resultType="edu.sm.app.dto.BoardDto">
         SELECT notice_no AS noticeNo,
@@ -102,19 +109,37 @@
         ORDER BY notice_date DESC
     </select>
 
-    <!-- 페이징된 내가 쓴 글 조회 -->
-    <select id="selectMyPostsWithPaging" parameterType="map" resultType="edu.sm.app.dto.BoardDto">
-        SELECT notice_no AS noticeNo,
-               notice_title AS noticeTitle,
-               notice_content AS noticeContent,
-               notice_date AS noticeDate,
-               cust_id AS custId,
-               board_img AS boardImg
+    <select id="selectByUser" parameterType="map" resultType="BoardDto">
+        SELECT *
         FROM board
         WHERE cust_id = #{custId}
         ORDER BY notice_date DESC
             LIMIT #{offset}, #{pageSize}
     </select>
+
+    <!-- BoardMapper.xml -->
+    <select id="findByCustId" parameterType="String" resultType="BoardDto">
+        SELECT *
+        FROM board
+        WHERE cust_id = #{custId}
+        ORDER BY notice_date DESC
+            LIMIT #{offset}, #{pageSize}
+    </select>
+
+
+
+<!--&lt;!&ndash;   내가 만든 내가 쓴글 mapper -주민- &ndash;&gt;-->
+<!--    <select id="selectByUser" parameterType="int" resultType="edu.sm.app.dto.BoardDto">-->
+<!--        SELECT notice_no AS noticeNo,-->
+<!--               notice_title AS noticeTitle,-->
+<!--               notice_content AS noticeContent,-->
+<!--               notice_date AS noticeDate,-->
+<!--               cust_id AS custId,-->
+<!--               board_img AS boardImg-->
+<!--        FROM board-->
+<!--        WHERE cust_id = #{custId}-->
+<!--    </select>-->
+
 
     <!-- 내가 쓴 글 개수 조회 -->
     <select id="countMyPosts" parameterType="String" resultType="int">

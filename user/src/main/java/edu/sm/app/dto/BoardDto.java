@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -15,7 +17,7 @@ public class BoardDto {
     private int noticeNo;
     private String noticeTitle;
     private String noticeContent;
-    private Date noticeDate;
+    private LocalDateTime noticeDate;
     private String custId;
     private String boardImg;
 
@@ -29,8 +31,6 @@ public class BoardDto {
         return custId;
     }
 
-    public String getImageUrl() {
-        return boardImg;
-    }
+
 
 }

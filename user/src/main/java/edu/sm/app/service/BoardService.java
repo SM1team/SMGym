@@ -6,6 +6,7 @@ import edu.sm.app.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 
 @Service
@@ -67,22 +68,44 @@ public class BoardService implements SMService<Integer, BoardDto> {
         return repository.searchByTitle(searchKeyword, offset, pageSize);
     }
 
+    // 로그인 이후 '내가 쓴 글'로 검색된 게시물 반환
+    public List<BoardDto> getBoardsByCustId(String custId,int page,int pageSize) throws Exception {
+        if (page <= 0 || pageSize <= 0) {
+            throw new IllegalArgumentException("Page and pageSize must be greater than zero.");
+        }
+        int offset = (page - 1) * pageSize;
+        return repository.selectByUser(custId,offset, pageSize);
+
+    }
+
+
+
+
     // 검색된 게시물 수 반환
     public int getTotalSearchBoardCount(String searchKeyword) throws Exception {
         return repository.countSearchResults(searchKeyword);
     }
 
-    // 내가 작성한 게시물 수를 반환하는 메서드
-    public int getTotalBoardCountByUser(String userId) throws Exception {
-        return repository.countByUser(userId);
+
+   // // 검색된 게시물 수 반환 - 로그인 이후 <내가 쓴 글>
+    public int getTotalBoardsByCustId(String custId) {
+        return repository.countByUser(custId);
+   }
+
+
+
+
+    // 사용자가 작성한 게시물 목록 // 안됐던거
+    public List<BoardDto> getHistoryByCustId(int page, int pageSize, String custId) {
+        int offset = (page - 1) * pageSize;
+        return repository.selectByUser(custId, offset, pageSize);
     }
 
-    // 내가 작성한 게시물 목록을 반환하는 메서드
-    public List<BoardDto> getPagedBoardsByUser(String userId, int page, int pageSize) throws Exception {
-        if (page <= 0 || pageSize <= 0) {
-            throw new IllegalArgumentException("Page and pageSize must be greater than zero.");
-        }
-        int offset = (page - 1) * pageSize;
-        return repository.selectByUser(userId, offset, pageSize);
+    // 게시물의 총 개수
+    public int getTotalBoardCountByCustId(String custId) {
+        return repository.countByUser(custId);
     }
+
+
+
 }

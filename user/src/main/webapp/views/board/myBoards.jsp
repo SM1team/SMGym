@@ -10,7 +10,8 @@
 <div style="margin-bottom: 20px; display: flex; gap: 10px;">
   <!-- 항상 게시물 작성 버튼과 내가 쓴 글 보기 버튼을 표시 -->
   <a href="<c:url value='/board/write' />" class="btn">게시물 작성</a>
-  <a href="<c:url value='/board/myboards' />" class="btn">내가 쓴 글</a>
+  <!-- 내가 쓴 글 보기 버튼에 현재 로그인한 사용자의 custId 추가 -->
+  <a href="<c:url value='/board/myboards?custId=${loginUser.custId}' />" class="btn">내가 쓴 글</a>
 </div>
 
 <!-- 검색 기능 추가 -->
@@ -30,10 +31,11 @@
   </tr>
   </thead>
   <tbody>
-  <c:forEach var="board" items="${boardList}">
+  <c:forEach var="board" items="${myBoards}">
     <tr>
       <td>${board.noticeNo}</td>
-      <td><a href="<c:url value='/board/detail?noticeNo=${board.noticeNo}' />">${board.noticeTitle}</a></td>
+      <!-- 게시물 제목 클릭 시, noticeNo와 함께 현재 custId를 포함한 링크로 이동 -->
+      <td><a href="<c:url value='/board/detail?noticeNo=${board.noticeNo}&custId=${loginUser.custId}' />">${board.noticeTitle}</a></td>
       <td>${board.custId}</td>
       <td>${board.noticeDate}</td>
       <td><img src="<c:url value='/assets/img/board/${board.boardImg}' />" alt="게시물 이미지" width="50" height="50"></td>
