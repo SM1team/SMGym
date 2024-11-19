@@ -1,0 +1,270 @@
+[33mcommit b550c5bbd915fd26a61d37d08b842fc62047871d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mminu_back[m[33m)[m
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Tue Nov 19 15:17:19 2024 +0900
+
+    2024.11.19 카카오 페이 수정
+
+[33mcommit 00cbfbc0436207507033a497ea0cc234dd33118d[m
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Tue Nov 19 15:09:35 2024 +0900
+
+    2024.11.19 카카오 페이 수정
+
+[33mcommit ba5860aa71eac68fa424585f75fa6c399cdcb399[m
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Tue Nov 19 15:08:25 2024 +0900
+
+    카카ì 페이 수정
+
+[33mcommit 6d7a8936f26033032fed3b1ffbfcf992bf88ac66[m
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Tue Nov 19 15:01:38 2024 +0900
+
+    2024.11.19 카카오 페이 수정
+
+[33mcommit 3d96d36b8b46250960dbc1f1f5312467d089ab6c[m
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Tue Nov 19 15:00:58 2024 +0900
+
+    2024.11.19 카카오 페이 수정
+
+[33mcommit 8447d3030064a11ca3d43df390cc008a22856159[m
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Tue Nov 19 14:59:37 2024 +0900
+
+    2024.11.19 카카오 페이 수정
+
+[33mcommit 4eb182f84f169320ed138e92ababe883d839bec3[m
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Tue Nov 19 14:49:12 2024 +0900
+
+    2024.11.19 카카오 페이 수정
+
+[33mcommit e29a0d72c327f070331709f96eb09b94f29fa12f[m[33m ([m[1;31morigin/minu_back[m[33m, [m[1;32mmain[m[33m)[m
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Mon Nov 18 19:02:22 2024 +0900
+
+    24.11.18 카카오 결제
+
+[33mcommit 376f40ba3cbec9d86d8849f8031a5bf31b580d74[m
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Fri Nov 15 16:56:59 2024 +0900
+
+    24.11.12 shop detail 완료
+
+[33mcommit 5fd914d4b6f8d2caa59e6d517b6fdb1b560dde14[m
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Tue Nov 12 17:42:58 2024 +0900
+
+    24.11.12 shop 페이지 완료
+
+[33mcommit e054ace94ef4d1817d361c92e159cfb7f054059e[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Thu Nov 7 13:58:59 2024 +0900
+
+    24.11.07 로그인 추가
+
+[33mcommit 4e17e1eca4f6fdc7527a1e6061e1ff4fd8bb4e87[m
+Merge: ffeda93 2c4354b
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Thu Nov 7 13:48:20 2024 +0900
+
+    Merge branch 'main' of github.com:SM1team/SMGym into minu_back
+    
+    # Conflicts:
+    #       .idea/modules/user.test.iml
+    #       user/src/main/java/edu/sm/app/dto/ReviewDto.java
+    #       user/src/main/java/edu/sm/controller/MainController.java
+    #       user/src/main/java/edu/sm/controller/MainInputController.java
+    #       user/src/main/webapp/views/center.jsp
+    #       user/src/main/webapp/views/index.jsp
+    #       user/src/main/webapp/views/login.jsp
+
+[33mcommit ffeda93b9dfb004691f9a9b1b8623db7f07a459c[m
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Thu Nov 7 13:42:18 2024 +0900
+
+    24.11.07 로그인 추가
+
+[33mcommit a07e1519ebcfdead1962759f614ac98cd83937dc[m
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Thu Nov 7 13:36:21 2024 +0900
+
+    24.11.07 로그인 추가
+
+[33mcommit 2c4354b548f3aff67637765a580b9b5080abc591[m
+Author: joomin2 <ㅓjoomin109@naver.com>
+Date:   Thu Nov 7 11:19:11 2024 +0900
+
+    인성 ã,주민 브랜치 머지, login화면처리 해결해야함
+
+[33mcommit 5bcac6ee4b450cfe797369d497885d1a3503042e[m
+Merge: e977138 e0e97da
+Author: joomin2 <ㅓjoomin109@naver.com>
+Date:   Thu Nov 7 11:10:58 2024 +0900
+
+    Merge branch 'joomin_front' of https://github.com/SM1team/SMGym
+    
+    # Conflicts:
+    #       user/src/main/webapp/views/index.jsp
+
+[33mcommit e0e97daf16e0a336ffc3be9df0bae28ae3181952[m
+Author: joomin2 <ㅓjoomin109@naver.com>
+Date:   Thu Nov 7 11:07:06 2024 +0900
+
+    1107 주민
+
+[33mcommit e977138074980c3ed4df12d4e7a13203196641e4[m
+Merge: ec592fc e8774d7
+Author: kwaksss <kis2690@naver.com>
+Date:   Thu Nov 7 11:05:17 2024 +0900
+
+    Merge branch 'main' of https://github.com/SM1team/SMGym
+    
+    # Conflicts:
+    #       user/src/main/java/edu/sm/app/dto/CustDto.java
+
+[33mcommit ec592fcb59ca323d7d10df1adca1f52fcd637dc8[m
+Merge: b367524 b6584c6
+Author: kwaksss <kis2690@naver.com>
+Date:   Thu Nov 7 10:59:41 2024 +0900
+
+    Merge branch 'insung_back' of https://github.com/SM1team/SMGym
+    
+    # Conflicts:
+    #       .idea/webContexts.xml
+    #       user/src/main/java/edu/sm/app/dto/CustDto.java
+    #       user/src/main/java/edu/sm/app/repository/CustRepository.java
+    #       user/src/main/java/edu/sm/app/service/CustService.java
+    #       user/src/main/java/edu/sm/controller/MainInputController.java
+    #       user/src/main/resources/mapper/custmapper.xml
+    #       user/src/main/webapp/views/center.jsp
+    #       user/src/main/webapp/views/index.jsp
+    #       user/src/main/webapp/views/register.jsp
+    #       user/src/main/webapp/views/registerok.jsp
+    #       user/src/main/webapp/views/top.jsp
+
+[33mcommit b367524ddfaedbedbfe883a2f1f9bef8c8958e93[m
+Author: kwaksss <kis2690@naver.com>
+Date:   Thu Nov 7 10:56:59 2024 +0900
+
+    main
+
+[33mcommit 7d5e1c87eb819a5f4595a0322b41fa52cb3a2ec1[m
+Author: joomin2 <ㅓjoomin109@naver.com>
+Date:   Wed Nov 6 17:53:13 2024 +0900
+
+    시작페이지 구성설계 (1)
+
+[33mcommit b6584c6abfb8ecfc23b88770c89cf18193ce9b66[m
+Author: kwaksss <kis2690@naver.com>
+Date:   Wed Nov 6 17:52:56 2024 +0900
+
+    2024.11.06 회원가입 완성
+
+[33mcommit 419611b23df6d996d8e395f683ddaae1cfd9a11d[m
+Author: kwaksss <kis2690@naver.com>
+Date:   Wed Nov 6 14:31:59 2024 +0900
+
+    1106 ãsave
+
+[33mcommit 95202da1f93972625fb39363264350cfb942eae5[m
+Author: kwaksss <kis2690@naver.com>
+Date:   Wed Nov 6 13:38:45 2024 +0900
+
+    2024.11.06 nav,top,center로 나눔
+
+[33mcommit 30a84dae1c8216bea9b1ea901f8543873ad72e80[m
+Author: joomin2 <ㅓjoomin109@naver.com>
+Date:   Wed Nov 6 13:35:33 2024 +0900
+
+    test pt trainer profile
+
+[33mcommit e8774d7cbe3745720356b8fd0e04dffaddb017a8[m
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Tue Nov 5 15:44:16 2024 +0900
+
+    모든 Dto 추가
+
+[33mcommit 5c344205f735a570974301c217850302c5d64d61[m
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Tue Nov 5 14:43:00 2024 +0900
+
+    test2
+
+[33mcommit afa619d3584689cfe0bea8eb80f80600146313c1[m
+Merge: d4a25f1 35e7d53
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Tue Nov 5 14:08:25 2024 +0900
+
+    Merge branch 'main' of github.com:SM1team/SMGym into minu_back
+    
+    # Conflicts:
+    #       user/src/main/webapp/views/index.jsp
+    #       user/src/main/webapp/views/login.jsp
+
+[33mcommit 35e7d53259d1aedaa4b395962f2e2fe84cdc2e97[m
+Author: kwaksss <kis2690@naver.com>
+Date:   Tue Nov 5 14:00:38 2024 +0900
+
+    signup을 register로 변경
+
+[33mcommit d4a25f11a22527a0adaf3288f672063fc3e4dbc9[m
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Tue Nov 5 13:58:52 2024 +0900
+
+    test
+
+[33mcommit d991d26c186a69b80118fa46b933d59b0e7b6623[m
+Merge: 966333f 3f6b572
+Author: kwaksss <kis2690@naver.com>
+Date:   Tue Nov 5 13:55:01 2024 +0900
+
+    Merge branch 'joomin_front' of https://github.com/SM1team/SMGym into insung_back
+
+[33mcommit 3f6b572d57c49c3b9b3a13eae4c126739a441d60[m
+Merge: 27f37f9 6ae76d4
+Author: joomin2 <ㅓjoomin109@naver.com>
+Date:   Tue Nov 5 13:50:06 2024 +0900
+
+    Merge branch 'main' into joomin_front
+    
+    # Conflicts:
+    #       user/src/main/webapp/views/index.jsp
+    #       user/src/main/webapp/views/login.jsp
+
+[33mcommit d04d82b3c0271fc4a64316e3cbe9c33f59b70308[m
+Author: hmu0428 <hmu0428@gmail.com>
+Date:   Tue Nov 5 13:48:21 2024 +0900
+
+    test
+
+[33mcommit 966333f8a9494654ae341d9303624bd4c66552bf[m
+Author: kwaksss <kis2690@naver.com>
+Date:   Tue Nov 5 13:36:25 2024 +0900
+
+    test2
+
+[33mcommit a06c324aab5bed81ffc555ecfc2a7f2c441065fa[m
+Author: kwaksss <kis2690@naver.com>
+Date:   Tue Nov 5 13:33:14 2024 +0900
+
+    test
+
+[33mcommit 8e25e1a7c96f29fc53c9d2798d30c0352ce09e2d[m
+Author: kwaksss <kis2690@naver.com>
+Date:   Tue Nov 5 13:26:49 2024 +0900
+
+    register 순서 수정
+
+[33mcommit 549dd8750e7b6a4bed42b2b82bf4feac3303263b[m
+Author: kwaksss <kis2690@naver.com>
+Date:   Tue Nov 5 13:21:56 2024 +0900
+
+    register 순서 수정
+
+[33mcommit 27f37f94a216dba0fb4d9b9753b43349923d83ac[m
+Author: joomin2 <ㅓjoomin109@naver.com>
+Date:   Mon Nov 4 19:03:15 2024 +0900
+
+    ã
