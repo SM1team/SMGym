@@ -14,11 +14,12 @@
       </li>
 
       <li class="nav-item nav-category">여기서 UI 패널 조절</li>
+<%--      첫번째 항목--%>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
            aria-controls="ui-basic">
           <i class="menu-icon mdi mdi-floor-plan"></i>
-          <span class="menu-title">UI 사이드바</span>
+          <span class="menu-title">첫번째 항목 조절</span>
           <i class="menu-arrow"></i>
         </a>
         <div class="collapse" id="ui-basic">
@@ -32,7 +33,7 @@
           </ul>
         </div>
       </li>
-
+<%--두번째 항목--%>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false"
            aria-controls="form-elements">
@@ -47,6 +48,8 @@
           </ul>
         </div>
       </li>
+
+<%--      세번째 항목--%>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false"
            aria-controls="charts">
@@ -60,6 +63,7 @@
           </ul>
         </div>
       </li>
+<%--      네번째 항목--%>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false"
            aria-controls="tables">
@@ -74,6 +78,7 @@
           </ul>
         </div>
       </li>
+<%--      다섯번째 항목--%>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false"
            aria-controls="icons">
@@ -88,6 +93,7 @@
           </ul>
         </div>
       </li>
+<%--      여섯 번째 항목--%>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false"
            aria-controls="auth">
@@ -108,16 +114,35 @@
           </ul>
         </div>
       </li>
+<%--항목 생성시 참고 하면 되는 예시--%>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#(원래는 icons 가 있었는데 작동시 중첩되서 삭제함)" aria-expanded="false"
+           aria-controls="icons">
+          <i class="menu-icon mdi mdi-layers-outline"></i>
+          <span class="menu-title">Icons</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="#(원래는 icons 가 있었는데 작동시 중첩되서 삭제함)">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"><a class="nav-link" href="pages/icons/font-awesome.html">Font
+              Awesome</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <%--첫번째 페이지 이동--%>
       <li class="nav-item">
         <a class="nav-link" href="docs/documentation.html">
           <i class="menu-icon mdi mdi-file-document"></i>
           <span class="menu-title">Documentation</span>
         </a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="<c:url value="/websocket" />">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Web Socket</span></a>
+      <%--두번째 페이지 이동--%>
+      <li class="nav-item">
+        <a class="nav-link" href="/websocket">
+          <i class="menu-icon mdi mdi-file-document"></i>
+          <span class="menu-title">Web Socket</span>
+        </a>
       </li>
     </ul>
   </nav>
