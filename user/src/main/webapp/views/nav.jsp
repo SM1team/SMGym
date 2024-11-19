@@ -1,7 +1,7 @@
 <!-- nav.jsp -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="#page-top">
+        <a class="navbar-brand" href="<c:url value="/"/>">
             <img src="<c:url value='/assets/img/navbar-logo.svg'/>" alt="Navbar Logo" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,7 +16,7 @@
                 <li class="nav-item"><a class="nav-link" href="<c:url value='/#location'/>">Location</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/shop"/>">Shop</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/community"/>">Community</a></li>
-                <li class="nav-item"><a class="nav-link" href="<c:url value="/Q&A"/>">Q&A</a></li>
+                <li class="nav-item"><a class="nav-link" href="<c:url value="/qna"/>">Q&A</a></li>
 
                 <!-- Dropdown for Sign In and Sign Up -->
                 <li class="nav-item dropdown">
@@ -24,8 +24,22 @@
                         Account
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="<c:url value='/login'/>">Login</a></li>
-                        <li><a class="dropdown-item" href="<c:url value='/register'/>">Sign Up</a></li>
+                        <c:choose>
+                            <c:when test="${sessionScope.loginid == null}">
+
+                                <li><a class="dropdown-item" href="<c:url value='/login'/>">Login</a></li>
+                                <li><a class="dropdown-item" href="<c:url value='/register'/>">Sign Up</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" style="color: black;" >${sessionScope.loginid.custId}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<c:url value="/logoutimpl"/>" style="color: black;" >Logout</a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+
                     </ul>
                 </li>
             </ul>

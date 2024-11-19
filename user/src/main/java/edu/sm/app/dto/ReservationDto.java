@@ -17,4 +17,5 @@ public class ReservationDto {
     private String reservationContent;
     private Date reservationDate;
     private String reservationState;
+    private String custId;
 }
