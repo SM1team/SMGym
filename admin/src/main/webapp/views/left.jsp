@@ -127,6 +127,13 @@
                     <span class="menu-title">회원 문의</span>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/reservation">
+                    <i class="menu-icon mdi mdi-file-document"></i>
+                    <span class="menu-title">예약관리</span>
+                </a>
+            </li>
         </ul>
     </nav>
 <%--        여기까지--%>
