@@ -20,7 +20,7 @@
             <!-- 상품 정보 표시 -->
             <form id="product-form">
                 <div class="form-group">
-                    <label for="productName">상품 이름2</label>
+                    <label for="productName">상품 이름12</label>
                     <input type="text" id="productName" class="form-control" value="${product.productName}" readonly />
                 </div>
 
