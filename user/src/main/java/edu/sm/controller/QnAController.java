@@ -7,6 +7,7 @@ import edu.sm.app.service.CustService;
 import edu.sm.app.service.ReservationService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,8 @@ import java.util.List;
 public class QnAController {
 
     final ReservationService reservationService;
+    @Value("${app.url.server-url}")
+    String serverurl;
 
 
 
@@ -28,6 +31,8 @@ public class QnAController {
     String qdir = "qna/";
     @RequestMapping("")
     public String main(Model model){
+        model.addAttribute("serverurl", serverurl);
+
         model.addAttribute("top",qdir+"top");
         model.addAttribute("center",qdir+"question");
         return "index";

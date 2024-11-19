@@ -29,8 +29,9 @@ public class MainController {
         return "index";
     }
     @RequestMapping("/websocket")
-    public String websocket(Model model){
+    public String websocket(Model model ){
         model.addAttribute("serverurl",serverUrl);//얘가 중요한친구임. 여기에 127.0.0...넣으면 수시로 바꿀 수 없으니가 yml에 다로 빼놓음.
+
         model.addAttribute("top","top");
         model.addAttribute("left","left");
         model.addAttribute("center","websocket");

@@ -1,6 +1,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
   #all {
     width: 400px;
@@ -24,6 +25,9 @@
   }
 </style>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
 <script>
   let websocket = {
@@ -137,7 +141,7 @@
     <div class="card-body">
       <div class="table-responsive">
         <div class="col-sm-5">
-          <h1 id="adm_id">${sessionScope.admin.id}</h1>
+          <h1 id="adm_id">${sessionScope.loginid.custId}</h1>
           <H1 id="status">Status</H1>
           <button id="connect">Connect</button>
           <button id="disconnect">Disconnect</button>
