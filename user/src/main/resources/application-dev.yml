@@ -42,7 +42,8 @@ mybatis:
 # 5. Application Environment Setting
 app:
   url:
-    server-url: http://210.119.34.194:85
+    server-url: http://210.119.34.194:84
+    # 관리자와 대화이므로 관리자 ip:포트로 설정.
   dir:
     uploadimgdir: c:/SMGym/SMGym/imgs/
     imgdir: file:///c:/SMGym/SMGym/imgs/

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.sm.app.repository.ReservationRepository">
+
+
+    <select id="findByName" resultType="reservationDto" parameterType="String">
+        SELECT * FROM reservation WHERE cust_name LIKE CONCAT('%', #{custName}, '%')
+    </select>
+
+<!--    <select id="findImgNameById" resultType="reservationDto" parameterType="String">-->
+<!--        SELECT img_name FROM reservation WHERE item_id = #{itemId}-->
+<!--    </select>-->
+
+
+    <select id="reservationgetfindpage" resultType="ReservationDto" parameterType="search">
+        SELECT * FROM reservation WHERE 1=1
+        <if test="keyword == 'id'">
+            AND cust_id LIKE CONCAT('%',#{search},'%')
+        </if>
+        <if test="keyword == 'name'">
+            AND cust_name LIKE CONCAT('%',#{search},'%')
+        </if>
+        <if test="keyword == 'year'">
+            AND YEAR(reservation_date) = #{search}
+        </if>
+        <if test="keyword == 'month'">
+            AND MONTH(reservation_date) = #{search}
+        </if>
+    </select>
+
+
+    <select id="selectOne" parameterType="Integer" resultType="reservationDto">
+        SELECT * FROM item WHERE item_id=#{itemId}
+    </select>
+    <select id="select" resultType="reservationDto">
+        SELECT * FROM item
+    </select>
+    <insert id="insert" parameterType="reservationDto">
+        INSERT INTO item VALUES (null, #{itemName},#{itemPrice},#{imgName}, SYSDATE(), SYSDATE())
+    </insert>
+    <update id="update" parameterType="reservationDto">
+        UPDATE reservation SET reservation_state=#{reservationState} WHERE reservation_no=#{reservationNo}
+    </update>
+
+    <delete id="delete" parameterType="reservationDto">
+        DELETE FROM item WHERE item_id=#{itemId}
+    </delete>
+
+</mapper>

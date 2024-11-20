@@ -1,6 +1,7 @@
 package edu.sm.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Slf4j
 public class MainController {
+
+    @Value("${app.key.wkey}")
+    String wkey;
+
+    @Value("${app.key.wkey2}")
+    String wkey2;
+
 
     // 메인 페이지의 기본 엔드포인트
     @RequestMapping("/")
