@@ -20,8 +20,4 @@ public interface CustRepository extends SMRepository<String, CustDto> {
 
     Page<CustDto> getpage() throws Exception;
 
-
-
-
-
 }

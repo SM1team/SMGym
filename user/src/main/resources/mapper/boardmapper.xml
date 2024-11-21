@@ -7,8 +7,9 @@
     <!-- 게시물 등록 -->
     <insert id="insert" parameterType="edu.sm.app.dto.BoardDto" useGeneratedKeys="true" keyProperty="noticeNo">
         INSERT INTO board (notice_title, notice_content, cust_id, board_img, notice_date)
-        VALUES (#{noticeTitle}, #{noticeContent}, #{custId}, #{boardImg}, #{noticeDate})
+        VALUES (#{noticeTitle}, #{noticeContent}, #{custId}, #{boardImg}, DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'))
     </insert>
+
 
     <!-- 게시물 수정 -->
     <update id="update" parameterType="edu.sm.app.dto.BoardDto">
@@ -126,19 +127,6 @@
             LIMIT #{offset}, #{pageSize}
     </select>
 
-
-
-<!--&lt;!&ndash;   내가 만든 내가 쓴글 mapper -주민- &ndash;&gt;-->
-<!--    <select id="selectByUser" parameterType="int" resultType="edu.sm.app.dto.BoardDto">-->
-<!--        SELECT notice_no AS noticeNo,-->
-<!--               notice_title AS noticeTitle,-->
-<!--               notice_content AS noticeContent,-->
-<!--               notice_date AS noticeDate,-->
-<!--               cust_id AS custId,-->
-<!--               board_img AS boardImg-->
-<!--        FROM board-->
-<!--        WHERE cust_id = #{custId}-->
-<!--    </select>-->
 
 
     <!-- 내가 쓴 글 개수 조회 -->

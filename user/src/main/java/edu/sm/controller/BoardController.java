@@ -11,7 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.util.StringUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -138,7 +142,6 @@ public class BoardController {
         return "index"; // index.jsp 반환
     }
 
-
     // 내 게시물 목록 페이지 엔드포인트 (페이징 처리 추가)
     @RequestMapping("/board/myboards")
     public String getMyBoards(Model model, HttpSession session,
@@ -171,54 +174,59 @@ public class BoardController {
         // myboards.jsp로 이동
         return "index"; // index.jsp 반환
     }
-}
 
+    @RequestMapping("/board/write")
+    public String writeBoardPage(Model model) {
+        log.info("Navigating to Board Write Page");
 
+        model.addAttribute("pageTitle", "게시글 작성");
+        model.addAttribute("top", "board/top"); // 상단 정보 JSP
+        model.addAttribute("center", "board/boardWrite"); // 작성 폼 JSP 경로
 
+        return "index"; // index.jsp 반환 (레이아웃 템플릿)
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    // 게시물 작성 내역 확인 페이지 - 사용자별 작성한 게시물 목록
-//    @RequestMapping("board/history")
-//    public String showHistoryPage(Model model,
-//                                  @RequestParam(value = "page", defaultValue = "1") int page,
-//                                  @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
-//                                  @SessionAttribute("custId") String custId) throws Exception {
-//        // 사용자의 게시물 히스토리 목록 가져오기
-//        List<BoardDto> historyList = boardService.getHistoryByCustId(page, pageSize, custId);
+//    // 게시글 저장 로직 수정 (이미지 업로드 처리 추가)
+//    @RequestMapping("/board/write/save")
+//    public String saveBoard(@SessionAttribute("loginid") CustDto loggedInUser,
+//                            @RequestParam("title") String title,
+//                            @RequestParam("content") String content,
+//                            @RequestParam(value = "boardImg", required = false) MultipartFile boardImg, // 이미지 파일
+//                            Model model) {
+//        log.info("Saving new board post: title={}, content={}", title, content);
 //
-//        // 페이징 처리
-//        int totalBoardCount = boardService.getTotalBoardCountByCustId(custId);
-//        addPagingAttributes(model, page, pageSize, totalBoardCount);
+//        try {
+//            // 게시글 DTO 생성 및 데이터 설정
+//            BoardDto newBoard = new BoardDto();
+//            newBoard.setTitle(title); // 제목 설정
+//            newBoard.setContent(content); // 내용 설정
+//            newBoard.setCustId(loggedInUser.getCustId()); // 로그인된 사용자의 ID 설정
 //
-//        model.addAttribute("pageTitle", "작성한 게시물 목록");
-//        model.addAttribute("top", "board/top");
-//        model.addAttribute("historyList", historyList);
+//            // 이미지 파일 처리
+//            if (boardImg != null && !boardImg.isEmpty()) {
+//                String fileName = StringUtils.cleanPath(boardImg.getOriginalFilename());
+//                String uploadDir = "src/main/resources/static/assets/img/board/";
 //
-//        return "board/history"; // history.jsp 반환
+//                File uploadFile = new File(uploadDir + fileName);
+//                boardImg.transferTo(uploadFile); // 파일 업로드
+//            }
+//
+//            // 게시글 저장 (이미지 경로 없이 저장)
+//            boardService.save(newBoard);
+//
+//            // 게시글 목록 페이지로 리디렉션
+//            return "redirect:/board";
+//
+//        } catch (IOException e) {
+//            log.error("Error saving the image file", e);
+//            model.addAttribute("error", "파일 저장 중 오류가 발생했습니다.");
+//            return "redirect:/board/write"; // 작성 페이지로 돌아가기
+//        } catch (Exception e) {
+//            log.error("Error saving board post", e);
+//            model.addAttribute("error", "게시글 저장 중 오류가 발생했습니다.");
+//            return "redirect:/board/write"; // 작성 페이지로 돌아가기
+//        }
 //    }
-//
+
+
+}

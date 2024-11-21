@@ -17,9 +17,14 @@ public class BoardDto {
     private int noticeNo;
     private String noticeTitle;
     private String noticeContent;
-    private LocalDateTime noticeDate;
+    private String noticeDate;  // String으로 변경
     private String custId;
     private String boardImg;
+
+    // 자동 생성된 setter와 getter 메소드 외에 커스텀 setImg() 메소드 추가
+    public void setImg(String fileName) {
+        this.boardImg = "/assets/img/board/" + fileName;
+    }
 
     // getId() 메서드 추가
     public int getId() {
@@ -30,7 +35,4 @@ public class BoardDto {
     public String getUserId() {
         return custId;
     }
-
-
-
 }

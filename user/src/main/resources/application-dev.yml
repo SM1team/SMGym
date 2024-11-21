@@ -42,11 +42,11 @@ mybatis:
 # 5. Application Environment Setting
 app:
   url:
-    server-url: http://210.119.34.194:84
+    server-url: http://210.119.34.205:84
     # 관리자와 대화이므로 관리자 ip:포트로 설정.
   dir:
-    uploadimgdir: c:/SMGym/SMGym/imgs/
-    imgdir: file:///c:/SMGym/SMGym/imgs/
+    uploadimgdir: c:/SMGym/imgs/
+    imgdir: file:///c:/SMGym/imgs/
     #java밑에 config 밑에 webMvcConfig때문에 사용 이 폴더의 정보를 가져오기위해 사용
     # logdir: /root/users/project/logs
     logdir: file:///c:/SMGym/SMGym/logs/

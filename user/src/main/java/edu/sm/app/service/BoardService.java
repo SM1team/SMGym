@@ -75,37 +75,14 @@ public class BoardService implements SMService<Integer, BoardDto> {
         }
         int offset = (page - 1) * pageSize;
         return repository.selectByUser(custId,offset, pageSize);
-
     }
-
-
-
-
     // 검색된 게시물 수 반환
     public int getTotalSearchBoardCount(String searchKeyword) throws Exception {
         return repository.countSearchResults(searchKeyword);
     }
-
-
    // // 검색된 게시물 수 반환 - 로그인 이후 <내가 쓴 글>
     public int getTotalBoardsByCustId(String custId) {
         return repository.countByUser(custId);
    }
-
-
-
-
-    // 사용자가 작성한 게시물 목록 // 안됐던거
-    public List<BoardDto> getHistoryByCustId(int page, int pageSize, String custId) {
-        int offset = (page - 1) * pageSize;
-        return repository.selectByUser(custId, offset, pageSize);
-    }
-
-    // 게시물의 총 개수
-    public int getTotalBoardCountByCustId(String custId) {
-        return repository.countByUser(custId);
-    }
-
-
 
 }
