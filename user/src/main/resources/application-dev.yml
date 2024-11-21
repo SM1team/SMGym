@@ -57,8 +57,9 @@ spring:
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     url: jdbc:log4jdbc:mysql://210.119.34.205:3306/final_db?characterEncoding=utf8
-    #driver-class-name: com.mysql.cj.jdbc.Driver
-    #url: jdbc:mysql://127.0.0.1:3306/smdb?characterEncoding=utf8
+    # JDBC URL 변경 시 주석 해제하여 사용
+    # driver-class-name: com.mysql.cj.jdbc.Driver
+    # url: jdbc:mysql://127.0.0.1:3306/smdb?characterEncoding=utf8
     username: ENC(OAjB56HlNziHqNDu8ZFSAw==)
     password: ENC(zYoWFnp8CokAEj/HgST7Tw==)
 
@@ -77,7 +78,8 @@ logging:
 # 5. Application Environment Setting
 app:
   url:
-    server-url: http://210.119.34.194:85
+    server-url: http://210.119.34.194:84
+    # 관리자와 대화이므로 관리자 ip:포트로 설정.
   dir:
     uploadimgdir: c:/springsm/springsm/imgs/
     imgdir: file:///c:/springsm/springsm/imgs/

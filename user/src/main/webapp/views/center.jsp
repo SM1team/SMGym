@@ -1,6 +1,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="<c:url value="/js/index.js"/> "></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=09e7accab0008dfff9a01527bd9d411f"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+<%--HighCharts Lib  start --%>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<%--HighCharts Lib  end --%>
+
+<%--     Web Socket Lib    --%>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
 
 <!-- Services < 웹사이트 소개 부분 > -->
 <section class="page-section" id="services">
@@ -170,7 +193,7 @@
     <div class="row">
       <div class="col-lg-4">
         <div class="team-member d-flex flex-column align-items-center text-center">
-          <img class="mx-auto rounded-circle" src="<c:url value='/assets/img/logos/1.jpg'/>" alt="탕정역점" data-bs-toggle="modal" data-bs-target="#locationModal1" />
+          <img class="mx-auto rounded-circle" src="<c:url value='/assets/img/logos/1.jpg'/>" alt="탕정역점" data-toggle="modal" data-target="#locationModal1" />
           <h4>탕정역점</h4>
           <p class="text-muted">주소: 충청남도 아산시 탕정면 탕정리 123</p>
         </div>
@@ -215,4 +238,4 @@
   </div>
 </div>
 
-<%--<center.jsp end>--%>
+<%--<questionquestion.jsp end>--%>

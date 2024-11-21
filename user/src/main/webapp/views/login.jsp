@@ -70,7 +70,7 @@
                     <!-- <h3>로그인</h3> 삭제 -->
                 </div>
                 <div class="card-body">
-                    <form action="<c:url value='/login' />" method="post">
+                    <form action="<c:url value='/loginimpl' />" method="post">
                         <div class="form-group">
                             <label for="username">사용자 id</label>
                             <input type="text" class="form-control" id="username" name="username" required>
