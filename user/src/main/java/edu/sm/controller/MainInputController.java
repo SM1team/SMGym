@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,13 @@ import java.sql.Date;
 @Slf4j
 @RequiredArgsConstructor
 public class MainInputController {
+
+
+    @Value("${app.dir.uploadimgdir}")
+    String uploadDir;
+
+    @Value("${app.dir.imgdir}")
+    String imgdir;
 
     final CustService custService;
     final ReservationService reservationService;
@@ -159,23 +167,23 @@ public class MainInputController {
             if (boardImg != null && !boardImg.isEmpty()) {
                 String fileName = StringUtils.cleanPath(boardImg.getOriginalFilename());
 
-                // 프로젝트 내부의 static 디렉토리 경로
-                String uploadDir = "src/main/resources/static/assets/img/board/";
+                // 업로드 디렉토리 경로는 application.yml에서 주입받은 값 사용
+                String uploadDir = this.uploadDir; // yml에서 주입받은 uploadDir 사용
 
                 // 디렉토리가 없는 경우 생성
                 File directory = new File(uploadDir);
                 if (!directory.exists()) {
-                    directory.mkdirs();
+                    directory.mkdirs();  // 디렉토리 생성
                 }
 
                 // 파일 저장 경로 계산
                 File uploadFile = new File(uploadDir + fileName);
 
-                // 업로드된 파일을 프로젝트 내부에 저장
+                // 업로드된 파일을 지정된 디렉토리에 저장
                 boardImg.transferTo(uploadFile);
 
                 // 게시글 DTO에 이미지 경로 설정 (웹에서 접근 가능한 경로)
-                newBoard.setImg("assets/img/board/" + fileName);  // DB에는 웹 경로를 저장
+                newBoard.setImg(this.imgdir + fileName);  // yml에서 주입받은 imgdir을 사용하여 웹 경로 설정
             }
 
             // DB에 게시글 저장
@@ -190,7 +198,6 @@ public class MainInputController {
         // 게시글 저장 후 목록 페이지로 리디렉션
         return "redirect:/board";
     }
-
 
 
 }
