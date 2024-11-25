@@ -24,7 +24,7 @@
     <tr>
         <th>번호</th>
         <th>제목</th>
-        <th>작성자</th>
+        <th>작성자ID</th>
         <th>등록일</th>
         <th>이미지</th>
     </tr>
@@ -33,17 +33,22 @@
     <c:forEach var="board" items="${boardList}">
         <tr>
             <td>${board.noticeNo}</td>
-            <td><a href="<c:url value='/board/detail?noticeNo=${board.noticeNo}' />">${board.noticeTitle}</a></td>
+            <td>
+                <a href="<c:url value='/board/detail?noticeNo=${board.noticeNo}' />" style="color: black;">${board.noticeTitle}</a>
+            </td>
             <td>${board.custId}</td>
             <td>${board.noticeDate}</td>
-            <p><strong>이미지:</strong>
-                <img src="<c:url value='/imgs/${board.boardImg}' />" alt="게시물 이미지" height="50" width="50" />
-            </p>
-
+            <td>
+                <!-- 이미지가 있을 때만 표시하도록 조건 추가 -->
+                <c:if test="${not empty board.boardImg}">
+                    <img src="<c:url value='/imgs/${board.boardImg}' />" alt="게시물 이미지" height="50" width="50" />
+                </c:if>
+            </td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
+
 
 <!-- 페이지네이션 부분을 page.jsp로 분리 -->
 <jsp:include page="/views/board/page.jsp" />

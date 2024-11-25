@@ -1,8 +1,10 @@
 package edu.sm.app.service;
 
 import edu.sm.app.dto.BoardDto;
+import edu.sm.app.dto.CommentDto;
 import edu.sm.app.frame.SMService;
 import edu.sm.app.repository.BoardRepository;
+import edu.sm.app.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardService implements SMService<Integer, BoardDto> {
 
+    private final CommentRepository commentRepository;
     private final BoardRepository repository;
 
     @Override
@@ -84,5 +87,13 @@ public class BoardService implements SMService<Integer, BoardDto> {
     public int getTotalBoardsByCustId(String custId) {
         return repository.countByUser(custId);
    }
+
+    public List<CommentDto> getCommentsByNoticeNo(int noticeNo) {
+        // DB에서 해당 noticeNo에 해당하는 댓글 리스트를 조회
+        return commentRepository.findByNoticeNo(noticeNo);
+    }
+
+
+
 
 }

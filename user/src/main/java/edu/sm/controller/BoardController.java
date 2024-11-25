@@ -1,8 +1,10 @@
 package edu.sm.controller;
 
 import edu.sm.app.dto.BoardDto;
+import edu.sm.app.dto.CommentDto;
 import edu.sm.app.dto.CustDto;
 import edu.sm.app.service.BoardService;
+import edu.sm.app.service.CommentService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class BoardController {
-
+    private final CommentService commentService;
     private final BoardService boardService;
 
     // 페이징 계산 공통 메서드
@@ -68,11 +70,19 @@ public class BoardController {
 
         return "index"; // index.jsp 반환
     }
-
-    // 게시물 상세보기 페이지 엔드포인트
+    // 게시물 상세보기 페이지
     @RequestMapping("/board/detail")
-    public String showPostDetails(@RequestParam("noticeNo") int noticeNo, Model model) {
+    public String showPostDetails(@RequestParam("noticeNo") int noticeNo,
+                                  Model model,
+                                  HttpSession session) {
         log.info("Navigating to Board Detail Page for noticeNo: {}", noticeNo);
+
+        // 로그인된 사용자 정보 가져오기
+        CustDto loggedInUser = (CustDto) session.getAttribute("loginid");
+        if (loggedInUser == null) {
+            log.error("로그인 정보가 없습니다.");
+            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+        }
 
         // 게시물 데이터 조회
         BoardDto boardDto = null;
@@ -82,13 +92,27 @@ public class BoardController {
             log.error("Failed to fetch board details for noticeNo: {}", noticeNo, e);
         }
 
+        // 댓글 데이터 조회
+        List<CommentDto> comments = null;  // 댓글 변수명 변경
+        try {
+            comments = commentService.getCommentsByNoticeNo(noticeNo); // 댓글 조회
+        } catch (Exception e) {
+            log.error("Failed to fetch comments for noticeNo: {}", noticeNo, e);
+        }
+
+        // 게시물 정보와 댓글 리스트를 모델에 추가
         model.addAttribute("board", boardDto); // 게시물 데이터 추가
+        model.addAttribute("comments", comments); // 댓글 목록 추가 (변경된 변수명 사용)
         model.addAttribute("pageTitle", "게시물 상세보기");
         model.addAttribute("top", "board/top");
         model.addAttribute("center", "board/boardDetail");
 
+        // 로그인된 사용자 정보를 함께 전달 (필요시)
+        model.addAttribute("loggedInUser", loggedInUser); // 로그인한 사용자 정보
+
         return "index"; // index.jsp 반환
     }
+
     // 게시물 리스트 페이지 (페이징 처리)
     @RequestMapping("/board/list")
     public String listBoard(Model model,
@@ -185,47 +209,6 @@ public class BoardController {
         return "index"; // index.jsp 반환 (레이아웃 템플릿)
     }
 
-//    // 게시글 저장 로직 수정 (이미지 업로드 처리 추가)
-//    @RequestMapping("/board/write/save")
-//    public String saveBoard(@SessionAttribute("loginid") CustDto loggedInUser,
-//                            @RequestParam("title") String title,
-//                            @RequestParam("content") String content,
-//                            @RequestParam(value = "boardImg", required = false) MultipartFile boardImg, // 이미지 파일
-//                            Model model) {
-//        log.info("Saving new board post: title={}, content={}", title, content);
-//
-//        try {
-//            // 게시글 DTO 생성 및 데이터 설정
-//            BoardDto newBoard = new BoardDto();
-//            newBoard.setTitle(title); // 제목 설정
-//            newBoard.setContent(content); // 내용 설정
-//            newBoard.setCustId(loggedInUser.getCustId()); // 로그인된 사용자의 ID 설정
-//
-//            // 이미지 파일 처리
-//            if (boardImg != null && !boardImg.isEmpty()) {
-//                String fileName = StringUtils.cleanPath(boardImg.getOriginalFilename());
-//                String uploadDir = "src/main/resources/static/assets/img/board/";
-//
-//                File uploadFile = new File(uploadDir + fileName);
-//                boardImg.transferTo(uploadFile); // 파일 업로드
-//            }
-//
-//            // 게시글 저장 (이미지 경로 없이 저장)
-//            boardService.save(newBoard);
-//
-//            // 게시글 목록 페이지로 리디렉션
-//            return "redirect:/board";
-//
-//        } catch (IOException e) {
-//            log.error("Error saving the image file", e);
-//            model.addAttribute("error", "파일 저장 중 오류가 발생했습니다.");
-//            return "redirect:/board/write"; // 작성 페이지로 돌아가기
-//        } catch (Exception e) {
-//            log.error("Error saving board post", e);
-//            model.addAttribute("error", "게시글 저장 중 오류가 발생했습니다.");
-//            return "redirect:/board/write"; // 작성 페이지로 돌아가기
-//        }
-//    }
 
 
 }
