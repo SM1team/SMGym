@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품 상세 페이지</title>
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container mt-5">
@@ -34,20 +35,16 @@
                     <input type="hidden" id="productNo" name="productNo" value="${product.productNo}" />
                     <input type="text" class="form-control" value="${product.productNo}" readonly />
                 </div>
-
-                <div class="form-group">
-                    <label for="trainerGender">트레이너 성별</label>
-                    <select id="trainerGender" name="trainerGender" class="form-control" readonly>
-                        <option value="1" ${product.trainerGender == 1 ? 'selected' : ''}>남성</option>
-                        <option value="2" ${product.trainerGender == 2 ? 'selected' : ''}>여성</option>
-                    </select>
-                </div>
             </form>
 
             <!-- 버튼들 -->
             <div class="form-actions">
                 <!-- 결제하기 버튼 -->
-                <button id="btn-pay-ready" class="btn btn-primary" onclick="location.href='/kakaoPayReady?productNo=${product.productNo}&productPrice=${product.productPrice}'">결제하기</button>
+                <button id="btn-pay-ready"
+                        onclick="location.href='/order'"
+                        style="background: #fee500; color: #000; border-radius: 12px; padding: 10px 20px;">
+                    카카오페이
+                </button>
 
 
                 <!-- 찜하기 버튼 -->
@@ -64,6 +61,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
 
 
 </body>
