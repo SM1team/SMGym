@@ -30,10 +30,6 @@ public class PaymentController {
             throws IamportResponseException, IOException {
         return iamportClient.paymentByImpUid(imp_uid);
     }
-    @RequestMapping("/order")
-    public String orderPage() {
-        return "order"; // "order.jsp"를 반환
-    }
 
 
 }
