@@ -18,6 +18,6 @@ public class TrainerDto {
     private String trainerAddress;
     private String trainerPwd;
     private String placeNo;
-    private RoleDto role;
+
 //    private int arole;
 }
