@@ -73,11 +73,11 @@
                     <form action="<c:url value='/loginimpl' />" method="post">
                         <div class="form-group">
                             <label for="username">사용자 id</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
+                            <input type="text" value="kis2690" class="form-control" id="username" name="username" required>
                         </div>
                         <div class="form-group">
                             <label for="password">비밀번호</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <input type="password" value="kis4567" class="form-control" id="password" name="password" required>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">로그인</button>
                     </form>

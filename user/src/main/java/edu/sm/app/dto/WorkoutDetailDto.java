@@ -12,9 +12,12 @@ import java.sql.Date;
 @AllArgsConstructor
 public class WorkoutDetailDto {
     private int wdetailId;
-    private String wdetailName;
+    private int workoutNo;
+    private int machineNo;
+    private String wdetailExname;
     private int wdetailSets;
     private int wdetailCount;
     private int wdetailWeight;
-    private int workoutNo;
+    private int wdetailCalories;
+    private int wdetailTime;
 }

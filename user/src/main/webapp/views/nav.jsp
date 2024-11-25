@@ -12,7 +12,7 @@
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
 
                 <li class="nav-item"><a class="nav-link" href="<c:url value='/#services'/>">Services</a></li>
-                <li class="nav-item"><a class="nav-link" href="<c:url value='/#trainer'/>">Trainer Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="<c:url value='/#trainer'/>">Trainer</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value='/#about'/>">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value='/#location'/>">Location</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/shop"/>">Shop</a></li>
@@ -33,10 +33,14 @@
                             </c:when>
                             <c:otherwise>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#" style="color: black;" >${sessionScope.loginid.custId}</a>
+                                    <a class="nav-link"href="<c:url value="/mypage"/>" style="color: black;" >${sessionScope.loginid.custId}</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<c:url value="/logoutimpl"/>" style="color: black;" >Logout</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<c:url value="/workout"/>" style="color: black;" >Workout Log</a>
                                 </li>
                             </c:otherwise>
                         </c:choose>

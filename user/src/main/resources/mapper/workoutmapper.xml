@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.sm.app.repository.WorkoutLogRepository"><!-- 이 xml은 누가 사용하냐?의미 -> -->
+
+    <select id="selectByCustId" parameterType="String" resultType="workoutLogDto">
+        SELECT *
+        FROM workoutlog
+        WHERE cust_id = #{custId} <!-- 로그인된 사용자 ID로 필터링 -->
+    </select>
+
+    <!-- WorkoutLog와 WorkoutDetail 조인하여 WorkoutDetail 조회 -->
+    <select id="workdetail" parameterType="Integer" resultType="WorkoutDetailDto">
+        SELECT *
+        FROM workoutdetail
+        WHERE workout_no = #{workoutNo}
+    </select>
+
+
+    <select id="selectOne" parameterType="String" resultType="workoutLogDto">
+        SELECT * FROM workout WHERE workout_no=#{workoutNo}
+    </select>
+    <select id="select" resultType="workoutLogDto">
+        SELECT * FROM reservation
+    </select>
+    <insert id="insert" parameterType="workoutLogDto">
+        INSERT INTO reservation (cust_name, cust_phone, reservation_date, reservation_content, cust_id)
+        VALUES (#{custName}, #{custPhone}, #{reservationDate},#{reservationContent}, #{custId})
+    </insert>
+
+
+    <update id="update" parameterType="workoutLogDto">
+        UPDATE cust SET cust_pwd=#{custPwd},cust_name=#{custName} WHERE cust_id=#{custId}
+    </update>
+    <delete id="delete" parameterType="String">
+        DELETE FROM cust WHERE cust_id=#{custId}
+    </delete>
+<!--    이 이름을 CustRepository가 가지고있는 함수와 맞추면 된다. -->
+
+</mapper>
