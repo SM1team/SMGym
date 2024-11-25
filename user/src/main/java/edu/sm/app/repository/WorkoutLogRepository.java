@@ -2,6 +2,7 @@ package edu.sm.app.repository;
 
 import com.github.pagehelper.Page;
 import edu.sm.app.dto.ReservationDto;
+import edu.sm.app.dto.WorkoutDetailDto;
 import edu.sm.app.dto.WorkoutLogDto;
 import edu.sm.app.frame.SMRepository;
 import org.apache.ibatis.annotations.Mapper;
@@ -24,6 +25,8 @@ public interface WorkoutLogRepository extends SMRepository<Integer, WorkoutLogDt
 //    Page<ReservationDto> cargetfindpage(Search search) throws Exception;
 
     List<WorkoutLogDto> selectByCustId(String custId);
+
+    List<WorkoutDetailDto> workdetail(Integer workoutNo);
 
 
 }
