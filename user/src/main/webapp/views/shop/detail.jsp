@@ -93,6 +93,13 @@
         var productAmount = parseInt(document.getElementById("productPrice").value.replace('₩', '').replace(',', '')); // 상품 가격
         var merchantUid = "ORD" + new Date().getTime(); // 고유 주문번호 생성
 
+        // 로그인된 고객 정보
+        var buyerName = "${cust.custName}";  // 고객 이름
+        var buyerPhone = "${cust.custPhone}";  // 고객 전화번호
+        var buyerGender = "${cust.custGender}";  // 고객 성별
+        var buyerAge = "${cust.custAge}";  // 고객 나이
+        var buyerAddr = "${cust.custAddress}";  // 고객 주소
+
         // 결제 요청
         IMP.request_pay({
             pg: "kakaopay.TC0ONETIME", // 카카오페이 단건결제
@@ -100,11 +107,11 @@
             merchant_uid: merchantUid, // 주문번호
             name: productName, // 상품명
             amount: productAmount, // 결제 금액
-            buyer_email: "gildong@gmail.com", // 구매자 이메일
-            buyer_name: "홍길동", // 구매자 이름
-            buyer_tel: "010-4242-4242", // 구매자 전화번호
-            buyer_addr: "서울특별시 강남구 신사동", // 구매자 주소
-            buyer_postcode: "01181" // 구매자 우편번호
+            buyer_name: buyerName, // 구매자 이름
+            buyer_tel: buyerPhone, // 구매자 전화번호
+            buyer_gender: buyerGender, // 구매자 성별
+            buyer_age: buyerAge, // 구매자 나이
+            buyer_addr: buyerAddr, // 구매자 주소
         }, function (rsp) { // 콜백 함수
             if (rsp.success) {
                 // 결제 성공 처리

@@ -43,13 +43,29 @@ public class ProductController {
 
     // 컨트롤러에서 로그인된 사용자 정보 조회
     @RequestMapping("/detail")
-    public String detail(Model model, @RequestParam("productNo") int productNo) throws Exception {
+    public String detail(Model model, @RequestParam("productNo") int productNo,HttpSession session) throws Exception {
         ProductDto productDto = productService.get(productNo);
         model.addAttribute("product", productDto);
+        CustDto custDto = (CustDto) session.getAttribute("loginid");
+        if (custDto != null) {
+            model.addAttribute("cust", custDto);
+            // 로그인된 사용자 정보를 모델에 추가
+            // 고객 정보 로그 출력
+            log.info("로그인된 고객 정보: ");
+            log.info("회원 ID: {}", custDto.getCustId());
+            log.info("회원 이름: {}", custDto.getCustName());
+            log.info("회원 나이: {}", custDto.getCustAge());
+            log.info("회원 전화번호: {}", custDto.getCustPhone());
+            log.info("회원 성별: {}", custDto.getCustGender());
+            log.info("회원 거주지: {}", custDto.getCustAddress());
+        } else {
+            log.info("로그인된 고객 정보가 없습니다.");
+
+        }
+
         model.addAttribute("top", dir + "top"); // 상단 템플릿이 shop/top.jsp로 설정되어 있어야 합니다.
         model.addAttribute("center", dir + "detail"); // 중앙 템플릿 경로
         return "index";
-
 
     }
 }
