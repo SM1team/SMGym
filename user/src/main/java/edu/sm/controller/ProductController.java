@@ -1,22 +1,22 @@
 package edu.sm.controller;
 
 
-import edu.sm.app.dto.CustDto;
-import edu.sm.app.dto.ProductDto;
+import edu.sm.app.dto.*;
 import edu.sm.app.service.CustService;
 import edu.sm.app.service.ProductService;
+import edu.sm.app.service.TrainerService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
 
 @Controller
 @RequestMapping("/shop")
@@ -24,9 +24,9 @@ import java.util.Map;
 @Slf4j
 public class ProductController {
 
-
     private final ProductService productService;
-    private final CustService custService;
+    private final TrainerService trainerService;
+    private final CustService custService;  // 고객 서비스 추가 (필요한 경우)
     String dir = "shop/";
 
     @RequestMapping("")
@@ -34,38 +34,81 @@ public class ProductController {
         List<ProductDto> list = productService.get();
 
         model.addAttribute("productlist", list);
-        model.addAttribute("top", dir + "top"); // 상단 템플릿이 shop/top.jsp로 설정되어 있어야 합니다.
-        model.addAttribute("center", dir + "center"); // 중앙 템플릿이 shop/center.jsp로 설정되어 있어야 합니다.
+        model.addAttribute("top", dir + "top");
+        model.addAttribute("center", dir + "center");
 
-        return "index"; // index.jsp 파일이 올바른 위치에 있는지 확인하세요.
+        return "index";
     }
 
-
-    // 컨트롤러에서 로그인된 사용자 정보 조회
     @RequestMapping("/detail")
-    public String detail(Model model, @RequestParam("productNo") int productNo,HttpSession session) throws Exception {
+    public String detail(Model model, @RequestParam("productNo") int productNo, HttpSession session) throws Exception {
         ProductDto productDto = productService.get(productNo);
+        List<TrainerDto> trainerList = trainerService.get();
+
         model.addAttribute("product", productDto);
+        model.addAttribute("trainerList", trainerList);
+
         CustDto custDto = (CustDto) session.getAttribute("loginid");
         if (custDto != null) {
             model.addAttribute("cust", custDto);
-            // 로그인된 사용자 정보를 모델에 추가
-            // 고객 정보 로그 출력
-            log.info("로그인된 고객 정보: ");
-            log.info("회원 ID: {}", custDto.getCustId());
-            log.info("회원 이름: {}", custDto.getCustName());
-            log.info("회원 나이: {}", custDto.getCustAge());
-            log.info("회원 전화번호: {}", custDto.getCustPhone());
-            log.info("회원 성별: {}", custDto.getCustGender());
-            log.info("회원 거주지: {}", custDto.getCustAddress());
+            log.info("로그인된 고객 정보: {}", custDto);
         } else {
             log.info("로그인된 고객 정보가 없습니다.");
-
         }
 
-        model.addAttribute("top", dir + "top"); // 상단 템플릿이 shop/top.jsp로 설정되어 있어야 합니다.
-        model.addAttribute("center", dir + "detail"); // 중앙 템플릿 경로
+        model.addAttribute("top", dir + "top");
+        model.addAttribute("center", dir + "detail");
         return "index";
-
     }
+
+
+
+    @GetMapping("/confirmation")
+    public String showConfirmationPage(
+            @RequestParam("orderNo") String orderNo,
+            @RequestParam("productName") String productName,
+            @RequestParam("productAmount") String productAmount,
+            @RequestParam("buyerName") String buyerName,
+            @RequestParam("buyerPhone") String buyerPhone,
+            @RequestParam("buyerGender") String buyerGender,
+            @RequestParam("buyerAge") String buyerAge,
+            @RequestParam("buyerAddr") String buyerAddr,
+            HttpSession session, Model model) {
+
+        log.info("orderNo: {}", orderNo);
+        log.info("productName: {}", productName);
+
+        // OrdersDto 생성 및 데이터 설정
+        OrdersDto ordersDto = new OrdersDto();
+        ordersDto.setOrderNo(Integer.parseInt(orderNo));
+        ordersDto.setProductName(productName);
+        ordersDto.setProductPrice(new BigDecimal(productAmount.replace("₩", "").replace(",", "")));
+        ordersDto.setCustId(((CustDto) session.getAttribute("loginid")).getCustId());
+        ordersDto.setOrderDate(new Date());  // 현재 시간으로 주문 날짜 설정
+
+        // 트레이너 정보가 필요하면 추가
+        ordersDto.setTrainerId("1");  // 예시로 "1"로 설정
+        ordersDto.setTrainerName("Trainer Name");  // 예시 트레이너 이름
+
+        // 결제 정보 세션에 저장
+        session.setAttribute("orderNo", orderNo);
+        session.setAttribute("productName", productName);
+        session.setAttribute("productAmount", productAmount);
+        session.setAttribute("buyerName", buyerName);
+        session.setAttribute("buyerPhone", buyerPhone);
+        session.setAttribute("buyerGender", buyerGender);
+        session.setAttribute("buyerAge", buyerAge);
+        session.setAttribute("buyerAddr", buyerAddr);
+
+        // DB에 저장 (서비스 사용)
+        // 예시로 ordersService.save(ordersDto); 호출 가능 (서비스 메서드 추가 필요)
+
+        model.addAttribute("order", ordersDto);  // 모델에 주문 정보 추가
+
+        return "confirmation"; // confirmation.jsp 페이지로 포워딩
+    }
+
 }
+
+
+

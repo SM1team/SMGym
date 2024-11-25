@@ -35,7 +35,36 @@
                     <input type="hidden" id="productNo" name="productNo" value="${product.productNo}" />
                     <input type="text" class="form-control" value="${product.productNo}" readonly />
                 </div>
+
+<%--                <div class="form-group">--%>
+<%--                    <label for="trainerId">트레이너 선택</label>--%>
+<%--                    <select id="trainerId" name="trainerId" class="form-control">--%>
+<%--                        <c:forEach var="trainer" items="${trainerList}">--%>
+<%--                            <option value="${trainer.trainerId}">${trainer.trainerId} - ${trainer.trainerName} - ${trainer.trainerGender}</option>--%>
+<%--                        </c:forEach>--%>
+<%--                    </select>--%>
+<%--                </div>--%>
+
+                <div class="form-group">
+                    <label for="trainerSelection">트레이너 선택</label>
+                    <select id="trainerSelection" name="trainerId" class="form-control">
+                        <c:forEach var="trainer" items="${trainerList}">
+                            <option value="${trainer.trainerId}">
+                                    ${trainer.trainerName} (
+                                <c:choose>
+                                    <c:when test="${trainer.trainerGender == '0'}">남</c:when>
+                                    <c:when test="${trainer.trainerGender == '1'}">여</c:when>
+                                    <c:otherwise>알 수 없음</c:otherwise>
+                                </c:choose>
+                                )
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+
+
             </form>
+
 
             <div class="form-actions">
                 <!-- 결제하기 버튼 -->
