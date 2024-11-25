@@ -10,7 +10,6 @@
         VALUES (#{noticeTitle}, #{noticeContent}, #{custId}, #{boardImg}, DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'))
     </insert>
 
-
     <!-- 게시물 수정 -->
     <update id="update" parameterType="edu.sm.app.dto.BoardDto">
         UPDATE board
@@ -126,8 +125,6 @@
         ORDER BY notice_date DESC
             LIMIT #{offset}, #{pageSize}
     </select>
-
-
 
     <!-- 내가 쓴 글 개수 조회 -->
     <select id="countMyPosts" parameterType="String" resultType="int">

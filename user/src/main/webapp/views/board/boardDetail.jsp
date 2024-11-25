@@ -18,7 +18,7 @@
   <p><strong>작성자:</strong> ${board.custId}</p>
   <p><strong>작성일:</strong> ${board.noticeDate}</p>
   <p><strong>내용:</strong> ${board.noticeContent}</p>
-  <p><strong>이미지:</strong> <img src="<c:url value='/assets/img/board/${board.boardImg}'/>" alt="게시물 이미지" height="300" width="300" /></p>
+  <p><strong>이미지:</strong>   <img src="<c:url value="/imgs"/>${board.boardImg}">" alt="게시물 이미지" height="300" width="300" /></p>
   <a href="<c:url value='/board' />" class="btn btn-primary">목록으로 돌아가기</a>
 </div>
 </body>

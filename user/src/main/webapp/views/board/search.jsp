@@ -29,7 +29,11 @@
             <td>${board.noticeTitle}</td>
             <td>${board.noticeContent}</td>
             <td>${board.noticeDate}</td>
-            <td><img src="<c:url value='/assets/img/board/${board.boardImg}' />" alt="게시물 이미지" width="50" height="50"></td>
+            <td>
+                <!-- boardImg 경로를 서버의 업로드 이미지 경로로 수정 -->
+                <img src="<c:url value='${board.boardImg}' />" alt="게시물 이미지" width="50" height="50">
+            </td>
+
         </tr>
     </c:forEach>
     </tbody>

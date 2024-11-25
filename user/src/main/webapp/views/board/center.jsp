@@ -1,9 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
-
-
 <!-- styles.css 파일을 링크로 추가 -->
 <link rel="stylesheet" href="<c:url value='/css/styles.css' />">
 
@@ -39,10 +36,10 @@
             <td><a href="<c:url value='/board/detail?noticeNo=${board.noticeNo}' />">${board.noticeTitle}</a></td>
             <td>${board.custId}</td>
             <td>${board.noticeDate}</td>
-            <td>
-                <!-- boardImg 경로를 서버의 업로드 이미지 경로로 수정 -->
-                <img src="file:///c:/SMGym/imgs/${board.boardImg}" alt="게시물 이미지" width="50" height="50">
-            </td>
+            <p><strong>이미지:</strong>
+                <img src="<c:url value='/imgs/${board.boardImg}' />" alt="게시물 이미지" height="50" width="50" />
+            </p>
+
         </tr>
     </c:forEach>
     </tbody>

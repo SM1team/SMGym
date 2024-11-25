@@ -89,7 +89,6 @@ public class BoardController {
 
         return "index"; // index.jsp 반환
     }
-
     // 게시물 리스트 페이지 (페이징 처리)
     @RequestMapping("/board/list")
     public String listBoard(Model model,

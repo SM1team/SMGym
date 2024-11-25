@@ -21,9 +21,8 @@ public class BoardDto {
     private String custId;
     private String boardImg;
 
-    // 자동 생성된 setter와 getter 메소드 외에 커스텀 setImg() 메소드 추가
     public void setImg(String fileName) {
-        this.boardImg = "/assets/img/board/" + fileName;
+        this.boardImg = fileName; // 경로를 그대로 사용
     }
 
     // getId() 메서드 추가

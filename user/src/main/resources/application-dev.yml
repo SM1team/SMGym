@@ -25,30 +25,27 @@ mybatis:
   mapper-locations: classpath:/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
+
 # 4. Logging Setting
-  logging:
-    level:
-      # MyBatis의 로깅을 위한 설정
-      org.apache.ibatis: DEBUG
-      # MyBatis SQL 실행 로그를 출력하기 위한 설정
-      org.mybatis.spring: DEBUG
-      # 추가적인 로그 출력을 원한다면 이 설정을 활성화 할 수 있습니다.
-      edu.sm.app: DEBUG
-#logging:
-#  level:
-#    root: info
-  #  error > info > debug
+logging:
+  level:
+    # MyBatis의 로깅을 위한 설정
+    org.apache.ibatis: DEBUG
+    # MyBatis SQL 실행 로그를 출력하기 위한 설정
+    org.mybatis.spring: DEBUG
+    # 추가적인 로그 출력을 원한다면 이 설정을 활성화 할 수 있습니다.
+    edu.sm.app: DEBUG
 
 # 5. Application Environment Setting
 app:
   url:
-    server-url: http://210.119.34.205:84
-    # 관리자와 대화이므로 관리자 ip:포트로 설정.
+    server-url: http://210.119.34.205:85  # 서버 포트 85로 수정
   dir:
+    # 이미지 업로드 디렉토리 경로
     uploadimgdir: c:/SMGym/imgs/
+    # 이미지 파일을 서빙할 경로 (Spring Boot에서 정적 리소스 제공)
     imgdir: file:///c:/SMGym/imgs/
-    #java밑에 config 밑에 webMvcConfig때문에 사용 이 폴더의 정보를 가져오기위해 사용
-    # logdir: /root/users/project/logs
+    # 로그 디렉토리 경로
     logdir: file:///c:/SMGym/SMGym/logs/
     readlogdir: c:/SMGym/SMGym/logs/
 

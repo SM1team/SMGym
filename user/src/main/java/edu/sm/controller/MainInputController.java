@@ -182,8 +182,8 @@ public class MainInputController {
                 // 업로드된 파일을 지정된 디렉토리에 저장
                 boardImg.transferTo(uploadFile);
 
-                // 게시글 DTO에 이미지 경로 설정 (웹에서 접근 가능한 경로)
-                newBoard.setImg(this.imgdir + fileName);  // yml에서 주입받은 imgdir을 사용하여 웹 경로 설정
+                // 게시글 DTO에 이미지 파일 이름만 설정
+                newBoard.setImg(fileName);  // 파일 경로가 아닌 파일 이름만 설정
             }
 
             // DB에 게시글 저장
@@ -198,7 +198,6 @@ public class MainInputController {
         // 게시글 저장 후 목록 페이지로 리디렉션
         return "redirect:/board";
     }
-
 
 }
 
