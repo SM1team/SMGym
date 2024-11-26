@@ -172,34 +172,34 @@ public class MainInputController {
         return "redirect:/board"; // 게시글 저장 후 목록 페이지로 리디렉션
     }
 
-    @RequestMapping("/commentwriteimpl")
-    public String commentwriteimpl(Model model,
-                                   @RequestParam("noticeNo") int noticeNo,
-                                   @RequestParam("commentContent") String commentContent,
-                                   HttpSession session) {
-        log.info("댓글 저장 요청: noticeNo={}, 댓글 내용={}", noticeNo, commentContent);
-
-        try {
-            CustDto loggedInUser = (CustDto) session.getAttribute("loginid");
-            if (loggedInUser == null) {
-                throw new Exception("로그인된 사용자가 없습니다.");
-            }
-
-            CommentDto commentDto = new CommentDto();
-            commentDto.setNoticeNo(noticeNo);  // noticeNo로 설정
-            commentDto.setCommentContent(commentContent);
-            commentDto.setCustId(loggedInUser.getCustId());
-            commentDto.setCommentDate(LocalDateTime.now());  // 현재 시간 설정
-
-            commentService.saveComment(commentDto);  // DTO를 서비스로 전달
-
-        } catch (Exception e) {
-            log.error("댓글 저장 중 오류", e);
-            model.addAttribute("error", "댓글 저장 중 오류가 발생했습니다.");
-            return "redirect:/board/" + noticeNo;  // 게시판 상세 페이지로 리디렉션
-        }
-
-        return "redirect:/board/" + noticeNo; // 댓글 저장 후 게시판 상세 페이지로 리디렉션
-    }
+//    @RequestMapping("/commentwriteimpl")
+//    public String commentwriteimpl(Model model,
+//                                   @RequestParam("noticeNo") int noticeNo,
+//                                   @RequestParam("commentContent") String commentContent,
+//                                   HttpSession session) {
+//        log.info("댓글 저장 요청: noticeNo={}, 댓글 내용={}", noticeNo, commentContent);
+//
+//        try {
+//            CustDto loggedInUser = (CustDto) session.getAttribute("loginid");
+//            if (loggedInUser == null) {
+//                throw new Exception("로그인된 사용자가 없습니다.");
+//            }
+//
+//            CommentDto commentDto = new CommentDto();
+//            commentDto.setNoticeNo(noticeNo);  // noticeNo로 설정
+//            commentDto.setCommentContent(commentContent);
+//            commentDto.setCustId(loggedInUser.getCustId());
+//            commentDto.setCommentDate(LocalDateTime.now());  // 현재 시간 설정
+//
+//            commentService.saveComment(commentDto);  // DTO를 서비스로 전달
+//
+//        } catch (Exception e) {
+//            log.error("댓글 저장 중 오류", e);
+//            model.addAttribute("error", "댓글 저장 중 오류가 발생했습니다.");
+//            return "redirect:/board/" + noticeNo;  // 게시판 상세 페이지로 리디렉션
+//        }
+//
+//        return "redirect:/board/" + noticeNo; // 댓글 저장 후 게시판 상세 페이지로 리디렉션
+//    }
 
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public interface CommentRepository extends SMRepository<Integer, CommentDto> {
 
     // 댓글 등록
-    void insert(@Param("commentDto") CommentDto commentDto);
+    void insert(CommentDto commentDto);
 
     // 댓글 수정
     void update(@Param("commentDto") CommentDto commentDto);
@@ -43,6 +43,6 @@ public interface CommentRepository extends SMRepository<Integer, CommentDto> {
     // 댓글 내용으로 검색된 댓글 수 조회
     int countSearchResults(@Param("searchKeyword") String searchKeyword);
 
-    // 특정 게시물에 해당하는 댓글 조회 (새로운 메서드 추가)
+    // 특정 게시물에 해당하는 댓글 조회
     List<CommentDto> findByNoticeNo(@Param("noticeNo") int noticeNo);
 }

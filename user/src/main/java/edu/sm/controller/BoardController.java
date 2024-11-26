@@ -108,7 +108,7 @@ public class BoardController {
         model.addAttribute("center", "board/boardDetail");
 
         // 로그인된 사용자 정보를 함께 전달 (필요시)
-        model.addAttribute("loggedInUser", loggedInUser); // 로그인한 사용자 정보
+        model.addAttribute("loginUser", loggedInUser); // 로그인한 사용자 정보
 
         return "index"; // index.jsp 반환
     }

@@ -21,19 +21,24 @@ public class CommentController {
 
     private final CommentService commentService;  // 댓글 서비스
 
+    // 로그인된 사용자 확인 메서드
+    private CustDto getLoggedInUser(HttpSession session, Model model) {
+        CustDto loggedInUser = (CustDto) session.getAttribute("loginid");
+        if (loggedInUser == null) {
+            model.addAttribute("error", "로그인이 필요합니다.");
+        }
+        return loggedInUser;
+    }
+
     // 댓글 작성 페이지 (새로운 댓글 작성)
     @RequestMapping("/comment/write")
     public String writeComment(@RequestParam("noticeNo") int noticeNo,
                                @RequestParam("commentContent") String commentContent,
                                HttpSession session,
                                Model model) {
-        // 로그인된 사용자 정보 가져오기
-        CustDto loggedInUser = (CustDto) session.getAttribute("loginid");
-
-        // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
+        CustDto loggedInUser = getLoggedInUser(session, model);
         if (loggedInUser == null) {
-            model.addAttribute("error", "로그인이 필요합니다.");
-            return "redirect:/login";
+            return "redirect:/login";  // 로그인 페이지로 리다이렉트
         }
 
         // 댓글 작성 로직
@@ -57,23 +62,27 @@ public class CommentController {
         return "redirect:/board/detail?noticeNo=" + noticeNo;
     }
 
-    // 댓글 저장 처리 (POST 요청)
+    // 댓글 저장
     @RequestMapping("/comment/save")
-    public String saveComment(@SessionAttribute("loginid") CustDto loggedInUser,
+    public String saveComment(HttpSession session,
                               @RequestParam("noticeNo") int noticeNo,
                               @RequestParam("content") String content,
                               Model model) {
         log.info("Saving new comment for board: {}", noticeNo);
+        CustDto loggedInUser = getLoggedInUser(session, model);
+        if (loggedInUser == null) {
+            return "redirect:/login";  // 로그인 페이지로 리다이렉트
+        }
+
+        // 댓글 DTO 생성
+        CommentDto newComment = CommentDto.builder()
+                .custId(loggedInUser.getCustId())  // 로그인된 사용자 ID
+                .noticeNo(noticeNo)  // 게시물 ID
+                .commentContent(content)   // 댓글 내용
+                .commentDate(LocalDateTime.now())  // 댓글 작성 시간
+                .build();
 
         try {
-            // 댓글 DTO 생성
-            CommentDto newComment = CommentDto.builder()
-                    .custId(loggedInUser.getCustId())  // 로그인된 사용자 ID
-                    .noticeNo(noticeNo)  // 게시물 ID
-                    .commentContent(content)   // 댓글 내용
-                    .commentDate(LocalDateTime.now())  // 댓글 작성 시간
-                    .build();
-
             // 댓글 저장
             commentService.saveComment(newComment);
 
@@ -91,7 +100,13 @@ public class CommentController {
     @RequestMapping("/comment/delete")
     public String deleteComment(@RequestParam("commentId") int commentId,
                                 @RequestParam("noticeNo") int noticeNo,
+                                @SessionAttribute("loginid") CustDto loggedInUser,
                                 Model model) {
+        if (loggedInUser == null) {
+            model.addAttribute("error", "로그인이 필요합니다.");
+            return "redirect:/login";  // 로그인 페이지로 리다이렉트
+        }
+
         try {
             // 댓글 삭제
             commentService.del(commentId);  // 삭제 메서드 호출

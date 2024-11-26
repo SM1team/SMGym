@@ -41,7 +41,9 @@ public class CommentService implements SMService<Integer, CommentDto> {
 
     // 댓글 저장 메서드
     public void saveComment(CommentDto commentDto) throws Exception {
-        // 여기서 noticeNo는 이미 CommentDto에 설정되어 있다고 가정
+        if (commentDto.getNoticeNo() == 0) {
+            throw new IllegalArgumentException("게시물 번호가 설정되지 않았습니다.");
+        }
         repository.insert(commentDto);  // repository의 insert 메서드로 넘기기
     }
 
@@ -56,7 +58,8 @@ public class CommentService implements SMService<Integer, CommentDto> {
     }
 
     public List<CommentDto> getCommentsByNoticeNo(int noticeNo) {
-        // DB에서 해당 noticeNo에 해당하는 댓글 리스트를 조회
-        return  repository.findByNoticeNo(noticeNo);
+        return repository.findByNoticeNo(noticeNo);
     }
+
+
 }
