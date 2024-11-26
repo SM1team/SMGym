@@ -107,10 +107,10 @@
                 <div class="collapse" id="auth">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"><a class="nav-link" href="/cust"> 회원 조회</a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/samples/register.html"> Register </a>
+                        <li class="nav-item"><a class="nav-link" href="/custadd"> 회원 추가 </a></li>
+                        <li class="nav-item"><a class="nav-link" href="/custdelete"> 회원 삭제 </a></li>
+                        <li class="nav-item"><a class="nav-link" href="/custdetail"> 회원 정보 </a></li>
+                        <li class="nav-item"><a class="nav-link" href=""> Register </a>
                         </li>
                     </ul>
                 </div>
