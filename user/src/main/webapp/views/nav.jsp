@@ -26,11 +26,13 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <c:choose>
                             <c:when test="${sessionScope.loginid == null}">
+<%--                            로그인이 안되어있을때--%>
 
                                 <li><a class="dropdown-item" href="<c:url value='/login'/>">Login</a></li>
                                 <li><a class="dropdown-item" href="<c:url value='/register'/>">Sign Up</a></li>
                             </c:when>
                             <c:otherwise>
+<%--                            로그인이 된 상태--%>
                                 <li class="nav-item">
                                     <a class="nav-link"href="<c:url value="/mypage"/>" style="color: black;" >${sessionScope.loginid.custId}</a>
                                 </li>
@@ -40,6 +42,9 @@
 
                                 <li class="nav-item">
                                     <a class="nav-link" href="<c:url value="/workout"/>" style="color: black;" >Workout Log</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<c:url value="/qr"/>" style="color: black;" >출석</a>
                                 </li>
                             </c:otherwise>
                         </c:choose>
