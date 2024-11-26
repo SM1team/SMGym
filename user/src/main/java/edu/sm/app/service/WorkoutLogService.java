@@ -3,6 +3,7 @@ package edu.sm.app.service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import edu.sm.app.dto.ReservationDto;
+import edu.sm.app.dto.WorkoutDetailDto;
 import edu.sm.app.dto.WorkoutLogDto;
 import edu.sm.app.frame.SMService;
 import edu.sm.app.repository.ReservationRepository;
@@ -66,5 +67,9 @@ public class WorkoutLogService implements SMService<Integer, WorkoutLogDto> {
 
     public List<WorkoutLogDto> getWorkoutByCustId(String custId) throws Exception {
         return workoutLogRepository.selectByCustId(custId);
+    }
+
+    public List<WorkoutDetailDto> WorkoutdetailNo(Integer workoutNo) throws Exception {
+        return workoutLogRepository.workdetail(workoutNo);
     }
 }

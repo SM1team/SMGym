@@ -2,26 +2,31 @@ package edu.sm.controller;
 
 
 import edu.sm.app.dto.CustDto;
+
+import edu.sm.app.dto.WorkoutDetailDto;
 import edu.sm.app.dto.WorkoutLogDto;
 import edu.sm.app.service.WorkoutLogService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/workout")
 @RequiredArgsConstructor
+@Slf4j
 public class WorkoutController {
 
     final WorkoutLogService workoutLogService;
 
-    @Value("${app.url.server-url}")
-    String serverurl;
+//    @Value("${app.url.server-url}")
+//    String serverurl;
 
 
 
@@ -47,6 +52,21 @@ public class WorkoutController {
 
         return "index"; // JSP 페이지 이름
     }
+
+    @RequestMapping("/detail")
+    public String detail(Model model, @RequestParam("workoutNo") int workoutNo) throws Exception {
+        List<WorkoutDetailDto> workoutDetailDto = workoutLogService.WorkoutdetailNo(workoutNo);
+
+        model.addAttribute("details", workoutDetailDto);
+
+        model.addAttribute("top", wdir + "top");
+        model.addAttribute("center", wdir + "detail");
+
+        return "index";
+    }
+
+
+
 //    @RequestMapping("/reservation")
 //    public String reservation(Model model){
 //        model.addAttribute("top",wdir+"top");

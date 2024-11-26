@@ -32,7 +32,8 @@
           <!-- 체크박스 -->
           <td><input type="checkbox" name="workoutNo" value="${c.workoutNo}"></td>
           <!-- 운동일지 번호 클릭 시 상세 페이지 이동 -->
-          <td><a href="/workout/workoutDetail?id=${c.workoutNo}">${c.workoutNo}</a></td>
+          <td><a href="<c:url value='/workout/detail'/>?workoutNo=${c.workoutNo}">${c.workoutNo}</a></td>
+
           <td>${c.custId}</td>
           <td>${c.workoutDate}</td>
           <td>${c.workoutTime}</td>
