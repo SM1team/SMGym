@@ -2,7 +2,6 @@ package edu.sm.app.repository;
 
 import com.github.pagehelper.Page;
 import edu.sm.app.dto.CustDto;
-import edu.sm.app.dto.ReservationDto;
 import edu.sm.app.dto.Search;
 import edu.sm.app.frame.SMRepository;
 import org.apache.ibatis.annotations.Mapper;
@@ -20,7 +19,13 @@ public interface CustRepository extends SMRepository<String, CustDto> {
 
     List<CustDto> findByName(String Name);
 
-    Page<CustDto> custfindpage(Search search) throws Exception;
+    Page<CustDto> getpage() throws Exception;
+
+    // 검색어를 포함한 이름 또는 ID로 검색하는 메서드 추가
+    List<CustDto> searchByKeyword(String keyword);
+
+    List<CustDto> findBySearch(Search search);
+
 
 
 

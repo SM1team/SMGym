@@ -46,4 +46,9 @@ public class TrainerService implements SMService<String, TrainerDto> {
         PageHelper.startPage(pageNo,4); //한 화면에 4개씩
         return trainerRepository.trainerfindpage(search);
     }
+
+//    public List<TrainerDto> search(String keyword) {
+//        // repository에서 검색어에 맞는 트레이너 목록을 가져옴
+//        return trainerRepository.searchByKeyword(keyword);
+//    }
 }

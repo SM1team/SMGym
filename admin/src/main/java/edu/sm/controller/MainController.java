@@ -44,7 +44,6 @@ public class MainController {
     @RequestMapping("/websocket")
     public String websocket(Model model ){
         model.addAttribute("serverurl",serverUrl);//얘가 중요한친구임. 여기에 127.0.0...넣으면 수시로 바꿀 수 없으니가 yml에 다로 빼놓음.
-
         model.addAttribute("top","top");
         model.addAttribute("left","left");
         model.addAttribute("center","websocket");
@@ -174,8 +173,6 @@ public class MainController {
         model.addAttribute("search",search);
         //화면에서 search를 했다는 증표를 넣어준다.(객체를 넣어준것.)
 
-
-
         model.addAttribute("center", "cust");
 
         return "index";
@@ -272,6 +269,8 @@ public class MainController {
 
         return "index";
     }
+
+
 
 
 
