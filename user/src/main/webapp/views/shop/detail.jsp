@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-md-6">
             <!-- 상품 이미지 -->
-            <img class="img-fluid" src="${product.productImg}" alt="Product Image" />
+            <img class="img-fluid" src="/assets/img/${product.productImg}" alt="Product Image" />
         </div>
         <div class="col-md-6">
             <!-- 상품 정보 표시 -->
@@ -35,15 +35,6 @@
                     <input type="hidden" id="productNo" name="productNo" value="${product.productNo}" />
                     <input type="text" class="form-control" value="${product.productNo}" readonly />
                 </div>
-
-<%--                <div class="form-group">--%>
-<%--                    <label for="trainerId">트레이너 선택</label>--%>
-<%--                    <select id="trainerId" name="trainerId" class="form-control">--%>
-<%--                        <c:forEach var="trainer" items="${trainerList}">--%>
-<%--                            <option value="${trainer.trainerId}">${trainer.trainerId} - ${trainer.trainerName} - ${trainer.trainerGender}</option>--%>
-<%--                        </c:forEach>--%>
-<%--                    </select>--%>
-<%--                </div>--%>
 
                 <div class="form-group">
                     <label for="trainerSelection">트레이너 선택</label>
@@ -143,9 +134,23 @@
             buyer_addr: buyerAddr, // 구매자 주소
         }, function (rsp) { // 콜백 함수
             if (rsp.success) {
-                // 결제 성공 처리
-                alert("결제가 완료되었습니다. 주문번호: " + rsp.merchant_uid);
-                location.href = "/shop/confirmation?orderNo=" + rsp.merchant_uid; // 확인 페이지로 리디렉션
+                $.ajax({
+                    url: "/pay/complete",
+                    type: "POST",
+                    data: {
+                        paymentId: rsp.merchant_uid,
+                        productNo: $("#productNo").val(),
+                        productPrice: productAmount,
+                        customerId: $("#customerId").val()
+                    },
+                    success: function () {
+                        alert("결제가 완료되었습니다.");
+                        location.href = "/pay/complete?payId=" + rsp.merchant_uid;
+                    },
+                    error: function () {
+                        alert("결제 정보를 처리하는 데 문제가 발생했습니다.");
+                    }
+                });
             } else {
                 // 결제 실패 처리
                 alert("결제가 실패되었습니다: " + rsp.error_msg);
