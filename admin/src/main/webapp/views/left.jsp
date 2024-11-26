@@ -91,7 +91,6 @@
                 <div class="collapse" id="icons">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"><a class="nav-link" href="/trainer">트레이너 조회</a></li>
-
                         <li class="nav-item"><a class="nav-link" href="/traineradd">트레이너 추가</a></li>
                     </ul>
                 </div>
@@ -108,8 +107,8 @@
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"><a class="nav-link" href="/cust"> 회원 조회</a></li>
                         <li class="nav-item"><a class="nav-link" href="/custadd"> 회원 추가 </a></li>
-                        <li class="nav-item"><a class="nav-link" href="/custdelete"> 회원 삭제 </a></li>
-                        <li class="nav-item"><a class="nav-link" href="/custdetail"> 회원 정보 </a></li>
+                        <li class="nav-item"><a class="nav-link" href="/">  </a></li>
+                        <li class="nav-item"><a class="nav-link" href="/"> </a></li>
                         <li class="nav-item"><a class="nav-link" href=""> Register </a>
                         </li>
                     </ul>
@@ -124,22 +123,19 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="/websocket">
-                    <i class="menu-icon mdi mdi-file-document"></i>
-                    <span class="menu-title">문의 관리</span>
+                    <i class="menu-icon mdi mdi-file-document"></i><span class="menu-title">문의 관리</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/reservation">
-                    <i class="menu-icon mdi mdi-file-document"></i>
-                    <span class="menu-title">예약관리</span>
+                    <i class="menu-icon mdi mdi-file-document"></i><span class="menu-title">예약관리</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/trainer">
-                    <i class="menu-icon mdi mdi-file-document"></i>
-                    <span class="menu-title">트레이너 관리</span>
+                    <i class="menu-icon mdi mdi-file-document"></i><span class="menu-title">트레이너 관리</span>
                 </a>
             </li>
         </ul>

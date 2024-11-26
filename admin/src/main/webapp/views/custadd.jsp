@@ -47,8 +47,8 @@
             </div>
 
             <div class="form-group">
-              <label for="place_no">지역 번호</label>
-              <input type="number" class="form-control" id="place_no" name="placeNo" required maxlength="30">
+              <label for="trainer_name">담당 트레이너</label>
+              <input type="text" class="form-control" id="trainer_name" name="trainerName" required maxlength="20">
             </div>
 
             <button type="submit" class="btn btn-primary btn-block">등록하기</button>
