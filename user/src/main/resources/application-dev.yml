@@ -14,8 +14,9 @@ spring:
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     url: jdbc:log4jdbc:mysql://210.119.34.205:3306/final_db?characterEncoding=utf8
-    #driver-class-name: com.mysql.cj.jdbc.Driver
-    #url: jdbc:mysql://127.0.0.1:3306/smdb?characterEncoding=utf8
+    # JDBC URL 변경 시 주석 해제하여 사용
+    # driver-class-name: com.mysql.cj.jdbc.Driver
+    # url: jdbc:mysql://127.0.0.1:3306/smdb?characterEncoding=utf8
     username: ENC(OAjB56HlNziHqNDu8ZFSAw==)
     password: ENC(zYoWFnp8CokAEj/HgST7Tw==)
 

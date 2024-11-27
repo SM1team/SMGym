@@ -42,30 +42,6 @@
               <label for="cust_address">주소</label>
               <input type="text" class="form-control" id="cust_address" name="custAddress" required maxlength="20">
             </div>
-<%--            <!-- hidden fields for trainerId and custPoint -->--%>
-<%--            <input type="hidden" id="trainer_id" name="trainer_id" value="NULL">--%>
-<%--            <input type="hidden" id="cust_point" name="cust_point" value="0">--%>
-
-<%--            <div class="form-group" style="display: none;">--%>
-<%--              <label for="trainer_id">트레이너id</label>--%>
-<%--              <input type="text" class="form-control" id="trainer_id" name="trainer_id" maxlength="20">--%>
-<%--            </div>--%>
-<%--            <div class="form-group" style="display: none;">--%>
-<%--              <label for="cust_point">포인트</label>--%>
-<%--              <input type="number" class="form-control" id="cust_point" name="cust_point"  maxlength="20">--%>
-<%--            </div>--%>
-
-          <%--            <div class="form-group">--%>
-<%--              <label>주소</label>--%>
-<%--              <div class="form-row">--%>
-<%--                <div class="col">--%>
-<%--                  <input type="text" class="form-control" id="cust_city" name="cust_city" placeholder="시/구" required maxlength="30">--%>
-<%--                </div>--%>
-<%--                <div class="col">--%>
-<%--                  <input type="text" class="form-control" id="cust_street" name="cust_street" placeholder="상세주소" required maxlength="30">--%>
-<%--                </div>--%>
-<%--              </div>--%>
-<%--            </div>--%>
             <button type="submit" class="btn btn-primary btn-block">회원가입</button>
           </form>
         </div>

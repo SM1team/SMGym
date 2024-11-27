@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.sm.app.repository.CustRepository">
+
+
+    <select id="findByName" resultType="reservationDto" parameterType="String">
+        SELECT * FROM reservation WHERE cust_name LIKE CONCAT('%', #{custName}, '%')
+    </select>
+
+<!--    <select id="findImgNameById" resultType="reservationDto" parameterType="String">-->
+<!--        SELECT img_name FROM reservation WHERE item_id = #{itemId}-->
+<!--    </select>-->
+
+
+    <select id="custfindpage" resultType="CustDto" parameterType="search">
+        SELECT *
+        FROM cust
+        WHERE 1=1
+
+            <if test="keyword == 'id'">
+                AND cust_id LIKE CONCAT('%', #{search}, '%')
+            </if>
+            <if test="keyword == 'name'">
+                AND cust_name LIKE CONCAT('%', #{search}, '%')
+            </if>
+            <if test="keyword == 'address'">
+                AND cust_address LIKE CONCAT('%', #{search}, '%')
+            </if>
+
+    </select>
+
+
+
+    <select id="selectOne" parameterType="Integer" resultType="CustDto">
+        SELECT * FROM cust WHERE cust_id=#{custId}
+    </select>
+    <select id="select" resultType="CustDto">
+        SELECT * FROM cust
+    </select>
+    <insert id="insert" parameterType="CustDto">
+        INSERT INTO cust VALUES (null, #{itemName},#{itemPrice},#{imgName}, SYSDATE(), SYSDATE())
+    </insert>
+    <update id="update" parameterType="CustDto">
+        UPDATE cust SET reservation_state=#{reservationState} WHERE reservation_no=#{reservationNo}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        DELETE FROM cust WHERE cust_id=#{custId}
+    </delete>
+
+</mapper>
