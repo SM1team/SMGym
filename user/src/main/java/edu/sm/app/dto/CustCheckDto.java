@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 @Builder
@@ -13,6 +14,6 @@ import java.sql.Date;
 public class CustCheckDto {
     private int checkNo;
     private String custId;
-    private Date checkStart;
-    private Date checkEnd;
+    private Timestamp  checkStart;
+    private Timestamp checkEnd;
 }

@@ -75,7 +75,7 @@
                 };
 
                 // 출석 데이터를 서버로 전송
-                fetch('/check/checkin', {
+                fetch('/check/checkout', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -102,7 +102,7 @@
 </head>
 <body>
 <div class="col-sm-8 text-left">
-    <h1>QR CHECKIN</h1>
+    <h1>QRCODE CHECKOUT</h1>
     <hr>
     <!-- 카메라 화면을 표시할 비디오 요소 -->
     <video id="myVideo" width="400" height="300" style="border: 1px solid #ddd;"></video><br>

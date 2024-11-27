@@ -49,6 +49,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="<c:url value="/webcam"/>" style="color: black;" >check in</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<c:url value="/webcam2"/>" style="color: black;" >check out</a>
+                                </li>
                             </c:otherwise>
                         </c:choose>
 
