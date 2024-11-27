@@ -1,4 +1,10 @@
-
+<%--
+  Created by IntelliJ IDEA.
+  User: user
+  Date: 2024-11-18
+  Time: 오후 3:53
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -208,8 +214,8 @@
                     <a class="dropdown-item"><i
                             class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile
                         <span class="badge badge-pill badge-danger">1</span></a>
-                    <a class="dropdown-item" href="<c:url value="/qr"/>" ><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2" ></i>QR CODE</a>
-
+                    <a class="dropdown-item"><i
+                            class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2" href="<c:url value="/qr"/>"></i>QR CODE</a>
                     <a class="dropdown-item"><i
                             class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i>
                         Activity</a>

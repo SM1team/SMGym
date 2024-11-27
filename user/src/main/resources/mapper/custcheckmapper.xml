@@ -34,7 +34,7 @@
             FROM custcheck
             WHERE cust_id = #{custId}
             AND check_end IS NULL
-            ORDER BY check_start ASC
+            ORDER BY check_start DESC
             LIMIT 1
             ) AS sub
         ON main.check_no = sub.check_no
