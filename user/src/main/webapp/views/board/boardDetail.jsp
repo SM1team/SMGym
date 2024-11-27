@@ -14,21 +14,30 @@
     #commentForm {
       display: none;
     }
+    #commentEditForm {
+      display: none;
+    }
   </style>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function () {
+      // 댓글 작성 폼 토글
       $("#commentToggleBtn").click(function () {
         $("#commentForm").slideToggle();
       });
 
-      // 댓글 작성 폼 검증
-      $("form").on("submit", function (e) {
-        const commentContent = $("#commentContent").val().trim();
-        if (commentContent === "") {
-          alert("댓글 내용을 입력해주세요.");
-          e.preventDefault();
-        }
+      // 댓글 수정 폼 토글
+      $(".commentEditBtn").click(function () {
+        var content = $(this).data("content");      // 댓글 내용 가져오기
+        var commentNo = $(this).data("commentNo");  // 댓글 번호 가져오기
+
+        // 댓글 수정 폼 표시
+        $("#commentEditForm").slideDown();
+
+        // 댓글 수정 폼에 데이터 설정
+        $("#commentEditForm #content").val(content);
+        $("#commentEditForm #commentNo").val(commentNo);  // 댓글 번호를 수정 폼에 설정
+        $("#commentEditForm #noticeNoEdit").val("${board.noticeNo}");  // 게시글 번호를 수정 폼에 설정
       });
     });
   </script>
@@ -58,6 +67,17 @@
           <span class="text-muted">(${fn:replace(comment.commentDate, 'T', ' ')})</span>
         </p>
         <p>${comment.commentContent}</p>
+
+        <!-- 댓글 수정 및 삭제 버튼 표시 -->
+        <c:if test="${comment.custId == loginUser.custId}">
+          <!-- 댓글 수정 버튼 -->
+          <button type="button" class="btn btn-warning btn-sm commentEditBtn"
+                  data-commentNo="${comment.commentNo}" data-content="${comment.commentContent}">
+            수정
+          </button>
+          <!-- 댓글 삭제 버튼 -->
+          <a href="<c:url value='/comment/delete?commentId=${comment.commentNo}&noticeNo=${board.noticeNo}' />" class="btn btn-danger btn-sm">삭제</a>
+        </c:if>
       </div>
     </c:forEach>
   </div>
@@ -67,11 +87,11 @@
     <form action="<c:url value='/comment/save' />" method="post">
       <div class="form-group">
         <label for="noticeNo">게시글 번호</label>
-        <input type="text" class="form-control" id="noticeNo" name="noticeNo" value="${board.noticeNo}"  />
+        <input type="text" class="form-control" id="noticeNo" name="noticeNo" value="${board.noticeNo}" readonly/>
       </div>
       <div class="form-group">
         <label for="custId">작성자 ID</label>
-        <input type="text" class="form-control" id="custId" name="custId" value="${loginUser.custId}"  />
+        <input type="text" class="form-control" id="custId" name="custId" value="${loginUser.custId}" readonly/>
       </div>
       <div class="form-group">
         <label for="commentContent">댓글 내용</label>
@@ -80,6 +100,31 @@
       <button type="submit" class="btn btn-success">댓글 작성</button>
     </form>
   </div>
+
+  <!-- 댓글 수정 폼 -->
+  <div id="commentEditForm" class="mt-4" style="display: none;">
+    <form action="<c:url value='/comment/modify' />" method="post">
+      <div class="form-group">
+        <label for="noticeNoEdit">게시글 번호</label>
+        <input type="text" class="form-control" id="noticeNoEdit" name="noticeNo" value="${board.noticeNo}" readonly/>
+      </div>
+      <div class="form-group">
+        <label for="commentNo">댓글 번호</label>
+        <input type="text" class="form-control" id="commentNo" name="commentNo" value="${comment.commentNo}" />
+      </div>
+      <div class="form-group">
+        <label for="custIdEdit">작성자 ID</label>
+        <input type="text" class="form-control" id="custIdEdit" name="custId" value="${loginUser.custId}" readonly/>
+      </div>
+      <div class="form-group">
+        <label for="content">댓글 내용</label>
+        <textarea class="form-control" id="content" name="commentContent" rows="3"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">댓글 수정</button>
+      <a href="<c:url value='/board/detail?noticeNo=${board.noticeNo}' />" class="btn btn-secondary ml-2">취소</a>
+    </form>
+  </div>
+
 </div>
 </body>
 </html>

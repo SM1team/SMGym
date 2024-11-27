@@ -16,10 +16,10 @@ public interface CommentRepository extends SMRepository<Integer, CommentDto> {
     void insert(CommentDto commentDto);
 
     // 댓글 수정
-    void update(@Param("commentDto") CommentDto commentDto);
+    void update(CommentDto commentDto);
 
     // 댓글 삭제
-    void delete(@Param("commentNo") int commentNo);
+    void delete(int commentNo);
 
     // 댓글 조회 (하나)
     CommentDto selectOne(@Param("commentNo") int commentNo);

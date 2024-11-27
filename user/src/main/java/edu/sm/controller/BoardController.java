@@ -73,8 +73,9 @@ public class BoardController {
     // 게시물 상세보기 페이지
     @RequestMapping("/board/detail")
     public String showPostDetails(@RequestParam("noticeNo") int noticeNo,
+                                  @RequestParam(value = "commentNo", required = false) Integer commentNo, // 댓글 번호 추가
                                   Model model,
-                                  HttpSession session) {
+                                  HttpSession session) throws Exception {
         log.info("Navigating to Board Detail Page for noticeNo: {}", noticeNo);
 
         // 로그인된 사용자 정보 가져오기
@@ -93,16 +94,28 @@ public class BoardController {
         }
 
         // 댓글 데이터 조회
-        List<CommentDto> comments = null;  // 댓글 변수명 변경
+        List<CommentDto> comments = null;
         try {
             comments = commentService.getCommentsByNoticeNo(noticeNo); // 댓글 조회
         } catch (Exception e) {
             log.error("Failed to fetch comments for noticeNo: {}", noticeNo, e);
         }
 
+        // 댓글 번호가 전달되었을 경우 해당 댓글 정보도 모델에 추가 (optional)
+        if (commentNo != null) {
+            CommentDto commentDto = null;
+            try {
+                commentDto = commentService.getCommentByCommentNo(commentNo);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            model.addAttribute("selectedComment", commentDto); // 선택된 댓글 정보 추가
+            log.info("Selected comment: {}", commentDto);
+        }
+
         // 게시물 정보와 댓글 리스트를 모델에 추가
         model.addAttribute("board", boardDto); // 게시물 데이터 추가
-        model.addAttribute("comments", comments); // 댓글 목록 추가 (변경된 변수명 사용)
+        model.addAttribute("comments", comments); // 댓글 목록 추가
         model.addAttribute("pageTitle", "게시물 상세보기");
         model.addAttribute("top", "board/top");
         model.addAttribute("center", "board/boardDetail");
@@ -112,6 +125,7 @@ public class BoardController {
 
         return "index"; // index.jsp 반환
     }
+
 
     // 게시물 리스트 페이지 (페이징 처리)
     @RequestMapping("/board/list")

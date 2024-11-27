@@ -13,26 +13,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CommentDto {
     private int commentNo;
-    private int noticeNo;  // 기존 boardId -> noticeNo로 변경
-    private String custId;
-    private String commentContent;
-    private LocalDateTime commentDate;  // 시간 타입 변경: LocalDateTime으로 수정
+    private int noticeNo;  // 게시글 번호
+    private String custId;  // 작성자 ID
+    private String commentContent;  // 댓글 내용
+    private LocalDateTime commentDate;  // 댓글 작성일 (LocalDateTime 사용)
 
-    public void setCommentDate(LocalDateTime commentDate) {
-        this.commentDate = commentDate;  // LocalDateTime을 그대로 설정
-    }
-
-    // getId() 메서드 추가
-    public int getId() {
-        return commentNo;  // commentNo 필드를 반환
-    }
-
-    // noticeNo 설정 메서드 추가
-    public void setNoticeNo(int noticeNo) {
-        this.noticeNo = noticeNo;
-    }
-
-    public int getNoticeNo() {
-        return noticeNo;
-    }
+    // 별도의 setter와 getter는 Lombok의 @Data 어노테이션에 의해 자동으로 생성됨
 }

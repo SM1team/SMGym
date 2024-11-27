@@ -60,6 +60,10 @@ public class CommentService implements SMService<Integer, CommentDto> {
     public List<CommentDto> getCommentsByNoticeNo(int noticeNo) {
         return repository.findByNoticeNo(noticeNo);
     }
+    // 추가된 메서드: commentNo로 댓글 한 개 조회
+    public CommentDto getCommentByCommentNo(Integer commentNo) throws Exception {
+        return repository.selectOne(commentNo);
+    }
 
 
 }
