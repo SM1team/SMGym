@@ -50,10 +50,10 @@
     </delete>
 
     <!-- payment_id로 결제 정보 조회 -->
-    <select id="getPaymentByPaymentId" parameterType="String" resultType="edu.sm.app.dto.PaymentDto">
+    <select id="getPaymentByCustId" parameterType="String" resultType="edu.sm.app.dto.PaymentDto">
         SELECT *
         FROM payment
-        WHERE payment_id = #{paymentId}
+        WHERE customer_id = #{customerId}
     </select>
 
 </mapper>

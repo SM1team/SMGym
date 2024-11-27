@@ -1,22 +1,21 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 2024-11-20
-  Time: 오후 2:22
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+
+<html lang="ko">
 <head>
-    <title>마이 페이지</title>
-    <style>
-    </style>
-    <script>
-    </script>
+
 </head>
 <body>
-<h1>마이페이지</h1>
+<div class="mypage-options">
+    <h2>My Page</h2>
+    <p>회원 정보 수정 또는 나의 결제 목록을 확인하세요.</p>
+
+    <div class="buttons">
+        <a href="/mypage/info" class="btn btn-primary">회원 정보 수정</a>
+        <a href="/mypage/payment" class="btn btn-secondary">나의 결제 목록</a>
+
+    </div>
+</div>
 
 </body>
 </html>

@@ -12,6 +12,6 @@ import java.util.List;
 @Mapper
 
 public interface PaymentRepository extends SMRepository<String, PaymentDto> {
-    List<PaymentDto> getPaymentByPaymentId(String paymentId);
+    List<PaymentDto> getPaymentByCustId(String CustId);
 }
 

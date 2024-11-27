@@ -39,7 +39,7 @@ public class PaymentService implements SMService<String, PaymentDto> {
         return paymentRepository.select();
     }
 
-    public List<PaymentDto> getPaymentByPaymentId(String paymentId) {
-        return paymentRepository.getPaymentByPaymentId(paymentId);
+    public List<PaymentDto> getPaymentByCustId(String CustId) {
+        return paymentRepository.getPaymentByCustId(CustId);
     }
 }
