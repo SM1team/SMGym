@@ -7,8 +7,11 @@ import edu.sm.app.repository.CustCheckRepository;
 import edu.sm.app.repository.ItemRepository;
 import edu.sm.util.QRCodeGenerator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -42,26 +45,6 @@ public class CustCheckService implements SMService<String, CustCheckDto> {
         return custCheckRepository.select();
     }
 
-    // 출석 기록
-    public void recordCheckIn(String custId) {
-        CustCheckDto custCheck = CustCheckDto.builder()
-                .custId(custId)
-                .checkStart(new java.sql.Date(System.currentTimeMillis()))
-                .build();
-
-        custCheckRepository.save(custCheck);
-    }
-
-    // 퇴실 기록
-    public void recordCheckOut(String custId) {
-        // 기존 출석 데이터를 찾아 퇴실 시간 업데이트
-        CustCheckDto custCheck = custCheckRepository.findLatestCheckInByCustId(custId)
-                .orElseThrow(() -> new RuntimeException("No check-in record found for customer ID: " + custId));
-
-        custCheck.setCheckEnd(new java.sql.Date(System.currentTimeMillis()));
-        custCheckRepository.update(custCheck);
-    }
-
     //QR생성
     public String generateQRCode(String custId) {
         try {
@@ -79,6 +62,20 @@ public class CustCheckService implements SMService<String, CustCheckDto> {
             return "Error generating QR code";
         }
     }
+
+    // 출석 기록 저장 메서드
+    public void saveAttendance(String custId, String checkStart) throws Exception {
+        CustCheckDto custCheckDto = new CustCheckDto();
+        custCheckDto.setCustId(custId);
+
+        // checkStart를 String에서 LocalDateTime으로 변환한 후 Date로 변환
+        LocalDateTime localDateTime = LocalDateTime.parse(checkStart); // ISO 형식으로 날짜 변환
+        Date sqlDate = Date.valueOf(localDateTime.toLocalDate()); // Date로 변환
+
+        custCheckDto.setCheckStart(sqlDate); // checkStart에 Date 값 설정
+        custCheckRepository.save(custCheckDto); // 레포지토리 호출
+    }
+
 }
 
 

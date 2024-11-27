@@ -44,7 +44,10 @@
                                     <a class="nav-link" href="<c:url value="/workout"/>" style="color: black;" >Workout Log</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="<c:url value="/qr"/>" style="color: black;" >출석</a>
+                                    <a class="nav-link" href="<c:url value="/qr"/>" style="color: black;" >QR code</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<c:url value="/webcam"/>" style="color: black;" >check in</a>
                                 </li>
                             </c:otherwise>
                         </c:choose>
