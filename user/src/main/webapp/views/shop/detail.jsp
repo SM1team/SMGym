@@ -53,9 +53,7 @@
                     </select>
                 </div>
 
-
             </form>
-
 
             <div class="form-actions">
                 <!-- 결제하기 버튼 -->
@@ -73,13 +71,13 @@
             </div>
 
         </div>
+    </div>
 </div>
 
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script>
     // 결제하기 버튼 클릭 시 로그인 여부 확인
-    // 결제하기 버튼 클릭 시 로그인 여부 확인 후 결제 요청
     function checkLoginBeforePay() {
         if (!isLoggedIn()) {
             alert("로그인 후 결제할 수 있습니다.");
@@ -103,14 +101,13 @@
         return ${empty sessionScope.loginid ? 'false' : 'true'}; // sessionScope.loginid 값이 존재하면 true, 없으면 false 반환
     }
 
-
     var IMP = window.IMP; // 아임포트 객체 초기화
     IMP.init("imp51232683"); // 가맹점 식별코드 설정
 
     function requestPay() {
         // JSP에서 전달받은 상품 정보 활용
         var productName = document.getElementById("productName").value; // 상품 이름
-        var productAmount = parseInt(document.getElementById("productPrice").value.replace('₩', '').replace(',', '')); // 상품 가격
+        var productAmount = parseInt(document.getElementById("productPrice").value.replace('₩', '').replace(',', '')); // 상품 가격 (₩ 기호 및 쉼표 제거)
         var merchantUid = "ORD" + new Date().getTime(); // 고유 주문번호 생성
 
         // 로그인된 고객 정보
@@ -138,35 +135,33 @@
                     url: "/pay/complete",
                     type: "POST",
                     data: {
-                        paymentId: rsp.merchant_uid,
+                        paymentId: rsp.merchant_uid,  // merchant_uid를 paymentId로 보내고 있음
                         productNo: $("#productNo").val(),
                         productPrice: productAmount,
-                        customerId: $("#customerId").val()
+                        customerId: "${cust.custId}"  // 고객 ID를 세션에서 가져오기
                     },
                     success: function () {
                         alert("결제가 완료되었습니다.");
-                        location.href = "/pay/complete?payId=" + rsp.merchant_uid;
+                        // GET 요청으로 paymentId와 imp_uid를 함께 전달
+                        location.href = "/pay/complete?payment_id=" + rsp.merchant_uid + "&imp_uid=" + rsp.imp_uid;
                     },
                     error: function () {
                         alert("결제 정보를 처리하는 데 문제가 발생했습니다.");
                     }
                 });
+
             } else {
                 // 결제 실패 처리
                 alert("결제가 실패되었습니다: " + rsp.error_msg);
             }
         });
     }
-
 </script>
 
 <!-- Bootstrap JS (필수) -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-
-
 
 </body>
 </html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.sm.app.repository.PaymentRepository">
+
+    <!-- SELECT: 모든 결제 조회 -->
+    <select id="select" resultType="PaymentDto">
+        SELECT * FROM payment
+    </select>
+
+    <!-- SELECT: 특정 결제 조회 -->
+    <select id="selectOne" parameterType="String" resultType="PaymentDto">
+        SELECT * FROM payment WHERE payment_id=#{paymentId}
+    </select>
+
+    <!-- INSERT: 결제 정보 추가 -->
+    <insert id="insert" parameterType="PaymentDto">
+        INSERT INTO payment (
+            payment_id,
+            product_no,
+            customer_id,
+            amount,
+            payment_status,
+            created_at
+        ) VALUES (
+                     #{paymentId},
+                     #{productNo},
+                     #{customerId},
+                     #{amount},
+                     #{paymentStatus},
+                     NOW()
+                 )
+    </insert>
+
+    <!-- UPDATE: 결제 정보 수정 -->
+    <update id="update" parameterType="PaymentDto">
+        UPDATE payment
+        SET
+            product_no = #{productNo},
+            customer_id = #{customerId},
+            amount = #{amount},
+            payment_status = #{paymentStatus}
+        WHERE payment_id = #{paymentId}
+    </update>
+
+    <!-- DELETE: 결제 정보 삭제 -->
+    <delete id="delete" parameterType="String">
+        DELETE FROM payment WHERE payment_id = #{paymentId}
+    </delete>
+
+    <!-- payment_id로 결제 정보 조회 -->
+    <select id="getPaymentByPaymentId" parameterType="String" resultType="edu.sm.app.dto.PaymentDto">
+        SELECT *
+        FROM payment
+        WHERE payment_id = #{paymentId}
+    </select>
+
+</mapper>
