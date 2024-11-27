@@ -26,7 +26,7 @@
                 <td>${payment.productname}</td>
             </tr>
             <tr>
-                <th>결제 금액</th>
+                <th>결제 금2액</th>
                 <td>${payment.amount}</td>
             </tr>
             <tr>
