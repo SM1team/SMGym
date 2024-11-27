@@ -1,3 +1,10 @@
+
+
+
+
+
+
+나의 말:
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -26,10 +33,14 @@
         $("#commentForm").slideToggle();
       });
 
+
       // 댓글 수정 폼 토글
       $(".commentEditBtn").click(function () {
         var content = $(this).data("content");      // 댓글 내용 가져오기
-        var commentNo = $(this).data("commentNo");  // 댓글 번호 가져오기
+        var commentNo = $(this).data("commentno");  // 댓글 번호 가져오기
+        var noticeNo = "${board.noticeNo}";          // 게시글 번호 가져오기
+        alert(commentNo);
+        alert(content);
 
         // 댓글 수정 폼 표시
         $("#commentEditForm").slideDown();
@@ -37,7 +48,7 @@
         // 댓글 수정 폼에 데이터 설정
         $("#commentEditForm #content").val(content);
         $("#commentEditForm #commentNo").val(commentNo);  // 댓글 번호를 수정 폼에 설정
-        $("#commentEditForm #noticeNoEdit").val("${board.noticeNo}");  // 게시글 번호를 수정 폼에 설정
+        $("#commentEditForm #noticeNoEdit").val(noticeNo);  // 게시글 번호를 수정 폼에 설정
       });
     });
   </script>
@@ -54,7 +65,9 @@
 
   <!-- 목록으로 돌아가기와 댓글 작성 버튼 -->
   <a href="<c:url value='/board' />" class="btn btn-primary">목록으로 돌아가기</a>
-  <a href="javascript:void(0)" id="commentToggleBtn" class="btn btn-success ml-2">댓글 작성</a>
+  <c:if test="${board.custId == loginUser.custId}">
+    <a href="javascript:void(0)" id="commentToggleBtn" class="btn btn-success ml-2">댓글 작성</a>
+  </c:if>
 
   <!-- 댓글 리스트 -->
   <div id="commentsSection" class="mt-4">
@@ -68,12 +81,13 @@
         </p>
         <p>${comment.commentContent}</p>
 
+
         <!-- 댓글 수정 및 삭제 버튼 표시 -->
         <c:if test="${comment.custId == loginUser.custId}">
-          <!-- 댓글 수정 버튼 -->
           <button type="button" class="btn btn-warning btn-sm commentEditBtn"
-                  data-commentNo="${comment.commentNo}" data-content="${comment.commentContent}">
-            수정
+                  data-commentno="${comment.commentNo}"
+                  data-content="${comment.commentContent}">
+            수정버튼
           </button>
           <!-- 댓글 삭제 버튼 -->
           <a href="<c:url value='/comment/delete?commentId=${comment.commentNo}&noticeNo=${board.noticeNo}' />" class="btn btn-danger btn-sm">삭제</a>
@@ -110,7 +124,7 @@
       </div>
       <div class="form-group">
         <label for="commentNo">댓글 번호</label>
-        <input type="text" class="form-control" id="commentNo" name="commentNo" value="${comment.commentNo}" />
+        <input type="text" class="form-control" id="commentNo" name="commentNo" value="${comment.commentNo}"  />
       </div>
       <div class="form-group">
         <label for="custIdEdit">작성자 ID</label>
