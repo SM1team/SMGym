@@ -1,10 +1,3 @@
-
-
-
-
-
-
-나의 말:
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -65,9 +58,9 @@
 
   <!-- 목록으로 돌아가기와 댓글 작성 버튼 -->
   <a href="<c:url value='/board' />" class="btn btn-primary">목록으로 돌아가기</a>
-  <c:if test="${board.custId == loginUser.custId}">
+
     <a href="javascript:void(0)" id="commentToggleBtn" class="btn btn-success ml-2">댓글 작성</a>
-  </c:if>
+
 
   <!-- 댓글 리스트 -->
   <div id="commentsSection" class="mt-4">
