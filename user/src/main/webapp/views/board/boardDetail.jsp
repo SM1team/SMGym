@@ -32,8 +32,6 @@
         var content = $(this).data("content");      // 댓글 내용 가져오기
         var commentNo = $(this).data("commentno");  // 댓글 번호 가져오기
         var noticeNo = "${board.noticeNo}";          // 게시글 번호 가져오기
-        alert(commentNo);
-        alert(content);
 
         // 댓글 수정 폼 표시
         $("#commentEditForm").slideDown();
@@ -117,7 +115,7 @@
       </div>
       <div class="form-group">
         <label for="commentNo">댓글 번호</label>
-        <input type="text" class="form-control" id="commentNo" name="commentNo" value="${comment.commentNo}"  />
+        <input type="text" class="form-control" id="commentNo" name="commentNo" value="${comment.commentNo}" readonly/>
       </div>
       <div class="form-group">
         <label for="custIdEdit">작성자 ID</label>

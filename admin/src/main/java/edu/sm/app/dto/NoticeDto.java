@@ -20,4 +20,8 @@ public class NoticeDto {
     private String noticeImg;
 
     private TrainerDto trainer; // 추가된 부분
+
+    public void setImg(String fileName) {
+        this.noticeImg = fileName; // 경로를 그대로 사용
+    }
 }

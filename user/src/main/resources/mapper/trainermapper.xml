@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.sm.app.repository.TrainerRepository">
+
+    <!-- 트레이너 ID로 트레이너 조회 -->
+    <select id="findByTrainerId" parameterType="String" resultType="edu.sm.app.dto.TrainerDto">
+        SELECT trainer_id AS trainerId,
+               trainer_name AS trainerName,
+               trainer_age AS trainerAge,
+               trainer_gender AS trainerGender,
+               trainer_phone AS trainerPhone,
+               trainer_address AS trainerAddress,
+               trainer_pwd AS trainerPwd,
+               place_no AS placeNo
+        FROM trainer
+        WHERE trainer_id = #{trainerId}
+    </select>
+
+</mapper>

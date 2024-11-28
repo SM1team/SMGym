@@ -38,7 +38,7 @@
       <td><a href="<c:url value='/board/detail?noticeNo=${board.noticeNo}&custId=${loginUser.custId}' />">${board.noticeTitle}</a></td>
       <td>${board.custId}</td>
       <td>${board.noticeDate}</td>
-      <td><img src="<c:url value='/assets/img/board/${board.boardImg}' />" alt="게시물 이미지" width="50" height="50"></td>
+      <td> <img src="<c:url value='/imgs/${board.boardImg}' />" alt="게시물 이미지" height="50" width="50" /></td>
     </tr>
   </c:forEach>
   </tbody>
