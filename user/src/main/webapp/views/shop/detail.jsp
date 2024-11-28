@@ -22,7 +22,8 @@
             <form id="product-form">
                 <div class="form-group">
                     <label for="productName">상품 이름</label>
-                    <input type="text" id="productName" class="form-control" value="${product.productName}" readonly />
+                    <input type="hidden" id="productName" name="productName" value="${product.productName}" />
+                    <input type="text" class="form-control" value="${product.productName}" readonly />
                 </div>
 
                 <div class="form-group">
@@ -30,11 +31,6 @@
                     <input type="text" id="productPrice" class="form-control" value="₩${product.productPrice}" readonly />
                 </div>
 
-                <div class="form-group">
-                    <label for="productNo">상품 번호</label>
-                    <input type="hidden" id="productNo" name="productNo" value="${product.productNo}" />
-                    <input type="text" class="form-control" value="${product.productNo}" readonly />
-                </div>
 
                 <div class="form-group">
                     <label for="trainerSelection">트레이너 선택</label>
@@ -65,7 +61,7 @@
 
                 <!-- 찜하기 버튼 -->
                 <form action="/shop/wishlist/add" method="post" class="d-inline" id="wishlist-form">
-                    <input type="hidden" name="productNo" value="${product.productNo}" />
+<%--                    <input type="hidden" id="productName" name="productName" value="${product.productName}" />--%>
                     <button type="submit" class="btn btn-outline-secondary" onclick="checkLoginBeforeWishlist(event)">찜하기</button>
                 </form>
             </div>
@@ -135,20 +131,20 @@
                     url: "/pay/complete",
                     type: "POST",
                     data: {
-                        paymentId: rsp.merchant_uid,  // merchant_uid를 paymentId로 보내고 있음
-                        productNo: $("#productNo").val(),
-                        productPrice: productAmount,
-                        customerId: "${cust.custId}"  // 고객 ID를 세션에서 가져오기
+                        paymentId: rsp.merchant_uid,  // 요청의 고유 주문번호
+                        productName: $("#productName").val(), // 상품 이름
+                        productPrice: productAmount, // 상품 가격
+                        custId: "${cust.custId}"  // 고객 ID
                     },
                     success: function () {
                         alert("결제가 완료되었습니다.");
-                        // GET 요청으로 paymentId와 imp_uid를 함께 전달
                         location.href = "/pay/complete?payment_id=" + rsp.merchant_uid + "&imp_uid=" + rsp.imp_uid;
                     },
                     error: function () {
                         alert("결제 정보를 처리하는 데 문제가 발생했습니다.");
                     }
                 });
+
 
             } else {
                 // 결제 실패 처리

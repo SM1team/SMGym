@@ -22,8 +22,8 @@
                 <td>${payment.paymentId}</td>
             </tr>
             <tr>
-                <th>상품 번호</th>
-                <td>${payment.productNo}</td>
+                <th>상품 이름</th>
+                <td>${payment.productName}</td>
             </tr>
             <tr>
                 <th>결제 금액</th>

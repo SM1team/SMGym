@@ -33,15 +33,13 @@
                             </c:when>
                             <c:otherwise>
                                 <li class="nav-item">
-                                    <a class="nav-link"href="<c:url value="/mypage"/>" style="color: black;" >${sessionScope.loginid.custId}</a>
+                                    <a class="nav-link"href="<c:url value="/mypage"/>" style="color: black;" >Mypage</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<c:url value="/logoutimpl"/>" style="color: black;" >Logout</a>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="<c:url value="/workout"/>" style="color: black;" >Workout Log</a>
-                                </li>
+
                             </c:otherwise>
                         </c:choose>
 

@@ -21,8 +21,8 @@
       <td>${payment.paymentId}</td>
     </tr>
     <tr>
-      <th>상품 번호</th>
-      <td>${payment.productNo}</td>
+      <th>상품 아름</th>
+      <td>${payment.productName}</td>
     </tr>
     <tr>
       <th>결제 금액</th>
@@ -34,7 +34,7 @@
     </tr>
     <tr>
       <th>고객 ID</th>
-      <td>${payment.customerId}</td>
+      <td>${payment.custId}</td>
     </tr>
   </table>
 

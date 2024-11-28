@@ -11,36 +11,36 @@
 
     <!-- SELECT: 특정 결제 조회 -->
     <select id="selectOne" parameterType="String" resultType="PaymentDto">
-        SELECT * FROM payment WHERE payment_id=#{paymentId}
+        SELECT * FROM payment WHERE payment_id = #{paymentId}
     </select>
 
     <!-- INSERT: 결제 정보 추가 -->
     <insert id="insert" parameterType="PaymentDto">
         INSERT INTO payment (
-            payment_id,
-            product_no,
-            customer_id,
-            amount,
-            payment_status,
-            created_at
+        payment_id,
+        product_name,  <!-- 변경 -->
+        cust_id,       <!-- 변경 -->
+        amount,
+        payment_status,
+        created_at
         ) VALUES (
-                     #{paymentId},
-                     #{productNo},
-                     #{customerId},
-                     #{amount},
-                     #{paymentStatus},
-                     NOW()
-                 )
+        #{paymentId},
+        #{productName},  <!-- 변경 -->
+        #{custId},       <!-- 변경 -->
+        #{amount},
+        #{paymentStatus},
+        NOW()
+        )
     </insert>
 
     <!-- UPDATE: 결제 정보 수정 -->
     <update id="update" parameterType="PaymentDto">
         UPDATE payment
         SET
-            product_no = #{productNo},
-            customer_id = #{customerId},
-            amount = #{amount},
-            payment_status = #{paymentStatus}
+        product_name = #{productName},  <!-- 변경 -->
+        cust_id = #{custId},           <!-- 변경 -->
+        amount = #{amount},
+        payment_status = #{paymentStatus}
         WHERE payment_id = #{paymentId}
     </update>
 
@@ -49,11 +49,11 @@
         DELETE FROM payment WHERE payment_id = #{paymentId}
     </delete>
 
-    <!-- payment_id로 결제 정보 조회 -->
+    <!-- cust_id로 결제 정보 조회 -->
     <select id="getPaymentByCustId" parameterType="String" resultType="edu.sm.app.dto.PaymentDto">
         SELECT *
         FROM payment
-        WHERE customer_id = #{customerId}
+        WHERE cust_id = #{custId}  <!-- 변경 -->
     </select>
 
 </mapper>

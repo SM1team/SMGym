@@ -13,6 +13,7 @@
     <div class="buttons">
         <a href="/mypage/info" class="btn btn-primary">회원 정보 수정</a>
         <a href="/mypage/payment" class="btn btn-secondary">나의 결제 목록</a>
+        <a href="/workout" class="btn btn-secondary">Workout Log </a>
 
     </div>
 </div>

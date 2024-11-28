@@ -47,7 +47,6 @@
         send:function(){
             // method, action
             $('#register_form').attr('method','post');
-
             $('#register_form').attr('action','/mypage/updateimpl');
             $('#register_form').submit();
         }
@@ -84,10 +83,9 @@
                     <label for="name">Phone:</label>
                     <input type="text" value="${cust.custPhone}" class="form-control" placeholder="Enter phone number" id="phone" name="custPhone">
                 </div>
-
-<%--                <div class="form-group">--%>
-<%--                    <label for="name">Adress:</label>--%>
-<%--                    <input type="text" value="${cust.custAdress}" class="form-control" placeholder="Enter Adress" id="adress" name="custAdress">--%>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" value="${cust.custAddress}" class="form-control" placeholder="Enter Address" id="address" name="custAddress">
                 </div>
                 <button type="button" id="update_btn" class="btn btn-primary">Update</button>
             </form>

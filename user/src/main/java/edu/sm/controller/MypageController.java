@@ -13,6 +13,7 @@
     import org.springframework.web.bind.annotation.PostMapping;
     import org.springframework.web.bind.annotation.RequestMapping;
     import org.springframework.web.bind.annotation.RequestParam;
+    import org.springframework.web.bind.annotation.SessionAttribute;
 
     import java.util.List;
 
@@ -34,23 +35,30 @@
             return "index";
         }
         @RequestMapping("/info")
-        public String get(Model model,HttpSession session) throws Exception {
+        public String get(Model model, HttpSession session) throws Exception {
+            // 세션에서 로그인된 사용자 ID를 가져옵니다.
             CustDto custDto = (CustDto) session.getAttribute("loginid");
+
             if (custDto != null) {
                 model.addAttribute("cust", custDto);
-                log.info("로그인된 고객 정보: {}", custDto);
             } else {
                 log.info("로그인된 고객 정보가 없습니다.");
             }
-            model.addAttribute("cust",custDto);
-            model.addAttribute("top",dir+"top");
-            model.addAttribute("center",dir+"info");
+            model.addAttribute("top", dir + "top");
+            model.addAttribute("center", dir + "info");
             return "index";
         }
 
+
         @RequestMapping("/updateimpl")
-        public String updateimpl(Model model, CustDto custDto ) throws Exception {
+        public String updateimpl(Model model, CustDto custDto, HttpSession session) throws Exception {
+            // 1. CustDto 수정
             custService.modify(custDto);
+
+            // 2. 수정된 CustDto를 세션에 갱신
+            session.setAttribute("loginid", custDto); // 세션에 저장된 값을 수정된 객체로 갱신
+
+            // 3. info 페이지로 리다이렉트
             return "redirect:/mypage/info";
         }
 

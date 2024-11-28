@@ -50,25 +50,26 @@ public class PaymentController {
     @PostMapping("/complete")
     public String savePayment(
             @RequestParam String paymentId,
-            @RequestParam Integer productNo,
+            @RequestParam String productName,
             @RequestParam BigDecimal productPrice,
-            @RequestParam String customerId,
+            @RequestParam String custId,
             Model model
     ) throws Exception {
         PaymentDto paymentDto = new PaymentDto();
         paymentDto.setPaymentId(paymentId);
-        paymentDto.setProductNo(productNo);
+        paymentDto.setProductName(productName);
         paymentDto.setAmount(productPrice);
-        paymentDto.setCustomerId(customerId);
+        paymentDto.setCustId(custId);
         paymentDto.setPaymentStatus("SUCCESS");
 
-        paymentService.add(paymentDto);
+        paymentService.add(paymentDto); // DB에 저장
 
         model.addAttribute("payment", paymentDto);
         model.addAttribute("top", "pay/" + "top");
 
-        return "redirect:/pay/complete?imp_uid=" + paymentId;
+        return "redirect:/pay/complete?imp_uid=" + paymentId; // 이 부분 변경 필요
     }
+
 
     @GetMapping("/complete")
     public String showPaymentCompletePage(
