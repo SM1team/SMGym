@@ -10,7 +10,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-
                 <li class="nav-item"><a class="nav-link" href="<c:url value='/#services'/>">Services</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value='/#trainer'/>">Trainer</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value='/#about'/>">About</a></li>
@@ -39,7 +38,18 @@
                                     <a class="nav-link" href="<c:url value="/logoutimpl"/>" style="color: black;" >Logout</a>
                                 </li>
 
-
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<c:url value="/workout"/>" style="color: black;" >Workout Log</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<c:url value="/qr"/>" style="color: black;" >QR code</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<c:url value="/webcam"/>" style="color: black;" >check in</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<c:url value="/webcam2"/>" style="color: black;" >check out</a>
+                                </li>
                             </c:otherwise>
                         </c:choose>
 

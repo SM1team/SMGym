@@ -4,6 +4,27 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.sm.app.repository.TrainerRepository">
 
+    <select id="trainerfindpage" resultType="TrainerDto" parameterType="search">
+        SELECT *
+        FROM trainer
+        WHERE 1=1
+
+        <if test="keyword == 'id'">
+            AND trainer_id LIKE CONCAT('%', #{search}, '%')
+        </if>
+        <if test="keyword == 'name'">
+            AND trainer_name LIKE CONCAT('%', #{search}, '%')
+        </if>
+        <if test="keyword == 'place'">
+            AND place_no LIKE CONCAT('%', #{search}, '%')
+        </if>
+
+        <if test="keyword == 'phone'">
+            AND trainer_phone LIKE CONCAT('%', #{search}, '%')
+        </if>
+
+    </select>
+
 
     <select id="selectOne" parameterType="String" resultType="trainerDto">
         SELECT * FROM trainer WHERE trainer_id=#{trainerId}
@@ -12,9 +33,11 @@
     <select id="select" resultType="trainerDto" >
         SELECT * FROM trainer
     </select>
-<!--    <insert id="insert" parameterType="custDto">-->
-<!--        INSERT INTO db_cust VALUES (#{id},#{pwd},#{name})-->
-<!--    </insert>-->
+
+
+    <insert id="insert" parameterType="trainerDto">
+        INSERT INTO trainer VALUES (#{trainerId},#{trainerName},#{trainerAge},#{trainerGender},#{trainerPhone},#{trainerAddress},#{trainerPwd},#{placeNo})
+    </insert>
 <!--    <update id="update" parameterType="custDto">-->
 <!--        UPDATE db_cust SET pwd=#{pwd},name=#{name} WHERE id=#{id}-->
 <!--    </update>-->

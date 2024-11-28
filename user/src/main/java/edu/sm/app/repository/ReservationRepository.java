@@ -22,8 +22,6 @@ public interface ReservationRepository extends SMRepository<Integer, Reservation
 
     Page<ReservationDto> cargetpage() throws Exception;
 
-//    Page<ReservationDto> cargetfindpage(Search search) throws Exception;
-
     List<ReservationDto> selectByCustId(String custId);
 
 
