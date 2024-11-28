@@ -66,7 +66,7 @@
 
             // 출석 데이터 서버로 전송
             sendAttendanceData: function (qrData) {
-                const custId = qrData.split('=')[1]; // QR 코드에서 custId 추출
+                const trainerId = qrData.split('=')[1]; // QR 코드에서 trainerId 추출
                 const now = new Date();
                 const scanTime = now.getFullYear() + "-" +
                     String(now.getMonth() + 1).padStart(2, '0') + "-" +
@@ -77,7 +77,7 @@
                 console.log(scanTime);
 
                 const payload = {
-                    custId: custId,
+                    trainerId: trainerId,
                     scanTime: scanTime
                 };
 
