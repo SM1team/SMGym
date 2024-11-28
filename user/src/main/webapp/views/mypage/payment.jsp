@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="container mt-5">
-    <h1>${cust.custName}님 결제 목록</h1>
+    <h1>${cust.custName}님결제 목록</h1>
 
     <!-- 결제 정보 반복 출력 -->
     <c:forEach var="payment" items="${payments}">
@@ -23,10 +23,10 @@
             </tr>
             <tr>
                 <th>상품 번호</th>
-                <td>${payment.productname}</td>
+                <td>${payment.productNo}</td>
             </tr>
             <tr>
-                <th>결제 금2액</th>
+                <th>결제 금액</th>
                 <td>${payment.amount}</td>
             </tr>
             <tr>
@@ -37,6 +37,7 @@
                 <th>결제 일시</th>
                 <td>${payment.createdAt}</td>
             </tr>
+
         </table>
     </c:forEach>
 
