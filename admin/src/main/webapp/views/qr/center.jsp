@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +15,7 @@
 
 
   <!-- 사용자 정보 표시 -->
-  <h5>${sessionScope.loginid.custId}님의 QR코드.</h5>
+  <h5>${sessionScope.loginid.trainerId}님의 QR코드.</h5>
 
 
   <!-- QR 코드 이미지 출력 (Base64로 인코딩된 QR 코드) -->
