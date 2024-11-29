@@ -163,9 +163,6 @@ public class CommentController {
 
         return "index";  // index.jsp 반환
     }
-
-
-
     // 댓글 삭제 처리
     @RequestMapping("/comment/delete")
     public String deleteComment(@RequestParam("commentId") int commentId,
@@ -176,11 +173,9 @@ public class CommentController {
             model.addAttribute("error", "로그인이 필요합니다.");
             return "redirect:/login";  // 로그인 페이지로 리다이렉트
         }
-
         try {
             // 댓글 삭제
             commentService.del(commentId);  // 삭제 메서드 호출
-
             // 게시물 상세 페이지로 리디렉션 (성공 메시지 전달)
             model.addAttribute("success", "댓글이 성공적으로 삭제되었습니다.");
             return "redirect:/board/detail?noticeNo=" + noticeNo;

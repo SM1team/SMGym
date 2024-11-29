@@ -192,9 +192,7 @@ public class MainController {
     }
 // 트레이너-------------------------------------------------------
     @RequestMapping("/trainerdeleteimpl")
-    public String trainerdeleteimpl(Model model,
-                                 @RequestParam("trainerId") String trainerId
-    ) throws Exception {
+    public String trainerdeleteimpl(Model model, @RequestParam("trainerId") String trainerId) throws Exception {
 //        회원가입을 하는동시에 사용자의 정보를 session에 담아서 동작을 시키기 위함
 
         // 서비스에서 예약 상태 업데이트
