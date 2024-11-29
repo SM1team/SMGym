@@ -72,7 +72,7 @@ mybatis:
 # 4. Logging Setting
 logging:
   level:
-    root: info
+    root: error
   #  error > info > debug
 
 # 5. Application Environment Setting
@@ -84,7 +84,7 @@ app:
       # 이미지 업로드 디렉토리 경로
     uploadimgdir: c:/SMGym/imgs/
       # 이미지 파일을 서빙할 경로 (Spring Boot에서 정적 리소스 제공)
-    imgdir: file:///c:/SMGym/user/src/main/resources/static/assets/img
+    imgdir: file:///c:/SMGym/imgs/
       # 로그 디렉토리 경로
     logdir: file:///c:/SMGym/SMGym/logs/
     readlogdir: c:/SMGym/SMGym/logs/
