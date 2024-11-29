@@ -23,7 +23,9 @@
 <script>
     let map1 = {
         map: null,
-        marker: null,
+        existingMarker: null, // 기존 위치 마커
+        currentLocationMarker: null, // 현재 위치 마커
+
         initMap: function () {
             let mapContainer = document.getElementById('map1');
             let mapOption = {
@@ -32,32 +34,59 @@
             };
 
             this.map = new kakao.maps.Map(mapContainer, mapOption);
+
             let mapTypeControl = new kakao.maps.MapTypeControl();
             this.map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 
             let zoomControl = new kakao.maps.ZoomControl();
             this.map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-            let markerPosition = new kakao.maps.LatLng(36.7945989, 127.1045622);
-            this.marker = new kakao.maps.Marker({
-                position: markerPosition
-            });
-            this.marker.setMap(this.map);
+            this.setExistingMarker(new kakao.maps.LatLng(36.7945989, 127.1045622)); // 기존 마커 설정
+        },
 
-            let iwContent = '<div>Hello World!</div><img style="width:100px;" src="<c:url value="/img/health1.jpg"/>">';
+        setExistingMarker: function (position) {
+            if (!this.existingMarker) {
+                this.existingMarker = new kakao.maps.Marker({
+                    position: position
+                });
+                this.existingMarker.setMap(this.map);
+
+                let iwContent = `<div>탕정역점</div>`;
+                let infowindow = new kakao.maps.InfoWindow({
+                    position: position,
+                    content: iwContent
+                });
+
+                kakao.maps.event.addListener(this.existingMarker, 'mouseover', function () {
+                    infowindow.open(map1.map, map1.existingMarker);
+                });
+                kakao.maps.event.addListener(this.existingMarker, 'mouseout', function () {
+                    infowindow.close();
+                });
+            }
+        },
+
+        setCurrentLocationMarker: function (position) {
+            if (this.currentLocationMarker) {
+                this.currentLocationMarker.setMap(null); // 기존 현재 위치 마커 제거
+            }
+            this.currentLocationMarker = new kakao.maps.Marker({
+                position: position,
+                image: new kakao.maps.MarkerImage(
+                    "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
+                    new kakao.maps.Size(24, 35)
+                ) // 현재 위치를 구분하기 위한 커스텀 마커 이미지
+            });
+            this.currentLocationMarker.setMap(this.map);
+
+            let iwContent = `<div>내 현재 위치</div>`;
             let infowindow = new kakao.maps.InfoWindow({
-                position: markerPosition,
+                position: position,
                 content: iwContent
             });
 
-            kakao.maps.event.addListener(this.marker, 'mouseover', function () {
-                infowindow.open(map1.map, map1.marker);
-            });
-            kakao.maps.event.addListener(this.marker, 'mouseout', function () {
-                infowindow.close();
-            });
-            kakao.maps.event.addListener(this.marker, 'click', function () {
-                window.location.href = 'http://sunmoon.ac.kr';
+            kakao.maps.event.addListener(this.currentLocationMarker, 'click', function () {
+                infowindow.open(map1.map, map1.currentLocationMarker);
             });
         }
     };
@@ -65,14 +94,33 @@
     $(document).ready(function () {
         $('#locationModal1').on('shown.bs.modal', function () {
             if (!map1.map) {
-                map1.initMap(); // 모달이 열릴 때 지도를 초기화
+                map1.initMap(); // 모달이 열릴 때 지도 초기화
             } else {
                 map1.map.relayout(); // 이미 지도가 생성되어 있다면 크기 재조정
                 map1.map.setCenter(new kakao.maps.LatLng(36.7945989, 127.1045622));
             }
+
+            // 현재 위치 설정
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        let lat = position.coords.latitude; // 위도
+                        let lng = position.coords.longitude; // 경도
+                        let currentPosition = new kakao.maps.LatLng(lat, lng);
+
+                        map1.setCurrentLocationMarker(currentPosition); // 현재 위치 마커 설정
+                    },
+                    function (error) {
+                        console.error("Error obtaining geolocation:", error);
+                    }
+                );
+            } else {
+                alert("현재 위치 정보를 사용할 수 없습니다.");
+            }
         });
     });
 </script>
+
 
 <html lang="ko">
 <head>
