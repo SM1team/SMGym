@@ -15,7 +15,7 @@
     <update id="update" parameterType="CustCheckDto">
         UPDATE custcheck
         SET check_end = #{checkEnd}
-        WHERE check_no = #{checkNo}
+        WHERE check_no = #{checkno}
     </update>
 
     <!-- 가장 최근 출석 기록 조회 -->
@@ -26,6 +26,22 @@
         ORDER BY check_no DESC
             LIMIT 1
     </select>
+
+    <update id="updateCheckEndTime">
+        UPDATE custcheck AS main
+            JOIN (
+            SELECT check_no
+            FROM custcheck
+            WHERE cust_id = #{custId}
+            AND check_end IS NULL
+            ORDER BY check_start DESC
+            LIMIT 1
+            ) AS sub
+        ON main.check_no = sub.check_no
+            SET main.check_end = #{checkEnd}
+
+    </update>
+
 
 
 </mapper>

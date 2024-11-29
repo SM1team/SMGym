@@ -37,19 +37,33 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <c:choose>
                             <c:when test="${sessionScope.loginid == null}">
-                                <!-- 로그인이 안되어 있을 때 -->
+
                                 <li><a class="dropdown-item" href="<c:url value='/login'/>">Login</a></li>
                                 <li><a class="dropdown-item" href="<c:url value='/register'/>">Sign Up</a></li>
                             </c:when>
                             <c:otherwise>
-                                <!-- 로그인이 된 상태 -->
-                                <li><a class="dropdown-item" href="<c:url value="/mypage"/>">${sessionScope.loginid.custId}</a></li>
-                                <li><a class="dropdown-item" href="<c:url value="/logoutimpl"/>">Logout</a></li>
-                                <li><a class="dropdown-item" href="<c:url value="/workout"/>">Workout Log</a></li>
-                                <li><a class="dropdown-item" href="<c:url value="/qr"/>">QR code</a></li>
-                                <li><a class="dropdown-item" href="<c:url value="/webcam"/>">Check in</a></li>
+                                <li class="nav-item">
+                                    <a class="nav-link"href="<c:url value="/mypage"/>" style="color: black;" >Mypage</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<c:url value="/logoutimpl"/>" style="color: black;" >Logout</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<c:url value="/workout"/>" style="color: black;" >Workout Log</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<c:url value="/qr"/>" style="color: black;" >QR code</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<c:url value="/webcam"/>" style="color: black;" >check in</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<c:url value="/webcam2"/>" style="color: black;" >check out</a>
+                                </li>
                             </c:otherwise>
                         </c:choose>
+
                     </ul>
                 </li>
             </ul>

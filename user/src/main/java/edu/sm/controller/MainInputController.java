@@ -59,7 +59,6 @@ public class MainInputController {
         session.setAttribute("loginid", custDto);
         return "index";
     }
-
     @RequestMapping("/logoutimpl")
     public String logoutimpl(HttpSession session, Model model) {
         if (session != null) {

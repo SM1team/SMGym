@@ -49,24 +49,32 @@
                     if (code) {
                         // QR 코드가 발견되면
                         const data = code.data; // QR 코드에서 추출된 데이터
-                        console.log("QR Code detected:", data);  // 콘솔에 QR 코드 데이터 표시
+                        
 
                         // QR 코드 스캔이 완료되었음을 사용자에게 알려주는 메시지
-                        alert("QR SUCCESS");
+                        alert("QR SUCCESS" + data);
 
                         // custId와 scanTime을 서버로 전송
                         this.sendAttendanceData(data);
                     }
-
-                    requestAnimationFrame(scan); // 반복적으로 스캔
                 };
-                scan(); // 스캔 시작
-            },
+
+                // 3초마다 한 번씩 QR 코드를 스캔
+                setInterval(scan, 3000); // 3000ms = 3초마다 스캔
+            }
+            ,
 
             // 출석 데이터 서버로 전송
             sendAttendanceData: function (qrData) {
                 const custId = qrData.split('=')[1]; // QR 코드에서 custId 추출
-                const scanTime = new Date().toISOString(); // 현재 시간을 ISO 형식으로 생성
+                const now = new Date();
+                const scanTime = now.getFullYear() + "-" +
+                    String(now.getMonth() + 1).padStart(2, '0') + "-" +
+                    String(now.getDate()).padStart(2, '0') + "T" +
+                    String(now.getHours()).padStart(2, '0') + ":" +
+                    String(now.getMinutes()).padStart(2, '0') + ":" +
+                    String(now.getSeconds()).padStart(2, '0');
+                console.log(scanTime);
 
                 const payload = {
                     custId: custId,
@@ -74,7 +82,7 @@
                 };
 
                 // 출석 데이터를 서버로 전송
-                fetch('/checkin', {
+                fetch('/check/checkin', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -87,6 +95,7 @@
                     })
                     .catch(error => {
                         console.error('Error:', error);
+                        alert("error");
 
                     });
             }
@@ -100,7 +109,7 @@
 </head>
 <body>
 <div class="col-sm-8 text-left">
-    <h1>Webcam Stream and QR Scan</h1>
+    <h1>QR CHECKIN</h1>
     <hr>
     <!-- 카메라 화면을 표시할 비디오 요소 -->
     <video id="myVideo" width="400" height="300" style="border: 1px solid #ddd;"></video><br>

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class CustCheckService implements SMService<String, CustCheckDto> {
     public String generateQRCode(String custId) {
         try {
             // QR 코드에 담을 내용 (여기서는 회원 ID)
-            String data = "https://127.0.0.1:85/checkin?custId=" + custId;
+            String data = "https://127.0.0.1:85/check?custId=" + custId;
 
             // QR 코드 생성
             byte[] qrImageBytes = QRCodeGenerator.generateQRCodeImage(data);
@@ -63,17 +64,32 @@ public class CustCheckService implements SMService<String, CustCheckDto> {
         }
     }
 
-    // 출석 기록 저장 메서드
     public void saveAttendance(String custId, String checkStart) throws Exception {
         CustCheckDto custCheckDto = new CustCheckDto();
         custCheckDto.setCustId(custId);
 
-        // checkStart를 String에서 LocalDateTime으로 변환한 후 Date로 변환
+        // checkStart를 String에서 LocalDateTime으로 변환
         LocalDateTime localDateTime = LocalDateTime.parse(checkStart); // ISO 형식으로 날짜 변환
-        Date sqlDate = Date.valueOf(localDateTime.toLocalDate()); // Date로 변환
 
-        custCheckDto.setCheckStart(sqlDate); // checkStart에 Date 값 설정
+        // LocalDateTime을 Timestamp로 변환
+        Timestamp timestamp = Timestamp.valueOf(localDateTime); // Timestamp로 변환
+
+        custCheckDto.setCheckStart(timestamp); // checkStart에 Timestamp 값 설정
         custCheckRepository.save(custCheckDto); // 레포지토리 호출
+    }
+
+    public void updateCheckEndTime(String custId, String checkEnd) throws Exception {
+        CustCheckDto custCheckDto = new CustCheckDto();
+        custCheckDto.setCustId(custId);
+
+        // checkStart를 String에서 LocalDateTime으로 변환
+        LocalDateTime localDateTime = LocalDateTime.parse(checkEnd); // ISO 형식으로 날짜 변환
+
+        // LocalDateTime을 Timestamp로 변환
+        Timestamp timestamp = Timestamp.valueOf(localDateTime); // Timestamp로 변환
+
+        custCheckDto.setCheckEnd(timestamp); // checkStart에 Timestamp 값 설정
+        custCheckRepository.updateCheckEndTime(custCheckDto); // 레포지토리 호출
     }
 
 }

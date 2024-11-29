@@ -19,8 +19,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
        // log.info("================"+logdir);
 
-        registry.addResourceHandler("/imgs/**").addResourceLocations(imgdir);
+        registry.addResourceHandler("/img/**")
+                .addResourceLocations("file:///c:/SMGym/user/src/main/resources/static/assets/img");
         registry.addResourceHandler("/logs/**").addResourceLocations(logdir);
+
     }
     //우리의 webapp가 사용될 수 있도록 등록한다.
 

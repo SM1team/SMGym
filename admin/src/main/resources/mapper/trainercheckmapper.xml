@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.sm.app.repository.TrainerCheckRepository"><!-- 이 xml은 누가 사용하냐?의미 -> -->
+
+
+    <!-- 출석 기록 저장 -->
+    <insert id="save" parameterType="TrainerCheckDto">
+        INSERT INTO trainercheck (trainer_id, tcheck_start)
+        VALUES (#{trainerId}, #{tcheckStart})
+    </insert>
+
+    <!-- 퇴실 기록 업데이트 -->
+    <update id="update" parameterType="TrainerCheckDto">
+        UPDATE trainercheck
+        SET tcheck_end = #{tcheckEnd}
+        WHERE tcheck_no = #{tcheckno}
+    </update>
+
+    <!-- 가장 최근 출석 기록 조회 -->
+    <select id="findLatestCheckInByTrainerId" parameterType="String" resultType="TrainerCheckDto">
+        SELECT *
+        FROM trainercheck
+        WHERE tariner_id = #{trainerId} AND tcheck_end IS NULL
+        ORDER BY tcheck_no DESC
+            LIMIT 1
+    </select>
+
+    <update id="updateCheckEndTime">
+        UPDATE trainercheck AS main
+            JOIN (
+            SELECT tcheck_no
+            FROM trainercheck
+            WHERE trainer_id = #{trainerId}
+            AND tcheck_end IS NULL
+            ORDER BY tcheck_start DESC
+            LIMIT 1
+            ) AS sub
+        ON main.tcheck_no = sub.tcheck_no
+            SET main.tcheck_end = #{tcheckEnd}
+
+    </update>
+
+
+
+</mapper>

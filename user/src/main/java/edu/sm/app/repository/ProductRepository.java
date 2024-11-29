@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 @Mapper
 public interface ProductRepository extends SMRepository<Integer, ProductDto> {
+
 }

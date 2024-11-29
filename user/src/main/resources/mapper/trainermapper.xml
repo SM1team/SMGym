@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.sm.app.repository.TrainerRepository">
 
+
+    <select id="getTrainerIds" resultType="edu.sm.app.dto.TrainerDto">
+        SELECT trainer_id,trainer_name ,trainer_gender FROM trainer
     <!-- 트레이너 ID로 트레이너 조회 -->
     <select id="findByTrainerId" parameterType="String" resultType="edu.sm.app.dto.TrainerDto">
         SELECT trainer_id AS trainerId,
@@ -17,5 +20,7 @@
         FROM trainer
         WHERE trainer_id = #{trainerId}
     </select>
+
+
 
 </mapper>
