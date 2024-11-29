@@ -73,12 +73,25 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     testImplementation 'org.springframework.security:spring-security-test'
 
+    //QR
+    implementation 'com.google.zxing:core:3.5.1'
+    implementation 'com.google.zxing:javase:3.5.1'
+
 
     // test에도 lombook을 사용할 수 있도록.
     testImplementation 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Spring Boot 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Jackson 라이브러리 (JSON 처리)
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+
+    // 기타 필요한 의존성 추가
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {

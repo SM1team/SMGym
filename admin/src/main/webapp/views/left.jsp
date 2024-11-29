@@ -38,26 +38,32 @@
                 <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false"
                    aria-controls="form-elements">
                     <i class="menu-icon mdi mdi-card-text-outline"></i>
-                    <span class="menu-title">Form elements</span>
+                    <span class="menu-title">트레이너 출석</span>
                     <i class="menu-arrow"></i>
                 </a>
                 <div class="collapse" id="form-elements">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic
-                            Elements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/checkin">출근
+                            </a></li>
+                    </ul>
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="/checkout">퇴근
+                            </a></li>
                     </ul>
                 </div>
+
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false"
                    aria-controls="charts">
                     <i class="menu-icon mdi mdi-chart-line"></i>
-                    <span class="menu-title">Charts</span>
+                    <span class="menu-title">차트</span>
                     <i class="menu-arrow"></i>
                 </a>
                 <div class="collapse" id="charts">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/chart/gender"/>" >일 방문 현황</a></li>
+
                     </ul>
                 </div>
             </li>

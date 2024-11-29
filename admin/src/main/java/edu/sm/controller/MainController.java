@@ -273,6 +273,26 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping("/checkin")
+    public String checkin(Model model){ //트레이너 조회
+        model.addAttribute("top","top");
+        model.addAttribute("left", "left");
+        model.addAttribute("center", "checkin");
+
+
+        return "index";
+    }
+
+    @RequestMapping("/checkout")
+    public String checkout(Model model){ //트레이너 조회
+        model.addAttribute("top","top");
+        model.addAttribute("left", "left");
+        model.addAttribute("center", "checkout");
+
+
+        return "index";
+    }
+
 
 
 

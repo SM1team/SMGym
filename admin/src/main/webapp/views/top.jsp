@@ -35,11 +35,12 @@
             </button>
         </div>
         <div>
-            <a class="navbar-brand brand-logo" href="<c:url value="//"/>">
-                <img src="<c:url value="/assets/images/logo.svg"/>" alt="logo"/>
+
+            <a class="navbar-brand brand-logo" href="/">
+                <img src="<c:url value="${pageContext.request.contextPath}/assets/images/logo.svg"/>" alt="logo"/>
             </a>
-            <a class="navbar-brand brand-logo-mini" href="<c:url value="//"/>">
-                <img src="<c:url value="/assets/images/logo-mini.svg"/>" alt="logo"/>
+            <a class="navbar-brand brand-logo-mini" href="/">
+                <img src="<c:url value="${pageContext.request.contextPath}/assets/images/logo-mini.svg"/>" alt="logo"/>
             </a>
         </div>
     </div>
@@ -214,8 +215,8 @@
                     <a class="dropdown-item"><i
                             class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile
                         <span class="badge badge-pill badge-danger">1</span></a>
-                    <a class="dropdown-item"><i
-                            class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> Messages</a>
+                    <a class="dropdown-item" href="<c:url value="/qr"/>" ><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2" ></i>QR CODE</a>
+
                     <a class="dropdown-item"><i
                             class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i>
                         Activity</a>

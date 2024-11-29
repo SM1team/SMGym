@@ -17,4 +17,6 @@ public interface CustCheckRepository extends SMRepository<String, CustCheckDto> 
 
     void update(CustCheckDto custCheckDto);
 
+    void updateCheckEndTime(CustCheckDto custCheckDto);
+
 }

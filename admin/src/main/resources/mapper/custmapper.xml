@@ -50,4 +50,12 @@
         DELETE FROM cust WHERE cust_id=#{custId}
     </delete>
 
+    <!-- 성별별 인원 수를 반환 -->
+    <select id="getGenderCounts" resultType="map">
+        SELECT cust_gender,
+           COUNT(*) AS count
+        FROM Cust
+        GROUP BY cust_gender
+    </select>
+
 </mapper>

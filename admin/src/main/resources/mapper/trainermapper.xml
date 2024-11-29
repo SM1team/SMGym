@@ -41,8 +41,8 @@
 <!--    <update id="update" parameterType="custDto">-->
 <!--        UPDATE db_cust SET pwd=#{pwd},name=#{name} WHERE id=#{id}-->
 <!--    </update>-->
-<!--    <delete id="delete" parameterType="String">-->
-<!--        DELETE FROM db_cust WHERE id=#{id}-->
-<!--    </delete>-->
+    <delete id="delete" parameterType="String">
+        DELETE FROM trainer WHERE trainer_id=#{trainerId}
+    </delete>
 
 </mapper>

@@ -42,17 +42,19 @@ public class MainController {
         return "index"; // signup.jsp의 경로
     }
 
-    @RequestMapping("/mypage")
-    public String mypage(Model model) {
-        model.addAttribute("top", "mypage/" + "top"); // 회원가입 페이지 제목 추가
-        model.addAttribute("center", "mypage/" + "center"); // 회원가입 페이지 제목 추가
-        return "index"; // login.jsp의 경로
-    }
+
 
     @RequestMapping("/webcam")
     public String webcam(Model model) {
         model.addAttribute("top", "top"); // 회원가입 페이지 제목 추가
         model.addAttribute("center", "webcam"); // 회원가입 페이지 제목 추가
+        return "index"; // login.jsp의 경로
+    }
+
+    @RequestMapping("/webcam2")
+    public String webcam2(Model model) {
+        model.addAttribute("top", "top"); // 회원가입 페이지 제목 추가
+        model.addAttribute("center", "webcam2"); // 회원가입 페이지 제목 추가
         return "index"; // login.jsp의 경로
     }
 
