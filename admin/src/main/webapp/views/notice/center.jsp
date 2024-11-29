@@ -65,7 +65,7 @@
           <c:if test="${notice.trainerId == loginid.trainerId}">
 
             <a href="<c:url value='/notice/delete?noticeNo=${notice.noticeNo}' />"
-               onclick="return confirm('정말로 삭제하시겠습니까????');" class="btn btn-danger btn-sm">삭제</a>
+               onclick="return confirm('정말 삭제하시겠습니까');" class="btn btn-danger btn-sm">삭제</a>
           </c:if>
         </td>
       </tr>
