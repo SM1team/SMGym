@@ -307,6 +307,15 @@ public class MainController {
 
         return "index";
     }
+    @RequestMapping("/check")
+    public String check(Model model){
+        model.addAttribute("top","top");
+        model.addAttribute("left", "left");
+        model.addAttribute("center", "check");
+
+
+        return "index";
+    }
 
 
 

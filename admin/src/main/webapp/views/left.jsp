@@ -138,6 +138,11 @@
                     <i class="menu-icon mdi mdi-file-document"></i><span class="menu-title">트레이너 관리</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/check">
+                    <i class="menu-icon mdi mdi-file-document"></i><span class="menu-title">출석률 관리</span>
+                </a>
+            </li>
         </ul>
     </nav>
 <%--        여기까지--%>
