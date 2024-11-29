@@ -1,0 +1,77 @@
+[33m8dc8e90[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32minsung_back[m[33m)[m Merge remote-tracking branch 'origin/joomin_test' into insung_back
+[33m2a673aa[m[33m ([m[1;31morigin/joomin_test[m[33m, [m[1;32mjoomin_test[m[33m)[m 수ì  ㅂ 버튼 해결전 임시커밋
+[33mf32b74b[m[33m ([m[1;31morigin/insung_back[m[33m)[m 11.26 ãid마다 QR생성
+[33m6a46ae9[m 2024 11 26 게시물 작성 , 사진업로드 및 댓글 insert 기능 완료 (수정 , 삭제 ) 기능 추가 예정
+[33mc82e24b[m 11.25 admin회원관리,트레이너관리기초완료
+[33ma091417[m comment done
+[33mbacef73[m 운동ì1125 ¼지 초안 끝
+[33m6b16649[m 게시물 등록 ìì사지진 등록 해결
+[33m5756185[m 11 21 게시물 작성 기능 구현중 Board_Img에 전체 경로가 다들어가는 이상현상을 수정해야한다.
+[33mb170702[m ㅅㄱ1121 save
+[33mcb9a121[m 운동일지 진행중
+[33m9923dfd[m Merge remote-tracking branch 'origin/insung_back' into joomin_test
+[33m6bb72ca[m 1120 save morning
+[33me147106[m ã1119 ㄴsave  board  남은거 ê³게시글 작성
+[33mb79c8f2[m[33m ([m[1;31morigin/minu_back[m[33m)[m 2024.11.19 중간 병합
+[33m6730a8e[m Merge remote-tracking branch 'origin/insung_back' into minu_back
+[33m9f91250[m Merge remote-tracking branch 'origin/insung_back' into minu_back
+[33mee32414[m 2024.11.19 카카오 페이 ..
+[33mada8a55[m 11.19 admin websocket,예약 관리 대충 완성
+[33m0882d0d[m 11.19
+[33mb550c5b[m 2024.11.19 카카오 페이 수정
+[33m00cbfbc[m 2024.11.19 카카오 페이 수정
+[33mba5860a[m 카카ì 페이 수정
+[33m6d7a893[m 2024.11.19 카카오 페이 수정
+[33m3d96d36[m 2024.11.19 카카오 페이 수정
+[33m8447d30[m 2024.11.19 카카오 페이 수정
+[33m4eb182f[m 2024.11.19 카카오 페이 수정
+[33mc9be6eb[m 11/19 임시커밋.. 게시판 작성/내가쓴글 기능 다시 재구현 해야함
+[33m945b860[m 11.19 qna websocket,예약,예약확인 기본틀 완성
+[33me29a0d7[m 24.11.18 카카오 결제
+[33m03ff41d[m 11.18 admin login,websocket일부 완성
+[33m575f2bf[m Merge branch 'kk_front' of https://github.com/SM1team/SMGym into insung_back
+[33mf64cd2a[m 웹소켓 아직,예약,예약조회 완료
+[33m6f496be[m Merge remote-tracking branch 'origin/joomin_front' into joomin_test
+[33m014fbfe[m[33m ([m[1;31morigin/joomin_front[m[33m, [m[1;32mjoomin_front[m[33m)[m ã게시판 ì페이지 기능 구현 (게시물작성 뺴고 완료)
+[33mfe9f633[m 1118
+[33m3096274[m 2024.11.15 qna문의 프런트&예약내역 로그인된 사용자만 보이게 완료
+[33m376f40b[m 24.11.12 shop detail 완료
+[33mb9bacf8[m 게시판 구현 (진í행중)
+[33m5fd914d[m 24.11.12 shop 페이지 완료
+[33m3c74d82[m ì로그인하면 id나오게끔 수정
+[33mbdc1beb[m 11_12
+[33md5c2b64[m 11.12 모달창 map완료
+[33mc2e8b43[m Merge branch 'main' of https://github.com/SM1team/SMGym into insung_back
+[33m052b6ce[m ã1107
+[33me054ace[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m 24.11.07 로그인 추가
+[33m4e17e1e[m Merge branch 'main' of github.com:SM1team/SMGym into minu_back
+[33mffeda93[m 24.11.07 로그인 추가
+[33ma07e151[m 24.11.07 로그인 추가
+[33m2c4354b[m[33m ([m[1;32mmain[m[33m)[m 인성 ã,주민 브랜치 머지, login화면처리 해결해야함
+[33m5bcac6e[m Merge branch 'joomin_front' of https://github.com/SM1team/SMGym
+[33me0e97da[m 1107 주민
+[33me977138[m Merge branch 'main' of https://github.com/SM1team/SMGym
+[33mec592fc[m Merge branch 'insung_back' of https://github.com/SM1team/SMGym
+[33mb367524[m main
+[33m7d5e1c8[m 시작페이지 구성설계 (1)
+[33mb6584c6[m 2024.11.06 회원가입 완성
+[33m419611b[m 1106 ãsave
+[33m95202da[m 2024.11.06 nav,top,center로 나눔
+[33m30a84da[m test pt trainer profile
+[33me8774d7[m 모든 Dto 추가
+[33m5c34420[m test2
+[33mafa619d[m Merge branch 'main' of github.com:SM1team/SMGym into minu_back
+[33m35e7d53[m signup을 register로 변경
+[33md4a25f1[m test
+[33md991d26[m Merge branch 'joomin_front' of https://github.com/SM1team/SMGym into insung_back
+[33m3f6b572[m Merge branch 'main' into joomin_front
+[33md04d82b[m test
+[33m966333f[m test2
+[33ma06c324[m test
+[33m8e25e1a[m register 순서 수정
+[33m549dd87[m register 순서 수정
+[33m27f37f9[m ã login , signup 화면제작(1)
+[33m6ae76d4[m 1101 save
+[33m9c5c693[m ㅕãadmin , user템플릿 구축
+[33mffb68d6[m user 화면 제작 (1)
+[33m699b447[m ëadmin , user ã 모듈 생성

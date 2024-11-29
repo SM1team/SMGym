@@ -28,8 +28,8 @@
             <div class="form-group">
               <label for="trainer_gender">트레이너 성별</label>
               <select class="form-control" id="trainer_gender" name="trainerGender" required>
-                <option value="1">남성</option>
-                <option value="2">여성</option>
+                <option value="0">남성</option>
+                <option value="1">여성</option>
               </select>
             </div>
             <div class="form-group">

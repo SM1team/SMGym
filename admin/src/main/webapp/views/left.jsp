@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 2024-11-18
-  Time: 오후 3:48
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- partial -->
@@ -44,26 +38,32 @@
                 <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false"
                    aria-controls="form-elements">
                     <i class="menu-icon mdi mdi-card-text-outline"></i>
-                    <span class="menu-title">Form elements</span>
+                    <span class="menu-title">트레이너 출석</span>
                     <i class="menu-arrow"></i>
                 </a>
                 <div class="collapse" id="form-elements">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic
-                            Elements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/checkin">출근
+                            </a></li>
+                    </ul>
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="/checkout">퇴근
+                            </a></li>
                     </ul>
                 </div>
+
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false"
                    aria-controls="charts">
                     <i class="menu-icon mdi mdi-chart-line"></i>
-                    <span class="menu-title">Charts</span>
+                    <span class="menu-title">차트</span>
                     <i class="menu-arrow"></i>
                 </a>
                 <div class="collapse" id="charts">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/chart/gender"/>" >일 방문 현황</a></li>
+
                     </ul>
                 </div>
             </li>
@@ -82,6 +82,20 @@
                 </div>
             </li>
             <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#notice" aria-expanded="false"
+                   aria-controls="notice">
+                    <i class="menu-icon mdi mdi-bell-ring"></i>
+                    <span class="menu-title">공지사항 관리</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="notice">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/notice"/>">공지사항 조회</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/notice/add"/>">공지사항 추가</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false"
                    aria-controls="icons">
                     <i class="menu-icon mdi mdi-layers-outline"></i>
@@ -90,6 +104,9 @@
                 </a>
                 <div class="collapse" id="icons">
                     <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/trainer"/>">트레이너 조회</a></li>
+
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/traineradd"/>">트레이너 추가</a></li>
                         <li class="nav-item"><a class="nav-link" href="/trainer">트레이너 조회</a></li>
                         <li class="nav-item"><a class="nav-link" href="/traineradd">트레이너 추가</a></li>
                     </ul>
@@ -145,4 +162,4 @@
             </li>
         </ul>
     </nav>
-<%--        여기까지--%>
+    <%--        여기까지--%>

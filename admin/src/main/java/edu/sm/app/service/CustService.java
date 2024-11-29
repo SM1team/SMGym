@@ -9,7 +9,9 @@ import edu.sm.app.repository.CustRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -58,6 +60,47 @@ public class CustService implements SMService<String, CustDto> {
         PageHelper.startPage(pageNo, 5); // 한 페이지에 5개의 고객 데이터
         return (Page<CustDto>) custRepository.findBySearch(search); // 검색 조건에 맞는 데이터 반환
     }
+
+    public Map<String, Integer> getGenderCounts() {
+        // Repository에서 데이터를 가져옴
+        List<Map<String, Object>> results = custRepository.getGenderCounts();
+        Map<String, Integer> genderCounts = new HashMap<>();
+
+        // 결과가 비어있는지 확인
+        if (results.isEmpty()) {
+            System.out.println("No data found for gender counts");
+        }
+
+        for (Map<String, Object> result : results) {
+            // Null 값 확인
+            Object genderObj = result.get("cust_gender");
+            Object countObj = result.get("count");
+
+            if (genderObj == null || countObj == null) {
+                System.out.println("Null value found in result: " + result);
+                continue; // Null 값 건너뛰기
+            }
+
+            try {
+                // Map의 값을 안전하게 변환
+                int gender = ((Number) genderObj).intValue();
+                int count = ((Number) countObj).intValue();
+
+                // 성별 키 설정
+                String genderKey = (gender == 1) ? "남성" : (gender == 2) ? "여성" : "기타";
+                genderCounts.put(genderKey, count);
+            } catch (Exception e) {
+                System.err.println("Error parsing result: " + result);
+                e.printStackTrace();
+            }
+        }
+
+        // 결과 출력 확인
+        System.out.println("Final genderCounts: " + genderCounts);
+
+        return genderCounts;
+    }
+
 
 
 

@@ -1,4 +1,5 @@
 package edu.sm.app.dto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,4 +18,6 @@ public class NoticeDto {
     private String noticeContent;
     private Date noticeDate;
     private String noticeImg;
+
+    private TrainerDto trainer; // 추가된 부분
 }

@@ -1,5 +1,5 @@
 package edu.sm.app.service;
-
+import org.springframework.web.client.RestTemplate;
 import edu.sm.app.dto.ProductDto;
 import edu.sm.app.frame.SMService;
 import edu.sm.app.repository.ProductRepository;
@@ -13,7 +13,6 @@ import java.util.List;
 public class ProductService implements SMService<Integer, ProductDto> {
 
     final ProductRepository productRepository;
-
     @Override
     public void add(ProductDto productDto) throws Exception {
         productRepository.insert(productDto);
@@ -38,6 +37,8 @@ public class ProductService implements SMService<Integer, ProductDto> {
     public List<ProductDto> get() throws Exception {
         return productRepository.select();
     }
+
+
 }
 
 

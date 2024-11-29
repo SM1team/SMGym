@@ -62,12 +62,12 @@
                       <tr>
                         <td>user789</td>
                         <td>재활에 큰 도움이 되었습니다!</td>
-                        <td><img src="<c:url value='/assets/img/reviews/user3.jpg' />" alt="user789" style="width: 50px; height: 50px;" /></td>
+                        <td><img src="<c:url value='/assets/img/logos/teacher1.jpg' />" alt="user789" style="width: 50px; height: 50px;" /></td>
                       </tr>
                       <tr>
                         <td>user101</td>
                         <td>수업이 정말 좋았어요!</td>
-                        <td><img src="<c:url value='/assets/img/reviews/user4.jpg' />" alt="user101" style="width: 50px; height: 50px;" /></td>
+                        <td><img src="<c:url value='/assets/img/logos/teacher1.jpg' />" alt="user101" style="width: 50px; height: 50px;" /></td>
                       </tr>
                       </tbody>
                     </table>

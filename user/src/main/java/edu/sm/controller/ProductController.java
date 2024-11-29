@@ -1,16 +1,21 @@
 package edu.sm.controller;
 
 
-import edu.sm.app.dto.ProductDto;
+import edu.sm.app.dto.*;
+import edu.sm.app.service.CustService;
+
 import edu.sm.app.service.ProductService;
+import edu.sm.app.service.TrainerService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Controller
 @RequestMapping("/shop")
@@ -19,6 +24,8 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final TrainerService trainerService;
+    private final CustService custService;  // 고객 서비스 추가 (필요한 경우)
     String dir = "shop/";
 
     @RequestMapping("")
@@ -26,18 +33,30 @@ public class ProductController {
         List<ProductDto> list = productService.get();
 
         model.addAttribute("productlist", list);
-        model.addAttribute("top", dir + "top"); // 상단 템플릿이 shop/top.jsp로 설정되어 있어야 합니다.
-        model.addAttribute("center", dir + "center"); // 중앙 템플릿이 shop/center.jsp로 설정되어 있어야 합니다.
+        model.addAttribute("top", dir + "top");
+        model.addAttribute("center", dir + "center");
 
-        return "index"; // index.jsp 파일이 올바른 위치에 있는지 확인하세요.
+        return "index";
     }
 
     @RequestMapping("/detail")
-    public String detail(Model model, @RequestParam("productNo") int productNo) throws Exception {
+    public String detail(Model model, @RequestParam("productNo") int productNo, HttpSession session) throws Exception {
         ProductDto productDto = productService.get(productNo);
+        List<TrainerDto> trainerList = trainerService.get();
+
         model.addAttribute("product", productDto);
-        model.addAttribute("top", dir + "top"); // 상단 템플릿이 shop/top.jsp로 설정되어 있어야 합니다.
-        model.addAttribute("center", dir + "detail"); // 중앙 템플릿 경로
+        model.addAttribute("trainerList", trainerList);
+
+        CustDto custDto = (CustDto) session.getAttribute("loginid");
+        if (custDto != null) {
+            model.addAttribute("cust", custDto);
+            log.info("로그인된 고객 정보: {}", custDto);
+        } else {
+            log.info("로그인된 고객 정보가 없습니다.");
+        }
+
+        model.addAttribute("top", dir + "top");
+        model.addAttribute("center", dir + "detail");
         return "index";
     }
 
@@ -45,5 +64,7 @@ public class ProductController {
 
 
 
-
 }
+
+
+

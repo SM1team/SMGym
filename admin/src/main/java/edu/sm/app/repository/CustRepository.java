@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository//spring container 위에 동작하기위함.
 @Mapper//Mybatis framework 이동하기위한 통로이다.
@@ -26,6 +27,8 @@ public interface CustRepository extends SMRepository<String, CustDto> {
 
     List<CustDto> findBySearch(Search search);
 
+
+    List<Map<String, Object>> getGenderCounts();
 
 
 
