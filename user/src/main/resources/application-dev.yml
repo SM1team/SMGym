@@ -95,6 +95,11 @@ app:
     algo: PBEWithMD5AndDES #알고리즘에 따라서 해당 평문에대한 암호화를 결정할 수 있다.
     skey: mykey
 
+    naver:
+      request-token-uri: https://nid.naver.com/oauth2.0/token
+      client-id: aw1RRWvVpiActYPMafa9
+      client-secret: UEgAxv_E_z
+
 iamport:
   apiKey: 6178544642102448
   apiSecret: CyhPLOBsAMQCguuhiUjYuD3d1ABO85mVM9t3Fq67JTlKIKcgeInMqh9MqnWWYHHjrRD60Vle4UALHzSn

@@ -25,42 +25,345 @@
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
 
-<!-- Services < 웹사이트 소개 부분 > -->
+
+
 <section class="page-section" id="services">
   <div class="container">
     <div class="text-center">
-      <h2 class="section-heading text-uppercase">우리의 서비스</h2>
-      <h3 class="section-subheading text-muted">건강한 라이프스타일을 위한 최선의 선택입니다.</h3>
+      <h2 class="section-heading text-uppercase">헬스장 플로어 맵</h2>
+      <h3 class="section-subheading text-muted">운동 기구와 주요 시설을 한눈에 확인해보세요!</h3>
     </div>
-    <div class="row text-center">
-      <div class="col-md-4">
-                <span class="fa-stack fa-4x">
-                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                    <i class="fas fa-dumbbell fa-stack-1x fa-inverse"></i>
-                </span>
-        <h4 class="my-3">피트니스 프로그램</h4>
-        <p class="text-muted">개개인의 목표에 맞춘 맞춤형 피트니스 프로그램을 제공합니다. 다양한 운동과 트레이닝을 경험해보세요.</p>
+    <div class="gym-layout">
+      <!-- 러닝머신 7개 -->
+      <div class="equipment running" style="top: 8%; left: 3%;">
+        <i class="fas fa-running"></i>
+        <h4>런닝머신 1</h4>
       </div>
-      <div class="col-md-4">
-                <span class="fa-stack fa-4x">
-                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                    <i class="fas fa-apple-alt fa-stack-1x fa-inverse"></i>
-                </span>
-        <h4 class="my-3">영양 상담</h4>
-        <p class="text-muted">전문 영양사가 제공하는 건강한 식단과 영양 상담으로 더욱 건강한 라이프스타일을 누리세요.</p>
+      <div class="equipment running" style="top: 8%; left: 14%;">
+        <i class="fas fa-running"></i>
+        <h4>런닝머신 2</h4>
       </div>
-      <div class="col-md-4">
-                <span class="fa-stack fa-4x">
-                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                    <i class="fas fa-heartbeat fa-stack-1x fa-inverse"></i>
-                </span>
-        <h4 class="my-3">체력 평가</h4>
-        <p class="text-muted">체력 평가를 통해 현재의 건강 상태를 파악하고, 향후 목표를 설정하는 데 도움을 드립니다.</p>
+      <div class="equipment running" style="top: 8%; left: 25%;">
+        <i class="fas fa-running"></i>
+        <h4>런닝머신 3</h4>
       </div>
+      <div class="equipment running" style="top: 8%; left: 36%;">
+        <i class="fas fa-running"></i>
+        <h4>런닝머신 4</h4>
+      </div>
+      <div class="equipment running" style="top: 8%; left: 47%;">
+        <i class="fas fa-running"></i>
+        <h4>런닝머신 5</h4>
+      </div>
+      <div class="equipment running" style="top: 8%; left: 58%;">
+        <i class="fas fa-running"></i>
+        <h4>런닝머신 6</h4>
+      </div>
+      <div class="equipment running" style="top: 8%; left: 69%;">
+        <i class="fas fa-running"></i>
+        <h4>런닝머신 7</h4>
+      </div>
+
+
+      <!-- 프론트 카운터 -->
+      <div class="facility reception" style="top: 8%; left: 80%; width: 180px;">
+        <i class="fas fa-cogs"></i>
+        <h4>프론트 카운터</h4>
+      </div>
+
+      <!-- 경계선 추가 (러닝머신과 다른 운동기구 구분) -->
+      <div class="boundary-line" style="top: 22%; left: 0; width: 100%;"></div>
+
+
+
+      <div class="boundary-line" style="top: 22%; left: 11%; width: 3px; height: 78%; background-color: black;"></div>
+
+
+      <!-- 화장실 -->
+      <div class="facility light" style="top: 23%; left: 0.5%; height: 120px;">
+        <i class="fas fa-toilet"></i>
+        <h4>화장실</h4>
+      </div>
+
+      <!-- 샤워실 -->
+      <div class="facility light" style="top: 43%; left: 0.5%; height: 120px;">
+        <i class="fas fa-shower"></i>
+        <h4>샤워실</h4>
+      </div>
+
+      <!-- 탈의실 -->
+      <div class="facility light" style="top: 63%; left: 0.5%; height: 120px;">
+        <i class="fas fa-tshirt"></i>
+        <h4>탈의실</h4>
+      </div>
+
+      <!-- 비상구 -->
+      <div class="facility emergency" style="top: 83%; left: 0.5%; height: 120px;">
+        <i class="fas fa-exclamation-triangle"></i>
+        <h4>비상구</h4>
+      </div>
+
+
+
+      <!-- 밴치프레스 -->
+      <div class="equipment weight" style="top: 25%; left: 13%;">
+        <i class="fas fa-dumbbell"></i>
+        <h4>밴치 프레스</h4>
+      </div>
+
+      <!-- 숄더프레스 -->
+      <div class="equipment weight" style="top: 25%; left: 25%;">
+        <i class="fas fa-dumbbell"></i>
+        <h4>숄더 프레스</h4>
+      </div>
+
+      <!-- 플라잉 머신 -->
+      <div class="equipment weight" style="top: 25%; left: 37%;">
+        <i class="fas fa-dumbbell"></i>
+        <h4>플라잉 머신</h4>
+      </div>
+
+      <!-- 단체 pt 존 -->
+      <div class="equipment flexibility" style="top: 40%; left: 15%; width: 275px; height: 275px;">
+        <i class="fas fa-dumbbell"></i>
+        <h4>단체 PT 존</h4>
+      </div>
+
+      <div class="boundary-line" style="top: 22%; left: 48%; width: 3px; height: 57%; background-color: black;"></div>
+
+
+
+      <!-- 사이클 머신 2개 추가 -->
+      <div class="equipment cardio" style="top: 25%; left: 50%; white-space: nowrap;">
+        <i class="fas fa-bicycle"></i>
+        <h4>스핀 바이크 1</h4>
+      </div>
+      <div class="equipment cardio" style="top: 38%; left: 50%; white-space: nowrap;">
+        <i class="fas fa-bicycle"></i>
+        <h4>스핀 바이크 2</h4>
+      </div>
+
+      <div class="equipment cardio" style="top: 51%; left: 50%; white-space: nowrap;">
+        <i class="fas fa-bicycle"></i>
+        <h4>인도어사이클 1</h4>
+      </div>
+      <div class="equipment cardio" style="top: 64%; left: 50%; white-space: nowrap;">
+        <i class="fas fa-bicycle"></i>
+        <h4>인도어사이클 2</h4>
+      </div>
+
+
+      <div class="boundary-line" style="top: 22%; left: 60.6%; width: 2px; height: 57%; background-color: black;"></div>
+
+      <!-- 레그 프레스 머신 -->
+      <div class="equipment weight" style="top: 25%; left: 63%;width: 110px; height: 110px;">
+        <i class="fas fa-dumbbell"></i>
+        <h4 style="white-space: nowrap;">레그 프레스 머신</h4>
+      </div>
+
+
+      <!-- 체스트 프레스 머신 -->
+      <div class="equipment weight" style="top: 42.5%; left: 63%; width: 110px; height: 110px;">
+        <i class="fas fa-dumbbell"></i>
+        <h4 style="white-space: nowrap;">체스트 프레스 머신</h4>
+      </div>
+
+
+      <!-- 스미스 머신 -->
+      <div class="equipment weight" style="top: 60%; left: 63%;width: 110px; height: 110px;">
+        <i class="fas fa-dumbbell"></i>
+        <h4>스미스 머신</h4>
+      </div>
+
+
+      <div class="boundary-line" style="top: 79%; left: 11%; width: 65%;"></div>
+
+      <!-- 덤벨존 -->
+      <div class="equipment strength" style="top: 81%; left: 13%; width: 130px; height: 120px;">
+        <i class="fas fa-dumbbell"></i>
+        <h4>덤벨존</h4>
+      </div>
+
+      <!-- 스쿼트랙 -->
+      <div class="equipment strength" style="top: 81%; left: 30%; width: 130px; height: 120px;">
+        <i class="fas fa-dumbbell"></i>
+        <h4>스쿼트랙</h4>
+      </div>
+      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+      <!-- 풀업 바 -->
+      <div class="equipment strength" style="top: 81%; left: 47%; width: 117px; height: 120px;">
+        <i class="fas fa-fire-flame-simple"></i>
+        <h4>풀업 바</h4>
+      </div>
+
+      <!-- 딥스 바 -->
+      <div class="equipment strength" style="top: 81%; left: 62%; width: 117px; height: 120px;">
+        <i class="fas fa-fire-flame-simple"></i>
+        <h4>딥스 바</h4>
+      </div>
+
+
+      <!-- 준비운동 구역 -->
+      <div class="area cardio" style="top: 30%; left: 70%;">
+        <i class="fas fa-heartbeat"></i>
+        <h4>준비운동 구역</h4>
+      </div>
+
+      <div class="boundary-line" style="top: 22%; left: 76%; width: 3px; height: 78%; background-color: black;"></div>
+
+
+      <!-- 스텝밀 머신 -->
+      <div class="equipment running" style="top: 30%; left: 78%;">
+        <i class="fas fa-running"></i>
+        <h4>스텝밀 머신1</h4>
+      </div>
+
+      <div class="equipment running" style="top: 30%; left: 90%;">
+        <i class="fas fa-running"></i>
+        <h4>스텝밀 머신2</h4>
+      </div>
+
+
+
+<%--       첫번쨰--%>
+      <div class="boundary-line" style="top: 45%; left: 76%; width: 24%;"></div>
+
+
+
+
+
+      <!-- 스쿼트 존 -->
+      <div class="equipment weight" style="top: 50%; left: 79%; width: 180px;">
+        <i class="fas fa-dumbbell"></i>
+        <h4>스쿼트 존</h4>
+      </div>
+
+
+<%--      2번쟤--%>
+      <div class="boundary-line" style="top: 66%; left: 76%; width: 24%;"></div>
+
+      <!-- 케이블 머신 존 -->
+      <div class="equipment cardio" style="top: 70%; left: 79%; width: 185px; height: 185px; font-size: 24px;">
+        <i class="fas fa-dumbbell" style="font-size: 48px;"></i>
+        <h4>케시블 머신 존</h4>
+      </div>
+
+
     </div>
   </div>
 </section>
 
+<!-- 스타일링 추가 -->
+<style>
+  .gym-layout {
+    position: relative;
+    width: 100%;
+    height: 780px;
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  }
+
+  .equipment, .facility {
+    position: absolute;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    font-size: 12px;
+    border: 2px solid #333; /* 경계선 추가 */
+    background-color: rgba(255, 255, 255, 0.8); /* 투명도 약간 추가 */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* 아이템 그림자 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 애니메이션 추가 */
+  }
+
+  .equipment i, .facility i {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+
+  .equipment:hover, .facility:hover {
+    transform: scale(1.1); /* 호버 시 크기 확대 */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* 호버 시 그림자 강조 */
+  }
+
+  .boundary-line {
+    position: absolute;
+    top: 20%; /* 경계선의 위치 */
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: black;
+  }
+
+  /* 운동기구 색깔 */
+  /* 운동기구 색깔 */
+  .running { background-color: #a8d0e6; }
+  .cardio { background-color: #f7a8b8; }
+  .weight { background-color: #d4edda; }
+  .strength { background-color: #f9e2a1; } /* 새로운 색: 밝은 노랑 */
+  .flexibility { background-color: #f8e6e6; } /* 새로운 색: 밝은 분홍 */
+  .light { background-color: #e8f8f0; } /* 새로운 색: 거의 하얀색 */
+
+  /* 시설 색깔 */
+  .reception { background-color: #f6c23e; }
+  .emergency { background-color: #e74a3b; }
+  .shower { background-color: #70a1ff; }
+  .changing { background-color: #3498db; }
+  .restroom { background-color: #2ecc71; }
+
+  h4 {
+    font-size: 12px;
+    color: #333;
+    margin: 0;
+    font-weight: bold; /* 제목 글씨 두껍게 */
+  }
+</style>
+
+<!-- Font Awesome CDN 추가 -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%-- 주석처리 길게--%>
 
 <!-- 트레이너 소개 페이지-->
 <section class="page-section bg-light" id="trainer">
