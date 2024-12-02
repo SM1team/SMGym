@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 2024-11-18
-  Time: 오후 3:55
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="main-panel">
@@ -18,18 +11,7 @@
                 <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab"
                    href="#overview" role="tab" aria-controls="overview" aria-selected="true">첫번째 페이지</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#audiences"
-                   role="tab" aria-selected="false">두번째 페이지</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#demographics"
-                   role="tab" aria-selected="false">세번째 페이지</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link border-0" id="more-tab" data-bs-toggle="tab" href="#more"
-                   role="tab" aria-selected="false">네번째 페이지</a>
-              </li>
+
             </ul>
             <div>
               <div class="btn-wrapper">
@@ -89,29 +71,148 @@
               </div>
               <div class="row">
                 <div class="col-lg-8 d-flex flex-column">
-                  <%--                                            차트 표시 되는 부분--%>
                   <div class="row flex-grow">
                     <div class="col-12 col-lg-4 col-lg-12 grid-margin stretch-card">
                       <div class="card card-rounded">
                         <div class="card-body">
                           <div class="d-sm-flex justify-content-between align-items-start">
                             <div>
-                              <h4 class="card-title card-title-dash">Performance
-                                Line Chart</h4>
-                              <h5 class="card-subtitle card-subtitle-dash">Lorem
-                                Ipsum is simply dummy text of the printing</h5>
+                              <h4 class="card-title card-title-dash">일별 방문자 수</h4>
                             </div>
                             <div id="performanceLine-legend"></div>
                           </div>
                           <div class="chartjs-wrapper mt-4">
-                            <canvas id="performanceLine" width=""></canvas>
+                            <canvas id="performanceLine2"></canvas>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <%--                                        오른쪽 표 --%>
+
+                <script>
+                  // 차트 객체를 추적할 변수 선언
+                  let myChart = null;
+
+                  // 차트를 그리는 함수
+                  function drawChart(dates, visitors, canvasElement) {
+                    const ctx = canvasElement.getContext('2d');
+                    ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+                    // 그라데이션 효과를 위한 배경 설정
+                    const gradient = ctx.createLinearGradient(0, 0, 0, canvasElement.height);
+                    gradient.addColorStop(0, 'rgba(75, 192, 192, 0.2)');
+                    gradient.addColorStop(1, 'rgba(75, 192, 192, 0.6)');
+
+                    // 새 차트를 그리기
+                    myChart = new Chart(ctx, {
+                      type: 'line',
+                      data: {
+                        labels: dates,  // x축에 날짜
+                        datasets: [{
+                          label: '일별 방문자 수',
+                          data: visitors,  // y축에 방문자 수
+                          borderColor: 'rgb(75, 192, 192)',  // 라인 색상
+                          backgroundColor: gradient,  // 그라데이션 색상
+                          fill: true,  // 영역 채우기
+                          tension: 0.4,  // 곡선의 부드러움 조절
+                          pointRadius: 5,  // 데이터 포인트의 크기
+                          pointBackgroundColor: 'rgb(75, 192, 192)',  // 데이터 포인트 색상
+                          borderWidth: 2,  // 선의 두께
+                        }]
+                      },
+                      options: {
+                        responsive: true,
+                        maintainAspectRatio: false,  // 화면 크기에 맞게 비율 조정
+                        plugins: {
+                          legend: {
+                            position: 'top',  // 범례 위치 설정
+                            labels: {
+                              font: {
+                                size: 14,
+                                weight: 'bold',
+                              }
+                            }
+                          },
+                          tooltip: {
+                            callbacks: {
+                              label: function(tooltipItem) {
+                                return tooltipItem.raw + '명';  // 툴팁에 방문자 수 표시
+                              }
+                            },
+                            backgroundColor: 'rgba(0,0,0,0.7)',  // 툴팁 배경 색상
+                            titleFont: {
+                              weight: 'bold',
+                              size: 14
+                            }
+                          }
+                        },
+                        scales: {
+                          x: {
+                            ticks: {
+                              font: {
+                                size: 12,
+                                weight: 'bold'
+                              }
+                            },
+                            grid: {
+                              color: 'rgba(0, 0, 0, 0.1)',  // x축 그리드 색상
+                            }
+                          },
+                          y: {
+                            ticks: {
+                              font: {
+                                size: 12,
+                                weight: 'bold'
+                              },
+                              callback: function(value) {
+                                return value + '명';  // y축 값 뒤에 '명' 추가
+                              }
+                            },
+                            grid: {
+                              color: 'rgba(0, 0, 0, 0.1)',  // y축 그리드 색상
+                            }
+                          }
+                        }
+                      }
+                    });
+                  }
+
+                  fetch('/api/attendance/getDailyVisitors')
+                          .then(response => response.json())
+                          .then(data => {
+                            // 날짜와 방문자 수 배열 만들기
+                            const dates = data.map(item => item.visit_date);
+                            const visitors = data.map(item => item.daily_visitors);
+
+                            console.log('Dates:', dates);
+                            console.log('Visitors:', visitors);
+
+                            // 차트를 그리기 전에 기존 차트를 파괴하고 canvas 초기화
+                            const canvasElement = document.getElementById('performanceLine2');
+
+                            if (myChart) {
+                              myChart.destroy();  // 기존 차트 파괴
+                            }
+
+                            // 차트를 새로 그리기 전에 canvas 크기 재설정
+                            const canvasParentWidth = canvasElement.parentElement.clientWidth; // 부모 요소의 너비
+                            canvasElement.width = canvasParentWidth; // 부모 너비에 맞게 canvas 크기 설정
+                            canvasElement.height = 300; // 차트의 높이를 고정 (필요에 따라 변경)
+
+                            drawChart(dates, visitors, canvasElement);
+                          })
+                          .catch(error => {
+                            console.error('Error fetching daily visitors data:', error);
+                          });
+                </script>
+
+
+
+
+
+
+              <%--     오른쪽 표 --%>
                 <div class="col-lg-4 d-flex flex-column">
                   <div class="row flex-grow">
                     <div class="col-md-6 col-lg-12 grid-margin stretch-card">
@@ -121,9 +222,8 @@
                             Status Summary</h4>
                           <div class="row">
                             <div class="col-sm-4">
-                              <p class="status-summary-ight-white mb-1">Closed
-                                Value</p>
-                              <h2 class="text-info">357</h2>
+                              <p class="status-summary-ight-white mb-1">이용중인 회원 수</p>
+                              <h2 class="text-info" id="activeMemberCount">Loading...</h2> <!-- activeMemberCount 값 표시 -->
                             </div>
                             <div class="col-sm-8">
                               <div class="status-summary-chart-wrapper pb-4">
@@ -134,33 +234,42 @@
                         </div>
                       </div>
                     </div>
+
+                    <script>
+                      // 페이지 로드 후 activeMemberCount를 가져오는 AJAX 요청
+                      document.addEventListener('DOMContentLoaded', function () {
+                        fetch('/api/attendance/active-member-count')
+                                .then(response => response.json()) // JSON 형식으로 응답 받기
+                                .then(data => {
+
+                                  document.getElementById('activeMemberCount').textContent = data;
+                                })
+                                .catch(error => {
+                                  console.error('Error fetching active member count:', error);
+                                  document.getElementById('activeMemberCount').textContent = 'Error';
+                                });
+                      });
+                    </script>
+
                     <div class="col-md-6 col-lg-12 grid-margin stretch-card">
                       <div class="card card-rounded">
                         <div class="card-body">
                           <div class="row">
                             <div class="col-lg-6">
                               <div class="d-flex justify-content-between align-items-center mb-2 mb-sm-0">
-                                <div class="circle-progress-width">
-                                  <div id="totalVisitors"
-                                       class="progressbar-js-circle pr-2"></div>
-                                </div>
                                 <div>
-                                  <p class="text-small mb-2">Total
-                                    Visitors</p>
-                                  <h4 class="mb-0 fw-bold">26.80%</h4>
+                                  <p class="text-small mb-2">누적 방문자 수</p>
+                                  <!-- 누적 방문자 수는 JavaScript로 값이 변경됨 -->
+                                  <h4 id="totalVisitorsCount" class="mb-0 fw-bold">0</h4>
                                 </div>
                               </div>
                             </div>
                             <div class="col-lg-6">
                               <div class="d-flex justify-content-between align-items-center">
-                                <div class="circle-progress-width">
-                                  <div id="visitperday"
-                                       class="progressbar-js-circle pr-2"></div>
-                                </div>
                                 <div>
-                                  <p class="text-small mb-2">Visits per
-                                    day</p>
-                                  <h4 class="mb-0 fw-bold">9065</h4>
+                                  <p class="text-small mb-2">오늘 방문자 수</p>
+                                  <!-- 오늘 방문자 수는 JavaScript로 값이 변경됨 -->
+                                  <h4 id="todayVisitorsCount" class="mb-0 fw-bold">0</h4>
                                 </div>
                               </div>
                             </div>
@@ -168,6 +277,32 @@
                         </div>
                       </div>
                     </div>
+
+                    <script>
+                      // 누적 방문자 수 가져오기
+                      fetch('/api/attendance/getTotalVisitors')
+                              .then(response => response.json())
+                              .then(totalVisitors => {
+                                // 누적 방문자 수를 페이지에 출력
+                                document.getElementById('totalVisitorsCount').innerText = totalVisitors;
+                              })
+                              .catch(error => {
+                                console.error('Error fetching total visitors:', error);
+                              });
+
+                      // 오늘 방문자 수 가져오기
+                      fetch('/api/attendance/getVisitorsToday')
+                              .then(response => response.json())
+                              .then(visitorsToday => {
+                                // 오늘 방문자 수를 페이지에 출력
+                                document.getElementById('todayVisitorsCount').innerText = visitorsToday;
+                              })
+                              .catch(error => {
+                                console.error('Error fetching visitors today:', error);
+                              });
+                    </script>
+
+
                   </div>
                 </div>
               </div>
@@ -513,154 +648,6 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row flex-grow">
-                    <div class="col-md-6 col-lg-6 grid-margin stretch-card">
-                      <div class="card card-rounded">
-                        <div class="card-body card-rounded">
-                          <h4 class="card-title  card-title-dash">Recent Events</h4>
-                          <div class="list align-items-center border-bottom py-2">
-                            <div class="wrapper w-100">
-                              <p class="mb-2 fw-medium"> Change in Directors </p>
-                              <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                  <i class="mdi mdi-calendar text-muted me-1"></i>
-                                  <p class="mb-0 text-small text-muted">Mar
-                                    14, 2019</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="list align-items-center border-bottom py-2">
-                            <div class="wrapper w-100">
-                              <p class="mb-2 fw-medium"> Other Events </p>
-                              <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                  <i class="mdi mdi-calendar text-muted me-1"></i>
-                                  <p class="mb-0 text-small text-muted">Mar
-                                    14, 2019</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="list align-items-center border-bottom py-2">
-                            <div class="wrapper w-100">
-                              <p class="mb-2 fw-medium"> Quarterly Report </p>
-                              <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                  <i class="mdi mdi-calendar text-muted me-1"></i>
-                                  <p class="mb-0 text-small text-muted">Mar
-                                    14, 2019</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="list align-items-center border-bottom py-2">
-                            <div class="wrapper w-100">
-                              <p class="mb-2 fw-medium"> Change in Directors </p>
-                              <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                  <i class="mdi mdi-calendar text-muted me-1"></i>
-                                  <p class="mb-0 text-small text-muted">Mar
-                                    14, 2019</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="list align-items-center pt-3">
-                            <div class="wrapper w-100">
-                              <p class="mb-0">
-                                <a href="#" class="fw-bold text-primary">Show
-                                  all <i class="mdi mdi-arrow-right ms-2"></i></a>
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 grid-margin stretch-card">
-                      <div class="card card-rounded">
-                        <div class="card-body">
-                          <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h4 class="card-title card-title-dash">Activities</h4>
-                            <p class="mb-0">20 finished, 5 remaining</p>
-                          </div>
-                          <ul class="bullet-line-list">
-                            <li>
-                              <div class="d-flex justify-content-between">
-                                <div><span
-                                        class="text-light-green">Ben Tossell</span>
-                                  assign you a task
-                                </div>
-                                <p>Just now</p>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="d-flex justify-content-between">
-                                <div><span
-                                        class="text-light-green">Oliver Noah</span>
-                                  assign you a task
-                                </div>
-                                <p>1h</p>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="d-flex justify-content-between">
-                                <div><span
-                                        class="text-light-green">Jack William</span>
-                                  assign you a task
-                                </div>
-                                <p>1h</p>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="d-flex justify-content-between">
-                                <div><span
-                                        class="text-light-green">Leo Lucas</span>
-                                  assign you a task
-                                </div>
-                                <p>1h</p>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="d-flex justify-content-between">
-                                <div><span
-                                        class="text-light-green">Thomas Henry</span>
-                                  assign you a task
-                                </div>
-                                <p>1h</p>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="d-flex justify-content-between">
-                                <div><span
-                                        class="text-light-green">Ben Tossell</span>
-                                  assign you a task
-                                </div>
-                                <p>1h</p>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="d-flex justify-content-between">
-                                <div><span
-                                        class="text-light-green">Ben Tossell</span>
-                                  assign you a task
-                                </div>
-                                <p>1h</p>
-                              </div>
-                            </li>
-                          </ul>
-                          <div class="list align-items-center pt-3">
-                            <div class="wrapper w-100">
-                              <p class="mb-0">
-                                <a href="#" class="fw-bold text-primary">Show
-                                  all <i class="mdi mdi-arrow-right ms-2"></i></a>
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
                 <div class="col-lg-4 d-flex flex-column">
                   <div class="row flex-grow">
@@ -921,4 +908,5 @@
       </div>
     </div>
   </div>
+</div>
   <!-- content-wrapper ends -->

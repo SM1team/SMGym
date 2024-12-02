@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.sm.app.repository.CustCheckRepository"><!-- 이 xml은 누가 사용하냐?의미 -> -->
+
+
+    <!-- 출석 기록 저장 -->
+    <insert id="save" parameterType="CustCheckDto">
+        INSERT INTO custcheck (cust_id, check_start)
+        VALUES (#{custId}, #{checkStart})
+    </insert>
+
+    <!-- 퇴실 기록 업데이트 -->
+    <update id="update" parameterType="CustCheckDto">
+        UPDATE custcheck
+        SET check_end = #{checkEnd}
+        WHERE check_no = #{checkno}
+    </update>
+
+    <!-- 가장 최근 출석 기록 조회 -->
+    <select id="findLatestCheckInByCustId" parameterType="String" resultType="CustCheckDto">
+        SELECT *
+        FROM custcheck
+        WHERE cust_id = #{custId} AND check_end IS NULL
+        ORDER BY check_no DESC
+            LIMIT 1
+    </select>
+
+    <update id="updateCheckEndTime">
+        UPDATE custcheck AS main
+            JOIN (
+            SELECT check_no
+            FROM custcheck
+            WHERE cust_id = #{custId}
+            AND check_end IS NULL
+            ORDER BY check_start DESC
+            LIMIT 1
+            ) AS sub
+        ON main.check_no = sub.check_no
+            SET main.check_end = #{checkEnd}
+
+    </update>
+
+    <select id="getDailyVisitors" resultType="map">
+        SELECT
+            DATE(check_start) AS visit_date,
+            COUNT(DISTINCT cust_id) AS daily_visitors
+        FROM
+            custcheck
+        GROUP BY
+            DATE(check_start)
+        ORDER BY
+            visit_date;
+    </select>
+
+
+    <!-- 현재 출입중인 회원 수 -->
+    <select id="getCurrentActiveMembers" resultType="int">
+        SELECT COUNT(*)
+        FROM custcheck
+        WHERE check_start >= CURDATE()
+          AND check_end IS NULL
+    </select>
+
+    <!-- 누적 방문자 수 조회: 총 출석 체크 횟수 -->
+    <select id="getTotalVisitors" resultType="int">
+        SELECT COUNT(*)
+        FROM cust_check;
+    </select>
+
+    <!-- 오늘 방문자 수 조회: 오늘 출석 체크한 사람 수 -->
+    <select id="getVisitorsToday" resultType="int">
+        SELECT COUNT(*)
+        FROM cust_check
+        WHERE DATE(check_start) = CURDATE(); <!-- check_start가 오늘 날짜인 출석 체크만 카운트 -->
+    </select>
+
+
+
+
+</mapper>
