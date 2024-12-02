@@ -12,8 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -64,8 +63,14 @@ public class WorkoutController {
 
         return "index";
     }
+    @RequestMapping("/write")
+    public String showWritePage(Model model) {
+        model.addAttribute("top", wdir + "top");
+        model.addAttribute("center", wdir + "write");
+        return "index";  // /views/write.jsp로 포워딩됨
+    }
 
-
+//
 
 //    @RequestMapping("/reservation")
 //    public String reservation(Model model){

@@ -8,7 +8,7 @@
 
   <!-- 쓰기 버튼 -->
   <div class="mb-3">
-    <button class="btn btn-primary" onclick="location.href='/workout/writeForm'">쓰기</button>
+    <button class="btn btn-primary" onclick="location.href='/workout/write'">쓰기</button>
     <button class="btn btn-warning" id="editBtn">수정하기</button>
     <button class="btn btn-danger" id="deleteBtn">삭제하기</button>
   </div>
