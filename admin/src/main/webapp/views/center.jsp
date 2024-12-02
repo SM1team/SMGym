@@ -260,7 +260,7 @@
                                 <div>
                                   <p class="text-small mb-2">누적 방문자 수</p>
                                   <!-- 누적 방문자 수는 JavaScript로 값이 변경됨 -->
-                                  <h4 id="totalVisitorsCount" class="mb-0 fw-bold">0</h4>
+                                  <h4 id="totalVisitorsCount2" class="mb-0 fw-bold">0</h4>
                                 </div>
                               </div>
                             </div>
@@ -269,7 +269,7 @@
                                 <div>
                                   <p class="text-small mb-2">오늘 방문자 수</p>
                                   <!-- 오늘 방문자 수는 JavaScript로 값이 변경됨 -->
-                                  <h4 id="todayVisitorsCount" class="mb-0 fw-bold">0</h4>
+                                  <h4 id="todayVisitorsCount2" class="mb-0 fw-bold">0</h4>
                                 </div>
                               </div>
                             </div>
@@ -279,12 +279,13 @@
                     </div>
 
                     <script>
+
                       // 누적 방문자 수 가져오기
                       fetch('/api/attendance/getTotalVisitors')
                               .then(response => response.json())
-                              .then(totalVisitors => {
-                                // 누적 방문자 수를 페이지에 출력
-                                document.getElementById('totalVisitorsCount').innerText = totalVisitors;
+                              .then(data => {
+                                console.log("누적 방문자 수 응답:", data); // 응답 확인
+                                document.getElementById('totalVisitorsCount2').innerText = data || 0; // 기본값 처리
                               })
                               .catch(error => {
                                 console.error('Error fetching total visitors:', error);
@@ -293,13 +294,14 @@
                       // 오늘 방문자 수 가져오기
                       fetch('/api/attendance/getVisitorsToday')
                               .then(response => response.json())
-                              .then(visitorsToday => {
-                                // 오늘 방문자 수를 페이지에 출력
-                                document.getElementById('todayVisitorsCount').innerText = visitorsToday;
+                              .then(data => {
+                                console.log("오늘 방문자 수 응답:", data); // 응답 확인
+                                document.getElementById('todayVisitorsCount2').innerText = data || 0; // 기본값 처리
                               })
                               .catch(error => {
                                 console.error('Error fetching visitors today:', error);
                               });
+
                     </script>
 
 

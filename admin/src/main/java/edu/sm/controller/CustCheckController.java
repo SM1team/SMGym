@@ -33,19 +33,18 @@ public class CustCheckController {
         return custCheckService.getDailyVisitors(); // Mapper 호출
     }
 
-    // 누적 방문자 수 조회
     @GetMapping("/getTotalVisitors")
     public ResponseEntity<Integer> getTotalVisitors() {
         int totalVisitors = custCheckService.getTotalVisitors();
-        return ResponseEntity.ok(totalVisitors);
+        return ResponseEntity.ok(totalVisitors);  // 반환된 값이 Integer여야 함
     }
 
-    // 오늘 방문자 수 조회
     @GetMapping("/getVisitorsToday")
     public ResponseEntity<Integer> getVisitorsToday() {
         int visitorsToday = custCheckService.getVisitorsToday();
-        return ResponseEntity.ok(visitorsToday);
+        return ResponseEntity.ok(visitorsToday);  // 반환된 값이 Integer여야 함
     }
+
 
 }
 

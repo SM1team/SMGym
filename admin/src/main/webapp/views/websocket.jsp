@@ -3,25 +3,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
-    #all {
-        width: 400px;
-        height: 200px;
-        overflow: auto;
-        border: 2px solid red;
-    }
-
-    #me {
-        width: 400px;
-        height: 200px;
-        overflow: auto;
-        border: 2px solid blue;
-    }
-
     #to {
         width: 400px;
         height: 200px;
         overflow: auto;
         border: 2px solid green;
+        padding: 10px;
+    }
+    .message {
+        margin: 5px 0;
+        padding: 10px;
+        border-radius: 10px;
+        max-width: 70%;
+        clear: both;
+    }
+    .my-message {
+        background-color: #d1e7ff;
+        margin-left: auto;
+        text-align: right;
+    }
+    .other-message {
+        background-color: #e9ecef;
+        margin-right: auto;
+        text-align: left;
     }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -31,74 +35,69 @@
 
 <script>
     let websocket = {
-        id:'',
-        stompClient:null,
-        init:function(){
+        id: '',
+        stompClient: null,
+        init: function () {
             this.id = $('#trainer_id').text();
-            $('#connect').click(()=>{//connect를 누르면
-                this.connect();//connect함수 실행.
+            $('#connect').click(() => {
+                this.connect();
             });
-            $('#disconnect').click(()=>{
+            $('#disconnect').click(() => {
                 this.disconnect();
             });
-            $('#sendall').click(()=>{
-                let msg = JSON.stringify({
-                    'sendid' : this.id,
-                    'content1' : $("#alltext").val()
-                });
-                this.stompClient.send("/receiveall", {}, msg);
-            });
-            $('#sendme').click(()=>{
-                let msg = JSON.stringify({
-                    'sendid' : this.id,
-                    'content1' : $("#metext").val()
-                });
-                this.stompClient.send("/receiveme", {}, msg);
-            });
-            $('#sendto').click(()=>{
+            $('#sendto').click(() => {
                 var msg = JSON.stringify({
-                    'sendid' : this.id,
-                    'receiveid' : $('#target').val(),
-                    'content1' : $('#totext').val()
+                    'sendid': this.id,
+                    'receiveid': $('#target').val(),
+                    'content1': $('#totext').val()
                 });
                 this.stompClient.send('/receiveto', {}, msg);
+
+                // 내가 보낸 메시지를 화면에 표시 (오른쪽 정렬)
+                $("#to").append(
+                    "<div class='message my-message'>" +
+                    "<span style='color: blue;'>나:</span> " + $('#totext').val() +
+                    "</div>"
+                );
+                $('#totext').val(''); // 입력란 초기화
+            });
+
+            this.subscribe('/send/to/' + sid, function (msg) {
+                // 상대방 메시지를 화면에 표시 (왼쪽 정렬)
+                $("#to").append(
+                    "<div class='message other-message'>" +
+                    JSON.parse(msg.body).sendid + ": " +
+                    JSON.parse(msg.body).content1 +
+                    "</div>"
+                );
             });
         },
-        connect:function(){
+        connect: function () {
             let sid = this.id;
-            let socket = new SockJS('${serverurl}/ws');//웹 소켓에 접속. serverurl은 mainController websocket에 의해 ..
+            let socket = new SockJS('${serverurl}/ws');
             this.stompClient = Stomp.over(socket);
 
-            this.stompClient.connect({}, function(frame) {//connect 함수실행되면서 connect이루어지고,
+            this.stompClient.connect({}, function (frame) {
                 websocket.setConnected(true);
                 console.log('Connected: ' + frame);
-                this.subscribe('/send', function(msg) {//받을 준비를 한다. send라는 이름으로 보내면 받겠다 ..
-                    $("#all").prepend(//all이라는 영역에 뿌린다.
-                        "<h4>" + JSON.parse(msg.body).sendid +":"+
-                        JSON.parse(msg.body).content1
-                        + "</h4>");
-                });
-                this.subscribe('/send/'+sid, function(msg) {//내자신에게 받겠다.
-                    $("#me").prepend(//me 라는 영역에 뿌린다.
-                        "<h4>" + JSON.parse(msg.body).sendid +":"+
-                        JSON.parse(msg.body).content1+ "</h4>");
-                });
-                this.subscribe('/send/to/'+sid, function(msg) {
-                    $("#to").prepend(
-                        "<h4>" + JSON.parse(msg.body).sendid +":"+
-                        JSON.parse(msg.body).content1
-                        + "</h4>");
+                this.subscribe('/send/to/' + sid, function (msg) {
+                    // 상대방 메시지도 append로 변경
+                    $("#to").append(
+                        "<h4>" + JSON.parse(msg.body).sendid + ": " +
+                        JSON.parse(msg.body).content1 +
+                        "</h4>"
+                    );
                 });
             });
         },
-        disconnect:function(){
+        disconnect: function () {
             if (this.stompClient !== null) {
                 this.stompClient.disconnect();
             }
             websocket.setConnected(false);
             console.log("Disconnected");
         },
-        setConnected:function(connected){
+        setConnected: function (connected) {
             if (connected) {
                 $("#status").text("Connected");
             } else {
@@ -106,10 +105,11 @@
             }
         }
     };
-    $(function(){
+    $(function () {
         websocket.init();
     });
 </script>
+
 
 
 
@@ -130,14 +130,6 @@
                     <H1 id="status">Status</H1>
                     <button id="connect">Connect</button>
                     <button id="disconnect">Disconnect</button>
-
-                    <h3>All</h3>
-                    <input type="text" id="alltext"><button id="sendall">Send</button>
-                    <div id="all"></div>
-
-                    <h3>Me</h3>
-                    <input type="text" id="metext"><button id="sendme">Send</button>
-                    <div id="me"></div>
 
                     <h3>To</h3>
                     <input type="text" id="target">

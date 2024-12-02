@@ -66,14 +66,14 @@
     <!-- 누적 방문자 수 조회: 총 출석 체크 횟수 -->
     <select id="getTotalVisitors" resultType="int">
         SELECT COUNT(*)
-        FROM cust_check;
+        FROM custcheck;
     </select>
 
     <!-- 오늘 방문자 수 조회: 오늘 출석 체크한 사람 수 -->
     <select id="getVisitorsToday" resultType="int">
         SELECT COUNT(*)
-        FROM cust_check
-        WHERE DATE(check_start) = CURDATE(); <!-- check_start가 오늘 날짜인 출석 체크만 카운트 -->
+        FROM custcheck
+        WHERE DATE(check_start) = CURDATE();
     </select>
 
 
