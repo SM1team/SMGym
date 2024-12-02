@@ -7,6 +7,7 @@ import edu.sm.app.service.CustService;
 import edu.sm.app.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,8 @@ public class ChartController {
         return "index";
     }
 
+
+
     @GetMapping("/sales")
     public String getSalesChartData(Model model) throws JsonProcessingException {
         // 월별 매출 통계 가져오기
@@ -66,6 +69,8 @@ public class ChartController {
 
         return "index";
     }
+
+
     @GetMapping("/visitor")
     public ResponseEntity<List<Map<String, Object>>> getDailyVisitors() {
         List<Map<String, Object>> dailyVisitors = custCheckService.getDailyVisitors();

@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>월별 매출 차트</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="main-panel">
@@ -26,7 +37,7 @@
           <div class="tab-content tab-content-basic">
             <div class="tab-pane fade show active" id="overview" role="tabpanel"
                  aria-labelledby="overview">
-              <%--                                    통계--%>
+              <%--통계--%>
               <div class="row">
                 <div class="col-sm-12">
                   <div class="statistics-details d-flex align-items-center justify-content-between">
@@ -207,11 +218,6 @@
                           });
                 </script>
 
-
-
-
-
-
               <%--     오른쪽 표 --%>
                 <div class="col-lg-4 d-flex flex-column">
                   <div class="row flex-grow">
@@ -315,52 +321,51 @@
                         <div class="card-body">
                           <div class="d-sm-flex justify-content-between align-items-start">
                             <div>
-                              <h4 class="card-title card-title-dash">Market
-                                Overview</h4>
-                              <p class="card-subtitle card-subtitle-dash">Lorem
-                                ipsum dolor sit amet consectetur adipisicing
-                                elit</p>
-                            </div>
-                            <div>
-                              <div class="dropdown">
-                                <button class="btn btn-light dropdown-toggle toggle-dark btn-lg mb-0 me-0"
-                                        type="button" id="dropdownMenuButton2"
-                                        data-bs-toggle="dropdown"
-                                        aria-haspopup="true"
-                                        aria-expanded="false"> This month
-                                </button>
-                                <div class="dropdown-menu"
-                                     aria-labelledby="dropdownMenuButton2">
-                                  <h6 class="dropdown-header">Settings</h6>
-                                  <a class="dropdown-item" href="#">Action</a>
-                                  <a class="dropdown-item" href="#">Another
-                                    action</a>
-                                  <a class="dropdown-item" href="#">Something
-                                    else here</a>
-                                  <div class="dropdown-divider"></div>
-                                  <a class="dropdown-item" href="#">Separated
-                                    link</a>
-                                </div>
-                              </div>
+                              <h4 class="card-title card-title-dash">월별 매출</h4>
                             </div>
                           </div>
                           <div class="d-sm-flex align-items-center mt-1 justify-content-between">
-                            <div class="d-sm-flex align-items-center mt-4 justify-content-between">
-                              <h2 class="me-2 fw-bold">$36,2531.00</h2>
-                              <h4 class="me-2">USD</h4>
-                              <h4 class="text-success">(+1.37%)</h4>
-                            </div>
                             <div class="me-3">
                               <div id="marketingOverview-legend"></div>
                             </div>
                           </div>
-                          <div class="chartjs-bar-wrapper mt-3">
-                            <canvas id="marketingOverview"></canvas>
-                          </div>
+                          <!-- 차트를 표시할 canvas 추가 -->
+                          <canvas id="monthlySalesChart"></canvas>
                         </div>
                       </div>
                     </div>
                   </div>
+                  <script>
+                    // JSP에서 전달한 JSON 데이터를 JavaScript 변수로 받기
+                    var monthlySalesData = ${monthlySales};  // 이 부분은 JSP에서 서버 데이터를 바인딩하는 코드
+
+                    // canvas 엘리먼트 선택
+                    var ctx = document.getElementById('monthlySalesChart').getContext('2d');
+
+                    // Chart.js 차트 설정
+                    var monthlySalesChart = new Chart(ctx, {
+                      type: 'bar',  // 차트 타입 (막대 차트)
+                      data: {
+                        labels: Object.keys(monthlySalesData),  // 월 (key 값)
+                        datasets: [{
+                          label: '월별 매출 (원)',  // 차트 라벨
+                          data: Object.values(monthlySalesData),  // 매출 (value 값)
+                          backgroundColor: 'rgba(75, 192, 192, 0.2)',  // 막대 색
+                          borderColor: 'rgba(75, 192, 192, 1)',  // 막대 경계 색
+                          borderWidth: 1  // 막대 경계 두께
+                        }]
+                      },
+                      options: {
+                        responsive: true,  // 반응형 차트
+                        scales: {
+                          y: {
+                            beginAtZero: true  // y축을 0부터 시작
+                          }
+                        }
+                      }
+                    });
+                  </script>
+
                   <div class="row flex-grow">
                     <div class="col-12 grid-margin stretch-card">
                       <div class="card card-rounded table-darkBGImg">
@@ -910,3 +915,4 @@
   </div>
 </div>
   <!-- content-wrapper ends -->
+
