@@ -1,12 +1,11 @@
-
 package edu.sm.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.sm.app.service.CustService;
+import edu.sm.app.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,25 +19,15 @@ import java.util.Map;
 @Slf4j
 public class ChartController {
 
-    @Autowired
-    private CustService custService;
-
-
-//    @RequestMapping("")
-//    public String qr(Model model) {//custcheck 화면을 보여준다.
-//
-//
-//        model.addAttribute("center", "qr/" + "center"); // 회원가입 페이지 제목 추가
-//
-//        return "index";
-//    }
+    private final CustService custService;
+    private final PaymentService paymentService;
 
     @GetMapping("/gender")
     public String getGenderChartData(Model model) throws JsonProcessingException {
         Map<String, Integer> genderCounts = custService.getGenderCounts();
 
-        // genderCounts 값 확인을 위한 로그 추가
-        System.out.println("genderCounts: " + genderCounts);
+        // 로그 출력
+        log.info("Gender counts: {}", genderCounts);
 
         model.addAttribute("genderCounts", new ObjectMapper().writeValueAsString(genderCounts));
         model.addAttribute("center", "chart/gender");
@@ -48,4 +37,26 @@ public class ChartController {
         return "index";
     }
 
+    @GetMapping("/sales")
+    public String getSalesChartData(Model model) throws JsonProcessingException {
+        // 월별 매출 통계 가져오기
+        Map<String, Double> monthlySales = paymentService.getMonthlySales();
+        log.info("Monthly sales: {}", monthlySales);
+
+        // 성별 매출 통계 가져오기
+        Map<String, Double> genderSales = paymentService.getGenderSales();
+        log.info("Gender sales: {}", genderSales);
+
+        // 데이터를 JSON 형식으로 변환하여 JSP에 전달
+        ObjectMapper objectMapper = new ObjectMapper();
+        model.addAttribute("monthlySales", objectMapper.writeValueAsString(monthlySales));
+        model.addAttribute("genderSales", objectMapper.writeValueAsString(genderSales));
+
+        // 화면에 필요한 레이아웃 데이터 추가
+        model.addAttribute("center", "chart/sales");
+        model.addAttribute("top", "chart/top");
+        model.addAttribute("left", "chart/left");
+
+        return "index";
+    }
 }

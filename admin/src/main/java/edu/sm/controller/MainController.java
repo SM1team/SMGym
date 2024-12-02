@@ -1,11 +1,14 @@
 package edu.sm.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import edu.sm.app.dto.CustDto;
 import edu.sm.app.dto.ReservationDto;
 import edu.sm.app.dto.Search;
 import edu.sm.app.dto.TrainerDto;
 import edu.sm.app.service.CustService;
+import edu.sm.app.service.PaymentService;
 import edu.sm.app.service.ReservationService;
 import edu.sm.app.service.TrainerService;
 import jakarta.servlet.http.HttpSession;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -33,11 +37,21 @@ public class MainController {
 
     @Value("${app.url.server-url}")
     String serverUrl;
-
+    final private PaymentService paymentService;
     @RequestMapping("/")
-    public String main(Model model){
-        model.addAttribute("charturl",serverUrl);
-        model.addAttribute("serverurl",serverUrl);
+    public String main(Model model) throws JsonProcessingException {
+        // 월별 매출 통계 가져오기
+        Map<String, Double> monthlySales = paymentService.getMonthlySales(); // paymentService에서 월별 매출 데이터를 받아옴
+
+        // 매출 데이터를 JSON 형식으로 JSP에 전달
+        model.addAttribute("monthlySales", new ObjectMapper().writeValueAsString(monthlySales));
+
+        // 현재 차트 종류를 지정 (예: 'monthlySales')
+        model.addAttribute("currentChart", "monthlySales");
+
+        // 메인 페이지를 반환
+        model.addAttribute("charturl", serverUrl);
+        model.addAttribute("serverurl", serverUrl);
 
         return "index";
     }

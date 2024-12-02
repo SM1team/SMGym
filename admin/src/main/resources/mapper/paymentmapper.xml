@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.sm.app.repository.PaymentRepository">
+
+    <!-- 월별 매출 통계 쿼리 -->
+    <select id="getMonthlySales" resultType="map">
+        SELECT
+        DATE_FORMAT(created_at, '%Y-%m') AS month,
+        SUM(amount) AS total_sales
+        FROM payment
+        WHERE payment_status = 'SUCCESS'
+        GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+        ORDER BY month;
+    </select>
+
+    <!-- 성별 매출 통계 -->
+    <select id="getGenderSales" resultType="map">
+        SELECT
+            CASE
+                WHEN cust_gender = 1 THEN '남성'
+                WHEN cust_gender = 2 THEN '여성'
+                ELSE '기타'
+                END AS gender,
+            SUM(amount) AS total_sales
+        FROM payment p
+                 JOIN cust c ON p.cust_id = c.cust_id
+        WHERE payment_status = 'SUCCESS'
+        GROUP BY gender
+    </select>
+</mapper>
