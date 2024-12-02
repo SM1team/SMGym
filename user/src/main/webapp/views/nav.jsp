@@ -48,6 +48,7 @@
                                 <li><a class="dropdown-item" href="<c:url value="/workout"/>">Workout Log</a></li>
                                 <li><a class="dropdown-item" href="<c:url value="/qr"/>">QR code</a></li>
                                 <li><a class="dropdown-item" href="<c:url value="/webcam"/>">Check in</a></li>
+                                <li><a class="dropdown-item" href="<c:url value="/webcam2"/>">Check out</a></li>
                             </c:otherwise>
                         </c:choose>
                     </ul>
