@@ -25,6 +25,84 @@
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
 
+<%--헬스장 플로어 맵 동적 스크립트--%>
+<script>
+  function toggleMachineStatus(element) {
+    const machineNo = element.getAttribute('data-machine_no');  // 클릭된 블록의 machine_no 가져오기
+    const confirmation = confirm('정말 상태를 변경하시겠습니까?'); // 상태 변경 확인
+
+    if (confirmation) {
+      // AJAX를 사용하여 서버로 상태 변경 요청
+      fetch(`/machine/status/${machineNo}`, {
+        method: 'POST'
+      })
+              .then(response => response.json())
+              .then(data => {
+                if (data.success) {
+                  alert('상태가 변경되었습니다.');
+                  // 상태 변경 후 화면 업데이트
+                  // 예: 변경된 상태에 따라 블록의 스타일이나 텍스트를 바꿔줄 수 있음
+                  // 예시: 상태에 따라 클래스 추가/제거
+                  element.classList.toggle('active', data.newStatus === 1);
+                } else {
+                  alert('상태 변경에 실패했습니다.');
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                console.error('Error Stack:', error.stack); // 에러 스택 출력
+                alert(`서버와의 통신 오류가 발생했습니다.\n오류 메시지: ${error.message}`); // 에러 메시지와 함께 사용자에게 알림
+              });
+    }
+  }
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // 체크박스 상태 변경 이벤트 리스너
+    const showDescriptionsCheckbox = document.getElementById('showDescriptions');
+
+    // 모든 bubble 요소들
+    const allBubbles = document.querySelectorAll('.gym-layout .bubble');
+
+    // 체크박스 상태에 따라 각 운동기구의 bubble 표시/숨김
+    showDescriptionsCheckbox.addEventListener('change', function() {
+      // 체크박스가 체크되었으면 bubble을 보이게, 체크 해제되면 숨기게
+      if (showDescriptionsCheckbox.checked) {
+        allBubbles.forEach(function(bubble) {
+          bubble.style.display = 'block'; // bubble 보이기
+        });
+      } else {
+        allBubbles.forEach(function(bubble) {
+          bubble.style.display = 'none'; // bubble 숨기기
+        });
+      }
+    });
+  });
+
+
+  // 각 운동기구 버튼이 눌렸을 때 동작하는 로직 + alert 창
+  document.addEventListener('DOMContentLoaded', function() {
+    // 모든 운동기구를 대상으로 클릭 이벤트를 등록
+    const equipmentElements = document.querySelectorAll('.equipment');
+
+    equipmentElements.forEach(function(equipment) {
+      // 각 운동기구 블록에 click 이벤트 추가
+      equipment.addEventListener('click', function() {
+        // 클릭된 운동기구의 ID 값을 가져옴
+        const equipmentId = equipment.getAttribute('data-machine_no');
+
+        // 알림 창을 띄움
+        alert('운동기구 ' + equipmentId + ' 버튼이 눌렸습니다!');
+      });
+    });
+  });
+</script>
+
+<div>
+  <input type="checkbox" id="showDescriptions" checked>
+  <label for="showDescriptions" class="switch-label">기구 설명 및 사용법 확인</label>
+</div>
+</div>
 
 
 <section class="page-section" id="services">
@@ -33,23 +111,26 @@
       <h2 class="section-heading text-uppercase">헬스장 플로어 맵</h2>
       <h3 class="section-subheading text-muted">운동 기구와 주요 시설을 한눈에 확인해보세요!</h3>
     </div>
-    <div class="gym-layout">
-      <!-- 러닝머신 7개 -->
-      <div class="equipment running" style="top: 8%; left: 3%;">
-        <i class="fas fa-running"></i>
-        <h4>러닝머신 1</h4>
-        <div class="bubble">
-          <p><strong>러닝머신이란?</strong></p>
-          <img class="img-fluid" src="<c:url value="/assets/img/logos/running.jpg"/>" alt="..." />
-          <p>러닝머신은 체력과 유산소 운동을 동시에 개선할 수 있는 운동 기계로, 조정 가능한 속도와 기울기로 다양한 운동 강도를 선택할 수 있습니다. 지속적인 운동을 통해 체중 감량과 심혈관 건강에 도움이 됩니다.</p>
-          <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
-          <p><strong>속도:</strong> 1 ~ 15 km/h</p>
-        </div>
-        <!-- 이미지 추가 -->
-        <div class="light"></div>
-      </div>
 
-      <div class="equipment running" style="top: 8%; left: 14%;">
+    <!-- 운동기구 설명 보기 체크박스 추가 -->
+
+
+
+  <div class="gym-layout">
+    <div class="equipment running" style="top: 8%; left: 3%;" data-machine_no="1" onclick="toggleMachineStatus(this)">
+      <i class="fas fa-running"></i>
+      <h4>러닝머신 1</h4>
+      <div class="bubble">
+        <p><strong>러닝머신이란?</strong></p>
+        <img class="img-fluid" src="<c:url value='/assets/img/logos/running.jpg'/>" alt="..." />
+        <p>러닝머신은 체력과 유산소 운동을 동시에 개선할 수 있는 운동 기계로, 조정 가능한 속도와 기울기로 다양한 운동 강도를 선택할 수 있습니다. 지속적인 운동을 통해 체중 감량과 심혈관 건강에 도움이 됩니다.</p>
+        <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
+        <p><strong>속도:</strong> 1 ~ 15 km/h</p>
+      </div>
+      <div class="light"></div>
+    </div>
+
+      <div class="equipment running" style="top: 8%; left: 14%;" data-machine_no="2">
         <i class="fas fa-running"></i>
         <h4>런닝머신 2</h4>
         <div class="bubble">
@@ -61,7 +142,7 @@
         </div>
         <div class="light"></div>
       </div>
-      <div class="equipment running" style="top: 8%; left: 25%;">
+      <div class="equipment running" style="top: 8%; left: 25%;" data-machine_no="3" >
         <i class="fas fa-running"></i>
         <h4>런닝머신 3</h4>
         <div class="bubble">
@@ -73,7 +154,7 @@
         </div>
         <div class="light"></div>
       </div>
-      <div class="equipment running" style="top: 8%; left: 36%;">
+      <div class="equipment running" style="top: 8%; left: 36%;" data-machine_no="4">
         <i class="fas fa-running"></i>
         <h4>런닝머신 4</h4>
         <div class="bubble">
@@ -85,7 +166,7 @@
         </div>
         <div class="light"></div>
       </div>
-      <div class="equipment running" style="top: 8%; left: 47%;">
+      <div class="equipment running" style="top: 8%; left: 47%;" data-machine_no="5">
         <i class="fas fa-running"></i>
         <h4>런닝머신 5</h4>
         <div class="bubble">
@@ -97,7 +178,7 @@
         </div>
         <div class="light"></div>
       </div>
-      <div class="equipment running" style="top: 8%; left: 58%;">
+      <div class="equipment running" style="top: 8%; left: 58%;" data-machine_no="6">
         <i class="fas fa-running"></i>
         <h4>런닝머신 6</h4>
         <div class="bubble">
@@ -109,7 +190,7 @@
         </div>
         <div class="light"></div>
       </div>
-      <div class="equipment running" style="top: 8%; left: 69%;">
+      <div class="equipment running" style="top: 8%; left: 69%;" data-machine_no="7">
         <i class="fas fa-running"></i>
         <h4>런닝머신 7</h4>
         <div class="bubble">
@@ -187,7 +268,7 @@
 
 
       <!-- 밴치프레스 -->
-      <div class="equipment weight" style="top: 25%; left: 13%;">
+      <div class="equipment weight" style="top: 25%; left: 13%;" data-machine_no="8">
         <i class="fas fa-dumbbell"></i>
         <h4>밴치 프레스</h4>
         <div class="bubble">
@@ -201,7 +282,7 @@
       </div>
 
       <!-- 숄더프레스 -->
-      <div class="equipment weight" style="top: 25%; left: 25%;">
+      <div class="equipment weight" style="top: 25%; left: 25%;" data-machine_no="9">
         <i class="fas fa-dumbbell"></i>
         <h4>숄더 프레스</h4>
         <div class="bubble">
@@ -215,7 +296,7 @@
       </div>
 
       <!-- 플라잉 머신 -->
-      <div class="equipment weight" style="top: 25%; left: 37%;">
+      <div class="equipment weight" style="top: 25%; left: 37%;" data-machine_no="10">
         <i class="fas fa-dumbbell"></i>
         <h4>플라잉 머신</h4>
         <div class="bubble">
@@ -251,7 +332,7 @@
 
 
       <!-- 사이클 머신 2개 추가 -->
-      <div class="equipment cardio" style="top: 25%; left: 50%;">
+      <div class="equipment cardio" style="top: 25%; left: 50%;" data-machine_no="11">
         <i class="fas fa-bicycle"></i>
         <h4>스핀 바이크 1</h4>
         <div class="bubble">
@@ -263,7 +344,7 @@
         </div>
         <div class="light"></div>
       </div>
-      <div class="equipment cardio" style="top: 38%; left: 50%; ">
+      <div class="equipment cardio" style="top: 38%; left: 50%; " data-machine_no="12">
         <i class="fas fa-bicycle"></i>
         <h4>스핀 바이크 2</h4>
         <div class="bubble">
@@ -276,7 +357,7 @@
         <div class="light"></div>
       </div>
 
-      <div class="equipment cardio" style="top: 51%; left: 50%; ">
+      <div class="equipment cardio" style="top: 51%; left: 50%; " data-machine_no="13">
         <i class="fas fa-bicycle"></i>
         <h4>인도어사이클 1</h4>
         <div class="bubble">
@@ -288,7 +369,7 @@
         </div>
         <div class="light"></div>
       </div>
-      <div class="equipment cardio" style="top: 64%; left: 50%;">
+      <div class="equipment cardio" style="top: 64%; left: 50%;" data-machine_no="14">
         <i class="fas fa-bicycle"></i>
         <h4>인도어사이클 2</h4>
         <div class="bubble">
@@ -304,8 +385,10 @@
 
 
       <div class="boundary-line" style="top: 22%; left: 60.6%; width: 2px; height: 57%; background-color: black;"></div>
+
+
       <!-- 레그 프레스 머신 -->
-      <div class="equipment weight" style="top: 25%; left: 63%; width: 110px; height: 110px;">
+      <div class="equipment weight" style="top: 25%; left: 63%; width: 110px; height: 110px;" data-machine_no="15">
         <i class="fas fa-dumbbell"></i>
         <h4 style="white-space: nowrap;">레그 프레스 머신</h4>
         <div class="bubble">
@@ -321,7 +404,7 @@
       </div>
 
       <!-- 체스트 프레스 머신 -->
-      <div class="equipment weight" style="top: 42.5%; left: 63%; width: 110px; height: 110px;">
+      <div class="equipment weight" style="top: 42.5%; left: 63%; width: 110px; height: 110px;" data-machine_no="16">
         <i class="fas fa-dumbbell"></i>
         <h4 style="white-space: nowrap;">체스트 프레스 머신</h4>
         <div class="bubble">
@@ -338,7 +421,7 @@
 
 
       <!-- 스미스 머신 -->
-      <div class="equipment weight" style="top: 60%; left: 63%; width: 110px; height: 110px;">
+      <div class="equipment weight" style="top: 60%; left: 63%; width: 110px; height: 110px;" data-machine_no="17">
         <i class="fas fa-dumbbell"></i>
         <h4>스미스 머신</h4>
         <div class="bubble">
@@ -357,7 +440,7 @@
       <div class="boundary-line" style="top: 79%; left: 11%; width: 65%;"></div>
 
       <!-- 덤벨존 -->
-      <div class="equipment strength" style="top: 81%; left: 13%; width: 130px; height: 120px;">
+      <div class="equipment strength" style="top: 81%; left: 13%; width: 130px; height: 120px;" data-machine_no="18">
         <i class="fas fa-dumbbell"></i>
         <h4>덤벨존</h4>
         <div class="bubble">
@@ -371,7 +454,7 @@
       </div>
 
       <!-- 렛풀다운 -->
-      <div class="equipment strength" style="top: 81%; left: 30%; width: 130px; height: 120px;">
+      <div class="equipment strength" style="top: 81%; left: 30%; width: 130px; height: 120px;" data-machine_no="19">
         <i class="fas fa-dumbbell"></i>
         <h4>렛풀다운</h4>
         <div class="bubble">
@@ -386,7 +469,7 @@
       </div>
 
       <!-- 풀업 바 -->
-      <div class="equipment strength" style="top: 81%; left: 47%; width: 117px; height: 120px;">
+      <div class="equipment strength" style="top: 81%; left: 47%; width: 117px; height: 120px;" data-machine_no="20">
         <i class="fas fa-fire-flame-simple"></i>
         <h4>풀업 바</h4>
         <div class="bubble">
@@ -401,7 +484,7 @@
       </div>
 
       <!-- 딥스 바 -->
-      <div class="equipment strength" style="top: 81%; left: 62%; width: 117px; height: 120px;">
+      <div class="equipment strength" style="top: 81%; left: 62%; width: 117px; height: 120px;" data-machine_no="21">
         <i class="fas fa-fire-flame-simple"></i>
         <h4>딥스 바</h4>
         <div class="bubble">
@@ -433,7 +516,7 @@
 
 
       <!-- 스텝밀 머신 1 -->
-      <div class="equipment running" style="top: 30%; left: 78%;">
+      <div class="equipment running" style="top: 30%; left: 78%;" data-machine_no="22">
         <i class="fas fa-running"></i>
         <h4>스텝밀 머신 1</h4>
         <div class="bubble">
@@ -448,7 +531,7 @@
       </div>
 
       <!-- 스텝밀 머신 2 -->
-      <div class="equipment running" style="top: 30%; left: 90%;">
+      <div class="equipment running" style="top: 30%; left: 90%;" data-machine_no="23">
         <i class="fas fa-running"></i>
         <h4>스텝밀 머신 2</h4>
         <div class="bubble">
@@ -466,7 +549,7 @@
       <div class="boundary-line" style="top: 45%; left: 76%; width: 24%;"></div>
 
       <!-- 스쿼트 존 -->
-      <div class="equipment weight" style="top: 50%; left: 79%; width: 180px;">
+      <div class="equipment weight" style="top: 50%; left: 79%; width: 180px;" data-machine_no="24">
         <i class="fas fa-dumbbell"></i>
         <h4>스쿼트 존</h4>
         <div class="bubble">
@@ -485,7 +568,7 @@
       <div class="boundary-line" style="top: 66%; left: 76%; width: 24%;"></div>
 
       <!-- 케이블 머신 존 -->
-      <div class="equipment cardio" style="top: 70%; left: 79%; width: 185px; height: 185px; font-size: 24px;">
+      <div class="equipment cardio" style="top: 70%; left: 79%; width: 185px; height: 185px; font-size: 24px;" data-machine_no="25">
         <i class="fas fa-dumbbell" style="font-size: 48px;"></i>
         <h4>케이블 머신 존</h4>
         <div class="bubble">
@@ -501,16 +584,76 @@
           </ul>
         </div>
       </div>
-
-
-
-
     </div>
   </div>
 </section>
 
 <!-- 스타일링 추가 -->
 <style>
+
+
+
+  /* 운동기구 설명 보기 스위치 스타일 */
+  .switch-label {
+    display: inline-block;
+    position: relative;
+    padding-left: 50px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+  }
+
+  /* 스위치 버튼 */
+  .switch-label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 25px;
+    background-color: #ccc;
+    border-radius: 50px;
+    transition: 0.3s;
+  }
+
+  .switch-label::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+  }
+
+  /* 체크박스가 체크되었을 때 */
+  input[type="checkbox"]:checked + .switch-label::before {
+    background-color: #4caf50; /* 스위치가 켜졌을 때 */
+  }
+
+  input[type="checkbox"]:checked + .switch-label::after {
+    left: 22px; /* 스위치가 오른쪽으로 이동 */
+  }
+
+  /* 체크박스 숨기기 */
+  input[type="checkbox"] {
+    display: none;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   .bubble {
@@ -578,6 +721,7 @@
   }
 
   .equipment, .facility {
+
     position: absolute;
     padding: 10px;
     border-radius: 8px;

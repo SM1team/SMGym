@@ -72,7 +72,7 @@ mybatis:
 # 4. Logging Setting
 logging:
   level:
-    root: error
+    root: info
   #  error > info > debug
 
 # 5. Application Environment Setting

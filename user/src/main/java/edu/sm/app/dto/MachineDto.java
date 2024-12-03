@@ -15,5 +15,5 @@ public class MachineDto {
     private int machineNo;               // machine_no (PK, AI)
     private String machineName;          // machine_name (varchar(40))
     private Timestamp machineTime;       // machine_time (datetime)
-    private int machineStatus;           // machine_status (tinyint)
+    private boolean machineStatus;       // machine_status (tinyint -> true/false)
 }
