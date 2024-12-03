@@ -30,29 +30,33 @@
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/qna"/>">Q&A</a></li>
 
                 <!-- Dropdown for Sign In and Sign Up -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Account
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <c:choose>
-                            <c:when test="${sessionScope.loginid == null}">
-                                <!-- 로그인이 안되어 있을 때 -->
-                                <li><a class="dropdown-item" href="<c:url value='/login'/>">Login</a></li>
-                                <li><a class="dropdown-item" href="<c:url value='/register'/>">Sign Up</a></li>
-                            </c:when>
-                            <c:otherwise>
-                                <!-- 로그인이 된 상태 -->
-                                <li><a class="dropdown-item" href="<c:url value="/mypage"/>">${sessionScope.loginid.custId}</a></li>
-                                <li><a class="dropdown-item" href="<c:url value="/logoutimpl"/>">Logout</a></li>
-                                <li><a class="dropdown-item" href="<c:url value="/workout"/>">Workout Log</a></li>
-                                <li><a class="dropdown-item" href="<c:url value="/qr"/>">QR code</a></li>
-                                <li><a class="dropdown-item" href="<c:url value="/webcam"/>">Check in</a></li>
-                                <li><a class="dropdown-item" href="<c:url value="/webcam2"/>">Check out</a></li>
-                            </c:otherwise>
-                        </c:choose>
-                    </ul>
-                </li>
+              <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Account
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <c:choose>
+            <c:when test="${sessionScope.loginid == null}">
+                <li><a class="dropdown-item" href="<c:url value='/login'/>">Login</a></li>
+                <li><a class="dropdown-item" href="<c:url value='/register'/>">Sign Up</a></li>
+            </c:when>
+            <c:otherwise>
+                <li><a class="dropdown-item" href="<c:url value="/mypage"/>">${sessionScope.loginid.custId}</a></li>
+                <li><a class="dropdown-item" href="<c:url value="/logoutimpl"/>">Logout</a></li>
+                <c:choose>
+                    <c:when test="${sessionScope.hasPT}">
+                        <li><a class="dropdown-item" href="<c:url value='/pt'/>">PT Page</a></li>
+                    </c:when>
+                </c:choose>
+                <li><a class="dropdown-item" href="<c:url value="/workout"/>">Workout Log</a></li>
+                <li><a class="dropdown-item" href="<c:url value="/qr"/>">QR code</a></li>
+                <li><a class="dropdown-item" href="<c:url value="/webcam"/>">Check in</a></li>
+                <li><a class="dropdown-item" href="<c:url value="/webcam2"/>">Check out</a></li>
+            </c:otherwise>
+        </c:choose>
+    </ul>
+</li>
+
             </ul>
         </div>
     </div>

@@ -47,4 +47,12 @@
         DELETE FROM cust
         WHERE cust_id = #{custId}
     </delete>
+
+    <select id="hasPurchasedPT" resultType="int">
+        SELECT COUNT(*)
+        FROM payment
+        WHERE cust_id = #{custId}
+          AND product_name LIKE '%필라%'
+          AND payment_status = 'SUCCESS'
+    </select>
 </mapper>

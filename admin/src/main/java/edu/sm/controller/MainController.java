@@ -40,6 +40,9 @@ public class MainController {
     final private PaymentService paymentService;
     @RequestMapping("/")
     public String main(Model model) throws JsonProcessingException {
+
+
+
         // 월별 매출 통계 가져오기
         Map<String, Double> monthlySales = paymentService.getMonthlySales(); // paymentService에서 월별 매출 데이터를 받아옴
         // 나이대별 매출 통계 가져오기
@@ -87,10 +90,8 @@ public class MainController {
         if(httpSession != null){
             httpSession.invalidate();
         }
-        model.addAttribute("top","top");
-        model.addAttribute("left","left");
-        model.addAttribute("center","login");
-        return "index";
+
+        return "login";
     }
 
 

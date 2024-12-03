@@ -57,6 +57,11 @@ public class MainInputController {
 
         CustDto custDto = custService.get(id);
         session.setAttribute("loginid", custDto);
+        // PT 이용권 구매 여부 확인 및 세션에 저장
+        boolean hasPT = custService.hasPurchasedPT(id);
+        session.setAttribute("hasPT", hasPT);
+
+
         return "index";
     }
     @RequestMapping("/logoutimpl")
