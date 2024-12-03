@@ -1,20 +1,19 @@
 package edu.sm.app.dto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class MachineDto {
-    private int machineNo;
-    private String machineName;
-    private int machineSeat;
-    private Date machineTime;
-    private int machineCount;
-    private int placeNo;
+    private int machineNo;               // machine_no (PK, AI)
+    private String machineName;          // machine_name (varchar(40))
+    private Timestamp machineTime;       // machine_time (datetime)
+    private int machineStatus;           // machine_status (tinyint)
 }
