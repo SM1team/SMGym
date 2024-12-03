@@ -57,10 +57,15 @@ public class ChartController {
         Map<String, Double> genderSales = paymentService.getGenderSales();
         log.info("Gender sales: {}", genderSales);
 
+        // 나이대별 매출 통계 가져오기
+        Map<String, Double> oldSales = paymentService.getOldSales();
+        log.info("Old sales: {}", oldSales);
+
         // 데이터를 JSON 형식으로 변환하여 JSP에 전달
         ObjectMapper objectMapper = new ObjectMapper();
         model.addAttribute("monthlySales", objectMapper.writeValueAsString(monthlySales));
         model.addAttribute("genderSales", objectMapper.writeValueAsString(genderSales));
+        model.addAttribute("oldSales", objectMapper.writeValueAsString(oldSales));
 
         // 화면에 필요한 레이아웃 데이터 추가
         model.addAttribute("center", "chart/sales");
@@ -69,7 +74,6 @@ public class ChartController {
 
         return "index";
     }
-
 
     @GetMapping("/visitor")
     public ResponseEntity<List<Map<String, Object>>> getDailyVisitors() {

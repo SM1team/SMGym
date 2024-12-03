@@ -39,5 +39,20 @@ public class PaymentService {
         return genderSales;
     }
 
+    // 나이대별 매출 통계 가져오기
+    public Map<String, Double> getOldSales() {
+        List<Map<String, Object>> results = paymentRepository.getOldSales();
+        Map<String, Double> oldSales = new HashMap<>();
+
+        for (Map<String, Object> result : results) {
+            String ageGroup = (String) result.get("age_group");
+            Double totalSales = ((Number) result.get("total_sales")).doubleValue();
+            oldSales.put(ageGroup, totalSales);
+        }
+
+        return oldSales;
+    }
+
+
 
 }

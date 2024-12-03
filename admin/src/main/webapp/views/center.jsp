@@ -764,21 +764,47 @@
                           <div class="row">
                             <div class="col-lg-12">
                               <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4 class="card-title card-title-dash">Type By
-                                  Amount</h4>
+                                <h4 class="card-title card-title-dash">나이대별 매출 Amount</h4>
                               </div>
                               <div>
-                                <canvas class="my-auto"
-                                        id="doughnutChart"></canvas>
+                                <canvas id="oldSalesChart"></canvas>
                               </div>
-                              <div id="doughnutChart-legend"
-                                   class="mt-5 text-center"></div>
+                              <div id="doughnutChart-legend" class="mt-5 text-center"></div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+
+                  <script>
+                    // 나이대별 매출 데이터
+                    const oldSales = JSON.parse('${oldSales}');
+                    const oldLabels = Object.keys(oldSales); // ["20대", "30대", "40대", "50대", "60대 이상"]
+                    const oldData = Object.values(oldSales); // [20대 매출, 30대 매출, ...]
+
+                    const oldCtx = document.getElementById('oldSalesChart').getContext('2d');
+                    new Chart(oldCtx, {
+                      type: 'doughnut',
+                      data: {
+                        labels: oldLabels,
+                        datasets: [{
+                          label: '나이대별 매출',
+                          data: oldData,
+                          backgroundColor: ['#FF5733', '#FFC300', '#28A745', '#17A2B8', '#6F42C1']
+                        }]
+                      },
+                      options: {
+                        responsive: true,
+                        plugins: {
+                          legend: {
+                            display: true,
+                            position: 'top'
+                          }
+                        }
+                      }
+                    });
+                  </script>
                   <div class="row flex-grow">
                     <div class="col-12 grid-margin stretch-card">
                       <div class="card card-rounded">

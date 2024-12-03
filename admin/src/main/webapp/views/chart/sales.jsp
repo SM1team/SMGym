@@ -13,7 +13,7 @@
 <div class="container mt-5">
     <div class="row">
         <!-- 월별 매출 통계 -->
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header bg-primary text-white">
                     월별 매출 통계
@@ -25,13 +25,25 @@
         </div>
 
         <!-- 성별 매출 통계 -->
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header bg-success text-white">
                     성별 매출 통계
                 </div>
                 <div class="card-body">
                     <canvas id="genderSalesChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 나이대별 매출 통계 -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-warning text-white">
+                    나이대별 매출 통계
+                </div>
+                <div class="card-body">
+                    <canvas id="oldSalesChart" width="400" height="400"></canvas>
                 </div>
             </div>
         </div>
@@ -82,6 +94,33 @@
                 label: '성별 매출',
                 data: genderData,
                 backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            }
+        }
+    });
+
+    // 나이대별 매출 데이터
+    const oldSales = JSON.parse('${oldSales}');
+    const oldLabels = Object.keys(oldSales); // ["20대", "30대", "40대", "50대", "60대 이상"]
+    const oldData = Object.values(oldSales); // [20대 매출, 30대 매출, ...]
+
+    const oldCtx = document.getElementById('oldSalesChart').getContext('2d');
+    new Chart(oldCtx, {
+        type: 'doughnut',
+        data: {
+            labels: oldLabels,
+            datasets: [{
+                label: '나이대별 매출',
+                data: oldData,
+                backgroundColor: ['#FF5733', '#FFC300', '#28A745', '#17A2B8', '#6F42C1']
             }]
         },
         options: {

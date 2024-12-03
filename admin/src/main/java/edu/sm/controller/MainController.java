@@ -42,12 +42,13 @@ public class MainController {
     public String main(Model model) throws JsonProcessingException {
         // 월별 매출 통계 가져오기
         Map<String, Double> monthlySales = paymentService.getMonthlySales(); // paymentService에서 월별 매출 데이터를 받아옴
+        // 나이대별 매출 통계 가져오기
+        Map<String, Double> oldSales = paymentService.getOldSales();
+
 
         // 매출 데이터를 JSON 형식으로 JSP에 전달
         model.addAttribute("monthlySales", new ObjectMapper().writeValueAsString(monthlySales));
-
-        // 현재 차트 종류를 지정 (예: 'monthlySales')
-        model.addAttribute("currentChart", "monthlySales");
+        model.addAttribute("oldSales", new ObjectMapper().writeValueAsString(oldSales));
 
         // 메인 페이지를 반환
         model.addAttribute("charturl", serverUrl);

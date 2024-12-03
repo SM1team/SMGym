@@ -15,4 +15,7 @@ public interface PaymentRepository {
 
     // 성별 매출 통계 데이터 가져오기
     List<Map<String, Object>> getGenderSales();
+
+    // 나이대 별 통계 데이터 가져오기
+    List<Map<String, Object>> getOldSales();
 }
