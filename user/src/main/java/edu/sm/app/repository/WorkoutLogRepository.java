@@ -6,6 +6,7 @@ import edu.sm.app.dto.WorkoutDetailDto;
 import edu.sm.app.dto.WorkoutLogDto;
 import edu.sm.app.frame.SMRepository;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,6 +28,10 @@ public interface WorkoutLogRepository extends SMRepository<Integer, WorkoutLogDt
     List<WorkoutLogDto> selectByCustId(String custId);
 
     List<WorkoutDetailDto> workdetail(Integer workoutNo);
+
+    void insert(WorkoutLogDto workoutLogDto);
+
+    List<String> selectAllExerciseNames();
 
 
 }

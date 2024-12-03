@@ -13,8 +13,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 @RequestMapping("/workout")
@@ -64,13 +67,27 @@ public class WorkoutController {
         return "index";
     }
     @RequestMapping("/write")
-    public String showWritePage(Model model) {
+    public String showWritePage(Model model ) {
+        List<String> exerciseNames = workoutLogService.getAllExerciseNames();
+
+        // 랜덤으로 운동 이름 선택
+        String randomExerciseName = exerciseNames.get(new Random().nextInt(exerciseNames.size()));
+
+        // 랜덤 운동 이름을 모델에 추가
+        model.addAttribute("randomExerciseName", randomExerciseName);
         model.addAttribute("top", wdir + "top");
         model.addAttribute("center", wdir + "write");
         return "index";  // /views/write.jsp로 포워딩됨
     }
 
-//
+    @RequestMapping("/saveWorkoutLog")
+    public String saveWorkoutLog(Model model ) {
+
+        model.addAttribute("top", wdir + "top");
+        model.addAttribute("center", wdir + "saveWorkoutLog");
+        return "index";  // /views/write.jsp로 포워딩됨
+    }
+
 
 //    @RequestMapping("/reservation")
 //    public String reservation(Model model){

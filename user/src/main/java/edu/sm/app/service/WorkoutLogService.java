@@ -72,4 +72,10 @@ public class WorkoutLogService implements SMService<Integer, WorkoutLogDto> {
     public List<WorkoutDetailDto> WorkoutdetailNo(Integer workoutNo) throws Exception {
         return workoutLogRepository.workdetail(workoutNo);
     }
+    // 운동이름 끌어오는 코드
+    public List<String> getAllExerciseNames() {
+        return workoutLogRepository.selectAllExerciseNames();
+    }
+
+
 }
