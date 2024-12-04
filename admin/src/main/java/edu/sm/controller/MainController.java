@@ -5,12 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import edu.sm.app.dto.*;
-import edu.sm.app.service.CustService;
-import edu.sm.app.service.NoticeService;
-import edu.sm.app.service.PaymentService;
-import edu.sm.app.service.ReservationService;
-import edu.sm.app.service.TrainerCheckService;
-import edu.sm.app.service.TrainerService;
+import edu.sm.app.service.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -37,13 +34,30 @@ public class MainController {
     private final CustService custService;
     private final TrainerCheckService trainerCheckService;
     private final NoticeService noticeService;
+    private final CustCheckService custCheckService;
 
 
     @Value("${app.url.server-url}")
     String serverUrl;
     final private PaymentService paymentService;
+
     @RequestMapping("/")
-    public String main(HttpSession session, Model model) throws Exception {
+    public String main(HttpSession session, Model model) throws JsonProcessingException {
+
+        List<AttendanceRateDto> members = custCheckService.getAttendanceRate();  // 출석률 데이터 조회
+
+        List<Map<String, Object>> attendanceList = trainerCheckService.getTodayAttendance();
+
+
+
+        // 현재 달 정보 추가
+        LocalDate now = LocalDate.now();
+        String currentMonth = now.format(DateTimeFormatter.ofPattern("yyyy-MM"));  // 예: 2024-12
+
+        model.addAttribute("members", members);  // JSP에 members 데이터 전달
+        model.addAttribute("trainers", attendanceList);
+
+        model.addAttribute("currentMonth", currentMonth);  // 현재 달 정보 전달
         // 세션에서 로그인 정보 확인
         Object loginId = session.getAttribute("loginid");
 
@@ -59,26 +73,12 @@ public class MainController {
 
         // 매출 데이터를 JSON 형식으로 JSP에 전달
         model.addAttribute("monthlySales", new ObjectMapper().writeValueAsString(monthlySales));
+        log.info("Monthly Sales: {}", monthlySales);
         model.addAttribute("oldSales", new ObjectMapper().writeValueAsString(oldSales));
 
         // 메인 페이지를 반환
         model.addAttribute("charturl", serverUrl);
         model.addAttribute("serverurl", serverUrl);
-
-        // 최신 공지사항 4개 가져오기
-        List<NoticeDto> recentNotices = noticeService.getRecentNotices();
-
-        // 콘솔에 출력
-        System.out.println("===== 최신 공지사항 4개 =====");
-        for (NoticeDto notice : recentNotices) {
-            System.out.println("제목: " + notice.getNoticeTitle());
-            System.out.println("작성자: " + notice.getTrainerId());
-            System.out.println("날짜: " + notice.getNoticeDate());
-            System.out.println("---------------------------");
-        }
-
-        // 모델에 데이터 추가
-        model.addAttribute("recentNotices", recentNotices);
 
         return "index";
     }
