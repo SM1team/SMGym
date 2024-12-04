@@ -1,107 +1,84 @@
-<!-- login.jsp -->
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<c:url value='/css/styles.css' />"> <!-- styles.css 링크 -->
-    <style>
-        body {
-            background-color: #f0f2f5;
-        }
-        .masthead {
-            background: url('path/to/your/background-image.jpg') no-repeat center center;
-            background-size: cover;
-            color: white;
-            padding: 80px 0;
-            text-align: center;
-        }
-        .login-container {
-            margin-top: 30px;
-        }
-        .card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        .card-header {
-            background-color: #007bff;
-            color: white;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-        }
-        .card-footer {
-            background-color: #f8f9fa;
-        }
-        .footer-text {
-            font-size: 0.9rem;
-        }
-        .btn-primary {
-            background-color: #007bff; /* 기본 버튼 색상 변경 */
-            border: none;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3; /* 버튼 호버 색상 변경 */
-        }
-        .form-group {
-            margin-bottom: 1.5rem; /* 폼 간격 증가 */
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login Page</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../assets/vendors/feather/feather.css">
+    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="../../assets/vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" />
 </head>
 <body>
-<header class="masthead">
-    <div class="container">
-        <div class="masthead-subheading">환영합니다!</div>
-        <div class="masthead-heading text-uppercase">로그인 페이지입니다</div>
-        <a class="btn btn-secondary btn-xl text-uppercase" href="/"><i class="fas fa-home"></i> 메인 페이지로 돌아가기</a>
-    </div>
-</header>
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth px-0">
+            <div class="row w-100 mx-0">
+                <div class="col-lg-4 mx-auto">
+                    <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+                        <div class="brand-logo">
+                            <img src="../../assets/images/logo.svg" alt="logo">
+                        </div>
+                        <h4>Hello! Let's get started</h4>
+                        <h6 class="fw-light">Sign in to continue.</h6>
 
-<div class="container login-container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header text-center">
-                    <!-- <h3>로그인</h3> 삭제 -->
-                </div>
-                <div class="card-body">
-                    <form action="<c:url value='/loginimpl' />" method="post">
-                        <div class="form-group">
-                            <label for="username">사용자 id</label>
-                            <input type="text" value="kis2690" class="form-control" id="username" name="username" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">비밀번호</label>
-                            <input type="password" value="kis4567" class="form-control" id="password" name="password" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">로그인</button>
-                    </form>
-                </div>
-                <div class="card-footer text-center">
-                    <small class="footer-text">계정이 없으신가요???? <a href="<c:url value='/register'/>">여기에서 등록하세요</a></small>
+                        <!-- 로그인 오류 메시지 -->
+                        <c:if test="${param.error == 'true'}">
+                            <div class="alert alert-danger">
+                                Invalid ID or password. Please try again.
+                            </div>
+                        </c:if>
+
+                        <form class="pt-3" method="post" action="/loginimpl">
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" id="id" name="id" placeholder="ID">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control form-control-lg" id="pwd" name="pwd" placeholder="Password">
+                            </div>
+                            <div class="mt-3 d-grid gap-2">
+                                <button type="submit" class="btn btn-block btn-primary btn-lg fw-medium auth-form-btn">SIGN IN</button>
+                            </div>
+                            <div class="my-2 d-flex justify-content-between align-items-center">
+                                <div class="form-check">
+                                    <label class="form-check-label text-muted">
+                                        <input type="checkbox" class="form-check-input"> Keep me signed in
+                                    </label>
+                                </div>
+                                <a href="#" class="auth-link text-black">Forgot password?</a>
+                            </div>
+                            <div class="mb-2 d-grid gap-2">
+                                <button type="button" class="btn btn-block btn-facebook auth-form-btn">
+                                    <i class="ti-facebook me-2"></i>Connect using Facebook
+                                </button>
+                            </div>
+                            <div class="text-center mt-4 fw-light">
+                                Don't have an account? <a href="register.html" class="text-primary">Create</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- content-wrapper ends -->
     </div>
+    <!-- page-body-wrapper ends -->
 </div>
-
-<!-- 로그인 실패 메시지 팝업 -->
-<c:if test="${not empty loginError}">
-    <script type="text/javascript">
-        alert("${loginError}");
-        // 로그인 폼의 내용 초기화
-        document.getElementById("loginForm").reset();
-    </script>
-</c:if>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+<script src="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="../../assets/js/off-canvas.js"></script>
+<script src="../../assets/js/template.js"></script>
+<script src="../../assets/js/settings.js"></script>
+<script src="../../assets/js/hoverable-collapse.js"></script>
+<script src="../../assets/js/todolist.js"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -28,7 +29,7 @@
 
                 <div class="form-group">
                     <label for="productPrice">가격</label>
-                    <input type="text" id="productPrice" class="form-control" value="₩${product.productPrice}" readonly />
+                    <input type="text" id="productPrice" class="form-control" value="₩<fmt:formatNumber value="${product.productPrice}" type="number" groupingUsed="true" />원" readonly />
                 </div>
 
                 <!-- 트레이너 선택 폼 -->

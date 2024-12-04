@@ -31,7 +31,8 @@
 
         @Override
         public CustDto get(String s) throws Exception {
-            return PtRepository.selectOne(s);
+//            return PtRepository.selectOne(s);
+            return null;
         }
 
         @Override
