@@ -92,7 +92,8 @@
 
 <div class="container">
   <!-- 상단 검정 배경의 여백 -->
-  <div class="row" style="background-color: #000; height: 400px;"></div> <!-- 상단 여백 -->
+  <div class="row" style="background-color: #000; height: 400px;"></div>
+  <!-- 상단 여백 -->
 
   <div id="center" >
   <div class="row">
