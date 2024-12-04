@@ -1,11 +1,9 @@
 package edu.sm.controller;
 
 import com.github.pagehelper.PageInfo;
-import edu.sm.app.dto.CustDto;
-import edu.sm.app.dto.ReservationDto;
-import edu.sm.app.dto.Search;
-import edu.sm.app.dto.TrainerDto;
+import edu.sm.app.dto.*;
 import edu.sm.app.service.CustService;
+import edu.sm.app.service.NoticeService;
 import edu.sm.app.service.ReservationService;
 import edu.sm.app.service.TrainerService;
 import jakarta.servlet.http.HttpSession;
@@ -29,18 +27,35 @@ public class MainController {
     private final TrainerService trainerService;
     private final ReservationService reservationService;
     private final CustService custService;
+    private final NoticeService noticeService;
 
 
     @Value("${app.url.server-url}")
     String serverUrl;
 
     @RequestMapping("/")
-    public String main(Model model){
-        model.addAttribute("charturl",serverUrl);
-        model.addAttribute("serverurl",serverUrl);
+    public String main(Model model) throws Exception {
+        model.addAttribute("charturl", serverUrl);
+        model.addAttribute("serverurl", serverUrl);
+
+        // 최신 공지사항 4개 가져오기
+        List<NoticeDto> recentNotices = noticeService.getRecentNotices();
+
+        // 콘솔에 출력
+        System.out.println("===== 최신 공지사항 4개 =====");
+        for (NoticeDto notice : recentNotices) {
+            System.out.println("제목: " + notice.getNoticeTitle());
+            System.out.println("작성자: " + notice.getTrainerId());
+            System.out.println("날짜: " + notice.getNoticeDate());
+            System.out.println("---------------------------");
+        }
+
+        // 모델에 데이터 추가
+        model.addAttribute("recentNotices", recentNotices);
 
         return "index";
     }
+
     @RequestMapping("/websocket")
     public String websocket(Model model ){
         model.addAttribute("serverurl",serverUrl);//얘가 중요한친구임. 여기에 127.0.0...넣으면 수시로 바꿀 수 없으니가 yml에 다로 빼놓음.
