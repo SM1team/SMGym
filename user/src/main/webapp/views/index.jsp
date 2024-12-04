@@ -64,23 +64,23 @@
     </div>
 </div>
 
-<!-- Available Machines Section -->
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <h2>Available Machines</h2>
-            <ul class="list-group">
-                <c:forEach var="machine" items="${services}">
-                    <li class="list-group-item">
-                        <h5>${machine.machineName}</h5> <!-- machine_name을 machineName으로 수정 -->
-                        <p>Status: ${machine.machineStatus ? 'Active' : 'Inactive'}</p> <!-- machineStatus를 boolean 값에 따라 출력 -->
-                        <p>Description: ${machine.machineTime}</p> <!-- machineTime을 출력 (예: 등록 시간 등) -->
-                    </li>
-                </c:forEach>
-            </ul>
-        </div>
-    </div>
-</div>
+<%--<!-- Available Machines Section -->--%>
+<%--<div class="container">--%>
+<%--    <div class="row">--%>
+<%--        <div class="col-12">--%>
+<%--            <h2>Available Machines</h2>--%>
+<%--            <ul class="list-group">--%>
+<%--                <c:forEach var="machine" items="${services}">--%>
+<%--                    <li class="list-group-item">--%>
+<%--                        <h5>${machine.machineName}</h5> <!-- machine_name을 machineName으로 수정 -->--%>
+<%--                        <p>Status: ${machine.machineStatus ? 'Active' : 'Inactive'}</p> <!-- machineStatus를 boolean 값에 따라 출력 -->--%>
+<%--                        <p>Description: ${machine.machineTime}</p> <!-- machineTime을 출력 (예: 등록 시간 등) -->--%>
+<%--                    </li>--%>
+<%--                </c:forEach>--%>
+<%--            </ul>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
 
 <!-- Footer-->
 <footer class="footer py-4" style="background-color: #f8f9fa;">
