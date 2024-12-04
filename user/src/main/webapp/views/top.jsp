@@ -8,7 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,6 +32,10 @@
       color: #ffcc00; /* 숫자 색상 조정 */
       transition: all 0.5s ease; /* 애니메이션 효과 추가 */
     }
+
+    .text-white {
+      color: white; /* 한글 텍스트를 하얀색으로 변경 */
+    }
   </style>
 </head>
 <body id="page-top">
@@ -42,10 +45,10 @@
     <div class="masthead-subheading">Welcome To Our Gym!</div>
     <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
     <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
-    <div class="mt-4 text-center text-white">
+    <div class="mt-4 text-center">
       <h4 class="font-weight-light">
-        <span class="counter" data-target="120">0</span>명의 회원과
-        <span class="counter" data-target="3">0</span>명의 전문 트레이너가 함께하는 활기찬 공간!
+        <span class="counter" data-target="120">0</span><span class="text-white">명의 회원과</span>
+        <span class="counter" data-target="3">0</span><span class="text-white">명의 전문 트레이너가 함께하는 활기찬 공간!</span>
       </h4>
     </div>
   </div>
@@ -77,3 +80,6 @@
     updateCount(); // 카운터 시작
   });
 </script>
+
+</body>
+</html>

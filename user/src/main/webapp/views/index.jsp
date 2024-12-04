@@ -1,4 +1,3 @@
-<!-- views/index.jsp -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="nav.jsp" %>
@@ -23,8 +22,6 @@
 <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
-
-
 <%--HighCharts Lib  start --%>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -35,8 +32,6 @@
 <%--     Web Socket Lib    --%>
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-
-
 
 <div class="container" style="max-width: 100%">
     <div class="row">
@@ -58,7 +53,7 @@
             </c:otherwise>
         </c:choose>
 
-         <c:choose>
+        <c:choose>
             <c:when test="${footer == null}">
                 <jsp:include page="footer.jsp"/>
             </c:when>
@@ -69,8 +64,26 @@
     </div>
 </div>
 
+<!-- Available Machines Section -->
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Available Machines</h2>
+            <ul class="list-group">
+                <c:forEach var="machine" items="${services}">
+                    <li class="list-group-item">
+                        <h5>${machine.machineName}</h5> <!-- machine_name을 machineName으로 수정 -->
+                        <p>Status: ${machine.machineStatus ? 'Active' : 'Inactive'}</p> <!-- machineStatus를 boolean 값에 따라 출력 -->
+                        <p>Description: ${machine.machineTime}</p> <!-- machineTime을 출력 (예: 등록 시간 등) -->
+                    </li>
+                </c:forEach>
+            </ul>
+        </div>
+    </div>
+</div>
+
 <!-- Footer-->
-<footer class="footer py-4" style="background-color: #f8f9fa;">  <!-- 지점들 section 색상과 동일한 배경색 -->
+<footer class="footer py-4" style="background-color: #f8f9fa;">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2023</div>
