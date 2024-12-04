@@ -69,7 +69,10 @@
                 <div class="collapse" id="charts">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"><a class="nav-link" href="<c:url value="/chart/gender"/>" >일 방문 현황</a></li>
+                    </ul>
 
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/chart/sales"/>" >매출 현황</a></li>
                     </ul>
                 </div>
             </li>

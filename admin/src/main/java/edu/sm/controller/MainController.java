@@ -1,10 +1,13 @@
 package edu.sm.controller;
 
 import com.github.pagehelper.Page;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import edu.sm.app.dto.*;
 import edu.sm.app.service.CustService;
 import edu.sm.app.service.NoticeService;
+import edu.sm.app.service.PaymentService;
 import edu.sm.app.service.ReservationService;
 import edu.sm.app.service.TrainerCheckService;
 import edu.sm.app.service.TrainerService;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -37,9 +41,26 @@ public class MainController {
 
     @Value("${app.url.server-url}")
     String serverUrl;
-
+    final private PaymentService paymentService;
     @RequestMapping("/")
     public String main(Model model) throws Exception {
+        model.addAttribute("charturl", serverUrl);
+        model.addAttribute("serverurl", serverUrl);
+    public String main(Model model) throws JsonProcessingException {
+
+
+
+        // 월별 매출 통계 가져오기
+        Map<String, Double> monthlySales = paymentService.getMonthlySales(); // paymentService에서 월별 매출 데이터를 받아옴
+        // 나이대별 매출 통계 가져오기
+        Map<String, Double> oldSales = paymentService.getOldSales();
+
+
+        // 매출 데이터를 JSON 형식으로 JSP에 전달
+        model.addAttribute("monthlySales", new ObjectMapper().writeValueAsString(monthlySales));
+        model.addAttribute("oldSales", new ObjectMapper().writeValueAsString(oldSales));
+
+        // 메인 페이지를 반환
         model.addAttribute("charturl", serverUrl);
         model.addAttribute("serverurl", serverUrl);
 
@@ -92,10 +113,8 @@ public class MainController {
         if(httpSession != null){
             httpSession.invalidate();
         }
-        model.addAttribute("top","top");
-        model.addAttribute("left","left");
-        model.addAttribute("center","login");
-        return "index";
+
+        return "login";
     }
 
 

@@ -31,8 +31,8 @@
                     <input type="text" id="productPrice" class="form-control" value="₩${product.productPrice}" readonly />
                 </div>
 
-
-                <div class="form-group">
+                <!-- 트레이너 선택 폼 -->
+                <div id="trainer-selection-form" class="form-group">
                     <label for="trainerSelection">트레이너 선택</label>
                     <select id="trainerSelection" name="trainerId" class="form-control">
                         <c:forEach var="trainer" items="${trainerList}">
@@ -48,7 +48,6 @@
                         </c:forEach>
                     </select>
                 </div>
-
             </form>
 
             <div class="form-actions">
@@ -61,11 +60,9 @@
 
                 <!-- 찜하기 버튼 -->
                 <form action="/shop/wishlist/add" method="post" class="d-inline" id="wishlist-form">
-<%--                    <input type="hidden" id="productName" name="productName" value="${product.productName}" />--%>
                     <button type="submit" class="btn btn-outline-secondary" onclick="checkLoginBeforeWishlist(event)">찜하기</button>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
@@ -73,6 +70,16 @@
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script>
+    // 페이지 로드 시, 상품명에 "헬스"가 포함되어 있는지 체크
+    window.onload = function() {
+        var productName = document.getElementById("productName").value;
+
+        // "헬스"가 포함된 경우 트레이너 선택 폼 숨기기
+        if (productName.indexOf('헬스') !== -1) {
+            document.getElementById("trainer-selection-form").style.display = 'none';
+        }
+    };
+
     // 결제하기 버튼 클릭 시 로그인 여부 확인
     function checkLoginBeforePay() {
         if (!isLoggedIn()) {
@@ -144,8 +151,6 @@
                         alert("결제 정보를 처리하는 데 문제가 발생했습니다.");
                     }
                 });
-
-
             } else {
                 // 결제 실패 처리
                 alert("결제가 실패되었습니다: " + rsp.error_msg);

@@ -20,7 +20,6 @@
               <h5 class="fw-bolder">${product.productName}</h5>
               <!-- Product price-->
               ₩${product.productPrice}
-                ${product.placeNo}
             </div>
           </div>
           <!-- Product actions-->
