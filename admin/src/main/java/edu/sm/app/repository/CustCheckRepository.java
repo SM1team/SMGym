@@ -1,5 +1,6 @@
 package edu.sm.app.repository;
 
+import edu.sm.app.dto.AttendanceRateDto;
 import edu.sm.app.dto.CustCheckDto;
 import edu.sm.app.frame.SMRepository;
 import org.apache.ibatis.annotations.Mapper;
@@ -31,6 +32,9 @@ public interface CustCheckRepository extends SMRepository<String, CustCheckDto> 
 
     // 오늘 방문자 수 조회
     int getVisitorsToday();
+
+    List<AttendanceRateDto> getAttendanceRate();
+
 
 
 

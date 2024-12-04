@@ -1,5 +1,6 @@
 package edu.sm.app.service;
 
+import edu.sm.app.dto.AttendanceRateDto;
 import edu.sm.app.dto.CustCheckDto;
 import edu.sm.app.frame.SMService;
 import edu.sm.app.repository.CustCheckRepository;
@@ -106,6 +107,10 @@ public class CustCheckService implements SMService<String, CustCheckDto> {
     // 오늘 방문자 수 조회
     public int getVisitorsToday() {
         return custCheckRepository.getVisitorsToday();
+    }
+
+    public List<AttendanceRateDto> getAttendanceRate() {
+        return custCheckRepository.getAttendanceRate();  // Repository에서 호출
     }
 
 

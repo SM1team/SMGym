@@ -4,6 +4,24 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.sm.app.repository.TrainerRepository">
 
+    <resultMap id="trainerRoleMap" type="TrainerDto">
+        <!-- TrainerDto의 기본 속성 매핑 -->
+        <id property="trainerId" column="trainer_id" />
+        <result property="trainerName" column="trainer_name" />
+        <result property="trainerAge" column="trainer_age" />
+        <result property="trainerGender" column="trainer_gender" />
+        <result property="trainerPhone" column="trainer_phone" />
+        <result property="trainerAddress" column="trainer_address" />
+        <result property="trainerPwd" column="trainer_pwd" />
+        <result property="placeNo" column="place_no" />
+
+        <!-- RoleDto와 매핑 -->
+        <association property="role" javaType="RoleDto">
+            <id property="roleId" column="role_id" />
+            <result property="roleName" column="role_name" />
+        </association>
+    </resultMap>
+
     <select id="trainerfindpage" resultType="TrainerDto" parameterType="search">
         SELECT *
         FROM trainer
@@ -26,12 +44,46 @@
     </select>
 
 
-    <select id="selectOne" parameterType="String" resultType="trainerDto">
-        SELECT * FROM trainer WHERE trainer_id=#{trainerId}
+    <select id="selectOne" parameterType="string" resultMap="trainerRoleMap">
+        SELECT
+            t.trainer_id,
+            t.trainer_name,
+            t.trainer_age,
+            t.trainer_gender,
+            t.trainer_phone,
+            t.trainer_address,
+            t.trainer_pwd,
+            t.place_no,
+            t.role_id,
+            r.role_name
+        FROM
+            trainer t
+                JOIN
+            role r
+            ON
+                t.role_id = r.role_id
+        WHERE
+            t.trainer_id = #{trainerId}
     </select>
 
-    <select id="select" resultType="trainerDto" >
-        SELECT * FROM trainer
+    <select id="select" resultMap="trainerRoleMap">
+        SELECT
+            t.trainer_id,
+            t.trainer_name,
+            t.trainer_age,
+            t.trainer_gender,
+            t.trainer_phone,
+            t.trainer_address,
+            t.trainer_pwd,
+            t.place_no,
+            r.role_id,
+            r.role_name
+        FROM
+            trainer t
+                LEFT JOIN
+            role r
+            ON
+                t.role_id = r.role_id;
     </select>
 
 

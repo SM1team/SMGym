@@ -64,7 +64,7 @@
             </c:when>
             <c:otherwise>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"  >${sessionScope.loginid.trainerId}</a>
+                    <a class="nav-link" href="#"  >${sessionScope.loginid.role.roleName}</a>
                 </li>
 
             </c:otherwise>
@@ -222,8 +222,11 @@
                         Activity</a>
                     <a class="dropdown-item"><i
                             class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i> FAQ</a>
-                    <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign
-                        Out</a>
+
+
+
+                    <a class="dropdown-item" href="<c:url value="/logoutimpl"/>"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Logout
+                        </a>
 
                 </div>
             </li>
