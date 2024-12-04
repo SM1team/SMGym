@@ -27,13 +27,13 @@ public class PtController {
     public String pt(Model model, HttpSession session) throws Exception {
         // 세션에서 로그인된 사용자 정보 가져오기
         CustDto loggedInUser = (CustDto) session.getAttribute("loginid");
+// 사용자 ID를 이용해 내역 조회
+//        String custId = loggedInUser.getCustId();
+//        List<PtDto> pts = PtService.get(custId);
 
-        // 사용자 ID를 이용해 내역 조회
-        String custId = loggedInUser.getCustId();
-        List<PtDto> pts = PtService.get(custId);
 
-
-        model.addAttribute("ptlist", pts);
+//
+//        model.addAttribute("ptlist", pts);
         model.addAttribute("top", dir + "top");
         model.addAttribute("center", dir + "center");
 

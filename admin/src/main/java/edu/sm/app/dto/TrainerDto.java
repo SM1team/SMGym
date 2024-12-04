@@ -19,5 +19,7 @@ public class TrainerDto {
     private String trainerPwd;
     private String placeNo;
 
-//    private int arole;
+    public String getTrainerPwd() {
+        return trainerPwd;
+    }
 }

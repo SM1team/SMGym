@@ -39,15 +39,19 @@ public class MainController {
     String serverUrl;
     final private PaymentService paymentService;
     @RequestMapping("/")
-    public String main(Model model) throws JsonProcessingException {
+    public String main(HttpSession session, Model model) throws JsonProcessingException {
+        // 세션에서 로그인 정보 확인
+        Object loginId = session.getAttribute("loginid");
 
-
+//        if (loginId == null) {
+//            // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
+//            return "redirect:/login";
+//        }
 
         // 월별 매출 통계 가져오기
-        Map<String, Double> monthlySales = paymentService.getMonthlySales(); // paymentService에서 월별 매출 데이터를 받아옴
+        Map<String, Double> monthlySales = paymentService.getMonthlySales();
         // 나이대별 매출 통계 가져오기
         Map<String, Double> oldSales = paymentService.getOldSales();
-
 
         // 매출 데이터를 JSON 형식으로 JSP에 전달
         model.addAttribute("monthlySales", new ObjectMapper().writeValueAsString(monthlySales));
@@ -59,6 +63,7 @@ public class MainController {
 
         return "index";
     }
+
     @RequestMapping("/websocket")
     public String websocket(Model model ){
         model.addAttribute("serverurl",serverUrl);//얘가 중요한친구임. 여기에 127.0.0...넣으면 수시로 바꿀 수 없으니가 yml에 다로 빼놓음.
@@ -99,20 +104,17 @@ public class MainController {
     public String loginimpl(
             @RequestParam("id") String id,
             @RequestParam("pwd") String pwd,
-            HttpSession Session) throws Exception {
-        TrainerDto trainerDto = null;
+            HttpSession session) throws Exception {
+        TrainerDto trainerDto = trainerService.get(id);
+        if (trainerDto == null || !trainerDto.getTrainerPwd().equals(pwd)) {
+            // 로그인 실패 시 처리
+            return "redirect:/login?error=true";
+        }
 
-        log.info("여기까지옴");
-
-
-            trainerDto = trainerService.get(id);
-
-
-        Session.setAttribute("loginid",trainerDto);
-        log.info("loginid까지 됨.");
-
+        session.setAttribute("loginid", trainerDto);
         return "redirect:/";
     }
+
     @RequestMapping("/reservation")
     public String reservation(Model model) throws Exception {
         model.addAttribute("top","top");

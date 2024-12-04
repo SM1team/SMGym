@@ -4,7 +4,7 @@
 
 <div class="col-sm-10">
 
-  <h2>운동일지 Page</h2>
+  <h2>PT Page</h2>
 
   <!-- 쓰기 버튼 -->
   <div class="mb-3">
