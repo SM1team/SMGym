@@ -112,7 +112,7 @@
                 <div class="collapse" id="notice">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"><a class="nav-link" href="<c:url value="/notice"/>">공지사항 조회</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<c:url value="/notice/add"/>">공지사항 추가</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/notice/write"/>">공지사항 추가</a></li>
                     </ul>
                 </div>
             </li>

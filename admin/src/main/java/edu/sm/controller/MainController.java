@@ -42,13 +42,22 @@ public class MainController {
     final private PaymentService paymentService;
 
     @RequestMapping("/")
-    public String main(HttpSession session, Model model) throws JsonProcessingException {
+    public String main(HttpSession session, Model model) throws Exception {
 
         List<AttendanceRateDto> members = custCheckService.getAttendanceRate();  // 출석률 데이터 조회
 
         List<Map<String, Object>> attendanceList = trainerCheckService.getTodayAttendance();
 
+        // 최신 공지사항 시작 메인페이지에 나오게 해주는 로직
+        List<NoticeDto> recentNotices = noticeService.getRecentNotices();
+        log.info("Fetching recent notices");
 
+        // 콘솔에 최신 공지사항 top4 리스트 출력
+        for (NoticeDto notice : recentNotices) {
+            log.info("Notice Title: " + notice.getNoticeTitle());
+            log.info("Notice Content: " + notice.getNoticeContent());
+            log.info("Notice Date: " + notice.getNoticeDate());
+        }
 
         // 현재 달 정보 추가
         LocalDate now = LocalDate.now();
@@ -56,6 +65,7 @@ public class MainController {
 
         model.addAttribute("members", members);  // JSP에 members 데이터 전달
         model.addAttribute("trainers", attendanceList);
+        model.addAttribute("recentNotices", recentNotices);
 
         model.addAttribute("currentMonth", currentMonth);  // 현재 달 정보 전달
         // 세션에서 로그인 정보 확인

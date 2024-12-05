@@ -468,6 +468,7 @@
                     </div>
                   </div>
                 </div>
+              <%--최신 공지사항 미리보기--%>
                 <div class="col-lg-4 d-flex flex-column">
                   <div class="row flex-grow">
                     <div class="col-12 grid-margin stretch-card">
@@ -476,91 +477,46 @@
                           <div class="row">
                             <div class="col-lg-12">
                               <div class="d-flex justify-content-between align-items-center">
-                                <h4 class="card-title card-title-dash">Todo list</h4>
+                                <h4 class="card-title card-title-dash d-flex align-items-center">
+                                  <!-- 빨간 느낌표 아이콘 -->
+                                  <i class="mdi mdi-alert-circle" style="color: red; font-size: 1.2em; margin-right: 8px;"></i>
+                                  최신 공지사항 미리보기
+                                </h4>
                                 <div class="add-items d-flex mb-0">
                                   <button class="add btn btn-icons btn-rounded btn-primary todo-list-add-btn text-white me-0 pl-12p">
-                                    <i class="mdi mdi-plus"></i></button>
+                                    <i class="mdi mdi-plus"></i>
+                                  </button>
                                 </div>
                               </div>
                               <div class="list-wrapper">
                                 <ul class="todo-list todo-list-rounded">
+
+                                  <!-- 공지사항 반복 -->
+                                  <c:forEach var="notice" items="${recentNotices}">
+
                                   <li class="d-block">
                                     <div class="form-check w-100">
-                                      <label class="form-check-label">
-                                        <input class="checkbox"
-                                               type="checkbox"> Lorem
-                                        Ipsum is simply dummy text of
-                                        the printing <i
-                                              class="input-helper rounded"></i>
+                                      <label class="form-check-label d-flex align-items-center">
+                                        <!-- 굵은 동그라미 추가 -->
+                                        <span style="display: inline-block; width: 5px; height: 5px; background-color: #000; /* 색상: 검정 */ border-radius: 50%;    /* 둥근 원 */ margin-right: 8px;/* 제목과의 간격 */"></span>
+                                        <!-- 공지사항 제목 -->
+                                        <a href="<c:url value='/notice/detail?noticeNo=${notice.noticeNo}' />"
+                                           style="text-decoration: none; color: inherit; font-weight: bold;">
+                                            ${notice.noticeTitle}
+                                        </a>
                                       </label>
+
                                       <div class="d-flex mt-2">
-                                        <div class="ps-4 text-small me-3">
-                                          24 June 2020
+                                        <div class="badge badge-opacity-info me-3" style="background-color: #87CEFA; padding: 5px 10px; border-radius: 5px;">
+                                          작성자: ${notice.trainerId}
                                         </div>
                                         <div class="badge badge-opacity-warning me-3">
-                                          Due tomorrow
-                                        </div>
-                                        <i class="mdi mdi-flag ms-2 flag-color"></i>
-                                      </div>
-                                    </div>
-                                  </li>
-                                  <li class="d-block">
-                                    <div class="form-check w-100">
-                                      <label class="form-check-label">
-                                        <input class="checkbox"
-                                               type="checkbox"> Lorem
-                                        Ipsum is simply dummy text of
-                                        the printing <i
-                                              class="input-helper rounded"></i>
-                                      </label>
-                                      <div class="d-flex mt-2">
-                                        <div class="ps-4 text-small me-3">
-                                          23 June 2020
-                                        </div>
-                                        <div class="badge badge-opacity-success me-3">
-                                          Done
+                                          날짜: ${notice.noticeDate}
                                         </div>
                                       </div>
                                     </div>
                                   </li>
-                                  <li>
-                                    <div class="form-check w-100">
-                                      <label class="form-check-label">
-                                        <input class="checkbox"
-                                               type="checkbox"> Lorem
-                                        Ipsum is simply dummy text of
-                                        the printing <i
-                                              class="input-helper rounded"></i>
-                                      </label>
-                                      <div class="d-flex mt-2">
-                                        <div class="ps-4 text-small me-3">
-                                          24 June 2020
-                                        </div>
-                                        <div class="badge badge-opacity-success me-3">
-                                          Done
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </li>
-                                  <li class="border-bottom-0">
-                                    <div class="form-check w-100">
-                                      <label class="form-check-label">
-                                        <input class="checkbox"
-                                               type="checkbox"> Lorem
-                                        Ipsum is simply dummy text of
-                                        the printing <i
-                                              class="input-helper rounded"></i>
-                                      </label>
-                                      <div class="d-flex mt-2">
-                                        <div class="ps-4 text-small me-3">
-                                          24 June 2020
-                                        </div>
-                                        <div class="badge badge-opacity-danger me-3">
-                                          Expired
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </li>
+                                  </c:forEach>
                                 </ul>
                               </div>
                             </div>
@@ -569,6 +525,8 @@
                       </div>
                     </div>
                   </div>
+                  <%--최신 공지사항 미리보기 종료--%>
+
                   <div class="row flex-grow">
                     <div class="col-12 grid-margin stretch-card">
                       <div class="card card-rounded">
