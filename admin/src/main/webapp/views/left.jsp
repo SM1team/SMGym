@@ -155,14 +155,14 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="/websocket">
-                    <i class="menu-icon mdi mdi-file-document"></i>
+                    <i class="menu-icon mdi mdi-message"></i>
                     <span class="menu-title">문의 관리</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/reservation">
-                    <i class="menu-icon mdi mdi-file-document"></i>
+                    <i class="menu-icon mdi mdi-calendar-check"></i>
                     <span class="menu-title">예약관리</span>
                 </a>
             </li>
