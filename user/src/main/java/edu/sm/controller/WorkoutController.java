@@ -65,7 +65,6 @@ public class WorkoutController {
         List<WorkoutDetailDto> workoutDetailDto = workoutLogService.WorkoutdetailNo(workoutNo);
 
         model.addAttribute("details", workoutDetailDto);
-
         model.addAttribute("top", wdir + "top");
         model.addAttribute("center", wdir + "detail");
 
@@ -85,6 +84,7 @@ public class WorkoutController {
         return "index";  // /views/write.jsp로 포워딩됨
     }
 
+    // 쓰기 버튼을 누르면 저장됌
     @RequestMapping("/save")
     public String saveWorkout(
             @RequestParam Date workoutDate,
@@ -137,6 +137,34 @@ public class WorkoutController {
         }
         return loggedInUser;
     }
+
+    @PostMapping("/add")
+    public ResponseEntity<String> addWorkout(HttpSession session) {
+        try {
+            // 로그인된 사용자 정보 가져오기
+            CustDto loggedInUser = (CustDto) session.getAttribute("loginid");
+
+            if (loggedInUser == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("로그인이 필요합니다.");
+            }
+
+            // 새 운동 항목 생성
+            WorkoutLogDto workoutLogDto = WorkoutLogDto.builder()
+                    .custId(loggedInUser.getCustId()) // 로그인된 사용자 ID 설정
+                    .build(); // workout_no는 자동 증가값(AI) 처리되므로 따로 설정하지 않음.
+
+            // 서비스에서 새 항목 저장
+            workoutLogService.add(workoutLogDto);
+
+            // 성공적인 응답
+            return ResponseEntity.status(HttpStatus.OK).body("새로운 항목이 추가되었습니다.");
+        } catch (Exception e) {
+            log.error("운동 기록 추가 중 오류 발생", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("새로운 항목을 추가하는 데 실패했습니다.");
+        }
+    }
+
 
 
 

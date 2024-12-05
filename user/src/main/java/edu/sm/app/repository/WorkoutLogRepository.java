@@ -30,6 +30,7 @@ public interface WorkoutLogRepository extends SMRepository<Integer, WorkoutLogDt
     List<WorkoutDetailDto> workdetail(Integer workoutNo);
 
     void insert(WorkoutLogDto workoutLogDto);
+    void insertplus(WorkoutLogDto workoutLogDto);
 
     List<String> selectAllExerciseNames();
 

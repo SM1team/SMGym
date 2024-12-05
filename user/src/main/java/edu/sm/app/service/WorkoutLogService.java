@@ -11,6 +11,7 @@ import edu.sm.app.repository.WorkoutLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 
 @Service
@@ -27,6 +28,7 @@ public class WorkoutLogService implements SMService<Integer, WorkoutLogDto> {
     @Override
     public void add(WorkoutLogDto workoutLogDto) throws Exception {
         workoutLogRepository.insert(workoutLogDto);
+//        workoutLogRepository.save(workoutLogDto);
     }
 
     @Override
@@ -80,6 +82,11 @@ public class WorkoutLogService implements SMService<Integer, WorkoutLogDto> {
         // DTO에서 엔티티로 변환 후 저장하는 로직을 추가
         workoutLogRepository.insert(workoutLogDto);
     }
+    public List<WorkoutDetailDto> getWorkoutDetails(Integer workoutNo) throws Exception {
+        // workoutNo에 해당하는 운동 기록 상세 정보를 조회
+        return workoutLogRepository.workdetail(workoutNo);
+    }
+
 
 
 

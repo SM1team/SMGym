@@ -41,6 +41,11 @@
         VALUES (#{custId},  #{workoutDate}, #{workoutTime}, #{workoutCalories}, #{workoutComments}, #{machineName})
     </insert>
 
+    <insert id="insertplus" parameterType="edu.sm.app.dto.WorkoutLogDto" useGeneratedKeys="true" keyProperty="workoutNo">
+        INSERT INTO workoutlog (cust_id, workout_date, workout_time, workout_calories, workout_comments, machine_name)
+        VALUES (#{custId},  #{workoutDate}, #{workoutTime}, #{workoutCalories}, #{workoutComments}, #{machineName})
+    </insert>
+
 
     <select id="selectAllExerciseNames" resultType="String">
         SELECT machine_name
