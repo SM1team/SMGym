@@ -35,6 +35,10 @@ public interface CustCheckRepository extends SMRepository<String, CustCheckDto> 
 
     List<AttendanceRateDto> getAttendanceRate();
 
+    Map<String, Long> getVisitStatistics();
+
+
+
 
 
 

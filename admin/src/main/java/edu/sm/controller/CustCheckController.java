@@ -49,4 +49,11 @@ public class CustCheckController {
         int visitorsToday = custCheckService.getVisitorsToday();
         return ResponseEntity.ok(visitorsToday);  // 반환된 값이 Integer여야 함
     }
+
+    @GetMapping("/visit")
+    public ResponseEntity<Map<String, Object>> getVisitStatistics() {
+        Map<String, Object> statistics = custCheckService.getVisitStatistics();
+        log.info("Statistics retrieved: {}", statistics);
+        return ResponseEntity.ok(statistics);
+    }
 }

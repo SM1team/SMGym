@@ -39,28 +39,97 @@
                  aria-labelledby="overview">
               <%--통계--%>
               <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-11">
                   <div class="statistics-details d-flex align-items-center justify-content-between">
                     <div>
-                      <p class="statistics-title">Bounce Rate</p>
-                      <h3 class="rate-percentage">32.53%</h3>
-                      <p class="text-danger d-flex"><i
-                              class="mdi mdi-menu-down"></i><span>-0.5%</span></p>
-                    </div>
-                    <div>
-                      <p class="statistics-title">Page Views</p>
-                      <h3 class="rate-percentage">8,1235</h3>
-                      <p class="text-success d-flex"><i class="mdi mdi-menu-up"></i><span>+0.1%</span>
+                      <p class="statistics-title">전날대비 방문자 증가률</p>
+                      <h3 class="rate-percentage" id="visit-growth-rate"></h3>
+                      <p class="text-danger d-flex">
+                        <i id="rate-icon" class="mdi"></i>
+                        <span id="rate-difference"></span>
                       </p>
                     </div>
+
+                    <script>
+                      fetch('/api/attendance/visit')
+                              .then(response => response.json())
+                              .then(data => {
+                                const growthRate = data.visitGrowthRate.toFixed(2) + '%';
+                                const rateDifference = data.rateDifference.toFixed(2) + '%';
+
+                                // 방문자 증가율을 표시
+                                document.getElementById('visit-growth-rate').textContent = growthRate;
+
+                                // 성장률 차이를 표시하고 아이콘 변경
+                                const rateDiffElement = document.getElementById('rate-difference');
+                                const rateIconElement = document.getElementById('rate-icon');
+
+                                rateDiffElement.textContent = rateDifference;
+
+                                // 성장률 차이에 따라 아이콘 변경
+                                if (data.rateDifference >= 0) {
+                                  rateIconElement.classList.add('mdi-menu-up');
+                                  rateIconElement.classList.remove('mdi-menu-down');
+                                  rateDiffElement.classList.add('text-success');
+                                  rateDiffElement.classList.remove('text-danger');
+                                } else {
+                                  rateIconElement.classList.add('mdi-menu-down');
+                                  rateIconElement.classList.remove('mdi-menu-up');
+                                  rateDiffElement.classList.add('text-danger');
+                                  rateDiffElement.classList.remove('text-success');
+                                }
+                              });
+                    </script>
+
                     <div>
-                      <p class="statistics-title">New Sessions</p>
-                      <h3 class="rate-percentage">68.8</h3>
-                      <p class="text-danger d-flex"><i
-                              class="mdi mdi-menu-down"></i><span>68.8</span></p>
+                      <p class="statistics-title">당일 매출</p>
+                      <h3 class="rate-percentage" id="todays-revenue">0</h3>
                     </div>
+
+                    <script>
+                      // AJAX로 당일 매출 정보 받아오기
+                      fetch('/api/payment/todays-revenue')
+                              .then(response => response.json())
+                              .then(data => {
+                                const revenue = data.todayRevenue;
+
+                                // 당일 매출 표시 (숫자 뒤에 \ 기호 추가)
+                                document.getElementById('todays-revenue').textContent = revenue.toLocaleString() + '원';
+                              })
+                              .catch(error => console.error('Error fetching revenue data:', error));
+                    </script>
+
+
+                    <div>
+                      <p class="statistics-title">현재 시간</p>
+                      <h3 class="rate-percentage" id="current-time"></h3>
+                      <p class="text-danger d-flex">
+<%--                        <i id="time-icon" class="mdi mdi-menu-down"></i>--%>
+<%--                        <span id="rate-difference">68.8</span>--%>
+                      </p>
+                    </div>
+
+                    <script>
+                      // 현재 시간을 가져오는 AJAX 요청
+                      function fetchCurrentTime() {
+                        fetch('/api/current-time')  // Spring REST API 요청
+                                .then(response => response.text())  // 시간 값은 String으로 받음
+                                .then(data => {
+                                  // 받은 시간을 화면에 표시
+                                  document.getElementById('current-time').textContent = data;
+                                })
+                                .catch(error => console.error('Error fetching time:', error));
+                      }
+
+                      // 페이지 로드 시마다 현재 시간 표시
+                      fetchCurrentTime();
+
+                      // 1초마다 갱신
+                      setInterval(fetchCurrentTime, 1000);
+                    </script>
+
                     <div class="d-none d-md-block">
-                      <p class="statistics-title">Avg. Time on Site</p>
+                      <p class="statistics-title">사용중인 운동기구 수</p>
                       <h3 class="rate-percentage">2m:35s</h3>
                       <p class="text-success d-flex"><i
                               class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
@@ -71,12 +140,7 @@
                       <p class="text-danger d-flex"><i
                               class="mdi mdi-menu-down"></i><span>68.8</span></p>
                     </div>
-                    <div class="d-none d-md-block">
-                      <p class="statistics-title">Avg. Time on Site</p>
-                      <h3 class="rate-percentage">2m:35s</h3>
-                      <p class="text-success d-flex"><i
-                              class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
-                    </div>
+
                   </div>
                 </div>
               </div>
@@ -603,7 +667,21 @@
                         datasets: [{
                           label: '나이대별 매출',
                           data: oldData,
-                          backgroundColor: ['#FF5733', '#FFC300', '#28A745', '#17A2B8', '#6F42C1']
+                          backgroundColor: [
+                            'rgba(30, 144, 255, 0.6)', // DodgerBlue
+                            'rgba(70, 130, 180, 0.6)', // SteelBlue
+                            'rgba(100, 149, 237, 0.6)', // CornflowerBlue
+                            'rgba(135, 206, 250, 0.6)', // LightSkyBlue
+                            'rgba(0, 191, 255, 0.6)'  // DeepSkyBlue
+                          ],
+                          borderColor: [
+                            'rgba(30, 144, 255, 1)',
+                            'rgba(70, 130, 180, 1)',
+                            'rgba(100, 149, 237, 1)',
+                            'rgba(135, 206, 250, 1)',
+                            'rgba(0, 191, 255, 1)'
+                          ],
+                          borderWidth: 1
                         }]
                       },
                       options: {
@@ -617,6 +695,10 @@
                       }
                     });
                   </script>
+
+
+
+
                   <div class="row flex-grow">
                     <div class="col-12 grid-margin stretch-card">
                       <div class="card card-rounded">

@@ -53,14 +53,7 @@
             </c:otherwise>
         </c:choose>
 
-        <c:choose>
-            <c:when test="${footer == null}">
-                <jsp:include page="footer.jsp"/>
-            </c:when>
-            <c:otherwise>
-                <jsp:include page="${footer}.jsp"/>
-            </c:otherwise>
-        </c:choose>
+        
     </div>
 </div>
 

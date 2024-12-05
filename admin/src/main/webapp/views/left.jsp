@@ -34,8 +34,8 @@
 
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false"
-                   aria-controls="auth">
+                <a class="nav-link" data-bs-toggle="collapse" href="#auth1" aria-expanded="false"
+                   aria-controls="auth1">
                     <i class="menu-icon mdi mdi-account-circle-outline"></i>
                     <span class="menu-title">회원관리</span>
                     <i class="menu-arrow"></i>
@@ -144,11 +144,8 @@
                 <div class="collapse" id="auth">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"><a class="nav-link" href="/cust"> 회원 조회</a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/samples/register.html"> Register </a>
-                        </li>
+
+
                     </ul>
                 </div>
             </li>

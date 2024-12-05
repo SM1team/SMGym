@@ -150,7 +150,17 @@
                                     <td>${c.trainerId}</td>
                                     <td>${c.custPoint}</td>
                                     <td>
-                                        <button type="button" class="btn btn-success" id = "delete_btn">회원 탈퇴</button>
+                                        <c:choose>
+
+                                            <c:when test="${sessionScope.loginid.role.roleId == 1}">
+                                                <button type="button" class="btn btn-success" id="delete_btn">회원 탈퇴</button>
+                                            </c:when>
+
+                                            <c:otherwise>
+                                                <!-- 버튼을 감추거나 빈 공간 -->
+                                                <button type="button" class="btn btn-success" id="delete_btn" style="display:none">회원 탈퇴</button>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </td>
                                 </tr>
                             </c:forEach>

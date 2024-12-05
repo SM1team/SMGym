@@ -1,31 +1,158 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
+  /* 채팅창 전체 스타일 */
   #to {
-    width: 400px;
-    height: 200px;
-    overflow: auto;
-    border: 2px solid green;
-    padding: 10px;
-  }
-  .message {
-    margin: 5px 0;
-    padding: 10px;
+    width: 100%;
+    height: 350px;
+    overflow-y: scroll;
+    padding: 20px;
+    background-color: #f7f7f7;
     border-radius: 10px;
-    max-width: 70%;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+  }
+
+  /* 메시지 박스 스타일 */
+  .message {
+    display: flex;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 15px;
+    max-width: 80%;
+    word-wrap: break-word;
     clear: both;
   }
+
+  /* 내가 보낸 메시지 스타일 */
   .my-message {
-    background-color: #d1e7ff;
+    background-color: #0078D4;
+    color: white;
     margin-left: auto;
-    text-align: right;
+    align-self: flex-end;
+    border-radius: 20px 20px 0 20px; /* 둥근 말풍선 */
+    max-width: 70%;
+    padding: 12px 18px;
   }
+
+  /* 상대방이 보낸 메시지 스타일 */
   .other-message {
     background-color: #e9ecef;
-    margin-right: auto;
-    text-align: left;
+    color: black;
+    align-self: flex-start;
+    border-radius: 20px 20px 20px 0; /* 둥근 말풍선 */
+    max-width: 70%;
+    padding: 12px 18px;
+  }
+
+  /* 사용자 정보 (사진과 이름) */
+  .message .user-info {
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .message img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .message .username {
+    font-size: 0.85em;
+    color: #333;
+  }
+
+  /* 입력창과 전송 버튼 스타일 */
+  .input-area {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 15px;
+  }
+
+  #totext {
+    width: 85%;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #e0e0e0;
+    margin-right: 10px;
+    font-size: 1em;
+    outline: none;
+  }
+
+  #sendto {
+    padding: 12px 20px;
+    background-color: #0078D4;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+
+  #sendto:hover {
+    background-color: #006bb3;
+  }
+
+  /* 사용자 이름 및 메시지의 타이밍 */
+  .message-time {
+    font-size: 0.75em;
+    color: #999;
+    margin-top: 5px;
+  }
+
+  /* 부모 컨테이너: 화면 가운데 정렬 */
+  .container-fluid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* 화면의 높이를 100%로 설정 */
+  }
+
+  /* 채팅창 영역 스타일 */
+  .col-sm-5 {
+    width: 100%;
+    max-width: 500px; /* 채팅창의 최대 너비 설정 */
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* 채팅 헤더 스타일 */
+  .chat-header {
+    background-color: #0078D4; /* 전송 버튼과 동일한 색상 */
+    color: white; /* 텍스트 색상을 흰색으로 */
+    padding: 12px 20px; /* 상하 좌우 패딩 */
+    border-radius: 20px; /* 둥근 모서리 */
+    text-align: center; /* 가운데 정렬 */
+    font-size: 1.2em; /* 글자 크기 */
+    margin-bottom: 15px; /* 아래쪽 여백 */
+  }
+
+  /* 버튼 그룹 스타일 */
+  .btn-group {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto; /* 가로로 중앙 정렬 */
+    margin-bottom: 15px;
+    box-sizing: border-box;
+  }
+
+  .btn-group .btn {
+    width: 30%;  /* 버튼 너비 설정 */
+    margin: 0 5px; /* 버튼 간격 설정 */
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
   }
 </style>
 
@@ -36,16 +163,22 @@
 
 <script>
   let websocket = {
-    id:'',
-    stompClient:null,
-    init:function(){
+    id: '',
+    stompClient: null,
+    init: function () {
       this.id = $('#adm_id').text();
-      $('#connect').click(()=>{
+
+      // 바로 WebSocket 연결
+      this.connect();
+
+      $('#connect').click(() => {
         this.connect();
       });
-      $('#disconnect').click(()=>{
+
+      $('#disconnect').click(() => {
         this.disconnect();
       });
+
       $('#sendto').click(() => {
         var msg = JSON.stringify({
           'sendid': websocket.id,
@@ -57,53 +190,42 @@
         // 내가 보낸 메시지 (오른쪽 정렬)
         $("#to").append(
                 "<div class='message my-message'>" +
-                "<span style='color: blue;'>나:</span> " + $('#totext').val() +
+                "<span style='color: blue;'></span> " + $('#totext').val() +
                 "</div>"
         );
         $('#totext').val(''); // 입력란 초기화
       });
+    },
+    connect: function () {
+      let sid = this.id;
+      let socket = new SockJS('${serverurl}/ws');
+      this.stompClient = Stomp.over(socket);
 
-      websocket.stompClient.connect({}, function(frame) {
+      this.stompClient.connect({}, function (frame) {
         websocket.setConnected(true);
         console.log('Connected: ' + frame);
 
-        websocket.stompClient.subscribe('/send/to/' + websocket.id, function(msg) {
+        websocket.stompClient.subscribe('/send/to/' + sid, function (msg) {
           let data = JSON.parse(msg.body);
 
           // 상대방이 보낸 메시지 (왼쪽 정렬)
           $("#to").append(
                   "<div class='message other-message'>" +
-                  "<span style='color: green;'>" + data.sendid + ":</span> " +
+                  "<span style='color: green;'></span> " +
                   data.content1 +
                   "</div>"
           );
         });
       });
     },
-    connect:function(){
-      let sid = this.id;
-      let socket = new SockJS('${serverurl}/ws');//웹 소켓에 접속. serverurl은 mainController websocket에 의해 ..
-      this.stompClient = Stomp.over(socket);
-
-      this.stompClient.connect({}, function(frame) {//connect 함수실행되면서 connect이루어지고,
-        websocket.setConnected(true);
-        console.log('Connected: ' + frame);
-        this.subscribe('/send/to/'+sid, function(msg) {
-          $("#to").append(
-                  "<h4>" + JSON.parse(msg.body).sendid +":"+
-                  JSON.parse(msg.body).content1
-                  + "</h4>");
-        });
-      });
-    },
-    disconnect:function(){
+    disconnect: function () {
       if (this.stompClient !== null) {
         this.stompClient.disconnect();
       }
       websocket.setConnected(false);
       console.log("Disconnected");
     },
-    setConnected:function(connected){
+    setConnected: function (connected) {
       if (connected) {
         $("#status").text("Connected");
       } else {
@@ -111,8 +233,9 @@
       }
     }
   };
-  $(function(){
-    websocket.init();
+
+  $(function () {
+    websocket.init(); // 페이지 로드 시 자동 연결
   });
 </script>
 
@@ -121,47 +244,45 @@
 
 
 
-<div class="container-fluid">
 
-  <div class="btn-group">
-    <button type="button" class="btn"
-            onclick="location.href='<c:url value="/qna"/>'"
-            style="background-color: white; color: black; border: 1px solid #ccc;">문의</button>
-    <button type="button" class="btn"
-            onclick="location.href='<c:url value="/qna/reservation"/>'"
-            style="background-color: white; color: black; border: 1px solid #ccc;">예약</button>
-    <button type="button" class="btn"
-            onclick="location.href='<c:url value="/qna/history"/>'"
-            style="background-color: white; color: black; border: 1px solid #ccc;">나의 예약내역</button>
-  </div>
-
-  <!-- Page Heading -->
-  <h1 class="h3 mb-2 text-gray-800">Web Socket</h1>
-
-  <!-- DataTales Example -->
-  <div class="card shadow mb-4">
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Web Socket</h6>
-    </div>
-    <div class="card-body">
-      <div class="table-responsive">
-        <div class="col-sm-5">
-          <h1 id="adm_id">${sessionScope.loginid.custId}</h1>
-          <H1 id="status">Status</H1>
-          <button id="connect">Connect</button>
-          <button id="disconnect">Disconnect</button>
-
-          <h3>To</h3>
-          <input type="text" id="target" value="admin1">
-          <input type="text" id="totext"><button id="sendto">Send</button>
-          <div id="to"></div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
+<%--<div class="btn-group" style="width: 100%; display: flex; justify-content: space-between; margin-bottom: 15px;">--%>
+<%--  <button type="button" class="btn"--%>
+<%--          onclick="location.href='<c:url value="/qna"/>'"--%>
+<%--          style="background-color: white; color: black; border: 1px solid #ccc;">문의</button>--%>
+<%--  <button type="button" class="btn"--%>
+<%--          onclick="location.href='<c:url value="/qna/reservation"/>'"--%>
+<%--          style="background-color: white; color: black; border: 1px solid #ccc;">예약</button>--%>
+<%--  <button type="button" class="btn"--%>
+<%--          onclick="location.href='<c:url value="/qna/history"/>'"--%>
+<%--          style="background-color: white; color: black; border: 1px solid #ccc;">나의 예약내역</button>--%>
+<%--</div>--%>
+<div class="btn-group">
+  <button type="button" class="btn"
+          onclick="location.href='<c:url value="/qna"/>'">문의</button>
+  <button type="button" class="btn"
+          onclick="location.href='<c:url value="/qna/reservation"/>'">예약</button>
+  <button type="button" class="btn"
+          onclick="location.href='<c:url value="/qna/history"/>'">나의 예약내역</button>
 </div>
+<div class="container-fluid">
+  <!-- 버튼 그룹을 세로로 배치 -->
+  <!-- 버튼 그룹을 채팅창 위에 가로로 배치 -->
 
 
+
+  <div class="col-sm-5">
+    <!-- 버튼들을 채팅창 위에 가로로 배치 -->
+
+    <h6 id="adm_id" class="chat-header">${sessionScope.loginid.custId}</h6>
+
+    <input type="text" id="target" value="admin1" style="display:none;">
+    <div id="to"></div>
+
+    <!-- 메시지 입력 영역 -->
+    <div class="input-area">
+      <input type="text" id="totext" placeholder="Type your message...">
+      <button id="sendto">Send</button>
+    </div>
+  </div>
+</div>
 
