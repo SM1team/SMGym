@@ -76,6 +76,12 @@ public class WorkoutLogService implements SMService<Integer, WorkoutLogDto> {
     public List<String> getAllExerciseNames() {
         return workoutLogRepository.selectAllExerciseNames();
     }
+    public void save(WorkoutLogDto workoutLogDto) {
+        // DTO에서 엔티티로 변환 후 저장하는 로직을 추가
+        workoutLogRepository.insert(workoutLogDto);
+    }
+
+
 
 
 }

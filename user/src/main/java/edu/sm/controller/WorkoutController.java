@@ -10,12 +10,17 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Date;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Random;
 
@@ -80,13 +85,61 @@ public class WorkoutController {
         return "index";  // /views/write.jsp로 포워딩됨
     }
 
-    @RequestMapping("/saveWorkoutLog")
-    public String saveWorkoutLog(Model model ) {
+    @RequestMapping("/save")
+    public String saveWorkout(
+            @RequestParam Date workoutDate,
+            @RequestParam int workoutTime,
+            @RequestParam int workoutCalories,
+            @RequestParam String workoutComments,
+            @RequestParam String machineName,
+            HttpSession session,
+            RedirectAttributes redirectAttributes) {
 
-        model.addAttribute("top", wdir + "top");
-        model.addAttribute("center", wdir + "saveWorkoutLog");
-        return "index";  // /views/write.jsp로 포워딩됨
+        // 로그인된 사용자 정보 가져오기
+        CustDto loggedInUser = getLoggedInUser(session, redirectAttributes);
+        if (loggedInUser == null) {
+            return "redirect:/login";  // 로그인 페이지로 리다이렉트
+        }
+
+        // 운동 기록 저장 로직
+        String custId = loggedInUser.getCustId();
+        WorkoutLogDto workoutLogDto = WorkoutLogDto.builder()
+                .custId(custId)
+                .workoutDate(workoutDate)  // Date로 변환
+                .workoutTime(workoutTime)
+                .workoutCalories(workoutCalories)
+                .workoutComments(workoutComments)
+                .machineName(machineName)
+                .build();
+
+        try {
+            // 운동 기록 서비스 호출하여 저장
+            workoutLogService.add(workoutLogDto);
+
+            // 성공 시 메시지 추가 후 리다이렉트
+            redirectAttributes.addFlashAttribute("message", "운동 기록이 저장되었습니다.");
+            return "redirect:/workout";  // 운동 기록 목록 페이지로 리다이렉트
+        } catch (Exception e) {
+            // 오류 발생 시 로그 기록 및 오류 메시지 추가
+            log.error("운동 기록 저장 중 오류 발생", e);
+            redirectAttributes.addFlashAttribute("message", "운동 기록 저장 중 오류가 발생했습니다.");
+            return "redirect:/workout"; // 오류 발생 시에도 목록 페이지로 리다이렉트
+        }
+
     }
+
+    // 로그인한 사용자 정보를 가져오는 메서드
+    private CustDto getLoggedInUser(HttpSession session, RedirectAttributes redirectAttributes) {
+        CustDto loggedInUser = (CustDto) session.getAttribute("loginid");
+        if (loggedInUser == null) {
+            // 로그인 정보가 없으면 메시지를 전달하고 리다이렉트
+            redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
+        }
+        return loggedInUser;
+    }
+
+
+
 
 
 //    @RequestMapping("/reservation")

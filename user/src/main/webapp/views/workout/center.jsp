@@ -19,7 +19,7 @@
       <tr>
         <th><input type="checkbox" id="selectAll"></th>
         <th>운동일지 번호</th>
-        <th>회원 ID</th>
+        <th>회원 이름</th>
         <th>운동날짜</th>
         <th>총 운동시간</th>
         <th>총 소모칼로리</th>

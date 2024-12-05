@@ -53,8 +53,12 @@
 
         // 폼을 제출하는 함수
         function submitForm() {
-            var form = document.getElementById("workoutForm");
-            form.submit();  // 폼을 실제로 제출합니다.
+            const form = document.getElementById('workoutForm'); // form 요소를 정확히 선택
+            if (form) {
+                form.submit(); // 폼을 제출
+            } else {
+                console.error('폼을 찾을 수 없습니다.');
+            }
         }
 
         // 폼 검증 후 제출 함수
@@ -80,51 +84,40 @@
 <h2>운동 기록 작성</h2>
 
 <!-- 운동 기록 폼 -->
-<form id="workoutForm" action="/workout" method="post">
-    <table>
-        <!-- 운동 이름 -->
-        <tr>
-            <td><label for="exerciseName">운동 이름:</label></td>
-            <td>
-                <input type="text" id="exerciseName" name="exerciseName" value="${randomExerciseName}"
-                       class="form-control" />
-            </td>
-        </tr>
+<form id="workoutForm" action="<c:url value='/workout/save' />" method="post">
+    <div class="form-group">
+        <label for="exerciseName">운동 이름</label>
+        <input type="text" id="exerciseName" name="exerciseName" value="" class="form-control" required placeholder="운동 이름을 입력하세요">
+    </div>
 
-        <!-- 운동 날짜 -->
-        <tr>
-            <td><label for="workoutDate">운동 날짜:</label></td>
-            <td>
-                <input type="date" id="workoutDate" name="workoutDate" value=""  required/>
-            </td>
-        </tr>
+    <div class="form-group">
+        <label for="workoutDate">운동 날짜</label>
+        <input type="date" id="workoutDate" name="workoutDate" class="form-control" required />
+    </div>
 
-        <!-- 운동 시간 -->
-        <tr>
-            <td><label for="workoutTime">운동 시간 (분):</label></td>
-            <td><input type="number" id="workoutTime" name="workoutTime" value=""   required/></td>
-        </tr>
+    <div class="form-group">
+        <label for="workoutTime">운동 시간 (분)</label>
+        <input type="number" id="workoutTime" name="workoutTime" class="form-control" required />
+    </div>
 
-        <!-- 소모된 칼로리 -->
-        <tr>
-            <td><label for="workoutCalories">소모된 칼로리:</label></td>
-            <td><input type="number" id="workoutCalories" name="workoutCalories" value=""   required/></td>
-        </tr>
+    <div class="form-group">
+        <label for="workoutCalories">소모된 칼로리</label>
+        <input type="number" id="workoutCalories" name="workoutCalories" class="form-control" required />
+    </div>
 
-        <!-- 운동 코멘트 -->
-        <tr>
-            <td><label for="workoutComments">운동 코멘트:</label></td>
-            <td><textarea id="workoutComments" name="workoutComments" rows="4" cols="50" ></textarea></td>
-        </tr>
-    </table>
+    <div class="form-group">
+        <label for="workoutComments">운동 코멘트</label>
+        <textarea id="workoutComments" name="workoutComments" class="form-control" rows="4" placeholder="운동에 대한 코멘트를 작성하세요"></textarea>
+    </div>
 
-    <br/>
-    <!-- 저장 버튼 클릭 시 validateForm() 함수 호출 -->
-    <input type="button" id="saveButton" value="운동 기록 저장" onclick="validateForm()" />
-    <br/><br/>
+    <!-- machineName 필드 추가 -->
+    <div class="form-group">
+        <label for="machineName">운동 기기</label>
+        <input type="text" id="machineName" name="machineName" class="form-control" required placeholder="운동 기기를 입력하세요" value="${randomExerciseName}">
+    </div>
 
-    <!-- 돌아가기 버튼: 이전 페이지로 이동 -->
-    <a href="javascript:history.back()">돌아가기</a>
+    <button type="submit" class="btn btn-primary">운동 기록 저장</button>
+    <a href="<c:url value='/board' />" class="btn btn-secondary" style="margin-left: 10px;">취소</a>
 </form>
 </body>
 </html>

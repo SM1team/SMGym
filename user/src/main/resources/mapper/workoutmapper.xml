@@ -5,16 +5,12 @@
 <mapper namespace="edu.sm.app.repository.WorkoutLogRepository">
 
     <select id="selectByCustId" parameterType="String" resultType="workoutLogDto">
-        SELECT *
-        FROM workoutlog
-        WHERE cust_id = #{custId} <!-- 로그인된 사용자 ID로 필터링 -->
+        SELECT * FROM workoutlog WHERE cust_id = #{custId} <!-- 로그인된 사용자 ID로 필터링 -->
     </select>
 
     <!-- WorkoutLog와 WorkoutDetail 조인하여 WorkoutDetail 조회 -->
     <select id="workdetail" parameterType="Integer" resultType="WorkoutDetailDto">
-        SELECT *
-        FROM workoutdetail
-        WHERE workout_no = #{workoutNo}
+        SELECT * FROM workoutdetail WHERE workout_no = #{workoutNo}
     </select>
 
     <select id="selectOne" parameterType="String" resultType="workoutLogDto">
@@ -25,11 +21,11 @@
         SELECT * FROM reservation
     </select>
 
-    <!-- Reservation에 대한 insert -->
-    <insert id="insertReservation" parameterType="workoutLogDto">
-        INSERT INTO reservation (cust_name, cust_phone, reservation_date, reservation_content, cust_id)
-        VALUES (#{custName}, #{custPhone}, #{reservationDate}, #{reservationContent}, #{custId})
-    </insert>
+<!--    &lt;!&ndash; Reservation에 대한 insert &ndash;&gt;-->
+<!--    <insert id="insertReservation" parameterType="workoutLogDto">-->
+<!--        INSERT INTO reservation (cust_name, cust_phone, reservation_date, reservation_content, cust_id)-->
+<!--        VALUES (#{custName}, #{custPhone}, #{reservationDate}, #{reservationContent}, #{custId})-->
+<!--    </insert>-->
 
     <update id="update" parameterType="workoutLogDto">
         UPDATE cust SET cust_pwd=#{custPwd}, cust_name=#{custName} WHERE cust_id=#{custId}
@@ -40,14 +36,11 @@
     </delete>
 
     <!-- workoutlog 추가 -->
-    <insert id="insertWorkoutLog" parameterType="edu.sm.app.dto.WorkoutLogDto">
-        INSERT INTO workoutlog (
-            cust_id, workout_date, workout_time, workout_calories, workout_comments
-        )
-        VALUES (
-                   #{custId}, #{workoutDate}, #{workoutTime}, #{workoutCalories}, #{workoutComments}
-               )
+    <insert id="insert" parameterType="edu.sm.app.dto.WorkoutLogDto" useGeneratedKeys="true" keyProperty="workoutNo">
+        INSERT INTO workoutlog (cust_id, workout_date, workout_time, workout_calories, workout_comments, machine_name)
+        VALUES (#{custId},  #{workoutDate}, #{workoutTime}, #{workoutCalories}, #{workoutComments}, #{machineName})
     </insert>
+
 
     <select id="selectAllExerciseNames" resultType="String">
         SELECT machine_name
