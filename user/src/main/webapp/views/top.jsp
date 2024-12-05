@@ -41,7 +41,6 @@
   <div class="container">
     <div class="masthead-subheading">Welcome To Our Gym!</div>
     <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-    <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
     <div class="mt-4 text-center text-white">
       <h4 class="font-weight-light">
         <span class="counter" data-target="120">0</span>명의 회원과

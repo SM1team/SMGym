@@ -1,7 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<script>
+  // 페이지 로드 후 화면을 중간으로 이동
+  window.onload = function() {
+    // 페이지 높이의 50% 위치로 스크롤
+    const middlePosition = document.body.scrollHeight / 2.5;
+    window.scrollTo({
+      top: middlePosition,
+      behavior: "smooth" // 부드러운 스크롤 효과
+    });
+  };
+</script>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -96,32 +106,31 @@
   <!-- 상단 여백 -->
 
   <div id="center" >
-  <div class="row">
-    <!-- 상품 목록 반복 -->
-    <c:forEach var="product" items="${productlist}">
-      <div class="col-md-3 mb-4">
-        <!-- 카드 전체를 링크로 감쌈 -->
-        <a href="<c:url value='/shop/detail'/>?productNo=${product.productNo}" class="card custom-card h-100">
-          <!-- Product details-->
-          <div class="card-body p-4">
-            <div class="text-center">
-              <!-- Product name-->
-              <h5 class="fw-bolder">${product.productName}</h5>
-              <!-- Product price-->
-              ₩<fmt:formatNumber value="${product.productPrice}" type="number" groupingUsed="true" />
+    <div class="row">
+      <!-- 상품 목록 반복 -->
+      <c:forEach var="product" items="${productlist}">
+        <div class="col-md-3 mb-4">
+          <!-- 카드 전체를 링크로 감쌈 -->
+          <a href="<c:url value='/shop/detail'/>?productNo=${product.productNo}" class="card custom-card h-100">
+            <!-- Product details-->
+            <div class="card-body p-4">
+              <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder">${product.productName}</h5>
+                <!-- Product price-->
+                ₩<fmt:formatNumber value="${product.productPrice}" type="number" groupingUsed="true" />
+              </div>
             </div>
-          </div>
-          <!-- 카드 푸터 부분 삭제 (버튼 제거) -->
-        </a>
-      </div>
-    </c:forEach>
-  </div>
+            <!-- 카드 푸터 부분 삭제 (버튼 제거) -->
+          </a>
+        </div>
+      </c:forEach>
+    </div>
 
-  <!-- 하단 검정 배경의 여백 -->
-  <div class="row" style="background-color: #000; height: 400px;"></div> <!-- 하단 여백 -->
-</div>
+    <!-- 하단 검정 배경의 여백 -->
+    <div class="row" style="background-color: #000; height: 400px;"></div> <!-- 하단 여백 -->
+  </div>
 
 
 </body>
-
 </html>

@@ -62,18 +62,6 @@
 
     </div>
 </div>
-<style>
-    .btn-social {
-        background-color: #ffffff !important; /* 배경색 흰색으로 변경 */
-        color: #000000 !important; /* 아이콘 색상 검정으로 변경 */
-        border: 1px solid #ccc; /* 선택적으로 테두리 추가 */
-    }
-
-    .btn-social:hover {
-        background-color: #f1f1f1; /* 호버 시 배경색 약간 어둡게 */
-        color: #ae00c7; /* 호버 시 아이콘 색상 변경 */
-    }
-</style>
 
 <!-- Footer-->
 <footer class="footer">
@@ -87,6 +75,15 @@
             padding: 20px 0;
         }
     </style><!-- 지점들 section 색상과 동일한 배경색 -->
+
+    <style>
+        .btn-social {
+            background-color: #ffffff !important; /* 배경색 흰색으로 변경 */
+            color: #000000 !important; /* 아이콘 색상 검정으로 변경 */
+            border: 1px solid #ccc; /* 선택적으로 테두리 추가 */
+        }
+
+    </style>
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2023</div>
