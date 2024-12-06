@@ -38,10 +38,20 @@
     </select>
 
     <!-- machineStatus만 변경 (시간도 자동 갱신) -->
-    <update id="updateStatus" parameterType="map">
+    <update id="updateMachineStatus" parameterType="map">
         UPDATE machine
         SET machine_status = #{machineStatus},
         machine_time = CURRENT_TIMESTAMP  <!-- 현재 시간으로 갱신 -->
+        WHERE machine_no = #{machineNo}
+    </update>
+
+    <!-- 머신 상태 업데이트 쿼리 -->
+    <update id="toggleMachineStatus">
+        UPDATE machine
+        SET machine_status = CASE
+       WHEN machine_status = 1 THEN 0
+             ELSE 1
+            END
         WHERE machine_no = #{machineNo}
     </update>
 

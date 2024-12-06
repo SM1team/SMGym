@@ -4,12 +4,43 @@
 <!-- styles.css 파일을 링크로 추가 -->
 <link rel="stylesheet" href="<c:url value='/css/styles.css' />">
 
-
-
 <%--헬스장 플로어 맵 동적 스크립트--%>
 <script>
 
 
+
+
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // 모든 운동기구를 대상으로 클릭 이벤트를 등록
+        const equipmentElements = document.querySelectorAll('.equipment');
+
+        equipmentElements.forEach(function(equipment) {
+            // 각 운동기구 블록에 click 이벤트 추가
+            equipment.addEventListener('click', function() {
+                // 클릭된 운동기구의 ID 값을 가져옴
+                const equipmentId = equipment.getAttribute('data-machine_no');
+                const equipmentName = equipment.getAttribute('data-machine_name');
+
+                // 알림 창을 띄움
+                alert(equipmentName + ' 버튼이 눌렸습니다!');
+
+                // toggleLight 함수 호출
+                toggleLight(equipment);
+            });
+        });
+    });
+
+
+
+
+    function confirmToggleMachineStatus(element) {
+        // 데이터 확인용
+        console.log("Machine clicked:", element);
+        alert("이벤트 발생 확인: " + element.getAttribute('data-machine_name'));
+    }
 
     document.addEventListener('DOMContentLoaded', function() {
         // 체크박스 상태 변경 이벤트 리스너
@@ -32,29 +63,13 @@
             }
         });
     });
-
-
-    // 각 운동기구 버튼이 눌렸을 때 동작하는 로직 + alert 창
-    document.addEventListener('DOMContentLoaded', function() {
-        // 모든 운동기구를 대상으로 클릭 이벤트를 등록
-        const equipmentElements = document.querySelectorAll('.equipment');
-
-        equipmentElements.forEach(function(equipment) {
-            // 각 운동기구 블록에 click 이벤트 추가
-            equipment.addEventListener('click', function() {
-                // 클릭된 운동기구의 ID 값을 가져옴
-                const equipmentId = equipment.getAttribute('data-machine_no');
-                const equipmentName = equipment.getAttribute('data-machine_name');
-
-                // 알림 창을 띄움
-                alert(equipmentName  + ' 버튼이 눌렸습니다!');
-            });
-        });
-    });
-
-
 </script>
 
+<div>
+    <input type="checkbox" id="showDescriptions" checked>
+    <label for="showDescriptions" class="switch-label">기구 설명 및 사용법 확인</label>
+</div>
+</div>
 
 
 <div class="container">
@@ -64,9 +79,9 @@
     </div>
 
     <!-- 운동기구 설명 보기 체크박스 추가 -->
-
-
     <div class="gym-layout">
+
+
         <div class="equipment running" style="top: 8%; left: 3%;" data-machine_no="1" data-machine_name="러닝머신1">
             <i class="fas fa-running"></i>
             <h4>러닝머신 1</h4>
@@ -77,11 +92,11 @@
                 <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
                 <p><strong>속도:</strong> 1 ~ 15 km/h</p>
             </div>
-            <div class="light inactive"></div> <!-- 기본 상태: inactive -->
+            <div class="light"></div>
         </div>
 
 
-        <div class="equipment running" style="top: 8%; left: 14%;" data-machine_no="2" data-machine_name="러닝머신2" onclick="toggleMachineStatus(this)">
+        <div class="equipment running" style="top: 8%; left: 14%;" data-machine_no="2" data-machine_name="러닝머신2" onclick="toggleLight(this)">
             <i class="fas fa-running"></i>
             <h4>러닝머신 2</h4>
             <div class="bubble">
@@ -91,9 +106,14 @@
                 <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
                 <p><strong>속도:</strong> 1 ~ 15 km/h</p>
             </div>
-            <div class="light active"></div> <!-- 기본 상태: inactive -->
+            <div class="light"></div> <!-- 기본 상태: inactive -->
         </div>
-        <div class="equipment running" style="top: 8%; left: 25%;" data-machine_no="3" data-machine_name="러닝머신3" onclick="toggleMachineStatus(this)">
+
+
+
+
+
+        <div class="equipment running" style="top: 8%; left: 25%;" data-machine_no="3" data-machine_name="러닝머신3" onclick="toggleLight(this)">
             <i class="fas fa-running"></i>
             <h4>런닝머신 3</h4>
             <div class="bubble">
@@ -105,7 +125,7 @@
             </div>
             <div class="light"></div>
         </div>
-        <div class="equipment running" style="top: 8%; left: 36%;" data-machine_no="4" data-machine_name="러닝머신4" onclick="toggleMachineStatus(this)">
+        <div class="equipment running" style="top: 8%; left: 36%;" data-machine_no="4" data-machine_name="러닝머신4" onclick="toggleLight(this)">
             <i class="fas fa-running"></i>
             <h4>런닝머신 4</h4>
             <div class="bubble">
@@ -117,7 +137,7 @@
             </div>
             <div class="light"></div>
         </div>
-        <div class="equipment running" style="top: 8%; left: 47%;" data-machine_no="5" data-machine_name="러닝머신5" onclick="toggleMachineStatus(this)">
+        <div class="equipment running" style="top: 8%; left: 47%;" data-machine_no="5" data-machine_name="러닝머신5" onclick="toggleLight(this)">
             <i class="fas fa-running"></i>
             <h4>런닝머신 5</h4>
             <div class="bubble">
@@ -129,7 +149,7 @@
             </div>
             <div class="light"></div>
         </div>
-        <div class="equipment running" style="top: 8%; left: 58%;" data-machine_no="6" data-machine_name="러닝머신6" onclick="toggleMachineStatus(this)">
+        <div class="equipment running" style="top: 8%; left: 58%;" data-machine_no="6" data-machine_name="러닝머신6" onclick="toggleLight(this)">
             <i class="fas fa-running"></i>
             <h4>런닝머신 6</h4>
             <div class="bubble">
@@ -141,7 +161,7 @@
             </div>
             <div class="light"></div>
         </div>
-        <div class="equipment running" style="top: 8%; left: 69%;" data-machine_no="7" data-machine_name="러닝머신7" onclick="toggleMachineStatus(this)">
+        <div class="equipment running" style="top: 8%; left: 69%;" data-machine_no="7" data-machine_name="러닝머신7" onclick="toggleLight(this)">
             <i class="fas fa-running"></i>
             <h4>런닝머신 7</h4>
             <div class="bubble">
@@ -498,7 +518,6 @@
             </div>
             <div class="light"></div>
         </div>
-
         <%-- 첫번쨰--%>
         <div class="boundary-line" style="top: 45%; left: 76%; width: 24%;"></div>
 
@@ -516,7 +535,6 @@
             </div>
             <div class="light"></div>
         </div>
-
 
         <%-- 2번쟤--%>
         <div class="boundary-line" style="top: 66%; left: 76%; width: 24%;"></div>
@@ -543,11 +561,10 @@
 </div>
 </section>
 
+
+
 <!-- 스타일링 추가 -->
 <style>
-
-
-
     /* 운동기구 설명 보기 스위치 스타일 */
     .switch-label {
         display: inline-block;
@@ -599,9 +616,6 @@
     }
 
 
-
-
-
     .bubble {
         position: absolute;
         top: 20px; /* 말풍선의 위치 조정 */
@@ -637,11 +651,6 @@
         visibility: visible; /* 마우스를 가져다 대면 보이게 설정 */
         z-index: 9999; /* 말풍선이 부모 컨테이너에서 가장 위로 가도록 설정 */
     }
-
-
-
-
-
 
     .bubble::after {
         content: "";
@@ -720,23 +729,18 @@
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        transition: background-color 0.3s ease; /* 부드러운 색상 변화 */
+        background-color: transparent; /* 초기 상태: 꺼짐 */
+        transition: background-color 0.3s ease;
+        animation: blink 1s infinite; /* 깜빡이는 애니메이션 */
     }
 
-    /* 활성화된 머신의 조명 (노란색) */
-    .active .light {
-        background-color: yellow; /* 노란색 배경 */
-        box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* 노란색 그림자 */
-        animation: blink 1s infinite; /* 깜빡임 애니메이션 적용 */
+    /* 'on' 클래스가 추가되면 불빛이 켜짐 */
+    .light.on {
+        background-color: yellow; /* 불빛 켜짐 */
+        box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* 빛나는 효과 */
     }
 
-    /* 비활성화된 머신의 조명 (꺼짐 상태) */
-    .inactive .light {
-        background-color: transparent; /* 색을 투명하게 하여 꺼진 상태처럼 보이게 함 */
-        box-shadow: none;
-    }
-
-    /* 깜빡이는 효과 추가 */
+    /* 깜빡이는 효과 */
     @keyframes blink {
         0% { opacity: 1; }
         50% { opacity: 0.5; }
@@ -781,7 +785,7 @@
     .weight { background-color: #d4edda; }
     .strength { background-color: #f9e2a1; } /* 새로운 색: 밝은 노랑 */
     .flexibility { background-color: #f8e6e6; } /* 새로운 색: 밝은 분홍 */
-    .lightblock { background-color: #e8f8f0; } /* 새로운 색: 거의 하얀색 */
+
 
     /* 시설 색깔 */
     .reception { background-color: #f6c23e; }
@@ -810,6 +814,4 @@
 
 <!-- Font Awesome CDN 추가 -->
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
-
 

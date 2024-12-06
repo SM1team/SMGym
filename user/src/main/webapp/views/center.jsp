@@ -25,11 +25,6 @@
 
 
 
-<div>
-  <input type="checkbox" id="showDescriptions" checked>
-  <label for="showDescriptions" class="switch-label">기구 설명 및 사용법 확인</label>
-</div>
-</div>
 
 
 <section class="page-section" id="services">
