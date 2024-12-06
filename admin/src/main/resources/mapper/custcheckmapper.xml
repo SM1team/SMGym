@@ -118,6 +118,17 @@ ORDER BY
 
     </select>
 
+    <select id="getVisitStatistics" resultType="map">
+        SELECT
+                (SELECT COUNT(*) FROM custcheck WHERE date(check_start) = CURDATE()) AS today_count,
+            (SELECT COUNT(*) FROM custcheck WHERE date(check_start) = CURDATE() - INTERVAL 1 DAY) AS yesterday_count,
+                                                (SELECT COUNT(*) FROM custcheck WHERE date(check_start) = CURDATE() - INTERVAL 2 DAY) AS daybeforeyesterday_count
+    </select>
+
+
+
+
+
 
 
 
