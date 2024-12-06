@@ -53,6 +53,7 @@ public class PaymentController {
             @RequestParam String productName,
             @RequestParam BigDecimal productPrice,
             @RequestParam String custId,
+            @RequestParam String trainerId,  // 트레이너 ID 추가
             Model model
     ) throws Exception {
         PaymentDto paymentDto = new PaymentDto();
@@ -60,6 +61,7 @@ public class PaymentController {
         paymentDto.setProductName(productName);
         paymentDto.setAmount(productPrice);
         paymentDto.setCustId(custId);
+        paymentDto.setTrainerId(trainerId);  // 트레이너 ID 저장
         paymentDto.setPaymentStatus("SUCCESS");
 
         paymentService.add(paymentDto); // DB에 저장

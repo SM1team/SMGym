@@ -265,7 +265,7 @@
         var productName = document.getElementById("productName").value;
         var productAmount = parseInt(document.getElementById("productPrice").value.replace('₩', '').replace(',', ''));
         var merchantUid = "ORD" + new Date().getTime();
-
+        var trainerId = document.getElementById("trainerSelection").value; // 트레이너 선택 값 가져오기
         var buyerName = "${cust.custName}";
         var buyerPhone = "${cust.custPhone}";
         var buyerGender = "${cust.custGender}";
@@ -283,6 +283,7 @@
             buyer_gender: buyerGender,
             buyer_age: buyerAge,
             buyer_addr: buyerAddr,
+            custom_data: { trainerId: trainerId }  // 트레이너 ID 추가
         }, function (rsp) {
             if (rsp.success) {
                 $.ajax({
@@ -292,7 +293,8 @@
                         paymentId: rsp.merchant_uid,
                         productName: $("#productName").val(),
                         productPrice: productAmount,
-                        custId: "${cust.custId}"
+                        custId: "${cust.custId}",
+                        trainerId: trainerId,  // 트레이너 ID 추가
                     },
                     success: function () {
                         alert("결제가 완료되었습니다.");

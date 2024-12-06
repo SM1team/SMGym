@@ -229,7 +229,7 @@
     </div>
     <div class="row" style="margin-top: 30px;"> <!-- row 클래스에 마진 추가 -->
       <!-- 왼쪽: 지점 이미지 세로 배치 -->
-      <div class="col-lg-4" style="max-height: 200px">
+      <div class="col-lg-4" data-aos="fade-left" style="max-height: 200px">
         <div class="team-member d-flex flex-column align-items-center text-center">
           <img class="mx-auto circle img-hover" src="<c:url value='/assets/img/logos/1.jpg'/>" alt="탕정역점" data-toggle="modal" data-target="#locationModal1" style="margin-bottom: 5px;"/>
           <h4 style="font-weight: bold; margin-top: 0;">탕정역점</h4>
@@ -247,7 +247,7 @@
         </div>
       </div>
       <!-- 오른쪽: 지도 -->
-      <div class="col-lg-8">
+      <div class="col-lg-8"data-aos="fade-right">
         <div id="map" style="width: 100%; height: 700px;"></div>
       </div>
     </div>
