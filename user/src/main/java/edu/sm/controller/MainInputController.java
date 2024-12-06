@@ -1,13 +1,8 @@
 package edu.sm.controller;
 
-import edu.sm.app.dto.BoardDto;
-import edu.sm.app.dto.CommentDto;
-import edu.sm.app.dto.CustDto;
-import edu.sm.app.dto.ReservationDto;
-import edu.sm.app.service.CommentService;
-import edu.sm.app.service.CustService;
-import edu.sm.app.service.ReservationService;
-import edu.sm.app.service.BoardService;
+import com.github.pagehelper.PageInfo;
+import edu.sm.app.dto.*;
+import edu.sm.app.service.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,6 +39,7 @@ public class MainInputController {
     final ReservationService reservationService;
     final BoardService boardService;
     final CommentService commentService;
+    final CustCheckService custCheckService;
     String dir = "register/";
     String qdir = "qna/";
     String bdir = "board/";
@@ -174,6 +171,34 @@ public class MainInputController {
         }
 
         return "redirect:/board"; // 게시글 저장 후 목록 페이지로 리디렉션
+    }
+
+    @RequestMapping("/custcheckimpl")
+    public String custcheckimpl(Model model,
+                                   Search search,
+                                    HttpSession session,
+                                @RequestParam("id") String id,
+                                   @RequestParam(value = "pageNo",defaultValue = "1") int pageNo
+    ) throws Exception {
+        log.info("Search:" + search.toString());//실제 값 제대로 올라오는지 check 위해.
+        PageInfo<CustCheckDto> p;
+        p = new PageInfo<>(custCheckService.custcheckfindpage(pageNo,search),3); //5: 하단 네비게이션 수
+
+        CustDto custDto = custService.get(id);
+        session.setAttribute("loginid", custDto);
+
+        model.addAttribute("custcheckpage",p); //cpage라는 이름으로 PageInfo객체 담음.
+//        model.addAttribute("target","reservation");
+
+        model.addAttribute("search",search);
+        //화면에서 search를 했다는 증표를 넣어준다.(객체를 넣어준것.)
+
+
+
+        model.addAttribute("center", "mycheck/"+"center");
+
+        return "index";
+
     }
 
 //    @RequestMapping("/commentwriteimpl")

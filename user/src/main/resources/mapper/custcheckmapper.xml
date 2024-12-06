@@ -42,6 +42,21 @@
 
     </update>
 
+    <select id="custcheckfindpage" parameterType="search" resultType="CustCheckDto">
+        SELECT *
+        FROM
+        custcheck
+        WHERE
+        1=1
+        <!-- keyword 값에 따라 조건 변경 -->
+        <if test="keyword == 'id'">
+            AND cust_id LIKE CONCAT('%', #{search}, '%')
+        </if>
+        <if test="keyword == 'month'">
+            AND MONTH(check_start) = #{search}
+        </if>
+    </select>
+
 
 
 </mapper>
