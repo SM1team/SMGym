@@ -40,7 +40,7 @@
 <header class="masthead">
   <div class="container">
     <div class="masthead-subheading">Welcome To Our Gym!</div>
-    <div class="masthead-heading text-uppercase">출석 Page입니다!</div>
+    <div class="masthead-heading text-uppercase">QR PAGE</div>
 <%--    <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>--%>
 <%--    <div class="mt-4 text-center text-white">--%>
 <%--      <h4 class="font-weight-light">--%>
