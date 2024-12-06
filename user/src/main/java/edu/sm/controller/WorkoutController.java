@@ -61,15 +61,180 @@ public class WorkoutController {
     }
 
     @RequestMapping("/detail")
-    public String detail(Model model, @RequestParam("workoutNo") int workoutNo) throws Exception {
-        List<WorkoutDetailDto> workoutDetailDto = workoutLogService.WorkoutdetailNo(workoutNo);
+    public String detail(Model model, @RequestParam(name = "workoutNo", required = false) Integer workoutNo) throws Exception {
+        // workoutNo가 없으면 첫 번째 운동 기록을 불러온다
+        if (workoutNo == null || workoutNo == 0) {
+            // workoutNo가 없는 경우에는 예를 들어 첫 번째 운동 기록을 불러오거나
+            // 목록 페이지로 리다이렉트할 수 있음
+            return "redirect:/workout";
+        }
 
-        model.addAttribute("details", workoutDetailDto);
+        // workoutNo가 존재하는 경우 처리
+        List<WorkoutDetailDto> workoutDetailDtoList = workoutLogService.WorkoutdetailNo(workoutNo);
+        model.addAttribute("workoutNo", workoutNo);
+        model.addAttribute("details", workoutDetailDtoList);
         model.addAttribute("top", wdir + "top");
         model.addAttribute("center", wdir + "detail");
 
         return "index";
     }
+
+    // 운동 세부 정보 저장
+    @PostMapping("/saveWorkoutDetail")
+    public String saveWorkoutDetail(WorkoutDetailDto workoutDetailDto) {
+        workoutLogService.saveWorkoutDetail(workoutDetailDto);
+        return "redirect:/workout/detail?workoutNo=" + workoutDetailDto.getWorkoutNo();
+    }
+
+    @PostMapping("/addWorkoutDetail")
+    public String addWorkoutDetail(@ModelAttribute WorkoutDetailDto workoutDetailDto, Model model) throws Exception {
+        // workoutNo 값 확인 (폼에서 전달됨)
+        System.out.println("workoutNo: " + workoutDetailDto.getWorkoutNo()); // workoutNo 확인
+        System.out.println("Exercise Name: " + workoutDetailDto.getWdetailExname()); // 입력된 운동명 확인
+
+        // workoutDetailDto에 전달된 값으로 세부 정보를 추가
+        workoutLogService.addWorkoutDetail(workoutDetailDto);
+
+        // 세부 정보가 추가된 후, 해당 workoutNo에 관련된 세부 정보를 모델에 추가
+        model.addAttribute("details", workoutLogService.getWorkoutDetails(workoutDetailDto.getWorkoutNo()));
+        model.addAttribute("top", wdir + "top");
+        model.addAttribute("center", wdir + "addWorkoutDetail");
+
+
+        // 리디렉션: 세부 정보를 추가한 후, 해당 운동 상세 페이지로 이동
+        return "redirect:/workout/detail?workoutNo=" + workoutDetailDto.getWorkoutNo();
+    }
+
+    @RequestMapping("/workout/detail/delete")
+    public String delete(@RequestParam("workoutNo") int workoutNo, HttpSession session) {
+        if (workoutNo == 0) {
+            return "redirect:/workout"; // 잘못된 요청이라면 리다이렉트
+        }
+
+        try {
+            workoutLogService.deleteWorkoutDetail(workoutNo);  // workoutNo를 이용한 삭제 처리
+            return "redirect:/workout";  // 삭제 후 목록으로 리다이렉트
+        } catch (Exception e) {
+            return "redirect:/workout";  // 오류 발생 시 목록 페이지로 리다이렉트
+        }
+    }
+
+    // 운동 세부 기록 수정
+    @RequestMapping("/detail/edit")
+    public String editWorkoutDetail(@RequestParam("workoutNo") int workoutNo,
+                                    @RequestParam("workoutDetailNo") int workoutDetailNo,
+                                    @RequestParam("wdetailExname") String wdetailExname,
+                                    @RequestParam("wdetailSets") int wdetailSets,
+                                    @RequestParam("wdetailCount") int wdetailCount,
+                                    @RequestParam("wdetailWeight") int wdetailWeight,
+                                    @RequestParam("wdetailCalories") int wdetailCalories,
+                                    @RequestParam("wdetailTime") int wdetailTime,
+                                    HttpSession session, Model model) {
+        // 로그인 확인
+        String loggedInUserId = (String) session.getAttribute("loginid");
+        if (loggedInUserId == null) {
+            return "redirect:/login"; // 로그인하지 않으면 로그인 페이지로 이동
+        }
+
+        // 수정할 운동 세부 기록 DTO 생성
+        WorkoutDetailDto workoutDetailDto = WorkoutDetailDto.builder()
+                .wdetailId(workoutDetailNo)
+                .workoutNo(workoutNo)
+                .wdetailExname(wdetailExname)
+                .wdetailSets(wdetailSets)
+                .wdetailCount(wdetailCount)
+                .wdetailWeight(wdetailWeight)
+                .wdetailCalories(wdetailCalories)
+                .wdetailTime(wdetailTime)
+                .build();
+
+        try {
+            // 운동 세부 기록 수정
+            workoutLogService.editWorkoutDetail(workoutDetailDto);
+
+            // 수정 후 운동 기록 상세 정보 조회
+            List<WorkoutDetailDto> workoutDetails = workoutLogService.getWorkoutDetails(workoutNo);
+            model.addAttribute("workoutDetails", workoutDetails);
+            model.addAttribute("pageTitle", "운동 기록 상세보기");
+            model.addAttribute("center", "workout/workoutDetail");
+        } catch (Exception e) {
+            // 오류 처리
+            model.addAttribute("error", "운동 세부 기록 수정 중 오류가 발생했습니다.");
+        }
+
+        return "index"; // index.jsp 반환
+    }
+
+
+
+    // 운동 세부 기록 추가 처리
+    @RequestMapping("/workoutdetail/add")
+    public String addWorkoutDetail(@RequestParam("workoutNo") int workoutNo,
+                                   @RequestParam("machineNo") int machineNo,
+                                   @RequestParam("wdetailExname") String wdetailExname,
+                                   @RequestParam("wdetailSets") int wdetailSets,
+                                   @RequestParam("wdetailCount") int wdetailCount,
+                                   @RequestParam("wdetailWeight") int wdetailWeight,
+                                   @RequestParam("wdetailCalories") int wdetailCalories,
+                                   @RequestParam("wdetailTime") int wdetailTime,
+                                   HttpSession session,
+                                   Model model) {
+
+        // 세션에서 로그인된 사용자 확인
+        String loggedInUserId = (String) session.getAttribute("loginid");
+        if (loggedInUserId == null) {
+            return "redirect:/login";  // 로그인 페이지로 리다이렉트
+        }
+
+        // 운동 세부 기록 DTO 생성
+        WorkoutDetailDto workoutDetailDto = WorkoutDetailDto.builder()
+                .workoutNo(workoutNo)
+                .machineNo(machineNo)
+                .wdetailExname(wdetailExname)
+                .wdetailSets(wdetailSets)
+                .wdetailCount(wdetailCount)
+                .wdetailWeight(wdetailWeight)
+                .wdetailCalories(wdetailCalories)
+                .wdetailTime(wdetailTime)
+                .build();
+
+        try {
+            // 운동 세부 기록 추가
+            workoutLogService.addWorkoutDetail(workoutDetailDto);
+        } catch (Exception e) {
+            model.addAttribute("error", "운동 세부 기록 추가 중 오류가 발생했습니다.");
+            return "redirect:/workout/detail?workoutNo=" + workoutNo;
+        }
+
+        // 운동 기록 상세 조회
+        WorkoutLogDto workoutLog = null;
+        try {
+            workoutLog = workoutLogService.get(workoutNo);
+        } catch (Exception e) {
+            model.addAttribute("error", "운동 기록 상세 조회 실패");
+        }
+
+        // 운동 세부 정보 조회
+        List<WorkoutDetailDto> workoutDetails = null;
+        try {
+            workoutDetails = workoutLogService.getWorkoutDetails(workoutNo);
+        } catch (Exception e) {
+            model.addAttribute("error", "운동 세부 정보 조회 실패");
+        }
+
+        // 모델에 데이터 추가
+        model.addAttribute("workoutLog", workoutLog);
+        model.addAttribute("workoutDetails", workoutDetails);
+        model.addAttribute("pageTitle", "운동 기록 상세보기");
+        model.addAttribute("center", "workout/workoutDetail");
+
+        return "index";  // index.jsp 반환
+    }
+
+
+
+
+
     @RequestMapping("/write")
     public String showWritePage(Model model ) {
         List<String> exerciseNames = workoutLogService.getAllExerciseNames();
@@ -164,6 +329,8 @@ public class WorkoutController {
                     .body("새로운 항목을 추가하는 데 실패했습니다.");
         }
     }
+
+
 
 
 

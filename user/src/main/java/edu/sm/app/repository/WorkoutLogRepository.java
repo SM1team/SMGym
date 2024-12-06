@@ -28,11 +28,19 @@ public interface WorkoutLogRepository extends SMRepository<Integer, WorkoutLogDt
     List<WorkoutLogDto> selectByCustId(String custId);
 
     List<WorkoutDetailDto> workdetail(Integer workoutNo);
-
+    //write 에서 받은 값 저장
     void insert(WorkoutLogDto workoutLogDto);
-    void insertplus(WorkoutLogDto workoutLogDto);
+    // detail에서 받은 값 저장
+    void insertWorkoutDetail(WorkoutDetailDto workoutDetailDto);
 
     List<String> selectAllExerciseNames();
+
+    // 삭제
+    void deleteWorkoutDetail(int workoutDetailNo);
+
+    // 수정
+    void updateWorkoutDetail(WorkoutDetailDto workoutDetailDto);
+
 
 
 }

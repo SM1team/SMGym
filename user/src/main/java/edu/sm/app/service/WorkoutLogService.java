@@ -87,6 +87,33 @@ public class WorkoutLogService implements SMService<Integer, WorkoutLogDto> {
         return workoutLogRepository.workdetail(workoutNo);
     }
 
+    // 운동 세부 정보 추가
+    public void addWorkoutDetail(WorkoutDetailDto workoutDetailDto) throws Exception {
+        // 운동 세부 정보 저장
+        workoutLogRepository.insertWorkoutDetail(workoutDetailDto);
+    }
+
+
+    public void saveWorkoutDetail(WorkoutDetailDto workoutDetailDto) {
+        workoutLogRepository.insertWorkoutDetail(workoutDetailDto);
+    }
+    //삭제
+    public void deleteWorkoutDetail(int workoutDetailNo) throws Exception {
+        workoutLogRepository.deleteWorkoutDetail(workoutDetailNo); // Repository에서 삭제 호출
+    }
+    // 수정
+    public void editWorkoutDetail(WorkoutDetailDto workoutDetailDto) throws Exception {
+        workoutLogRepository.updateWorkoutDetail(workoutDetailDto); // Repository에서 수정 호출
+    }
+
+
+
+
+
+
+
+
+
 
 
 

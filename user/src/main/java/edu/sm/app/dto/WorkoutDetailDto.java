@@ -20,5 +20,5 @@ public class WorkoutDetailDto {
     private int wdetailWeight;    // 총 무게
     private int wdetailCalories;  // 소모 칼로리
     private int wdetailTime;      // 운동 시간 (분)
-
+    private String workoutComments; // 운동 코멘트
 }
