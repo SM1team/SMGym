@@ -32,7 +32,7 @@
   AOS.init({
     duration: 1200, // 애니메이션 지속 시간 (ms)
     easing: 'ease-in-out', // 애니메이션 효과
-    once: true // 한 번만 애니메이션 실행
+    once: false // 한 번만 애니메이션 실행
   });
 </script>
 <style>
