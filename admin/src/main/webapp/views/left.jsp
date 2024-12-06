@@ -44,30 +44,33 @@
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"><a class="nav-link" href="/cust"> 회원 조회</a></li>
                     </ul>
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="/cust"> PT관리</a></li>
+                    </ul>
                 </div>
             </li>
             </c:when>
             <c:otherwise>
 
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false"
-                   aria-controls="form-elements">
-                    <i class="menu-icon mdi mdi-card-text-outline"></i>
-                    <span class="menu-title">트레이너 출석</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="form-elements2">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="/checkin">출근
-                        </a></li>
-                    </ul>
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="/checkout">퇴근
-                        </a></li>
-                    </ul>
-                </div>
+<%--            <li class="nav-item">--%>
+<%--                <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false"--%>
+<%--                   aria-controls="form-elements">--%>
+<%--                    <i class="menu-icon mdi mdi-card-text-outline"></i>--%>
+<%--                    <span class="menu-title">트레이너 출석</span>--%>
+<%--                    <i class="menu-arrow"></i>--%>
+<%--                </a>--%>
+<%--                <div class="collapse" id="form-elements2">--%>
+<%--                    <ul class="nav flex-column sub-menu">--%>
+<%--                        <li class="nav-item"><a class="nav-link" href="/checkin">출근--%>
+<%--                        </a></li>--%>
+<%--                    </ul>--%>
+<%--                    <ul class="nav flex-column sub-menu">--%>
+<%--                        <li class="nav-item"><a class="nav-link" href="/checkout">퇴근--%>
+<%--                        </a></li>--%>
+<%--                    </ul>--%>
+<%--                </div>--%>
 
-            </li>
+<%--            </li>--%>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false"
                    aria-controls="charts">
