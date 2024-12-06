@@ -16,4 +16,16 @@ public class MachineDto {
     private String machineName;          // machine_name (varchar(40))
     private Timestamp machineTime;       // machine_time (datetime)
     private boolean machineStatus;       // machine_status (tinyint -> true/false)
+
+
+    // Getter for machineStatus
+    public boolean getMachineStatus() {
+        return machineStatus;
+    }
+
+    public boolean isMachineStatus() {
+        return machineStatus;
+    }
+
+
 }

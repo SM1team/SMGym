@@ -10,19 +10,12 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface MachineRepository extends SMRepository<Integer, MachineDto> {
 
-    /**
-     * 기계 상태만 업데이트
-     *
-     * @param machineNo     변경할 머신 ID
-     * @param machineStatus 변경할 상태값
-     */
+    // 머신 상태 업데이트
     void updateStatus(@Param("machineNo") Integer machineNo, @Param("machineStatus") boolean machineStatus) throws Exception;
 
-    /**
-     * 기계의 상태를 조회
-     *
-     * @param machineNo 기계 ID
-     * @return 기계 상태
-     */
+    // 머신 상태 조회
     boolean getStatus(Integer machineNo) throws Exception;
+
+    // 특정 machineNo에 대해 MachineDto 조회
+    MachineDto selectOne(Integer machineNo) throws Exception;
 }

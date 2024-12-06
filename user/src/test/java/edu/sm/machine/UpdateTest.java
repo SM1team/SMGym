@@ -17,30 +17,28 @@ class UpdateTest {
     private MachineService machineService;
 
     @Test
-    void updateMachineTest() {
+    void toggleMachineStatusOnceTest() {
         try {
-            // 기존 machineNo를 사용하여 조회하고, 수정할 데이터 준비
-            int machineNo = 1;  // 수정할 machine_no
-            String updatedMachineName = "Updated Machine Name";
-            int updatedMachineStatus = 2;  // 예: 새로운 상태
+            // 기존 machineNo를 사용하여 수정할 데이터 준비
+            int machineNo = 23;  // 수정할 machine_no
 
-            // MachineDto 객체를 만들어 업데이트할 데이터 설정
-            MachineDto machineDto = new MachineDto();
-            machineDto.setMachineNo(machineNo);
-            machineDto.setMachineName(updatedMachineName);
-            machineDto.setMachineStatus(updatedMachineStatus);
+            // 현재 상태 조회
+            MachineDto currentMachine = machineService.get(machineNo);
+            assertNotNull(currentMachine, "Machine should not be null");
+            boolean currentMachineStatus = currentMachine.getMachineStatus(); // 현재 상태 (boolean 값)
+            log.info("Current status of machine {}: {}", machineNo, currentMachineStatus);
 
-            // 업데이트 메서드 호출
-            boolean updateResult = machineService.update(machineDto);
+            // 상태를 반대로 변경
+            boolean updatedMachineStatus = !currentMachineStatus; // 현재 상태 반전
 
-            // 업데이트 성공 여부 확인
-            assertTrue(updateResult, "Machine should be updated successfully");
+            // Machine 상태 변경 (changeStatus 사용)
+            machineService.changeStatus(machineNo, updatedMachineStatus); // 상태 변경
+            log.info("Updated status of machine {} to: {}", machineNo, updatedMachineStatus);
 
-            // 업데이트 후 결과 확인 (선택적)
-            MachineDto updatedMachine = machineService.getByMachineNo(machineNo);
+            // 상태 변경 후 결과 확인
+            MachineDto updatedMachine = machineService.get(machineNo);
             assertNotNull(updatedMachine, "Updated machine should not be null");
-            assertEquals(updatedMachineName, updatedMachine.getMachineName(), "Machine name should be updated");
-            assertEquals(updatedMachineStatus, updatedMachine.getMachineStatus(), "Machine status should be updated");
+            assertEquals(updatedMachineStatus, updatedMachine.getMachineStatus(), "Machine status should be toggled correctly");
 
         } catch (Exception e) {
             throw new RuntimeException("Update test failed", e);

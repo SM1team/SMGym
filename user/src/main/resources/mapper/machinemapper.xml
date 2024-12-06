@@ -7,15 +7,15 @@
     <!-- Machine 추가 -->
     <insert id="insert" parameterType="edu.sm.app.dto.MachineDto">
         INSERT INTO machine (machine_no, machine_name, machine_time, machine_status)
-        VALUES (#{machineNo}, #{machineName}, #{machineTime}, #{machineStatus})
+        VALUES (#{machineNo}, #{machineName}, CURRENT_TIMESTAMP, #{machineStatus})
     </insert>
 
     <!-- Machine 수정 -->
     <update id="update" parameterType="edu.sm.app.dto.MachineDto">
         UPDATE machine
         SET machine_name = #{machineName},
-            machine_time = #{machineTime},
-            machine_status = #{machineStatus}
+        machine_time = CURRENT_TIMESTAMP,  <!-- 현재 시간으로 갱신 -->
+        machine_status = #{machineStatus}
         WHERE machine_no = #{machineNo}
     </update>
 
@@ -37,11 +37,19 @@
         FROM machine
     </select>
 
-    <!-- machineStatus만 변경 -->
-    <update id="updateStatus">
+    <!-- machineStatus만 변경 (시간도 자동 갱신) -->
+    <update id="updateStatus" parameterType="map">
         UPDATE machine
-        SET machine_status = #{machineStatus}
+        SET machine_status = #{machineStatus},
+        machine_time = CURRENT_TIMESTAMP  <!-- 현재 시간으로 갱신 -->
         WHERE machine_no = #{machineNo}
     </update>
+
+    <!-- machineStatus 조회 -->
+    <select id="getStatus" resultType="boolean" parameterType="Integer">
+        SELECT machine_status
+        FROM machine
+        WHERE machine_no = #{machineNo}
+    </select>
 
 </mapper>

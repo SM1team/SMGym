@@ -1,5 +1,6 @@
 package edu.sm.controller;
 
+import edu.sm.app.dto.MachineDto;
 import edu.sm.app.service.MachineService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -19,16 +21,24 @@ public class MainController {
     String wkey2;
 
     @Autowired
-    private MachineService machineService;  // MachineService 의존성 주입
-
+    private MachineService machineService;
     // 메인 페이지의 기본 엔드포인트
     @RequestMapping("/")
     public String main(Model model) throws Exception {
-        log.info("Start Main Page");
+        List<MachineDto> machines = machineService.get(); // 모든 기계 상태 가져오기 (MachineDto 객체 리스트)
+        // machines 리스트를 콘솔에 출력
+        for (MachineDto machine : machines) {
+            // MachineDto 객체의 필드 출력
+            System.out.println("Machine No: " + machine.getMachineNo() +
+                    ", Name: " + machine.getMachineName() +
+                    ", Time: " + machine.getMachineTime() +
+                    ", Status: " + (machine.isMachineStatus() ? "On" : "Off"));
+        }
 
-        model.addAttribute("machines", machineService.get());  // 기계 목록을 서비스 섹션에 전달
+        // 기계 상태를 모델에 추가
+        model.addAttribute("machines", machines);
 
-        return "index"; // index.jsp를 반환
+        return "index"; // index.jsp 반환
     }
 
     // 로그인 페이지 엔드포인트
