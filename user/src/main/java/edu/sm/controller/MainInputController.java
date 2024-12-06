@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -175,31 +176,24 @@ public class MainInputController {
 
     @RequestMapping("/custcheckimpl")
     public String custcheckimpl(Model model,
-                                   Search search,
-                                    HttpSession session,
-                                @RequestParam("id") String id,
-                                   @RequestParam(value = "pageNo",defaultValue = "1") int pageNo
-    ) throws Exception {
-        log.info("Search:" + search.toString());//실제 값 제대로 올라오는지 check 위해.
+                                Search search,
+                                @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                                @SessionAttribute("loginid") CustDto loginUser) throws Exception {  // 세션에서 로그인 사용자 정보 가져오기
+        log.info("Search:" + search.toString());
+
+        // 로그인된 사용자 ID를 Search 객체에 설정
+        search.setCustId(loginUser.getCustId());  // 로그인된 사용자의 custId를 검색 조건에 추가
+
         PageInfo<CustCheckDto> p;
-        p = new PageInfo<>(custCheckService.custcheckfindpage(pageNo,search),3); //5: 하단 네비게이션 수
+        p = new PageInfo<>(custCheckService.custcheckfindpage(pageNo, search), 3); // 하단 네비게이션 수
 
-        CustDto custDto = custService.get(id);
-        session.setAttribute("loginid", custDto);
-
-        model.addAttribute("custcheckpage",p); //cpage라는 이름으로 PageInfo객체 담음.
-//        model.addAttribute("target","reservation");
-
-        model.addAttribute("search",search);
-        //화면에서 search를 했다는 증표를 넣어준다.(객체를 넣어준것.)
-
-
-
-        model.addAttribute("center", "mycheck/"+"center");
+        model.addAttribute("custcheckpage", p);
+        model.addAttribute("search", search);
+        model.addAttribute("center", "mycheck/" + "center");
 
         return "index";
-
     }
+
 
 //    @RequestMapping("/commentwriteimpl")
 //    public String commentwriteimpl(Model model,

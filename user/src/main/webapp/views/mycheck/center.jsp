@@ -37,10 +37,6 @@
                             </div>
                             <div class="col-sm-3">
                                 <select class="form-control" name="keyword">
-                                    <option value = "id"
-                                            <c:if test="${search.keyword =='id'}"> selected </c:if>
-                                    <%--            검색을 위해 검색창에 값을 넣었는데 search 버튼을 누르는 순간 입력한 값이 사라지는걸 방지--%>
-                                    > 회원ID </option>
 
                                     <option value="month"
                                             <c:if test="${search.keyword == 'month'}"> selected </c:if>
