@@ -1,11 +1,16 @@
 package edu.sm.app.repository;
 
 
+import com.github.pagehelper.Page;
+import edu.sm.app.dto.Search;
 import edu.sm.app.dto.TrainerCheckDto;
+import edu.sm.app.dto.TrainerDto;
 import edu.sm.app.frame.SMRepository;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -19,5 +24,12 @@ public interface TrainerCheckRepository extends SMRepository<String, TrainerChec
     void update(TrainerCheckDto trainerCheckDto);
 
     void updateCheckEndTime(TrainerCheckDto trainerCheckDto);
+
+    public List<Map<String, Object>> getTrainersWithTodayAttendance();
+
+    Page<TrainerCheckDto> trainercheckfindpage(Search search);
+
+
+
 
 }

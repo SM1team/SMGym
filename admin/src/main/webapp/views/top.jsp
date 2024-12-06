@@ -54,6 +54,7 @@
         <%--            오른쪽 바--%>
         <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown d-none d-lg-block">
+
                 <a class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split" id="messageDropdown"
                    href="#" data-bs-toggle="dropdown" aria-expanded="false"> Select Category </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
@@ -196,7 +197,7 @@
                     <!-- 로그인된 상태 -->
                     <li class="nav-item dropdown d-none d-lg-block user-dropdown">
                         <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                                ${sessionScope.loginid.trainerId}
+                                ${sessionScope.loginid.role.roleName}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                             <div class="dropdown-header text-center">
@@ -212,7 +213,7 @@
                             <a class="dropdown-item"><i
                                     class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i> FAQ</a>
                             <a class="dropdown-item" href="<c:url value='/logout'/>"><i
-                                    class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</a>
+                                    class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>LogOut</a>
                         </div>
                     </li>
                 </c:otherwise>

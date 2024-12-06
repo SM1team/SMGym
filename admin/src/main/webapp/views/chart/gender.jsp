@@ -21,7 +21,7 @@
                     <h5 class="card-title mb-0 text-center">피트니스 방문자 수</h5>
                 </div>
                 <div class="card-body text-center">
-                    <canvas id="performanceLine" width="400" height="180"></canvas>
+                    <canvas id="performanceLine4" width="500" height="180"></canvas>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
                     <h5 class="card-title mb-0 text-center">성별 통계</h5>
                 </div>
                 <div class="card-body text-center">
-                    <canvas id="genderChart" width="400" height="400"></canvas>
+                    <canvas id="genderChart1" width="400" height="400"></canvas>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
     const genderLabels = Object.keys(genderCounts);  // ["남성", "여성"]
     const genderData = Object.values(genderCounts); // [남성 수, 여성 수]
 
-    const genderCtx = document.getElementById('genderChart').getContext('2d');
+    const genderCtx = document.getElementById('genderChart1').getContext('2d');
     new Chart(genderCtx, {
         type: 'doughnut',
         data: {
@@ -102,7 +102,7 @@
             // 방문자 수 데이터
             const visitorData = recentData.map(entry => entry.daily_visitors);
 
-            const visitorCtx = document.getElementById('performanceLine').getContext('2d');
+            const visitorCtx = document.getElementById('performanceLine4').getContext('2d');
 
             // 그라데이션 배경 설정
             const gradient = visitorCtx.createLinearGradient(0, 0, 0, 400);

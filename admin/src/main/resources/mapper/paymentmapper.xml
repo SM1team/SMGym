@@ -58,4 +58,13 @@
 
     </select>
 
+    <!-- Mapper XML -->
+    <select id="getTodaysRevenue" resultType="BigDecimal">
+        SELECT SUM(amount)
+        FROM payment
+        WHERE DATE(created_at) = CURDATE()
+        AND payment_status = 'SUCCESS';  <!-- 결제 상태가 'SUCCESS'인 것만 계산 -->
+    </select>
+
+
 </mapper>

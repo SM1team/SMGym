@@ -4,6 +4,7 @@ import edu.sm.app.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +52,11 @@ public class PaymentService {
         }
 
         return oldSales;
+    }
+
+    // 당일 매출 조회 메소드
+    public BigDecimal getTodaysRevenue() {
+        return paymentRepository.getTodaysRevenue(); // Repository에서 결과 받아오기
     }
 
 

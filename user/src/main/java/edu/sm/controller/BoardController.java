@@ -8,6 +8,7 @@ import edu.sm.app.service.CommentService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,14 @@ import java.util.List;
 public class BoardController {
     private final CommentService commentService;
     private final BoardService boardService;
+
+    @Value("${app.dir.imgdir}")
+    String  imgdir;
+
+    @Value("${app.key.wkey2}")
+    String wkey2;
+
+
 
     // 페이징 계산 공통 메서드
     private void addPagingAttributes(Model model, int page, int pageSize, int totalBoardCount) {

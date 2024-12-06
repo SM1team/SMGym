@@ -1,7 +1,11 @@
 package edu.sm.app.service;
 
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import edu.sm.app.dto.Search;
 import edu.sm.app.dto.TrainerCheckDto;
+import edu.sm.app.dto.TrainerDto;
 import edu.sm.app.frame.SMService;
 import edu.sm.app.repository.TrainerCheckRepository;
 import edu.sm.util.QRCodeGenerator;
@@ -11,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -88,6 +93,18 @@ public class TrainerCheckService implements SMService<String, TrainerCheckDto> {
         trainerCheckDto.setTcheckEnd(timestamp); // checkStart에 Timestamp 값 설정
         trainercheckRepository.updateCheckEndTime(trainerCheckDto); // 레포지토리 호출
     }
+
+    public List<Map<String, Object>> getTodayAttendance() {
+        return trainercheckRepository.getTrainersWithTodayAttendance();
+    }
+
+    public Page<TrainerCheckDto> trainercheckfindpage(int pageNo, Search search) throws Exception {
+        // PageHelper로 페이지 설정
+        PageHelper.startPage(pageNo, 4); // 페이지당 4개씩
+        return trainercheckRepository.trainercheckfindpage(search); // 페이지네이션된 결과 반환
+    }
+
+
 
 }
 

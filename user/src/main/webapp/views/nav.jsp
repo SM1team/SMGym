@@ -10,10 +10,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+
                 <li class="nav-item"><a class="nav-link" href="<c:url value='/#services'/>">Services</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value='/#trainer'/>">Trainer</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value='/#about'/>">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value='/#location'/>">Location</a></li>
+                <li class="nav-item"><a class="nav-link" href="<c:url value="/floor"/>">FloorMap</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value='/shop'/>">Shop</a> <!-- Shop 버튼에 #center 추가 -->
                 </li>
