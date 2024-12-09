@@ -81,6 +81,12 @@ public class ChartController {
         return ResponseEntity.ok(dailyVisitors); // JSON 형식으로 반환
     }
 
+    @GetMapping("/monthly")
+    public ResponseEntity<List<Map<String, Object>>> getMonthlyVisitors() {
+        List<Map<String, Object>> stats = custCheckService.getMonthlyVisitorStats();
+        return ResponseEntity.ok(stats);
+    }
+
 
 
 }

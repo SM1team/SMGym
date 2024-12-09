@@ -24,6 +24,8 @@ public interface CustCheckRepository extends SMRepository<String, CustCheckDto> 
 
     List<Map<String, Object>> getDailyVisitors();
 
+    List<Map<String, Object>> getMonthlyVisitors();
+
     // 오늘 출입 중인 회원 수를 가져오는 메서드 추가
     int getCurrentActiveMembers();
 

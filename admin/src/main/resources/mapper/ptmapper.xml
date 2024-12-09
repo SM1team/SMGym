@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.sm.app.repository.PtRepository">
+
+    <!-- 단일 회원 정보 조회 -->
+    <select id="selectOne" parameterType="Integer" resultType="PtDto">
+        SELECT *
+        FROM cust
+        WHERE cust_id = #{custId}
+    </select>
+
+    <select id="selectOnes" parameterType="Integer" resultType="PtDto">
+        SELECT *
+        FROM PT
+        WHERE pt_no = #{ptNo}
+    </select>
+
+    <!-- 모든 회원 정보 조회 -->
+    <select id="select" resultType="CustDto">
+        SELECT *
+        FROM cust
+    </select>
+
+    <!-- 회원 등록 -->
+    <insert id="insert" parameterType="PtDto">
+        INSERT INTO PT (
+            pt_no, product_no, trainer_id, pt_content,pt_date, pt_count,
+            cust_id
+        )
+        VALUES (
+                   #{ptNo}, #{productNo}, #{trainerId}, #{ptContent},#{ptDate}, #{ptCount},
+                   #{custId}
+               )
+    </insert>
+
+    <!-- 회원 정보 수정 -->
+    <update id="update" parameterType="PtDto">
+        UPDATE pt_table
+        SET product_no = #{productNo},
+            trainer_id = #{trainerId},
+            pt_content = #{ptContent},
+            pt_date = #{ptDate},
+            pt_count = #{ptCount}
+        WHERE pt_no = #{ptNo}
+    </update>
+
+    <!-- 회원 삭제 -->
+    <delete id="delete" parameterType="String">
+        DELETE FROM cust
+        WHERE cust_id = #{custId}
+    </delete>
+
+    <select id="hasPurchasedPT" resultType="int">
+        SELECT COUNT(*)
+        FROM payment
+        WHERE cust_id = #{custId}
+          AND product_name LIKE '%필라%'
+          AND payment_status = 'SUCCESS'
+    </select>
+
+    <select id="selectByTrainerId" parameterType="String" resultType="ptDto">
+        SELECT *
+        FROM PT
+        WHERE trainer_id = #{trainerId} <!-- 로그인된 사용자 ID로 필터링 -->
+    </select>
+
+    <delete id="deleteByPtNo" parameterType="integer">
+        DELETE FROM PT WHERE pt_no = #{ptNo}
+    </delete>
+
+</mapper>

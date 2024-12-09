@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1"></script>
 </head>
-<body>
+<div>
 <div class="container mt-5">
     <div class="row">
 
@@ -18,7 +18,7 @@
         <div class="col-md-8">
             <div class="card shadow">
                 <div class="card-header">
-                    <h5 class="card-title mb-0 text-center">피트니스 방문자 수</h5>
+                    <h5 class="card-title mb-0 text-center">일별 방문자 수</h5>
                 </div>
                 <div class="card-body text-center">
                     <canvas id="performanceLine4" width="500" height="180"></canvas>
@@ -38,8 +38,106 @@
             </div>
         </div>
 
+        <!-- 차트 캔버스 -->
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h5 class="card-title mb-0 text-center">월별 방문자 수</h5>
+                </div>
+                <div class="card-body text-center">
+                    <canvas id="performanceLine5" width="500" height="180"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+
+            <div class="row flex-grow">
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card card-rounded">
+                        <div class="card-body">
+                            <div class="d-sm-flex justify-content-between align-items-start">
+                                <div>
+                                    <h4 class="card-title card-title-dash"> ${currentMonth}달 우수 트레이너
+                                    </h4>
+
+                                </div>
+
+                            </div>
+                            <div class="table-responsive  mt-1">
+<%--                               우수 트레이너 테이블시작--%>
+                                <table class="table select-table">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="form-check form-check-flat mt-0">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox"
+                                                           class="form-check-input"
+                                                           aria-checked="false"
+                                                           id="check-all"><i
+                                                        class="input-helper"></i></label>
+                                            </div>
+                                        </th>
+                                        <th>트레이너 ID</th>
+                                        <th>담당 회원수</th>
+
+                                    </tr>
+                                    </thead>
+<%--                                    여기서부터 내용--%>
+                                    <tbody>
+                                    <c:forEach var="member" items="${members}">
+                                        <tr>
+                                            <td>
+                                                <div class="form-check form-check-flat mt-0">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex ">
+                                                    <img src="<c:url value='/assets/images/cust2.jpg'/>" alt="">
+                                                    <div>
+                                                        <h6>${member.custId}</h6>
+                                                        <p>Head admin</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <h6>${member.attendanceCount}/${member.totalDaysInMonth}</h6>
+                                                <div>
+                                                    <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
+                                                        <p class="text-success">${member.attendanceRate}%</p>
+                                                    </div>
+                                                    <div class="progress progress-md">
+                                                        <div class="progress-bar bg-success" role="progressbar"
+                                                             style="width: ${member.attendanceRate}%"
+                                                             aria-valuenow="${member.attendanceRate}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="badge badge-opacity-warning">In progress</div>
+
+                                            </td>
+
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+
 
     </div>
+</div>
 </div>
 
 
@@ -171,6 +269,142 @@
             });
         })
         .catch(error => console.error('Error fetching visitor data:', error));
+
+    async function renderMonthlyVisitorChart() {
+        try {
+            const response = await fetch('/chart/monthly');
+            const data = await response.json();
+
+            // 현재 날짜 기준으로 최근 6개월을 계산
+            const today = new Date();
+            const lastSixMonths = [];
+
+            for (let i = 0; i < 6; i++) {
+                const month = new Date(today);
+                month.setMonth(today.getMonth() - i);
+                lastSixMonths.push(month.toISOString().slice(0, 7)); // 'YYYY-MM' 형식으로 저장
+            }
+
+            // 최근 6개월의 데이터만 필터링
+            const filteredData = data.filter(item => lastSixMonths.includes(item.month));
+
+            // 차트에 표시할 월과 방문자 수
+            const labels = filteredData.map(item => item.month);
+            const visitorCounts = filteredData.map(item => item.visitorCount);
+
+            const ctx = document.getElementById('performanceLine5').getContext('2d');
+
+            // 배경 그라데이션 추가
+            const gradientBg = ctx.createLinearGradient(0, 0, 0, 400);
+            gradientBg.addColorStop(0, 'rgba(75, 192, 192, 0.2)');
+            gradientBg.addColorStop(1, 'rgba(75, 192, 192, 0.1)');
+
+            // 막대 차트의 색상 설정
+            const gradientBar = ctx.createLinearGradient(0, 0, 0, 400);
+            gradientBar.addColorStop(0, 'rgba(75, 192, 192, 1)');
+            gradientBar.addColorStop(1, 'rgba(75, 192, 192, 0.5)');
+
+            new Chart(ctx, {
+                type: 'bar', // 'line'에서 'bar'로 변경
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '월별 방문자 수',
+                        data: visitorCounts,
+                        backgroundColor: gradientBar, // 막대 색상
+                        borderColor: 'rgba(75, 192, 192, 1)', // 막대의 테두리 색상
+                        borderWidth: 2,
+                        hoverBackgroundColor: 'rgba(75, 192, 192, 0.6)', // hover 시 막대 색상
+                        hoverBorderColor: 'rgba(75, 192, 192, 1)', // hover 시 테두리 색상
+                        hoverBorderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    family: 'Arial, sans-serif',
+                                    weight: 'bold'
+                                },
+                                color: '#333'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                            titleFont: {
+                                size: 16
+                            },
+                            bodyFont: {
+                                size: 14
+                            },
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return `${tooltipItem.label}: ${tooltipItem.raw}명`;
+                                }
+                            },
+                            animation: {
+                                duration: 500, // 툴팁 애니메이션 시간
+                                easing: 'easeOutCubic'
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1500, // 차트 애니메이션 시간
+                        easing: 'easeOutBounce', // 탄력적인 애니메이션 효과
+                        onComplete: function() {
+                            console.log('차트 렌더링 완료!');
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)', // x축 그리드 색상
+                            },
+                            ticks: {
+                                font: {
+                                    size: 12,
+                                    family: 'Arial, sans-serif',
+                                },
+                                color: '#333'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)', // y축 그리드 색상
+                            },
+                            ticks: {
+                                font: {
+                                    size: 12,
+                                    family: 'Arial, sans-serif',
+                                },
+                                color: '#333',
+                                beginAtZero: true
+                            }
+                        }
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true,
+                        animationDuration: 400 // hover 시 포인트의 애니메이션 속도
+                    }
+                }
+            });
+        } catch (error) {
+            console.error('Failed to render chart:', error);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', renderMonthlyVisitorChart);
+
+
+
+
 
 
 </script>

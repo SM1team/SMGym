@@ -253,6 +253,8 @@ public class MainController {
 
         return "index";
     }
+
+
 // 트레이너-------------------------------------------------------
     @RequestMapping("/trainerdeleteimpl")
     public String trainerdeleteimpl(Model model, @RequestParam("trainerId") String trainerId) throws Exception {

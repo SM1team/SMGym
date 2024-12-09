@@ -8,7 +8,7 @@
 
   <!-- 쓰기 버튼 -->
   <div class="mb-3">
-    <button class="btn btn-primary" onclick="location.href='/workout/writeForm'">쓰기</button>
+    <button class="btn btn-primary" onclick="location.href='/pt/write'">쓰기</button>
     <button class="btn btn-warning" id="editBtn">수정하기</button>
     <button class="btn btn-danger" id="deleteBtn">삭제하기</button>
   </div>
@@ -17,28 +17,27 @@
     <table class="table">
       <thead class="thead-dark">
       <tr>
-        <th><input type="checkbox" id="selectAll"></th>
-        <th>운동일지 번호</th>
+        <th>PT일지 번호</th>
+        <th>상품 번호</th>
+        <th>트레이너 ID</th>
+        <th>PT 내용</th>
+        <th>PT 날짜</th>
+        <th>PT 회차</th>
         <th>회원 ID</th>
-        <th>운동날짜</th>
-        <th>총 운동시간</th>
-        <th>총 소모칼로리</th>
-        <th>코멘트</th>
       </tr>
       </thead>
       <tbody>
       <c:forEach var="c" items="${workouts}">
         <tr>
-          <!-- 체크박스 -->
-          <td><input type="checkbox" name="workoutNo" value="${c.workoutNo}"></td>
-          <!-- 운동일지 번호 클릭 시 상세 페이지 이동 -->
-          <td><a href="<c:url value='/workout/detail'/>?workoutNo=${c.workoutNo}">${c.workoutNo}</a></td>
 
+          <!-- pt일지 번호 클릭 시 ptContent 상세보기 -->
+          <td><a href="<c:url value='/pt/detail'/>?ptNo=${c.ptNo}">${c.ptNo}</a></td>
+          <td>${c.productNo}</td>
+          <td>${c.trainerId}</td>
+          <td>${c.ptContent}</td>
+          <td>${c.ptDate}</td>
+          <td>${c.ptCount}</td>
           <td>${c.custId}</td>
-          <td>${c.workoutDate}</td>
-          <td>${c.workoutTime}</td>
-          <td>${c.workoutCalories}</td>
-          <td>${c.workoutComments}</td>
         </tr>
       </c:forEach>
       </tbody>
@@ -48,11 +47,6 @@
 </div>
 
 <script>
-  // 체크박스 전체 선택/해제
-  document.getElementById("selectAll").addEventListener("click", function () {
-    const checkboxes = document.querySelectorAll("input[name='workoutNo']");
-    checkboxes.forEach(cb => cb.checked = this.checked);
-  });
 
   // 수정 버튼 클릭 시
   document.getElementById("editBtn").addEventListener("click", function () {
@@ -70,7 +64,7 @@
     if (selected.length > 0) {
       if (confirm("선택한 항목을 삭제하시겠습니까?")) {
         const form = document.getElementById("workoutForm");
-        form.action = "/workout/delete";
+        form.action = "/pt/delete";
         form.submit();
       }
     } else {
