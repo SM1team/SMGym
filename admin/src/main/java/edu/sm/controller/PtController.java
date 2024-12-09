@@ -119,28 +119,46 @@ public class PtController {
         return "index";
     }
 
-    // PT 수정 페이지로 이동
     @GetMapping("/edit")
-    public String editForm(Model model,@RequestParam("ptNo") Integer ptNo, HttpServletRequest request) throws Exception {
-        PtDto pt = ptService.gets(ptNo);
+    public String editForm(Model model, @RequestParam("ptNo") Integer ptNo, HttpServletRequest request) throws Exception {
+        if (ptNo == null) {
+            // ptNo가 null이면 예외 처리 또는 리다이렉션
+            return "redirect:/pt"; // 예시로 pt 목록 페이지로 이동
+        }
+
+        PtDto pt = ptService.gets(ptNo); // ptNo를 이용해 PT 정보 조회
         request.setAttribute("pt", pt);
 
-        model.addAttribute("left", pdir+"left");
-        model.addAttribute("top", pdir+"top");
-        model.addAttribute("center", pdir+"update");
+        model.addAttribute("left", pdir + "left");
+        model.addAttribute("top", pdir + "top");
+        model.addAttribute("center", pdir + "update");
         return "index"; // update.jsp로 이동
     }
 
     // PT 수정 처리
     @PostMapping("/update")
-    public String updatePt(PtDto ptDto) {
+    public String update(Model model,
+                           PtDto ptDto,
+                         HttpSession session) throws Exception {
         try {
             ptService.modify(ptDto); // 수정 처리
         } catch (Exception e) {
             e.printStackTrace();
             return "error"; // 수정 실패 시 에러 페이지로 이동
         }
-        return "redirect:/pt/list"; // 수정 후 PT 목록 페이지로 리다이렉트
+        TrainerDto loggedInTrainer = (TrainerDto) session.getAttribute("loginid");
+        String trainerId = loggedInTrainer.getTrainerId();
+        if (loggedInTrainer == null) {
+            return "redirect:/login"; // 로그인되지 않은 경우 로그인 페이지로 이동
+        }
+        List<PtDto> pts = ptService.getPTByTrainerId(trainerId);
+
+        model.addAttribute("pts", pts);
+
+        model.addAttribute("left", pdir + "left");
+        model.addAttribute("top", pdir + "top");
+        model.addAttribute("center", pdir + "center");
+        return "index"; // 수정 후 PT 목록 페이지로 리다이렉트
     }
 
 

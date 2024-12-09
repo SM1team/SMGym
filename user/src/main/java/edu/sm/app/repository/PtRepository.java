@@ -16,4 +16,11 @@ public interface PtRepository extends SMRepository<String, PtDto> {
     //Mybatis가 다 해줌.
     //따라서 public class가 아닌 interface로 놓는다.
     //예전에 insert,update 이런거 다 써서 했는데 이걸 Mybatis가 해줌
+
+    List<PtDto> selectByTrainerId(String trainerId);
+
+    int deleteByPtNo(Integer ptNo);
+
+    // PT 번호로 PT 정보 조회 (Integer 타입)
+    PtDto selectOnes(Integer ptNo) throws Exception;
 }

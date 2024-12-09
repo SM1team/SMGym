@@ -9,7 +9,6 @@
   <!-- 쓰기 버튼 -->
   <div class="mb-3">
     <button class="btn btn-primary" onclick="location.href='/pt/write'">쓰기</button>
-    <button class="btn btn-warning" id="editBtn">수정하기</button>
     <button class="btn btn-danger" id="deleteBtn">삭제하기</button>
   </div>
 
@@ -32,7 +31,7 @@
         <tr>
           <td><input type="checkbox" class="rowCheckbox" value="${c.ptNo}"></td>
           <!-- pt일지 번호 클릭 시 ptContent 상세보기 -->
-          <td><a href="<c:url value='/pt/detail'/>?ptNo=${c.ptNo}">${c.ptNo}</a></td>
+          <td><a href="<c:url value='/pt/edit'/>?ptNo=${c.ptNo}">${c.ptNo}</a></td>
           <td>${c.productNo}</td>
           <td>${c.trainerId}</td>
           <td>${c.ptContent}</td>
@@ -54,18 +53,8 @@
     checkboxes.forEach(checkbox => checkbox.checked = this.checked);
   });
 
-  // 수정 버튼 클릭 이벤트
-  document.getElementById('editBtn').addEventListener('click', function () {
-    const selected = document.querySelectorAll('.rowCheckbox:checked');
-    if (selected.length === 1) {
-      const ptNo = selected[0].value;
-      location.href = `/pt/edit?ptNo=${ptNo}`;
-    } else if (selected.length > 1) {
-      alert('하나의 항목만 선택해주세요.');
-    } else {
-      alert('수정할 항목을 선택해주세요.');
-    }
-  });
+
+
 
   // 삭제 버튼 클릭 이벤트
   document.getElementById('deleteBtn').addEventListener('click', function () {

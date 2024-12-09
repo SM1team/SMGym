@@ -63,7 +63,7 @@
     <select id="selectByTrainerId" parameterType="String" resultType="ptDto">
         SELECT *
         FROM PT
-        WHERE trainer_id = #{trainerId} <!-- 로그인된 사용자 ID로 필터링 -->
+        WHERE cust_id = #{custId} <!-- 로그인된 사용자 ID로 필터링 -->
     </select>
 
     <delete id="deleteByPtNo" parameterType="integer">
