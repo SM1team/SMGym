@@ -41,24 +41,59 @@ public class WorkoutController {
     String wdir = "workout/";
     @RequestMapping("")
     public String workoutmain(Model model, HttpSession session) throws Exception {
-        // 세션에서 로그인된 사용자 정보 가져오기
-        CustDto loggedInUser = (CustDto) session.getAttribute("loginid");
+        try {
+            // 세션에서 로그인된 사용자 정보 가져오기
+            CustDto loggedInUser = (CustDto) session.getAttribute("loginid");
 
-        if (loggedInUser == null) {
-            return "redirect:/login"; // 로그인되지 않은 경우 로그인 페이지로 이동
+            // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
+            if (loggedInUser == null) {
+                return "redirect:/login";
+            }
+
+            // 사용자 ID를 이용해 운동일지 내역 조회
+            String custId = loggedInUser.getCustId();
+            List<WorkoutLogDto> workouts = workoutLogService.getWorkoutByCustId(custId);
+
+            // 각 운동 일지에 대해 소모 칼로리 및 운동 시간 합산
+            for (WorkoutLogDto workoutLog : workouts) {
+                // workoutLog.getWorkoutNo()에 해당하는 WorkoutDetail을 가져옴
+                List<WorkoutDetailDto> workoutDetails = workoutLogService.getWorkoutDetails(workoutLog.getWorkoutNo());
+
+                // 소모 칼로리 합산
+                int totalCalories = workoutDetails.stream()
+                        .mapToInt(WorkoutDetailDto::getWdetailCalories) // 칼로리 합산
+                        .sum();
+                workoutLog.setWorkoutCalories(totalCalories); // WorkoutLogDto에 소모 칼로리 설정
+
+                // 운동 시간 합산
+                int totalWorkoutTime = workoutDetails.stream()
+                        .mapToInt(WorkoutDetailDto::getWdetailTime) // 운동 시간만 추출 (예: 분 단위)
+                        .sum();
+                workoutLog.setWorkoutTime(totalWorkoutTime); // WorkoutLogDto에 운동 시간 설정
+
+                // 운동 일지에 대해 소모 칼로리 합산과 운동 시간을 더한 후, 첫 번째 세부 사항에서 날짜와 코멘트 설정
+                if (!workoutDetails.isEmpty()) {
+                    workoutLog.setWorkoutDate(workoutDetails.get(0).getWorkoutDate()); // 첫 번째 운동 세부 사항에서 날짜 설정
+                    workoutLog.setWorkoutComments(workoutDetails.get(0).getWorkoutComments()); // 첫 번째 운동 세부 사항에서 코멘트 설정
+                }
+            }
+
+            // 모델에 운동일지 목록과 관련된 데이터를 추가
+            model.addAttribute("workouts", workouts);
+            model.addAttribute("top", wdir + "top");
+            model.addAttribute("center", wdir + "center");
+
+            // "index.jsp" 페이지로 이동
+            return "index";
+
+        } catch (Exception e) {
+            // 예외가 발생하면 에러 페이지로 리다이렉트
+            e.printStackTrace();
+            return "error";
         }
-
-        // 사용자 ID를 이용해 운동일지 내역 조회
-        String custId = loggedInUser.getCustId();
-        List<WorkoutLogDto> workouts = workoutLogService.getWorkoutByCustId(custId);
-
-        // 예약 데이터를 모델에 추가
-        model.addAttribute("workouts", workouts);
-        model.addAttribute("top",wdir+"top");
-        model.addAttribute("center",wdir+"center");
-
-        return "index"; // JSP 페이지 이름
     }
+
+
 
     @RequestMapping("/detail")
     public String detail(Model model, @RequestParam(name = "workoutNo", required = false) Integer workoutNo) throws Exception {
@@ -73,6 +108,14 @@ public class WorkoutController {
         List<WorkoutDetailDto> workoutDetailDtoList = workoutLogService.WorkoutdetailNo(workoutNo);
         model.addAttribute("workoutNo", workoutNo);
         model.addAttribute("details", workoutDetailDtoList);
+
+        // workoutNo에 해당하는 소모 칼로리 합산 계산
+        Integer getTotalWorkoutTime = workoutLogService.getTotalWorkoutTime(workoutNo);
+        Integer totalCalories = workoutLogService.getTotalCalories(workoutNo);
+        model.addAttribute("totalCalories", totalCalories); // 소모 칼로리 합산을 모델에 추가
+        model.addAttribute("getTotalWorkoutTime", getTotalWorkoutTime); // 운동 시간 합산을 모델에 추가
+
+
         model.addAttribute("top", wdir + "top");
         model.addAttribute("center", wdir + "detail");
 
@@ -105,7 +148,7 @@ public class WorkoutController {
         return "redirect:/workout/detail?workoutNo=" + workoutDetailDto.getWorkoutNo();
     }
 
-    @RequestMapping("/workout/detail/delete")
+    @RequestMapping("/detail/delete")
     public String delete(@RequestParam("workoutNo") int workoutNo, HttpSession session) {
         if (workoutNo == 0) {
             return "redirect:/workout"; // 잘못된 요청이라면 리다이렉트
@@ -234,7 +277,7 @@ public class WorkoutController {
 
 
 
-
+    // 쓰기 버튼
     @RequestMapping("/write")
     public String showWritePage(Model model ) {
         List<String> exerciseNames = workoutLogService.getAllExerciseNames();
@@ -249,7 +292,7 @@ public class WorkoutController {
         return "index";  // /views/write.jsp로 포워딩됨
     }
 
-    // 쓰기 버튼을 누르면 저장됌
+    // 쓰기 버튼을 누르고 저장을 누르면 저장됌
     @RequestMapping("/save")
     public String saveWorkout(
             @RequestParam Date workoutDate,
@@ -302,7 +345,7 @@ public class WorkoutController {
         }
         return loggedInUser;
     }
-
+    // 새로운 항목 추가 버튼 클릭시 생성
     @PostMapping("/add")
     public ResponseEntity<String> addWorkout(HttpSession session) {
         try {

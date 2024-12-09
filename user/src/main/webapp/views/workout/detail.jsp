@@ -42,8 +42,12 @@
 
         // 이전 페이지로 돌아가기 버튼
         document.getElementById("btn_back").addEventListener("click", function () {
-            window.history.back(); // 이전 페이지로 돌아가기
+            window.location.href = "/workout"; // 특정 workout 페이지로 이동
         });
+
+        const currentDate = new Date().toISOString().split('T')[0];
+        document.getElementById("workoutDate").value = currentDate;
+        document.getElementById("workoutDate").setAttribute("min", currentDate);
     });
 
     // 선택된 운동 세부 항목들의 ID를 가져오는 함수
@@ -84,6 +88,7 @@
                 <th>소모 칼로리</th>
                 <th>운동 시간</th>
                 <th>코멘트</th>
+                <th>운동날짜</th>
             </tr>
             </thead>
             <tbody>
@@ -99,6 +104,8 @@
                     <td>${c.wdetailWeight}</td>
                     <td>${c.wdetailCalories}</td>
                     <td>${c.wdetailTime}</td>
+                    <td>${c.workoutComments}</td>
+                    <td>${c.workoutDate}</td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -136,10 +143,14 @@
             </div>
             <div class="form-group">
                 <label for="workoutComments">운동 코멘트</label>
-                <input id="workoutComments" name="workoutComments" class="form-control" rows="4" placeholder="운동에 대한 코멘트를 작성하세요"/>
+                <input type="text" class="form-control" id="workoutComments" name="workoutComments" placeholder="운동에 대한 코멘트를 작성하세요"/>
+            </div>
+            <div class="form-group">
+                <label for="workoutDate">운동 날짜</label>
+                <input type="date" id="workoutDate" name="workoutDate" class="form-control" required />
             </div>
 
-            <button type="submit" class="btn btn-primary">Add Detail</button>
+            <button type="submit" class="btn btn-primary">항목 추가</button>
         </form>
     </div>
 </div>

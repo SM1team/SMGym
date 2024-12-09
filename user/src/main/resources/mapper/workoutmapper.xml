@@ -55,19 +55,20 @@
 
     <!-- 운동 세부 정보 추가 -->
     <insert id="insertWorkoutDetail" parameterType="WorkoutDetailDto">
-        INSERT INTO workoutdetail (workout_no, machine_no, wdetail_exname, wdetail_sets, wdetail_count, wdetail_weight, wdetail_calories, wdetail_time)
-        VALUES (#{workoutNo}, #{machineNo}, #{wdetailExname}, #{wdetailSets}, #{wdetailCount}, #{wdetailWeight}, #{wdetailCalories}, #{wdetailTime})
+        INSERT INTO workoutdetail (workout_no, machine_no, wdetail_exname, wdetail_sets, wdetail_count, wdetail_weight, wdetail_calories, wdetail_time, workout_comments,workout_date)
+        VALUES (#{workoutNo}, #{machineNo}, #{wdetailExname}, #{wdetailSets}, #{wdetailCount}, #{wdetailWeight}, #{wdetailCalories}, #{wdetailTime}, #{workoutComments}, #{workoutDate})
     </insert>
 <!--    운동 수정 사항 추가-->
     <update id="updateWorkoutDetail" parameterType="edu.sm.app.dto.WorkoutDetailDto">
         UPDATE workout_detail
-        SET wdetail_exname = #{wdetailExname},
-            wdetail_sets = #{wdetailSets},
-            wdetail_count = #{wdetailCount},
-            wdetail_weight = #{wdetailWeight},
+        SET wdetail_exname   = #{wdetailExname},
+            wdetail_sets     = #{wdetailSets},
+            wdetail_count    = #{wdetailCount},
+            wdetail_weight   = #{wdetailWeight},
             wdetail_calories = #{wdetailCalories},
-            wdetail_time = #{wdetailTime},
-            workout_comments = #{workoutComments}
+            wdetail_time     = #{wdetailTime},
+            workout_comments = #{workoutComments},
+            workout_date     = #{workoutDate}
         WHERE wdetail_id = #{wdetailId}
     </update>
 

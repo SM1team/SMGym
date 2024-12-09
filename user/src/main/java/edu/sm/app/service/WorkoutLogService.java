@@ -106,16 +106,27 @@ public class WorkoutLogService implements SMService<Integer, WorkoutLogDto> {
         workoutLogRepository.updateWorkoutDetail(workoutDetailDto); // Repository에서 수정 호출
     }
 
+    // 운동 일지에 해당하는 총 소모 칼로리 계산
+    public Integer getTotalCalories(int workoutNo) throws Exception {
+        List<WorkoutDetailDto> workoutDetails = workoutLogRepository.workdetail(workoutNo);
+        return workoutDetails.stream()
+                .mapToInt(WorkoutDetailDto::getWdetailCalories) // 소모 칼로리 값만 추출
+                .sum(); // 합산
+    }
+    // 특정 운동 번호에 대해 총 운동 시간을 계산하는 메서드
+    public Integer getTotalWorkoutTime(int workoutNo) throws Exception {
+        List<WorkoutDetailDto> workoutDetails = workoutLogRepository.workdetail(workoutNo);
 
+        // 운동 시간 합산
+        return workoutDetails.stream()
+                .mapToInt(WorkoutDetailDto::getWdetailTime) // 운동 시간만 추출 (예: 분 단위)
+                .sum(); // 합산
+    }
 
-
-
-
-
-
-
-
-
+    public List<WorkoutDetailDto> getWorkoutDetailsByWorkoutNo(Integer workoutNo) throws Exception {
+        // workoutNo에 해당하는 운동 기록 상세 정보를 조회
+        return workoutLogRepository.workdetail(workoutNo); // Repository에서 해당 workoutNo에 대한 WorkoutDetailDto를 가져옴
+    }
 
 
 }

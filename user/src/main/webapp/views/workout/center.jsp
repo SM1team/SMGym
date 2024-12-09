@@ -33,9 +33,9 @@
           <td><input type="checkbox" name="workoutNo" value="${c.workoutNo}"></td>
           <td><a href="<c:url value='/workout/detail'/>?workoutNo=${c.workoutNo}">${c.workoutNo}</a></td>
           <td>${c.custId}</td>
-          <td>${c.workoutDate}</td>
+          <td><fmt:formatDate value="${c.workoutDate}" pattern="yyyy-MM-dd" /></td>
           <td>${c.workoutTime}</td>
-          <td>${c.workoutCalories}</td>
+          <td>${c.workoutCalories}</td> <!-- 총 소모 칼로리 표시 -->
           <td>${c.workoutComments}</td>
         </tr>
       </c:forEach>
@@ -56,7 +56,7 @@
   document.getElementById("editBtn").addEventListener("click", function () {
     const selected = getSelectedWorkout();
     if (selected.length === 1) {
-      location.href = `/workout/editForm?id=${selected[0]}`;
+      location.href = `/editForm?id=${selected[0]}`;
     } else {
       alert("수정하려면 하나의 항목만 선택해야 합니다.");
     }
@@ -68,7 +68,7 @@
     if (selected.length > 0) {
       if (confirm("선택한 항목을 삭제하시겠습니까?")) {
         const form = document.getElementById("workoutForm");
-        form.action = "/workout/delete";
+        form.action = "/delete";
         form.submit();
       }
     } else {
