@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.sm.app.repository.CustCheckRepository"><!-- 이 xml은 누가 사용하냐?의미 -> -->
+
+
+    <!-- 출석 기록 저장 -->
+    <insert id="save" parameterType="CustCheckDto">
+        INSERT INTO custcheck (cust_id, check_start)
+        VALUES (#{custId}, #{checkStart})
+    </insert>
+
+    <!-- 퇴실 기록 업데이트 -->
+    <update id="update" parameterType="CustCheckDto">
+        UPDATE custcheck
+        SET check_end = #{checkEnd}
+        WHERE check_no = #{checkno}
+    </update>
+
+    <!-- 가장 최근 출석 기록 조회 -->
+    <select id="findLatestCheckInByCustId" parameterType="String" resultType="CustCheckDto">
+        SELECT *
+        FROM custcheck
+        WHERE cust_id = #{custId} AND check_end IS NULL
+        ORDER BY check_no DESC
+            LIMIT 1
+    </select>
+
+    <update id="updateCheckEndTime">
+        UPDATE custcheck AS main
+            JOIN (
+            SELECT check_no
+            FROM custcheck
+            WHERE cust_id = #{custId}
+            AND check_end IS NULL
+            ORDER BY check_start DESC
+            LIMIT 1
+            ) AS sub
+        ON main.check_no = sub.check_no
+            SET main.check_end = #{checkEnd}
+
+    </update>
+
+    <select id="getDailyVisitors" resultType="map">
+        SELECT
+            DATE(check_start) AS visit_date,
+            COUNT(DISTINCT cust_id) AS daily_visitors
+        FROM
+            custcheck
+        GROUP BY
+            DATE(check_start)
+        ORDER BY
+            visit_date;
+    </select>
+
+
+    <!-- 현재 출입중인 회원 수 -->
+    <select id="getCurrentActiveMembers" resultType="int">
+        SELECT COUNT(*)
+        FROM custcheck
+        WHERE check_start >= CURDATE()
+          AND check_end IS NULL
+    </select>
+
+    <!-- 누적 방문자 수 조회: 총 출석 체크 횟수 -->
+    <select id="getTotalVisitors" resultType="int">
+        SELECT COUNT(*)
+        FROM custcheck;
+    </select>
+
+    <!-- 오늘 방문자 수 조회: 오늘 출석 체크한 사람 수 -->
+    <select id="getVisitorsToday" resultType="int">
+        SELECT COUNT(*)
+        FROM custcheck
+        WHERE DATE(check_start) = CURDATE();
+    </select>
+
+    <!-- 출석률 계산 쿼리 -->
+    <select id="getAttendanceRate" resultType="AttendanceRateDto">
+
+        SELECT
+            cust_Id,
+            COUNT(DISTINCT DATE(check_Start)) AS attendance_count,  -- 같은 날은 한 번만 카운트
+            CASE
+                WHEN MONTH(CURRENT_DATE()) IN (1, 3, 5, 7, 8, 10, 12) THEN 31
+            WHEN MONTH(CURRENT_DATE()) IN (4, 6, 9, 11) THEN 30
+            WHEN MONTH(CURRENT_DATE()) = 2 THEN
+            CASE
+            WHEN YEAR(CURRENT_DATE()) % 4 = 0 AND (YEAR(CURRENT_DATE()) % 100 != 0 OR YEAR(CURRENT_DATE()) % 400 = 0) THEN 29
+            ELSE 28
+        END
+        END AS total_days_in_month,
+    ROUND(
+        (COUNT(DISTINCT DATE(check_Start)) /
+        CASE
+            WHEN MONTH(CURRENT_DATE()) IN (1, 3, 5, 7, 8, 10, 12) THEN 31
+            WHEN MONTH(CURRENT_DATE()) IN (4, 6, 9, 11) THEN 30
+            WHEN MONTH(CURRENT_DATE()) = 2 THEN
+                CASE
+                    WHEN YEAR(CURRENT_DATE()) % 4 = 0 AND (YEAR(CURRENT_DATE()) % 100 != 0 OR YEAR(CURRENT_DATE()) % 400 = 0) THEN 29
+                    ELSE 28
+                END
+        END
+    ) * 100, 2) AS attendance_rate
+FROM
+    CustCheck
+WHERE
+    check_Start IS NOT NULL
+    AND MONTH(check_Start) = MONTH(CURRENT_DATE())
+    AND YEAR(check_Start) = YEAR(CURRENT_DATE())
+GROUP BY
+    cust_Id
+ORDER BY
+    attendance_rate DESC
+
+
+
+    </select>
+
+    <select id="getVisitStatistics" resultType="map">
+        SELECT
+                (SELECT COUNT(*) FROM custcheck WHERE date(check_start) = CURDATE()) AS today_count,
+            (SELECT COUNT(*) FROM custcheck WHERE date(check_start) = CURDATE() - INTERVAL 1 DAY) AS yesterday_count,
+                                                (SELECT COUNT(*) FROM custcheck WHERE date(check_start) = CURDATE() - INTERVAL 2 DAY) AS daybeforeyesterday_count
+    </select>
+
+    <!-- 월별 방문자 수 조회 -->
+    <select id="getMonthlyVisitors" resultType="map">
+        SELECT
+            DATE_FORMAT(check_start, '%Y-%m') AS month,
+            COUNT(*) AS visitorCount
+        FROM
+            custcheck
+        GROUP BY
+            DATE_FORMAT(check_start, '%Y-%m')
+        ORDER BY
+            month ASC;
+    </select>
+
+
+
+
+
+
+
+
+
+
+</mapper>

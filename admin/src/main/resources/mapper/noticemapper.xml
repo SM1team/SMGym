@@ -105,4 +105,18 @@
         SELECT COUNT(*) FROM notice WHERE notice_title LIKE CONCAT('%', #{searchKeyword}, '%')
     </select>
 
+    <!-- 최신 4개의 공지사항 조회 -->
+    <select id="selectRecentNotices" resultType="edu.sm.app.dto.NoticeDto">
+        SELECT notice_no AS noticeNo,
+               trainer_id AS trainerId,
+               notice_title AS noticeTitle,
+               notice_content AS noticeContent,
+               notice_date AS noticeDate,
+               notice_img AS noticeImg
+        FROM notice
+        ORDER BY notice_date DESC
+            LIMIT 4
+    </select>
+
+
 </mapper>

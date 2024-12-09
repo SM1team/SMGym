@@ -1,6 +1,5 @@
 package edu.sm.app.service;
 
-import edu.sm.app.dto.BoardDto;
 import edu.sm.app.dto.NoticeDto;
 import edu.sm.app.frame.SMService;
 import edu.sm.app.repository.NoticeRepository;
@@ -76,13 +75,19 @@ public class NoticeService implements SMService<Integer, NoticeDto> {
         int offset = (page - 1) * pageSize;
         return repository.searchByTitle(searchKeyword, offset, pageSize);
     }
-    // 게시물 저장 메서드
-    public void saveBoard(NoticeDto noticeDto) throws Exception {
-        repository.insert(noticeDto);
-    }
 
     // 제목으로 공지사항 개수 조회
     public int getTotalSearchNoticeCount(String searchKeyword) throws Exception {
         return repository.countSearchResults(searchKeyword);
+    }
+
+    // 최신 4개의 공지사항 조회
+    public List<NoticeDto> getRecentNotices() throws Exception {
+        return repository.selectRecentNotices();
+    }
+
+    // 게시물 저장 메서드
+    public void saveBoard(NoticeDto noticeDto) throws Exception {
+        repository.insert(noticeDto);
     }
 }

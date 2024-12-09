@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -88,14 +89,11 @@ public class NoticeController {
         // NoticeService의 get 메서드를 사용합니다.
         NoticeDto noticeDto = noticeService.get(noticeNo);  // getNotice -> get으로 수정
 
-
         try {
             noticeDto = noticeService.get(noticeNo);
         } catch (Exception e) {
             log.error("Failed to fetch board details for noticeNo: {}", noticeNo, e);
         }
-
-
         model.addAttribute("notice", noticeDto);
         model.addAttribute("pageTitle", "공지사항 상세보기");
         model.addAttribute("top", "notice/top");
@@ -201,12 +199,13 @@ public class NoticeController {
     public String noticewriteimpl(Model model,
                                  @RequestParam("title") String title,
                                  @RequestParam("content") String content,
+
                                  @RequestParam(value = "noticeImg", required = false) MultipartFile noticeImg,
                                  HttpSession session) throws Exception {
         log.info("공지사항 저장 요청: 제목={}, 내용={}", title, content);
 
         try {
-            CustDto loggedInUser = (CustDto) session.getAttribute("loginid");
+            TrainerDto loggedInUser = (TrainerDto) session.getAttribute("loginid");
             if (loggedInUser == null) {
                 throw new Exception("로그인된 사용자가 없습니다.");
             }
@@ -214,8 +213,7 @@ public class NoticeController {
             NoticeDto newNotice = new NoticeDto();
             newNotice.setNoticeTitle(title);
             newNotice.setNoticeContent(content);
-//            newBoard.setCustId(loggedInUser.getCustId());
-
+            newNotice.setTrainerId(loggedInUser.getTrainerId());
             if (noticeImg != null && !noticeImg.isEmpty()) {
                 String fileName = StringUtils.cleanPath(noticeImg.getOriginalFilename());
                 File directory = new File(uploadDir);
@@ -232,10 +230,38 @@ public class NoticeController {
 
         } catch (Exception e) {
             log.error("게시글 저장 중 오류", e);
+
+            // 예외를 콘솔에도 출력 (혹은 개발자 환경에서만 사용)
+            e.printStackTrace();  // 이 줄을 추가하여 스택 트레이스를 콘솔에 출력
+
             model.addAttribute("error", "게시글 저장 중 오류가 발생했습니다.");
+
             return "redirect:/notice/write"; // 게시글 작성 페이지로 돌아가기
         }
         return "redirect:/notice"; // 게시글 저장 후 목록 페이지로 리디렉션
     }
+
+    @RequestMapping("/delete")
+    public String deleteComment(@RequestParam("noticeNo") int noticeNo,
+                                @SessionAttribute("loginid") TrainerDto loggedInUser,
+                                Model model) throws Exception{
+        if (loggedInUser == null) {
+            model.addAttribute("error", "로그인이 필요합니다.");
+            return "redirect:/login";  // 로그인 페이지로 리다이렉트
+        }
+        try {
+            // 게시물 삭제
+            noticeService.del(noticeNo);  // 삭제 메서드 호출
+            // 게시물 상세 페이지로 리디렉션 (성공 메시지 전달)
+            model.addAttribute("success", "댓글이 성공적으로 삭제되었습니다.");
+            return "redirect:/notice" ;
+        } catch (Exception e) {
+            log.error("댓글 삭제 중 오류 발생", e);
+            e.printStackTrace();
+            model.addAttribute("error", "댓글 삭제 중 오류가 발생했습니다.");
+            return "redirect:/notice" ;
+        }
+    }
+
 
 }

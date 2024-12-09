@@ -1,4 +1,3 @@
-<!-- views/index.jsp -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="nav.jsp" %>
@@ -58,30 +57,48 @@
             </c:otherwise>
         </c:choose>
 
-         <c:choose>
-            <c:when test="${footer == null}">
-                <jsp:include page="footer.jsp"/>
-            </c:when>
-            <c:otherwise>
-                <jsp:include page="${footer}.jsp"/>
-            </c:otherwise>
-        </c:choose>
     </div>
 </div>
 
 <!-- Footer-->
-<footer class="footer py-4" style="background-color: #f8f9fa;">  <!-- 지점들 section 색상과 동일한 배경색 -->
+<footer class="footer">
+
+    <style>
+        footer {
+            width: 100%;
+            background-color: #000000;
+            color: #f1f1f1;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style><!-- 지점들 section 색상과 동일한 배경색 -->
+
+    <style>
+        .btn-social {
+            background-color: #ffffff !important; /* 배경색 흰색으로 변경 */
+            color: #000000 !important; /* 아이콘 색상 검정으로 변경 */
+            border: 1px solid #ccc; /* 선택적으로 테두리 추가 */
+        }
+
+    </style>
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2023</div>
             <div class="col-lg-4 my-3 my-lg-0">
-                <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
             </div>
+
             <div class="col-lg-4 text-lg-end">
-                <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
-                <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
+                <a class="text-decoration-none me-3" href="#!" style="color: #f1f1f1">Privacy Policy</a>
+                <a class="text-decoration-none" href="#!" style="color: #f1f1f1">Terms of Use</a>
             </div>
         </div>
     </div>

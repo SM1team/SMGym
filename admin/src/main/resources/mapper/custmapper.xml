@@ -33,6 +33,7 @@
 
 
 
+
     <select id="selectOne" parameterType="Integer" resultType="CustDto">
         SELECT * FROM cust WHERE cust_id=#{custId}
     </select>

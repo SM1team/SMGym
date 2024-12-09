@@ -1,7 +1,10 @@
 package edu.sm.app.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import edu.sm.app.dto.CustCheckDto;
 import edu.sm.app.dto.ItemDto;
+import edu.sm.app.dto.Search;
 import edu.sm.app.frame.SMService;
 import edu.sm.app.repository.CustCheckRepository;
 import edu.sm.app.repository.ItemRepository;
@@ -90,6 +93,12 @@ public class CustCheckService implements SMService<String, CustCheckDto> {
 
         custCheckDto.setCheckEnd(timestamp); // checkStart에 Timestamp 값 설정
         custCheckRepository.updateCheckEndTime(custCheckDto); // 레포지토리 호출
+    }
+
+    public Page<CustCheckDto> custcheckfindpage(int pageNo, Search search) throws Exception {
+        // PageHelper로 페이지 설정
+        PageHelper.startPage(pageNo, 4); // 페이지당 4개씩
+        return custCheckRepository.custcheckfindpage(search); // 페이지네이션된 결과 반환
     }
 
 }

@@ -42,6 +42,35 @@
 
     </update>
 
+    <select id="getTrainersWithTodayAttendance" resultType="map">
+        SELECT
+            tc.tcheck_No,
+            tc.trainer_Id,
+            t.trainer_Name,
+            tc.tcheck_Start,
+            tc.tcheck_End
+        FROM
+            TrainerCheck tc
+                JOIN
+            Trainer t ON tc.trainer_Id = t.trainer_Id
+        WHERE
+            DATE(tc.tcheck_Start) = CURDATE()
+    </select>
+
+    <select id="trainercheckfindpage" parameterType="search" resultType="TrainerCheckDto">
+        SELECT *
+        FROM
+        trainercheck
+        WHERE
+        1=1
+        <!-- keyword 값에 따라 조건 변경 -->
+        <if test="keyword == 'id'">
+            AND trainer_id LIKE CONCAT('%', #{search}, '%')
+        </if>
+        <if test="keyword == 'month'">
+            AND MONTH(tcheck_start) = #{search}
+        </if>
+    </select>
 
 
 </mapper>

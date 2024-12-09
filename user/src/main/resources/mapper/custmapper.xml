@@ -12,13 +12,13 @@
     </select>
 
     <!-- 모든 회원 정보 조회 -->
-    <select id="select" resultType="edu.sm.app.dto.CustDto">
+    <select id="select" resultType="CustDto">
         SELECT *
         FROM cust
     </select>
 
     <!-- 회원 등록 -->
-    <insert id="insert" parameterType="edu.sm.app.dto.CustDto">
+    <insert id="insert" parameterType="CustDto">
         INSERT INTO cust (
             cust_id, cust_pwd, cust_name, cust_age, cust_gender,
             cust_phone, cust_address, trainer_id, cust_point
@@ -47,4 +47,12 @@
         DELETE FROM cust
         WHERE cust_id = #{custId}
     </delete>
+
+    <select id="hasPurchasedPT" resultType="int">
+        SELECT COUNT(*)
+        FROM payment
+        WHERE cust_id = #{custId}
+          AND product_name LIKE '%필라%'
+          AND payment_status = 'SUCCESS'
+    </select>
 </mapper>

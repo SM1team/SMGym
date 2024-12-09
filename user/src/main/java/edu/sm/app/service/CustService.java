@@ -59,6 +59,8 @@
             return custRepository.getpage();
         }
 
-
+        public boolean hasPurchasedPT(String custId) {
+            return custRepository.hasPurchasedPT(custId) > 0;
+        }
 
     }

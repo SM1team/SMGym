@@ -11640,3 +11640,43 @@ body {
   font-weight: normal;
   color: #555;
 }
+
+#building-map {
+  background-color: #f8f9fa;
+  padding: 60px 0;
+}
+
+.map {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  background-image: url('path-to-building-map-image.jpg'); /* 건물 배치도 배경 이미지 */
+  background-size: cover;
+  background-position: center;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.building {
+  position: absolute;
+  width: 120px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.building h4 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.building p {
+  font-size: 14px;
+  color: #666;
+}
+
