@@ -21,6 +21,12 @@ spring:
     # url: jdbc:mysql://127.0.0.1:3306/smdb?characterEncoding=utf8
     username: ENC(OAjB56HlNziHqNDu8ZFSAw==)
     password: ENC(zYoWFnp8CokAEj/HgST7Tw==)
+#    # MIME 타입 설정 추가
+#    servlet:
+#      context-parameters:
+#        "com.sun.jersey.api.json.POJOMappingFeature": "true"
+#      mapping:
+#        "application/javascript": ".js"
 
 # 3. Mybatis Setting
 mybatis:

@@ -7,40 +7,94 @@
 <%--헬스장 플로어 맵 동적 스크립트--%>
 <script>
 
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     // 모든 운동기구를 대상으로 클릭 이벤트를 등록
+    //     const equipmentElements = document.querySelectorAll('.equipment');
+    //
+    //     equipmentElements.forEach(function(equipment) {
+    //         // 각 운동기구 블록에 click 이벤트 추가
+    //         equipment.addEventListener('click', function() {
+    //             // 클릭된 운동기구의 ID 값을 가져옴
+    //             const machineNo = equipment.getAttribute('data-machine_no');
+    //             const equipmentName = equipment.getAttribute('data-machine_name');
+    //
+    //             // 알림 창을 띄움
+    //             alert(equipmentName + ' 버튼이 눌렸습니다!');
+    //
+    //             // toggleLight 함수 호출
+    //             toggleLight(equipment);
+    //         });
+    //     });
+    // });
 
+    <%--fetch(`/machine/toggle/${machineNo}`, {  // 수정된 경로 사용--%>
+    <%--    method: 'POST',  // 상태 변경에는 POST 메서드 사용--%>
+    <%--    headers: {--%>
+    <%--        'Accept': 'application/json',  // JSON 형식의 응답을 받을 것임을 명시--%>
+    <%--    },--%>
+    <%--})--%>
+    <%--    .then(response => {--%>
+    <%--        if (!response.ok) {--%>
+    <%--            throw new Error('Failed to toggle machine status');--%>
+    <%--        }--%>
+    <%--        return response.json();  // JSON 응답으로 변환--%>
+    <%--    })--%>
+    <%--    .then(data => {--%>
+    <%--        console.log('Machine status toggled:', data);  // 새 상태 출력--%>
+    <%--        alert(`Machine status: ${data ? 'Active' : 'Inactive'}`);  // 상태에 따라 출력--%>
+    <%--    })--%>
+    <%--    .catch(error => {--%>
+    <%--        if (error instanceof Error) {--%>
+    <%--            console.error('Error:', error);  // 에러 로그 콘솔에 출력--%>
+    <%--            console.error('Error message:', error.message);  // 에러 메시지를 별도로 출력--%>
+    <%--            console.error('Error stack:', error.stack);  // 에러의 stack trace도 출력--%>
+    <%--        } else {--%>
+    <%--            console.error('Unknown error:', error);  // error가 Error 객체가 아니면 다른 처리--%>
+    <%--        }--%>
 
+    <%--        alert('An error occurred while toggling the machine status.\n' + error.message);  // alert 창에서 에러 메시지 출력--%>
+    <%--    });--%>
 
+    <%--}--%>
+    function confirmStatusChange(event, form) {
+        // form 요소의 부모인 .equipment에서 data-machine_name 값을 가져옵니다.
+        let machineName = form.parentElement.getAttribute('data-machine_name');
 
+        // machineName 값 확인
+        console.log("machineName:", machineName);  // 여기가 제대로 출력되는지 확인
+        console.log('선택한 운동기구의 상태를 변경하시겠습니까?');
 
+        // 백틱을 사용하여 문자열 안에 동적으로 machineName 값을 삽입
+        const confirmation = confirm(`${machineName}의 상태를 변경하시겠습니까?`);
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // 모든 운동기구를 대상으로 클릭 이벤트를 등록
-        const equipmentElements = document.querySelectorAll('.equipment');
-
-        equipmentElements.forEach(function(equipment) {
-            // 각 운동기구 블록에 click 이벤트 추가
-            equipment.addEventListener('click', function() {
-                // 클릭된 운동기구의 ID 값을 가져옴
-                const equipmentId = equipment.getAttribute('data-machine_no');
-                const equipmentName = equipment.getAttribute('data-machine_name');
-
-                // 알림 창을 띄움
-                alert(equipmentName + ' 버튼이 눌렸습니다!');
-
-                // toggleLight 함수 호출
-                toggleLight(equipment);
-            });
-        });
-    });
-
-
-
-
-    function confirmToggleMachineStatus(element) {
-        // 데이터 확인용
-        console.log("Machine clicked:", element);
-        alert("이벤트 발생 확인: " + element.getAttribute('data-machine_name'));
+        // '예'를 클릭하면 폼 제출, '아니오'를 클릭하면 제출 취소
+        if (!confirmation) {
+            event.preventDefault(); // 폼 제출 취소
+        }
+        return confirmation; // '예' 클릭 시 폼이 제출됨
     }
+
+
+
+
+
+    function toggleMachineStatus(element) {
+        const machineNo = element.getAttribute('data-machine_no'); // data-machine_no에서 번호 가져오기
+        const machineName = element.getAttribute('data-machine_name');
+
+        const form = document.createElement('form'); // 폼 태그 생성
+        form.method = 'POST'; // POST 방식 설정
+        form.action = `/machine/toggle/${machineNo}`; // 컨트롤러 경로 설정
+
+        // 폼 제출 시 화면 새로고침 방지
+        form.style.display = 'none';
+        document.body.appendChild(form);
+        form.submit();
+
+        // 기계 상태 변경 후 메시지 출력
+        alert(`Machine ${machineNo} 상태를 변경 요청하였습니다.`);
+    }
+
 
     document.addEventListener('DOMContentLoaded', function() {
         // 체크박스 상태 변경 이벤트 리스너
@@ -80,11 +134,14 @@
 
     <!-- 운동기구 설명 보기 체크박스 추가 -->
     <div class="gym-layout">
-
-
         <div class="equipment running" style="top: 8%; left: 3%;" data-machine_no="1" data-machine_name="러닝머신1">
-            <i class="fas fa-running"></i>
-            <h4>러닝머신 1</h4>
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="1">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-running"></i>
+                    <h4>러닝머신 1</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>러닝머신이란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/running.jpg'/>" alt="..." />
@@ -92,13 +149,107 @@
                 <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
                 <p><strong>속도:</strong> 1 ~ 15 km/h</p>
             </div>
-            <div class="light"></div>
+            <div class="light"></div> <!-- 기본 상태: inactive -->
         </div>
 
+        <div class="equipment running" style="top: 8%; left: 14%;" data-machine_no="2" data-machine_name="러닝머신2">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="2">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-running"></i>
+                    <h4>러닝머신 2</h4>
+                </button>
+            </form>
+            <div class="bubble">
+                <p><strong>러닝머신이란?</strong></p>
+                <img class="img-fluid" src="<c:url value='/assets/img/logos/running.jpg'/>" alt="..." />
+                <p>러닝머신은 체력과 유산소 운동을 동시에 개선할 수 있는 운동 기계로...</p>
+                <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
+                <p><strong>속도:</strong> 1 ~ 15 km/h</p>
+            </div>
+            <div class="light"></div> <!-- 기본 상태: inactive -->
+        </div>
 
-        <div class="equipment running" style="top: 8%; left: 14%;" data-machine_no="2" data-machine_name="러닝머신2" onclick="toggleLight(this)">
-            <i class="fas fa-running"></i>
-            <h4>러닝머신 2</h4>
+        <div class="equipment running" style="top: 8%; left: 25%;" data-machine_no="3" data-machine_name="러닝머신3">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="3">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-running"></i>
+                    <h4>러닝머신 3</h4>
+                </button>
+            </form>
+            <div class="bubble">
+                <p><strong>러닝머신이란?</strong></p>
+                <img class="img-fluid" src="<c:url value='/assets/img/logos/running.jpg'/>" alt="..." />
+                <p>러닝머신은 체력과 유산소 운동을 동시에 개선할 수 있는 운동 기계로...</p>
+                <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
+                <p><strong>속도:</strong> 1 ~ 15 km/h</p>
+            </div>
+            <div class="light"></div> <!-- 기본 상태: inactive -->
+        </div>
+
+        <div class="equipment running" style="top: 8%; left: 36%;" data-machine_no="4" data-machine_name="러닝머신4">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="4">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-running"></i>
+                    <h4>러닝머신 4</h4>
+                </button>
+            </form>
+            <div class="bubble">
+                <p><strong>러닝머신이란?</strong></p>
+                <img class="img-fluid" src="<c:url value='/assets/img/logos/running.jpg'/>" alt="..." />
+                <p>러닝머신은 체력과 유산소 운동을 동시에 개선할 수 있는 운동 기계로...</p>
+                <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
+                <p><strong>속도:</strong> 1 ~ 15 km/h</p>
+            </div>
+            <div class="light"></div> <!-- 기본 상태: inactive -->
+        </div>
+
+        <div class="equipment running" style="top: 8%; left: 47%;" data-machine_no="5" data-machine_name="러닝머신5">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="5">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-running"></i>
+                    <h4>러닝머신 5</h4>
+                </button>
+            </form>
+            <div class="bubble">
+                <p><strong>러닝머신이란?</strong></p>
+                <img class="img-fluid" src="<c:url value='/assets/img/logos/running.jpg'/>" alt="..." />
+                <p>러닝머신은 체력과 유산소 운동을 동시에 개선할 수 있는 운동 기계로...</p>
+                <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
+                <p><strong>속도:</strong> 1 ~ 15 km/h</p>
+            </div>
+            <div class="light"></div> <!-- 기본 상태: inactive -->
+        </div>
+
+        <div class="equipment running" style="top: 8%; left: 58%;" data-machine_no="6" data-machine_name="러닝머신6">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="6">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-running"></i>
+                    <h4>러닝머신 6</h4>
+                </button>
+            </form>
+            <div class="bubble">
+                <p><strong>러닝머신이란?</strong></p>
+                <img class="img-fluid" src="<c:url value='/assets/img/logos/running.jpg'/>" alt="..." />
+                <p>러닝머신은 체력과 유산소 운동을 동시에 개선할 수 있는 운동 기계로...</p>
+                <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
+                <p><strong>속도:</strong> 1 ~ 15 km/h</p>
+            </div>
+            <div class="light"></div> <!-- 기본 상태: inactive -->
+        </div>
+
+        <div class="equipment running" style="top: 8%; left: 69%;" data-machine_no="7" data-machine_name="러닝머신7">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="7">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-running"></i>
+                    <h4>러닝머신 7</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>러닝머신이란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/running.jpg'/>" alt="..." />
@@ -110,69 +261,6 @@
         </div>
 
 
-
-
-
-        <div class="equipment running" style="top: 8%; left: 25%;" data-machine_no="3" data-machine_name="러닝머신3" onclick="toggleLight(this)">
-            <i class="fas fa-running"></i>
-            <h4>런닝머신 3</h4>
-            <div class="bubble">
-                <p><strong>러닝머신이란?</strong></p>
-                <img class="img-fluid" src="<c:url value="/assets/img/logos/running.jpg"/>" alt="..." />
-                <p>러닝머신은 체력과 유산소 운동을 동시에 개선할 수 있는 운동 기계로, 조정 가능한 속도와 기울기로 다양한 운동 강도를 선택할 수 있습니다. 지속적인 운동을 통해 체중 감량과 심혈관 건강에 도움이 됩니다.</p>
-                <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
-                <p><strong>속도:</strong> 1 ~ 15 km/h</p>
-            </div>
-            <div class="light"></div>
-        </div>
-        <div class="equipment running" style="top: 8%; left: 36%;" data-machine_no="4" data-machine_name="러닝머신4" onclick="toggleLight(this)">
-            <i class="fas fa-running"></i>
-            <h4>런닝머신 4</h4>
-            <div class="bubble">
-                <p><strong>러닝머신이란?</strong></p>
-                <img class="img-fluid" src="<c:url value="/assets/img/logos/running.jpg"/>" alt="..." />
-                <p>러닝머신은 체력과 유산소 운동을 동시에 개선할 수 있는 운동 기계로, 조정 가능한 속도와 기울기로 다양한 운동 강도를 선택할 수 있습니다. 지속적인 운동을 통해 체중 감량과 심혈관 건강에 도움이 됩니다.</p>
-                <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
-                <p><strong>속도:</strong> 1 ~ 15 km/h</p>
-            </div>
-            <div class="light"></div>
-        </div>
-        <div class="equipment running" style="top: 8%; left: 47%;" data-machine_no="5" data-machine_name="러닝머신5" onclick="toggleLight(this)">
-            <i class="fas fa-running"></i>
-            <h4>런닝머신 5</h4>
-            <div class="bubble">
-                <p><strong>러닝머신이란?</strong></p>
-                <img class="img-fluid" src="<c:url value="/assets/img/logos/running.jpg"/>" alt="..." />
-                <p>러닝머신은 체력과 유산소 운동을 동시에 개선할 수 있는 운동 기계로, 조정 가능한 속도와 기울기로 다양한 운동 강도를 선택할 수 있습니다. 지속적인 운동을 통해 체중 감량과 심혈관 건강에 도움이 됩니다.</p>
-                <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
-                <p><strong>속도:</strong> 1 ~ 15 km/h</p>
-            </div>
-            <div class="light"></div>
-        </div>
-        <div class="equipment running" style="top: 8%; left: 58%;" data-machine_no="6" data-machine_name="러닝머신6" onclick="toggleLight(this)">
-            <i class="fas fa-running"></i>
-            <h4>런닝머신 6</h4>
-            <div class="bubble">
-                <p><strong>러닝머신이란?</strong></p>
-                <img class="img-fluid" src="<c:url value="/assets/img/logos/running.jpg"/>" alt="..." / >
-                <p>러닝머신은 체력과 유산소 운동을 동시에 개선할 수 있는 운동 기계로, 조정 가능한 속도와 기울기로 다양한 운동 강도를 선택할 수 있습니다. 지속적인 운동을 통해 체중 감량과 심혈관 건강에 도움이 됩니다.</p>
-                <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
-                <p><strong>속도:</strong> 1 ~ 15 km/h</p>
-            </div>
-            <div class="light"></div>
-        </div>
-        <div class="equipment running" style="top: 8%; left: 69%;" data-machine_no="7" data-machine_name="러닝머신7" onclick="toggleLight(this)">
-            <i class="fas fa-running"></i>
-            <h4>런닝머신 7</h4>
-            <div class="bubble">
-                <p><strong>러닝머신이란?</strong></p>
-                <img class="img-fluid" src="<c:url value="/assets/img/logos/running.jpg"/>" alt="..." />
-                <p>러닝머신은 체력과 유산소 운동을 동시에 개선할 수 있는 운동 기계로, 조정 가능한 속도와 기울기로 다양한 운동 강도를 선택할 수 있습니다. 지속적인 운동을 통해 체중 감량과 심혈관 건강에 도움이 됩니다.</p>
-                <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
-                <p><strong>속도:</strong> 1 ~ 15 km/h</p>
-            </div>
-            <div class="light"></div>
-        </div>
 
 
         <!-- 프론트 카운터 -->
@@ -239,12 +327,17 @@
 
 
         <!-- 밴치프레스 -->
-        <div class="equipment weight" style="top: 25%; left: 13%;" data-machine_no="8" data-machine_name="벤치 프레스" onclick="toggleMachineStatus(this)">
-            <i class="fas fa-dumbbell"></i>
-            <h4>밴치 프레스</h4>
+        <div class="equipment weight" style="top: 25%; left: 13%;" data-machine_no="8" data-machine_name="벤치 프레스">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="8">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-dumbbell"></i>
+                    <h4>밴치 프레스</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>밴치 프레스란?</strong></p>
-                <img class="img-fluid" src="<c:url value="/assets/img/logos/벤치.jpg"/>" alt="..." />
+                <img class="img-fluid" src="<c:url value='/assets/img/logos/벤치.jpg'/>" alt="..." />
                 <p>밴치 프레스는 가슴과 어깨, 팔을 강화하는 운동으로, 바벨을 가슴 위로 밀어올리는 운동입니다. 가슴 근육을 집중적으로 강화하는 데 효과적이며, 상체 근육 발달에 중요한 역할을 합니다.</p>
                 <p><strong>효과:</strong> 가슴, 어깨, 팔 강화</p>
                 <p><strong>세트:</strong> 3~4세트, 8~12회 반복</p>
@@ -252,13 +345,19 @@
             <div class="light"></div>
         </div>
 
+
         <!-- 숄더프레스 -->
-        <div class="equipment weight" style="top: 25%; left: 25%;" data-machine_no="9" data-machine_name="숄더프레스" onclick="toggleMachineStatus(this)">
-            <i class="fas fa-dumbbell"></i>
-            <h4>숄더 프레스</h4>
+        <div class="equipment weight" style="top: 25%; left: 25%;" data-machine_no="9" data-machine_name="숄더프레스">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="9">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-dumbbell"></i>
+                    <h4>숄더 프레스</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>숄더 프레스란?</strong></p>
-                <img class="img-fluid" src="<c:url value="/assets/img/logos/숄더프레스.jpg"/>" alt="..." />
+                <img class="img-fluid" src="<c:url value='/assets/img/logos/숄더프레스.jpg'/>" alt="..." />
                 <p>숄더 프레스는 어깨를 강화하는 운동으로, 바벨이나 덤벨을 어깨 높이에서 위로 밀어 올리는 운동입니다. 어깨 근육의 발달과 함께 상체의 균형을 잡는 데 효과적입니다.</p>
                 <p><strong>효과:</strong> 어깨 강화, 상체 균형</p>
                 <p><strong>세트:</strong> 3~4세트, 8~12회 반복</p>
@@ -267,12 +366,17 @@
         </div>
 
         <!-- 플라잉 머신 -->
-        <div class="equipment weight" style="top: 25%; left: 37%;" data-machine_no="10" data-machine_name="플라잉머신" onclick="toggleMachineStatus(this)">
-            <i class="fas fa-dumbbell"></i>
-            <h4>플라잉 머신</h4>
+        <div class="equipment weight" style="top: 25%; left: 37%;" data-machine_no="10" data-machine_name="플라잉머신">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="10">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-dumbbell"></i>
+                    <h4>플라잉 머신</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>플라잉 머신이란?</strong></p>
-                <img class="img-fluid" src="<c:url value="/assets/img/logos/플라잉머신.jpg"/>" alt="..." />
+                <img class="img-fluid" src="<c:url value='/assets/img/logos/플라잉머신.jpg'/>" alt="..." />
                 <p>플라잉 머신은 가슴 근육을 집중적으로 강화하는 운동 기구로, 팔을 벌리고 당기는 동작을 통해 가슴 근육을 자극합니다. 가슴을 넓히고 조각을 만들기 위한 운동입니다.</p>
                 <p><strong>효과:</strong> 가슴 근육 강화, 가슴 넓히기</p>
                 <p><strong>세트:</strong> 3~4세트, 8~12회 반복</p>
@@ -281,10 +385,16 @@
         </div>
 
 
+
         <!-- 단체 PT 존 -->
-        <div class="equipment flexibility" style="top: 40%; left: 15%; width: 275px; height: 275px;" data-machine_no="26" data-machine_name="단체 PT 존"  onclick="toggleMachineStatus(this)">
-            <i class="fas fa-dumbbell"></i>
-            <h4>단체 PT 존</h4>
+        <div class="equipment flexibility" style="top: 40%; left: 19%; width: 275px; height: 275px;" data-machine_no="26" data-machine_name="단체 PT 존">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="26">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-dumbbell"></i>
+                    <h4>단체 PT 존</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>단체 PT 존이란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/3.jpg'/>" alt="..." />
@@ -302,11 +412,15 @@
         </div>
 
 
-
         <!-- 사이클 머신 2개 추가 -->
-        <div class="equipment cardio" style="top: 25%; left: 50%;" data-machine_no="11" data-machine_name="스핀 바이크 1"  onclick="toggleMachineStatus(this)">
-            <i class="fas fa-bicycle"></i>
-            <h4>스핀 바이크 1</h4>
+        <div class="equipment cardio" style="top: 25%; left: 50%;" data-machine_no="11" data-machine_name="스핀 바이크 1">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="11">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-bicycle"></i>
+                    <h4>스핀 바이크 1</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>스핀 바이크란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/스핀바이크.jpg'/>" alt="..." />
@@ -316,9 +430,15 @@
             </div>
             <div class="light"></div>
         </div>
-        <div class="equipment cardio" style="top: 38%; left: 50%; " data-machine_no="12" data-machine_name="스핀 바이크 2" onclick="toggleMachineStatus(this)">
-            <i class="fas fa-bicycle"></i>
-            <h4>스핀 바이크 2</h4>
+
+        <div class="equipment cardio" style="top: 38%; left: 50%;" data-machine_no="12" data-machine_name="스핀 바이크 2">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="12">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-bicycle"></i>
+                    <h4>스핀 바이크 2</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>스핀 바이크란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/스핀바이크.jpg'/>" alt="..." />
@@ -329,21 +449,16 @@
             <div class="light"></div>
         </div>
 
-        <div class="equipment cardio" style="top: 51%; left: 50%; " data-machine_no="13" data-machine_name="인도어사이클 1" onclick="toggleMachineStatus(this)">
-            <i class="fas fa-bicycle"></i>
-            <h4>인도어사이클 1</h4>
-            <div class="bubble">
-                <p><strong>인도어 사이클이란?</strong></p>
-                <img class="img-fluid" src="<c:url value='/assets/img/logos/인도어바이크.jpg'/>" alt="..." />
-                <p>인도어 사이클은 실내에서 자전거 타기 운동을 할 수 있는 기구로, 지속적인 페달 운동을 통해 심폐지구력을 높이고 칼로리 소모를 증가시킬 수 있습니다.</p>
-                <p><strong>효율성:</strong> 유산소 운동에 최적화</p>
-                <p><strong>저항 레벨:</strong> 1 ~ 15 단계</p>
-            </div>
-            <div class="light"></div>
-        </div>
-        <div class="equipment cardio" style="top: 64%; left: 50%;" data-machine_no="14" data-machine_name="인도어사이클 2" onclick="toggleMachineStatus(this)">
-            <i class="fas fa-bicycle"></i>
-            <h4>인도어사이클 2</h4>
+
+
+        <div class="equipment cardio" style="top: 51%; left: 50%;" data-machine_no="13" data-machine_name="인도어사이클 1">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="13">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-bicycle"></i>
+                    <h4>인도어사이클 1</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>인도어 사이클이란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/인도어바이크.jpg'/>" alt="..." />
@@ -354,15 +469,39 @@
             <div class="light"></div>
         </div>
 
-
+        <div class="equipment cardio" style="top: 64%; left: 50%;" data-machine_no="14" data-machine_name="인도어사이클 2">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="14">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-bicycle"></i>
+                    <h4>인도어사이클 2</h4>
+                </button>
+            </form>
+            <div class="bubble">
+                <p><strong>인도어 사이클이란?</strong></p>
+                <img class="img-fluid" src="<c:url value='/assets/img/logos/인도어바이크.jpg'/>" alt="..." />
+                <p>인도어 사이클은 실내에서 자전거 타기 운동을 할 수 있는 기구로, 지속적인 페달 운동을 통해 심폐지구력을 높이고 칼로리 소모를 증가시킬 수 있습니다.</p>
+                <p><strong>효율성:</strong> 유산소 운동에 최적화</p>
+                <p><strong>저항 레벨:</strong> 1 ~ 15 단계</p>
+            </div>
+            <div class="light"></div>
+        </div>
 
         <div class="boundary-line" style="top: 22%; left: 60.6%; width: 2px; height: 57%; background-color: black;"></div>
 
 
         <!-- 레그 프레스 머신 -->
-        <div class="equipment weight" style="top: 25%; left: 63%; width: 110px; height: 110px;" data-machine_no="15" data-machine_name="레그 프레스 머신" onclick="toggleMachineStatus(this)">
-            <i class="fas fa-dumbbell"></i>
-            <h4 style="white-space: nowrap;">레그 프레스 머신</h4>
+        <div class="equipment weight"
+             style="top: 25%; left: 63%; width: 110px; height: 110px;"
+             data-machine_no="15"
+             data-machine_name="레그 프레스 머신">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="15">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-dumbbell"></i>
+                    <h4 style="white-space: nowrap;">레그 프레스 머신</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>레그 프레스 머신이란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/레그프레스.jpg'/>" alt="..." />
@@ -372,13 +511,17 @@
                 <p><strong>추천 횟수:</strong> 10-15회 (1세트당)</p>
                 <p><strong>추천 세트:</strong> 3-4세트</p>
             </div>
-            <div class="light"></div>
         </div>
 
         <!-- 체스트 프레스 머신 -->
-        <div class="equipment weight" style="top: 42.5%; left: 63%; width: 110px; height: 110px;" data-machine_no="16" data-machine_name="체스트 프레스 머신" onclick="toggleMachineStatus(this)">
-            <i class="fas fa-dumbbell"></i>
-            <h4 style="white-space: nowrap;">체스트 프레스 머신</h4>
+        <div class="equipment weight" style="top: 42.5%; left: 63%; width: 110px; height: 110px;" data-machine_no="16" data-machine_name="체스트 프레스 머신">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="16">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-dumbbell"></i>
+                    <h4 style="white-space: nowrap;">체스트 프레스 머신</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>체스트 프레스 머신이란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/체스트프레스.jpg'/>" alt="..." />
@@ -391,11 +534,15 @@
             <div class="light"></div>
         </div>
 
-
         <!-- 스미스 머신 -->
-        <div class="equipment weight" style="top: 60%; left: 63%; width: 110px; height: 110px;" data-machine_no="17" data-machine_name="스미스 머신" onclick="toggleMachineStatus(this)">
-            <i class="fas fa-dumbbell"></i>
-            <h4>스미스 머신</h4>
+        <div class="equipment weight" style="top: 60%; left: 63%; width: 110px; height: 110px;" data-machine_no="17" data-machine_name="스미스 머신">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="17">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-dumbbell"></i>
+                    <h4>스미스 머신</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>스미스 머신이란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/스미스머신.jpg'/>" alt="..." />
@@ -408,13 +555,15 @@
             <div class="light"></div>
         </div>
 
-
-        <div class="boundary-line" style="top: 79%; left: 11%; width: 65%;"></div>
-
         <!-- 덤벨존 -->
-        <div class="equipment strength" style="top: 81%; left: 13%; width: 130px; height: 120px;" data-machine_no="18" data-machine_name="덤벨 존" onclick="toggleMachineStatus(this)">
-            <i class="fas fa-dumbbell"></i>
-            <h4>덤벨존</h4>
+        <div class="equipment strength" style="top: 81%; left: 13%; width: 130px; height: 120px;" data-machine_no="18" data-machine_name="덤벨 존">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="18">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-dumbbell"></i>
+                    <h4>덤벨존</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>덤벨존이란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/덤벨존.jpg'/>" alt="..." />
@@ -427,9 +576,14 @@
         </div>
 
         <!-- 렛풀다운 -->
-        <div class="equipment strength" style="top: 81%; left: 30%; width: 130px; height: 120px;" data-machine_no="19" data-machine_name="렛풀다운" onclick="toggleMachineStatus(this)">
-            <i class="fas fa-dumbbell"></i>
-            <h4>렛풀다운</h4>
+        <div class="equipment strength" style="top: 81%; left: 30%; width: 130px; height: 120px;" data-machine_no="19" data-machine_name="렛풀다운">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="19">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-dumbbell"></i>
+                    <h4>렛풀다운</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>렛풀다운이란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/렛풀다운.jpg'/>" alt="렛풀다운" />
@@ -441,11 +595,15 @@
             <div class="light"></div>
         </div>
 
-
         <!-- 풀업 바 -->
-        <div class="equipment strength" style="top: 81%; left: 47%; width: 117px; height: 120px;" data-machine_no="20" data-machine_name="벤치 프레스" onclick="toggleMachineStatus(this)">
-            <i class="fas fa-fire-flame-simple"></i>
-            <h4>풀업 바</h4>
+        <div class="equipment strength" style="top: 81%; left: 47%; width: 117px; height: 120px;" data-machine_no="20" data-machine_name="벤치 프레스">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="20">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-fire-flame-simple"></i>
+                    <h4>풀업 바</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>풀업 바란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/풀업바.jpg'/>" alt="..." />
@@ -458,9 +616,14 @@
         </div>
 
         <!-- 딥스 바 -->
-        <div class="equipment strength" style="top: 81%; left: 62%; width: 117px; height: 120px;" data-machine_no="21" data-machine_name="벤치 프레스" onclick="toggleMachineStatus(this)">
-            <i class="fas fa-fire-flame-simple"></i>
-            <h4>딥스 바</h4>
+        <div class="equipment strength" style="top: 81%; left: 62%; width: 117px; height: 120px;" data-machine_no="21" data-machine_name="벤치 프레스">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="21">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-fire-flame-simple"></i>
+                    <h4>딥스 바</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>딥스 바란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/딥스바.jpg'/>" alt="..." />
@@ -471,6 +634,7 @@
             </div>
             <div class="light"></div>
         </div>
+
 
         <!-- 준비운동 구역 -->
         <div class="area cardio" style="top: 30%; left: 70%;">
@@ -490,9 +654,14 @@
 
 
         <!-- 스텝밀 머신 1 -->
-        <div class="equipment running" style="top: 30%; left: 78%;" data-machine_no="22" data-machine_name="스텝업 머신1" onclick="toggleMachineStatus(this)">
-            <i class="fas fa-running"></i>
-            <h4>스텝밀 머신 1</h4>
+        <div class="equipment running" style="top: 30%; left: 78%;" data-machine_no="22" data-machine_name="스텝업 머신1">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="22">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-running"></i>
+                    <h4>스텝밀 머신 1</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>스텝밀 머신이란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/스텝밀머신.jpg'/>" alt="..." />
@@ -504,10 +673,16 @@
             <div class="light"></div>
         </div>
 
+
         <!-- 스텝밀 머신 2 -->
-        <div class="equipment running" style="top: 30%; left: 90%;" data-machine_no="23" data-machine_name="스텝업 머신2" onclick="toggleMachineStatus(this)">
-            <i class="fas fa-running"></i>
-            <h4>스텝밀 머신 2</h4>
+        <div class="equipment running" style="top: 30%; left: 90%;" data-machine_no="23" data-machine_name="스텝업 머신2">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="23">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-running"></i>
+                    <h4>스텝밀 머신 2</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>스텝밀 머신이란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/스텝밀머신.jpg'/>" alt="..." />
@@ -518,13 +693,19 @@
             </div>
             <div class="light"></div>
         </div>
-        <%-- 첫번쨰--%>
+
+    <%-- 첫번쨰--%>
         <div class="boundary-line" style="top: 45%; left: 76%; width: 24%;"></div>
 
         <!-- 스쿼트 존 -->
-        <div class="equipment weight" style="top: 50%; left: 79%; width: 180px;" data-machine_no="24" data-machine_name="스쿼트 존" onclick="toggleMachineStatus(this)">
-            <i class="fas fa-dumbbell"></i>
-            <h4>스쿼트 존</h4>
+        <div class="equipment weight" style="top: 50%; left: 81%; width: 180px;" data-machine_no="24" data-machine_name="스쿼트 존">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="24">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-dumbbell"></i>
+                    <h4>스쿼트 존</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>스쿼트 존이란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/스쿼트존.jpg'/>" alt="..." />
@@ -540,9 +721,14 @@
         <div class="boundary-line" style="top: 66%; left: 76%; width: 24%;"></div>
 
         <!-- 케이블 머신 존 -->
-        <div class="equipment cardio" style="top: 70%; left: 79%; width: 185px; height: 185px; font-size: 24px;" data-machine_no="25" data-machine_name="케이블 머신 존" onclick="toggleMachineStatus(this)">
-            <i class="fas fa-dumbbell" style="font-size: 48px;"></i>
-            <h4>케이블 머신 존</h4>
+        <div class="equipment cardio" style="top: 70%; left: 79%; width: 185px; height: 185px; font-size: 24px;" data-machine_no="25" data-machine_name="케이블 머신 존">
+            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+                <input type="hidden" name="machineNo" value="25">
+                <button type="submit" style="all: unset; cursor: pointer;">
+                    <i class="fas fa-dumbbell" style="font-size: 48px;"></i>
+                    <h4>케이블 머신 존</h4>
+                </button>
+            </form>
             <div class="bubble">
                 <p><strong>케이블 머신 존이란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/케이블머신존.jpg'/>" alt="..." />
@@ -555,11 +741,10 @@
                     <li><strong>케이블 푸쉬다운:</strong> 3세트 x 12~15회</li>
                 </ul>
             </div>
+            <div class="light"></div>
         </div>
-    </div>
-    <div class="light"></div>
-</div>
-</section>
+
+ </div>
 
 
 
@@ -814,4 +999,5 @@
 
 <!-- Font Awesome CDN 추가 -->
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
 
