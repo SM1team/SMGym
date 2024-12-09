@@ -102,7 +102,8 @@
       <!-- 첫 번째 프로필 -->
       <div class="col-lg-4 col-sm-6 mb-4 d-flex justify-content-center" data-aos="fade-left">
         <div class="portfolio-item" style="background-color: #000; width: 100%; height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px solid transparent; border-radius: 10px; transition: border-color 0.3s ease, transform 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
-          <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
+          <!-- 페이지 이동 링크 -->
+          <a class="portfolio-link" href="/trainer/profile1">
             <img class="img-fluid" src="<c:url value='/assets/img/logos/teacher1.jpg' />" alt="지피티" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px; transition: border-color 0.3s ease;" />
           </a>
           <div class="portfolio-caption" style="text-align: center;">
@@ -112,10 +113,11 @@
         </div>
       </div>
 
+
       <!-- 두 번째 프로필 -->
       <div class="col-lg-4 col-sm-6 mb-4 d-flex justify-content-center" data-aos="fade-left" data-aos-delay="200">
         <div class="portfolio-item" style="background-color: #000; width: 100%; height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px solid transparent; border-radius: 10px; transition: border-color 0.3s ease, transform 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
-          <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal2">
+          <a class="portfolio-link" href="/trainer/profile2">
             <img class="img-fluid" src="<c:url value='/assets/img/logos/teacher2.jpg' />" alt="조준" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px; transition: border-color 0.3s ease;" />
           </a>
           <div class="portfolio-caption" style="text-align: center;">
@@ -125,10 +127,11 @@
         </div>
       </div>
 
+
       <!-- 세 번째 프로필 -->
       <div class="col-lg-4 col-sm-6 mb-4 d-flex justify-content-center" data-aos="fade-left" data-aos-delay="400">
         <div class="portfolio-item" style="background-color: #000; width: 100%; height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px solid transparent; border-radius: 10px; transition: border-color 0.3s ease, transform 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
-          <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal3">
+          <a class="portfolio-link" href="/trainer/profile3">
             <img class="img-fluid" src="<c:url value='/assets/img/logos/teacher3.jpg' />" alt="심으뜸" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px; transition: border-color 0.3s ease;" />
           </a>
           <div class="portfolio-caption" style="text-align: center;">
