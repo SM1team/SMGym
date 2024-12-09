@@ -31,7 +31,7 @@
         let mapContainer = document.getElementById('map2');
         let mapOption = {
           center: new kakao.maps.LatLng(36.7989764, 127.0750025), // 초기 중심 위치
-          level: 5
+          level: 7
         };
 
         this.map = new kakao.maps.Map(mapContainer, mapOption);
@@ -42,7 +42,7 @@
         let zoomControl = new kakao.maps.ZoomControl();
         this.map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-        this.setExistingMarker(new kakao.maps.LatLng(36.7989764, 127.0750025)); // 기존 마커 설정
+        this.setExistingMarker(new kakao.maps.LatLng(36.7945989, 127.1045622)); // 기존 마커 설정
       },
 
       setExistingMarker: function (position) {

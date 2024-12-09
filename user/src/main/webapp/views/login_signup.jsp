@@ -10,6 +10,28 @@
   <title>로그인 및 회원가입</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="<c:url value='/css/styles.css' />"> <!-- styles.css 링크 -->
+  <style>
+    body {
+      background-color: black; /* 배경색을 검정으로 */
+      color: white; /* 텍스트 색을 흰색으로 */
+    }
+    .card {
+      background-color: #333; /* 카드 배경을 어두운 회색으로 */
+      border: 1px solid #444; /* 카드 테두리를 어두운 색으로 */
+    }
+    .footer-text {
+      color: #ccc; /* 푸터 텍스트 색상 */
+    }
+    .form-control {
+      background-color: #555; /* 입력란 배경색을 어두운 회색으로 */
+      color: white; /* 입력란 텍스트 색상 */
+      border: 1px solid #666; /* 입력란 테두리 색상 */
+    }
+    .btn-primary {
+      background-color: #007bff; /* 버튼 색상 */
+      border-color: #007bff; /* 버튼 테두리 색상 */
+    }
+  </style>
 </head>
 <body>
 <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">

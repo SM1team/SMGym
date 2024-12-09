@@ -13,4 +13,5 @@ public class PaymentDto {
     private BigDecimal amount;    // 결제 금액
     private String paymentStatus; // 결제 상태
     private LocalDateTime createdAt; // 생성 시간
+    private String trainerId; //트레이너 아이디
 }
