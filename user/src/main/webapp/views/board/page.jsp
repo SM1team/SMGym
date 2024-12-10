@@ -53,7 +53,11 @@
     /* 전체 페이지 정보 및 버튼 컨테이너 */
     .pagination-container {
         text-align: center;
-        margin-top: 20px;
+
+    }
+
+    body{
+        background-color: #000000;
     }
 
     /* 페이지 정보 스타일 */
@@ -61,16 +65,16 @@
         font-family: 'Arial', sans-serif;
         font-size: 18px;
         font-weight: bold;
-        color: #007bff;
+        color: #f1f1f1;
         margin-bottom: 10px;
     }
 
     .page-info .current-page {
-        color: #007bff;
+        color: #ae00c7;
     }
 
     .page-info .total-pages {
-        color: #555;
+        color: #f1f1f1;
     }
 
     /* pagination 스타일 */
@@ -90,8 +94,8 @@
         display: block;
         padding: 5px 10px;
         text-decoration: none;
-        color: #007bff;
-        border: 1px solid #ddd;
+        color: #f1f1f1;
+        border: 1px solid #ae00c7;
         border-radius: 3px;
     }
 
@@ -103,12 +107,12 @@
 
     .pagination .disabled a {
         background-color: #f1f1f1;
-        color: #ddd;
+        color: #0000;
         border-color: #ddd;
     }
 
     .pagination a:hover {
-        background-color: #f1f1f1;
+        background-color: #ae00c7;
         border-color: #ddd;
     }
 </style>
