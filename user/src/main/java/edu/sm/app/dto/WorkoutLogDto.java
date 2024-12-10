@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 @Builder
@@ -17,4 +17,5 @@ public class WorkoutLogDto {
     private int workoutTime;
     private int workoutCalories;
     private String workoutComments;
+    private String machineName;
 }

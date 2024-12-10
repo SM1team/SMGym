@@ -2,13 +2,16 @@ package edu.sm.controller;
 
 import edu.sm.app.dto.MachineDto;
 import edu.sm.app.service.MachineService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -17,28 +20,48 @@ public class MachineController {
     @Autowired
     private MachineService machineService;
 
+    // 메인 페이지의 기본 엔드포인트
     @RequestMapping("/floor")
-    public String showFloor(Model model) throws Exception {
+    public String main(Model model) throws Exception {
+        List<MachineDto> machines = machineService.get(); // 모든 기계 상태 가져오기
 
-        List<MachineDto> machines = machineService.get(); // 모든 기계 상태 가져오기 (MachineDto 객체 리스트)
-        // machines 리스트를 콘솔에 출력
-        for (MachineDto machine : machines) {
-            // MachineDto 객체의 필드 출력
-            System.out.println("Machine No: " + machine.getMachineNo() +
-                    ", Name: " + machine.getMachineName() +
-                    ", Time: " + machine.getMachineTime() +
-                    ", Status: " + (machine.isMachineStatus() ? "On" : "Off"));
-        }
+        // machine_no가 있는 기구들만 필터링
+        List<MachineDto> machinesWithMachineNo = machines.stream()
+                .filter(machine -> machine.getMachineNo() > 0) // machine_no가 0보다 큰 것들만 필터링
+                .collect(Collectors.toList());
 
-        // 기계 상태를 모델에 추가
-        model.addAttribute("machines", machines);
-        model.addAttribute("top",  "floor/" + "top"); // 회원가입 페이지 제목 추가
-        model.addAttribute("center", "floor/" + "center"); // 회원가입 페이지 제목 추가
+        model.addAttribute("machines", machines); // 모델에 기계 상태 추가
+        model.addAttribute("top", "floor/top");
+        model.addAttribute("center", "floor/center");
         return "index"; // index.jsp 반환
     }
 
 
+    @PostMapping("/machine/toggle")
+    public String toggleMachineStatus(int machineNo) {
+        // 상태 변경 처리
+        try {
+            machineService.toggleMachineStatus(machineNo);
+            log.info("Machine {} status toggled successfully", machineNo);
+        } catch (Exception e) {
+            log.error("Error while toggling machine status", e);
+        }
 
+        // 상태 업데이트 후 /floor로 리다이렉트
+        return "redirect:/floor";
+    }
 
+    @GetMapping("/machine/details")
+    @ResponseBody
+    public MachineDto getMachineDetails(@RequestParam("machineNo") Integer machineNo) throws Exception {
+        // DB에서 machineNo로 머신 정보 조회
+        MachineDto machine = null;
+        try {
+            machine = machineService.getMachineDetails(machineNo);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return machine; // JSON 형태로 자동 반환됨
+    }
 
 }

@@ -12,8 +12,6 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
-
-
 <%--HighCharts Lib  start --%>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -42,7 +40,6 @@
     color: #ffffff; /* 텍스트 색을 흰색으로 설정 */
     font-family: Arial, sans-serif; /* 글꼴 설정 */
   }
-
 </style>
 
 <style>

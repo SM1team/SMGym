@@ -3,7 +3,6 @@ package edu.sm.app.service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import edu.sm.app.dto.CustDto;
-import edu.sm.app.dto.ReservationDto;
 import edu.sm.app.dto.Search;
 import edu.sm.app.frame.SMService;
 import edu.sm.app.repository.CustRepository;
@@ -26,22 +25,16 @@ public class CustService implements SMService<String, CustDto> {
     @Override
     public void add(CustDto custDto) throws Exception {
         custRepository.insert(custDto);
-
-
-
     }
 
     @Override
     public void modify(CustDto custDto) throws Exception {
         custRepository.update(custDto);
-
-
     }
 
     @Override
     public void del(String s) throws Exception {
         custRepository.delete(s);
-
     }
 
     @Override
@@ -58,9 +51,14 @@ public class CustService implements SMService<String, CustDto> {
         return custRepository.findByName(name);
     }
 
+    public Page<CustDto> getPage(int pageNo) throws Exception {
+        PageHelper.startPage(pageNo,5);
+        return custRepository.getpage();
+    }
+
     public Page<CustDto> custfindpage(int pageNo, Search search) throws Exception {
-        PageHelper.startPage(pageNo,4); //한 화면에 4개씩
-        return custRepository.custfindpage(search);
+        PageHelper.startPage(pageNo, 5); // 한 페이지에 5개의 고객 데이터
+        return (Page<CustDto>) custRepository.findBySearch(search); // 검색 조건에 맞는 데이터 반환
     }
 
     public Map<String, Integer> getGenderCounts() {

@@ -2,40 +2,86 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="edu.sm.app.repository.WorkoutLogRepository"><!-- 이 xml은 누가 사용하냐?의미 -> -->
+<mapper namespace="edu.sm.app.repository.WorkoutLogRepository">
 
     <select id="selectByCustId" parameterType="String" resultType="workoutLogDto">
-        SELECT *
-        FROM workoutlog
-        WHERE cust_id = #{custId} <!-- 로그인된 사용자 ID로 필터링 -->
+        SELECT * FROM workoutlog WHERE cust_id = #{custId} <!-- 로그인된 사용자 ID로 필터링 -->
     </select>
 
     <!-- WorkoutLog와 WorkoutDetail 조인하여 WorkoutDetail 조회 -->
     <select id="workdetail" parameterType="Integer" resultType="WorkoutDetailDto">
-        SELECT *
-        FROM workoutdetail
-        WHERE workout_no = #{workoutNo}
+        SELECT * FROM workoutdetail WHERE workout_no = #{workoutNo}
     </select>
+
 
 
     <select id="selectOne" parameterType="String" resultType="workoutLogDto">
         SELECT * FROM workout WHERE workout_no=#{workoutNo}
     </select>
+
     <select id="select" resultType="workoutLogDto">
         SELECT * FROM reservation
     </select>
-    <insert id="insert" parameterType="workoutLogDto">
-        INSERT INTO reservation (cust_name, cust_phone, reservation_date, reservation_content, cust_id)
-        VALUES (#{custName}, #{custPhone}, #{reservationDate},#{reservationContent}, #{custId})
-    </insert>
 
+<!--    &lt;!&ndash; Reservation에 대한 insert &ndash;&gt;-->
+<!--    <insert id="insertReservation" parameterType="workoutLogDto">-->
+<!--        INSERT INTO reservation (cust_name, cust_phone, reservation_date, reservation_content, cust_id)-->
+<!--        VALUES (#{custName}, #{custPhone}, #{reservationDate}, #{reservationContent}, #{custId})-->
+<!--    </insert>-->
 
     <update id="update" parameterType="workoutLogDto">
-        UPDATE cust SET cust_pwd=#{custPwd},cust_name=#{custName} WHERE cust_id=#{custId}
+        UPDATE cust SET cust_pwd=#{custPwd}, cust_name=#{custName} WHERE cust_id=#{custId}
     </update>
-    <delete id="delete" parameterType="String">
-        DELETE FROM cust WHERE cust_id=#{custId}
+
+
+
+    <!-- 운동 세부 정보 삭제 -->
+    <delete id="deleteWorkoutDetail" parameterType="int">
+        DELETE FROM workoutdetail
+        WHERE wdetail_id = #{wdetailId}
     </delete>
-<!--    이 이름을 CustRepository가 가지고있는 함수와 맞추면 된다. -->
+
+
+    <!-- workoutlog 추가 -->
+    <insert id="insert" parameterType="WorkoutLogDto" useGeneratedKeys="true" keyProperty="workoutNo">
+        INSERT INTO workoutlog (cust_id, workout_date, workout_time, workout_calories, workout_comments, machine_name)
+        VALUES (#{custId},  #{workoutDate}, #{workoutTime}, #{workoutCalories}, #{workoutComments}, #{machineName})
+    </insert>
+
+    <insert id="insertplus" parameterType="WorkoutLogDto" useGeneratedKeys="true" keyProperty="workoutNo">
+        INSERT INTO workoutlog (cust_id, workout_date, workout_time, workout_calories, workout_comments, machine_name)
+        VALUES (#{custId},  #{workoutDate}, #{workoutTime}, #{workoutCalories}, #{workoutComments}, #{machineName})
+    </insert>
+
+    <!-- 운동 세부 정보 추가 -->
+    <insert id="insertWorkoutDetail" parameterType="WorkoutDetailDto">
+        INSERT INTO workoutdetail (workout_no, machine_no, wdetail_exname, wdetail_sets, wdetail_count, wdetail_weight, wdetail_calories, wdetail_time, workout_comments,workout_date)
+        VALUES (#{workoutNo}, #{machineNo}, #{wdetailExname}, #{wdetailSets}, #{wdetailCount}, #{wdetailWeight}, #{wdetailCalories}, #{wdetailTime}, #{workoutComments}, #{workoutDate})
+    </insert>
+<!--    운동 수정 사항 추가-->
+    <update id="updateWorkoutDetail" parameterType="edu.sm.app.dto.WorkoutDetailDto">
+        UPDATE workout_detail
+        SET wdetail_exname   = #{wdetailExname},
+            wdetail_sets     = #{wdetailSets},
+            wdetail_count    = #{wdetailCount},
+            wdetail_weight   = #{wdetailWeight},
+            wdetail_calories = #{wdetailCalories},
+            wdetail_time     = #{wdetailTime},
+            workout_comments = #{workoutComments},
+            workout_date     = #{workoutDate}
+        WHERE wdetail_id = #{wdetailId}
+    </update>
+
+
+
+
+
+
+
+    <select id="selectAllExerciseNames" resultType="String">
+        SELECT machine_name
+        FROM machine
+    </select>
+    <!--    이 이름을 CustRepository가 가지고있는 함수와 맞추면 된다. -->
 
 </mapper>

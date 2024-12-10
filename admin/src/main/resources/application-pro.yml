@@ -1,0 +1,40 @@
+# 1. Tomcat Server Setting
+server:
+  port: 84
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+
+# 2. SpringBoot Environment Setting
+spring:
+  mvc:
+    view:
+      prefix: /views/
+      suffix: .jsp
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://223.130.159.25:3306/smdb?characterEncoding=utf8
+    username: smuser
+    password: 111111
+# 3. Mybatis Setting
+mybatis:
+  type-aliases-package: edu.sm.app.dto
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+# 4. Logging Setting
+logging:
+  level:
+    root: info
+  #  error > info > debug
+
+# 5. Application Environment Setting
+app:
+  url:
+    server-url: http://172.16.21.91:81
+  dir:
+    imgdir: /root/imgs/
+    uploadimgdir: /root/imgs/
+    logdir: /root/logs/
+    readlogdir: /root/logs/

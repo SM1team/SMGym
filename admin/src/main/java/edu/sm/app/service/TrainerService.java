@@ -46,4 +46,6 @@ public class TrainerService implements SMService<String, TrainerDto> {
         PageHelper.startPage(pageNo,4); //한 화면에 4개씩
         return trainerRepository.trainerfindpage(search);
     }
+
+
 }

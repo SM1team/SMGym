@@ -12,6 +12,7 @@
         <entry key="file://$PROJECT_DIR$/user/src/main/webapp/views/register/center.jsp" value="file://$PROJECT_DIR$/user/src/main/webapp/views/register" />
         <entry key="file://$PROJECT_DIR$/user/src/main/webapp/views/shop/center.jsp" value="file://$PROJECT_DIR$/user/src/main/webapp/views/shop" />
         <entry key="file://$PROJECT_DIR$/user/src/main/webapp/views/shop/detail.jsp" value="file://$PROJECT_DIR$/user/src/main/webapp/views/shop" />
+        <entry key="file://$PROJECT_DIR$/user/src/main/webapp/views/workout/write.jsp" value="file://$PROJECT_DIR$/user/src/main/webapp/views/workout" />
       </map>
     </option>
   </component>

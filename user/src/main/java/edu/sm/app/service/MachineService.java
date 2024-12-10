@@ -13,6 +13,11 @@ public class MachineService {
     @Autowired
     private MachineRepository machineRepository;
 
+
+    public MachineDto getMachineDetails(Integer machineNo) throws Exception {
+        return machineRepository.selectOne(machineNo);  // DB에서 해당 머신 조회
+    }
+
     // 모든 머신의 상태를 가져오는 메서드
     public List<MachineDto> get() throws Exception {
         List<MachineDto> machines = machineRepository.select(); // SMRepository에서 모든 머신 목록을 조회
@@ -24,15 +29,17 @@ public class MachineService {
         return machineRepository.getStatus(machineNo); // 머신 번호에 따른 상태 조회
     }
 
-    // 특정 머신의 상태를 변경하는 메서드
-    public boolean toggleMachineStatus(Integer machineNo) throws Exception {
-        MachineDto machine = machineRepository.selectOne(machineNo); // 머신 정보 조회
+    // 기계 상태 토글
+    public boolean toggleMachineStatus(int machineNo) throws Exception {
+        // machineNo로 기계 정보 조회
+        MachineDto machine = machineRepository.selectOne(machineNo);
         if (machine != null) {
-            boolean currentStatus = machine.isMachineStatus(); // 현재 상태
-            boolean newStatus = !currentStatus; // 상태 토글
-            machineRepository.updateStatus(machineNo, newStatus); // 상태 업데이트
+            // 상태를 토글 (운동 중 -> 대기 중, 대기 중 -> 운동 중)
+            boolean currentStatus = machine.isMachineStatus();
+            machineRepository.toggleMachineStatus(machineNo);  // 상태 반전 쿼리 실행
             return true;
         }
-        return false;
+        return false;  // 기계를 찾을 수 없을 경우
     }
-}
+    }
+

@@ -6,11 +6,12 @@
 
   <h2>운동일지 Page</h2>
 
-  <!-- 쓰기 버튼 -->
+  <!-- 버튼들 -->
   <div class="mb-3">
-    <button class="btn btn-primary" onclick="location.href='/workout/writeForm'">쓰기</button>
+    <button class="btn btn-primary" onclick="location.href='/workout/write'">쓰기</button>
     <button class="btn btn-warning" id="editBtn">수정하기</button>
     <button class="btn btn-danger" id="deleteBtn">삭제하기</button>
+    <button class="btn btn-success" id="addBtn">새로운 항목 추가</button> <!-- 새로운 항목 추가 버튼 -->
   </div>
 
   <form id="workoutForm" method="post">
@@ -19,7 +20,7 @@
       <tr>
         <th><input type="checkbox" id="selectAll"></th>
         <th>운동일지 번호</th>
-        <th>회원 ID</th>
+        <th>회원 이름</th>
         <th>운동날짜</th>
         <th>총 운동시간</th>
         <th>총 소모칼로리</th>
@@ -29,15 +30,12 @@
       <tbody>
       <c:forEach var="c" items="${workouts}">
         <tr>
-          <!-- 체크박스 -->
           <td><input type="checkbox" name="workoutNo" value="${c.workoutNo}"></td>
-          <!-- 운동일지 번호 클릭 시 상세 페이지 이동 -->
           <td><a href="<c:url value='/workout/detail'/>?workoutNo=${c.workoutNo}">${c.workoutNo}</a></td>
-
           <td>${c.custId}</td>
-          <td>${c.workoutDate}</td>
+          <td><fmt:formatDate value="${c.workoutDate}" pattern="yyyy-MM-dd" /></td>
           <td>${c.workoutTime}</td>
-          <td>${c.workoutCalories}</td>
+          <td>${c.workoutCalories}</td> <!-- 총 소모 칼로리 표시 -->
           <td>${c.workoutComments}</td>
         </tr>
       </c:forEach>
@@ -58,7 +56,7 @@
   document.getElementById("editBtn").addEventListener("click", function () {
     const selected = getSelectedWorkout();
     if (selected.length === 1) {
-      location.href = `/workout/editForm?id=${selected[0]}`;
+      location.href = `/editForm?id=${selected[0]}`;
     } else {
       alert("수정하려면 하나의 항목만 선택해야 합니다.");
     }
@@ -70,7 +68,7 @@
     if (selected.length > 0) {
       if (confirm("선택한 항목을 삭제하시겠습니까?")) {
         const form = document.getElementById("workoutForm");
-        form.action = "/workout/delete";
+        form.action = "/delete";
         form.submit();
       }
     } else {
@@ -78,9 +76,43 @@
     }
   });
 
+  // 새로운 항목 추가 버튼 클릭 시
+  document.getElementById("addBtn").addEventListener("click", function () {
+    if (confirm("새로운 항목을 만들어 드릴까요?")) {
+      // 확인 버튼을 누르면 DB에 새로운 항목 추가 요청
+      addNewWorkout();
+    } else {
+      // 취소 버튼을 누르면 아무 작업도 하지 않음
+      return;
+    }
+  });
+
   // 선택된 workoutNo 가져오기
   function getSelectedWorkout() {
     const checkboxes = document.querySelectorAll("input[name='workoutNo']:checked");
     return Array.from(checkboxes).map(cb => cb.value);
+  }
+
+  // 새로운 운동 항목을 추가하는 함수 (AJAX)
+  function addNewWorkout() {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/workout/add", true); // 요청 URL (새 항목 추가)
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    // 서버로 보낼 데이터 (여기서는 예시로 cust_id 값을 하드코딩)
+    const data = "cust_id=sampleCustId";
+
+    // 요청 보내기
+    xhr.send(data);
+
+    // 서버 응답 처리
+    xhr.onload = function () {
+      if (xhr.status == 200) {
+        alert("새로운 항목이 추가되었습니다.");
+        location.reload(); // 새로고침하여 페이지 업데이트
+      } else {
+        alert("항목 추가에 실패했습니다.");
+      }
+    };
   }
 </script>

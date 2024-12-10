@@ -11,6 +11,7 @@ import edu.sm.app.repository.WorkoutLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 
 @Service
@@ -27,6 +28,7 @@ public class WorkoutLogService implements SMService<Integer, WorkoutLogDto> {
     @Override
     public void add(WorkoutLogDto workoutLogDto) throws Exception {
         workoutLogRepository.insert(workoutLogDto);
+//        workoutLogRepository.save(workoutLogDto);
     }
 
     @Override
@@ -72,4 +74,59 @@ public class WorkoutLogService implements SMService<Integer, WorkoutLogDto> {
     public List<WorkoutDetailDto> WorkoutdetailNo(Integer workoutNo) throws Exception {
         return workoutLogRepository.workdetail(workoutNo);
     }
+    // 운동이름 끌어오는 코드
+    public List<String> getAllExerciseNames() {
+        return workoutLogRepository.selectAllExerciseNames();
+    }
+    public void save(WorkoutLogDto workoutLogDto) {
+        // DTO에서 엔티티로 변환 후 저장하는 로직을 추가
+        workoutLogRepository.insert(workoutLogDto);
+    }
+    public List<WorkoutDetailDto> getWorkoutDetails(Integer workoutNo) throws Exception {
+        // workoutNo에 해당하는 운동 기록 상세 정보를 조회
+        return workoutLogRepository.workdetail(workoutNo);
+    }
+
+    // 운동 세부 정보 추가
+    public void addWorkoutDetail(WorkoutDetailDto workoutDetailDto) throws Exception {
+        // 운동 세부 정보 저장
+        workoutLogRepository.insertWorkoutDetail(workoutDetailDto);
+    }
+
+
+    public void saveWorkoutDetail(WorkoutDetailDto workoutDetailDto) {
+        workoutLogRepository.insertWorkoutDetail(workoutDetailDto);
+    }
+    //삭제
+    public void deleteWorkoutDetail(int workoutDetailNo) throws Exception {
+        workoutLogRepository.deleteWorkoutDetail(workoutDetailNo); // Repository에서 삭제 호출
+    }
+    // 수정
+    public void editWorkoutDetail(WorkoutDetailDto workoutDetailDto) throws Exception {
+        workoutLogRepository.updateWorkoutDetail(workoutDetailDto); // Repository에서 수정 호출
+    }
+
+    // 운동 일지에 해당하는 총 소모 칼로리 계산
+    public Integer getTotalCalories(int workoutNo) throws Exception {
+        List<WorkoutDetailDto> workoutDetails = workoutLogRepository.workdetail(workoutNo);
+        return workoutDetails.stream()
+                .mapToInt(WorkoutDetailDto::getWdetailCalories) // 소모 칼로리 값만 추출
+                .sum(); // 합산
+    }
+    // 특정 운동 번호에 대해 총 운동 시간을 계산하는 메서드
+    public Integer getTotalWorkoutTime(int workoutNo) throws Exception {
+        List<WorkoutDetailDto> workoutDetails = workoutLogRepository.workdetail(workoutNo);
+
+        // 운동 시간 합산
+        return workoutDetails.stream()
+                .mapToInt(WorkoutDetailDto::getWdetailTime) // 운동 시간만 추출 (예: 분 단위)
+                .sum(); // 합산
+    }
+
+    public List<WorkoutDetailDto> getWorkoutDetailsByWorkoutNo(Integer workoutNo) throws Exception {
+        // workoutNo에 해당하는 운동 기록 상세 정보를 조회
+        return workoutLogRepository.workdetail(workoutNo); // Repository에서 해당 workoutNo에 대한 WorkoutDetailDto를 가져옴
+    }
+
+
 }
