@@ -13,6 +13,41 @@
 <div>
 <div class="container mt-5">
     <div class="row">
+        <!-- 월별 매출 통계 -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    월별 매출 통계
+                </div>
+                <div class="card-body">
+                    <canvas id="monthlySalesChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 성별 매출 통계 -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    성별 매출 통계
+                </div>
+                <div class="card-body">
+                    <canvas id="genderSalesChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 나이대별 매출 통계 -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-warning text-white">
+                    나이대별 매출 통계
+                </div>
+                <div class="card-body">
+                    <canvas id="oldSalesChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
 
         <!-- 피트니스 방문자 차트 카드 -->
         <div class="col-md-8">
@@ -58,7 +93,7 @@
                         <div class="card-body">
                             <div class="d-sm-flex justify-content-between align-items-start">
                                 <div>
-                                    <h4 class="card-title card-title-dash"> ${currentMonth}달 우수 트레이너
+                                    <h4 class="card-title card-title-dash"> ${currentMonth}월 우수 트레이너
                                     </h4>
 
                                 </div>
@@ -86,7 +121,7 @@
                                     </thead>
 <%--                                    여기서부터 내용--%>
                                     <tbody>
-                                    <c:forEach var="member" items="${members}">
+                                    <c:forEach var="member" items="${trainermember}">
                                         <tr>
                                             <td>
                                                 <div class="form-check form-check-flat mt-0">
@@ -99,28 +134,15 @@
                                                 <div class="d-flex ">
                                                     <img src="<c:url value='/assets/images/cust2.jpg'/>" alt="">
                                                     <div>
-                                                        <h6>${member.custId}</h6>
-                                                        <p>Head admin</p>
+                                                        <h6>${member.trainerName}</h6>
+                                                        <p>${member.trainerId}</p>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
-                                                <h6>${member.attendanceCount}/${member.totalDaysInMonth}</h6>
-                                                <div>
-                                                    <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                                        <p class="text-success">${member.attendanceRate}%</p>
-                                                    </div>
-                                                    <div class="progress progress-md">
-                                                        <div class="progress-bar bg-success" role="progressbar"
-                                                             style="width: ${member.attendanceRate}%"
-                                                             aria-valuenow="${member.attendanceRate}" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
+                                                <h6>${member.memberCount}</h6>
                                             </td>
-                                            <td>
-                                                <div class="badge badge-opacity-warning">In progress</div>
 
-                                            </td>
 
                                         </tr>
                                     </c:forEach>
@@ -139,22 +161,20 @@
     </div>
 </div>
 </div>
-
-
 <script>
     // ======= 성별 통계 차트 =======
     const genderCounts = JSON.parse('${genderCounts}');
-    const genderLabels = Object.keys(genderCounts);  // ["남성", "여성"]
-    const genderData = Object.values(genderCounts); // [남성 수, 여성 수]
+    const genderLabels1 = Object.keys(genderCounts);  // ["남성", "여성"]
+    const genderData1 = Object.values(genderCounts); // [남성 수, 여성 수]
 
-    const genderCtx = document.getElementById('genderChart1').getContext('2d');
-    new Chart(genderCtx, {
+    const genderCtx1 = document.getElementById('genderChart1').getContext('2d');
+    new Chart(genderCtx1, {
         type: 'doughnut',
         data: {
-            labels: genderLabels,
+            labels: genderLabels1,
             datasets: [{
                 label: '성별 인원 수',
-                data: genderData,
+                data: genderData1,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.6)', // 남성 색상
                     'rgba(54, 162, 235, 0.6)'
@@ -402,12 +422,105 @@
 
     document.addEventListener('DOMContentLoaded', renderMonthlyVisitorChart);
 
+    // 월별 매출 데이터
+    const monthlySales = JSON.parse('${monthlySales}');
+    const monthlyLabels = Object.keys(monthlySales); // ["1월", "2월", "3월", ...]
+    const monthlyData = Object.values(monthlySales); // [매출1, 매출2, 매출3, ...]
+
+    const monthlyCtx = document.getElementById('monthlySalesChart').getContext('2d');
+    new Chart(monthlyCtx, {
+        type: 'bar',
+        data: {
+            labels: monthlyLabels,
+            datasets: [{
+                label: '월별 매출',
+                data: monthlyData,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            }
+        }
+    });
+
+    // 나이대별 매출 데이터
+    const oldSales = JSON.parse('${oldSales}');
+    const oldLabels = Object.keys(oldSales); // ["20대", "30대", "40대", "50대", "60대 이상"]
+    const oldData = Object.values(oldSales); // [20대 매출, 30대 매출, ...]
+
+    const oldCtx = document.getElementById('oldSalesChart').getContext('2d');
+    new Chart(oldCtx, {
+        type: 'doughnut',
+        data: {
+            labels: oldLabels,
+            datasets: [{
+                label: '나이대별 매출',
+                data: oldData,
+                backgroundColor: ['#FF5733', '#FFC300', '#28A745', '#17A2B8', '#6F42C1']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            }
+        }
+    });
+
+    // 성별 매출 데이터
+    const genderSales = JSON.parse('${genderSales}');
+    const genderLabels = Object.keys(genderSales); // ["남성", "여성", "기타"]
+    const genderData = Object.values(genderSales); // [남성 매출, 여성 매출, 기타 매출]
+
+    const genderCtx = document.getElementById('genderSalesChart').getContext('2d');
+    new Chart(genderCtx, {
+        type: 'doughnut',
+        data: {
+            labels: genderLabels,
+            datasets: [{
+                label: '성별 매출',
+                data: genderData,
+                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            }
+        }
+    });
+
 
 
 
 
 
 </script>
+<script>
+
+
+
+
+
+</script>
+
+
+
 </body>
 </html>
 

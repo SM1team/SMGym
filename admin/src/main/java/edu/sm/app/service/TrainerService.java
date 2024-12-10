@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import edu.sm.app.dto.Search;
 import edu.sm.app.dto.TrainerDto;
+import edu.sm.app.dto.TrainerMemberDto;
 import edu.sm.app.frame.SMService;
 import edu.sm.app.repository.TrainerRepository;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +46,10 @@ public class TrainerService implements SMService<String, TrainerDto> {
     public Page<TrainerDto> trainerfindpage(int pageNo, Search search) throws Exception {
         PageHelper.startPage(pageNo,4); //한 화면에 4개씩
         return trainerRepository.trainerfindpage(search);
+    }
+
+    public List<TrainerMemberDto> getTrainerMemberCount() {
+        return trainerRepository.getTrainerMemberCount();
     }
 
 
