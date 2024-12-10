@@ -24,19 +24,10 @@ public class MachineRestController {
     @Autowired
     private MachineService machineService;
 
-//    // POST 요청에서 JSON 데이터를 받도록 수정
-//    @PostMapping("/machine/toggle/{machineNo}")
-//    public ResponseEntity<Boolean> toggleMachineStatus(@PathVariable int machineNo, @RequestBody MachineDto machineDto) {
-//        try {
-//            log.info("Received MachineDto: {}", machineDto);  // JSON 내용 로그로 출력
-//            boolean newStatus = machineService.toggleMachineStatus(machineNo);
-//            return ResponseEntity.ok(newStatus);  // boolean 값을 그대로 반환
-//        } catch (Exception e) {
-//            log.error("Error occurred while toggling machine status: ", e);
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
-
-//
+    @GetMapping("/machine/status/{machineNo}")
+    public boolean getMachineStatus(@PathVariable("machineNo") int machineNo) throws Exception {
+        log.info("Fetching status for machineNo: {}", machineNo);
+        return machineService.getMachineStatus(machineNo);
+    }
 }
 

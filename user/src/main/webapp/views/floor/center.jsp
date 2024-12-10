@@ -7,6 +7,51 @@
 <%--헬스장 플로어 맵 동적 스크립트--%>
 <script>
 
+    // 페이지 로드 시 자동으로 기계 상태를 가져오는 함수
+    document.addEventListener("DOMContentLoaded", function() {
+        // 기계 번호 배열 (예시로 1부터 26번까지의 기계)
+        const machineNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26];
+
+        // 5초마다 각 기계 상태를 가져옴
+        setInterval(function() {
+            machineNumbers.forEach(function(machineNo) {
+                fetchMachineDetails(machineNo); // 각 기계의 상태를 서버에서 가져옴
+            });
+        }, 5000); // 5000ms = 5초마다 실행
+    });
+
+    // 기계 상태를 가져오는 함수
+    function fetchMachineDetails(machineNo) {
+        // 서버에서 machineNo로 기계 상태를 가져오기
+        fetch(`/machine/status?machineNo=${machineNo}`)
+            .then(response => response.json())  // JSON으로 변환
+            .then(data => {
+                // 기계의 상태에 따라 DOM을 업데이트
+                const statusElement = document.getElementById(`machine${machineNo}-status`);
+
+                if (data.status === '1') { // 상태가 '1'이면 Active
+                    statusElement.innerText = 'Active'; // 텍스트 변경
+                    statusElement.style.backgroundColor = 'green'; // 불빛 색상 변경
+                } else { // 상태가 '0'이면 Inactive
+                    statusElement.innerText = 'Inactive'; // 텍스트 변경
+                    statusElement.style.backgroundColor = 'red'; // 불빛 색상 변경
+                }
+            })
+            .catch(error => console.error('Error fetching machine status:', error));  // 에러 처리
+    }
+
+    function updateMachineStatus(machine, machineNo) {
+        const statusElement = document.getElementById(`machine${machineNo}-status`);
+
+        if (machine.status === 'active') {
+            statusElement.innerText = '활성화';
+            statusElement.style.color = 'green';
+        } else {
+            statusElement.innerText = '비활성화';
+            statusElement.style.color = 'red';
+        }
+    }
+
 
     document.querySelectorAll('.equipment').forEach(item => {
         item.addEventListener('click', function() {
@@ -27,56 +72,6 @@
     }
 
 
-
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     // 모든 운동기구를 대상으로 클릭 이벤트를 등록
-    //     const equipmentElements = document.querySelectorAll('.equipment');
-    //
-    //     equipmentElements.forEach(function(equipment) {
-    //         // 각 운동기구 블록에 click 이벤트 추가
-    //         equipment.addEventListener('click', function() {
-    //             // 클릭된 운동기구의 ID 값을 가져옴
-    //             const machineNo = equipment.getAttribute('data-machine_no');
-    //             const equipmentName = equipment.getAttribute('data-machine_name');
-    //
-    //             // 알림 창을 띄움
-    //             alert(equipmentName + ' 버튼이 눌렸습니다!');
-    //
-    //             // toggleLight 함수 호출
-    //             toggleLight(equipment);
-    //         });
-    //     });
-    // });
-
-    <%--fetch(`/machine/toggle/${machineNo}`, {  // 수정된 경로 사용--%>
-    <%--    method: 'POST',  // 상태 변경에는 POST 메서드 사용--%>
-    <%--    headers: {--%>
-    <%--        'Accept': 'application/json',  // JSON 형식의 응답을 받을 것임을 명시--%>
-    <%--    },--%>
-    <%--})--%>
-    <%--    .then(response => {--%>
-    <%--        if (!response.ok) {--%>
-    <%--            throw new Error('Failed to toggle machine status');--%>
-    <%--        }--%>
-    <%--        return response.json();  // JSON 응답으로 변환--%>
-    <%--    })--%>
-    <%--    .then(data => {--%>
-    <%--        console.log('Machine status toggled:', data);  // 새 상태 출력--%>
-    <%--        alert(`Machine status: ${data ? 'Active' : 'Inactive'}`);  // 상태에 따라 출력--%>
-    <%--    })--%>
-    <%--    .catch(error => {--%>
-    <%--        if (error instanceof Error) {--%>
-    <%--            console.error('Error:', error);  // 에러 로그 콘솔에 출력--%>
-    <%--            console.error('Error message:', error.message);  // 에러 메시지를 별도로 출력--%>
-    <%--            console.error('Error stack:', error.stack);  // 에러의 stack trace도 출력--%>
-    <%--        } else {--%>
-    <%--            console.error('Unknown error:', error);  // error가 Error 객체가 아니면 다른 처리--%>
-    <%--        }--%>
-
-    <%--        alert('An error occurred while toggling the machine status.\n' + error.message);  // alert 창에서 에러 메시지 출력--%>
-    <%--    });--%>
-
-    <%--}--%>
     function confirmStatusChange(event, form) {
         let machineName = form.parentElement.getAttribute('data-machine_name');
         const confirmation = confirm('해당 운동기구의 상태를 변경하시겠습니까?');
@@ -146,7 +141,6 @@
 
     <!-- 운동기구 설명 보기 체크박스 추가 -->
     <div class="gym-layout">
-
         <div class="equipment running" style="top: 8%; left: 3%;" data-machine_no="1" data-machine_name="러닝머신1">
             <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
                 <input type="hidden" name="machineNo" value="1">
@@ -159,18 +153,12 @@
                 <p><strong>러닝머신이란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/running.jpg'/>" alt="..." />
                 <p>러닝머신은 체력과 유산소 운동을 동시에 개선할 수 있는 운동 기계로...</p>
-                <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
-                <p><strong>속도:</strong> 1 ~ 15 km/h</p>
             </div>
-            <div class="light"></div>
         </div>
 
 
-
-
-
         <div class="equipment running" style="top: 8%; left: 14%;" data-machine_no="2" data-machine_name="러닝머신2">
-            <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
+            <form id="machine2-form" action="/machine/toggle" method="POST" onsubmit="return toggleMachineStatus(event, this)">
                 <input type="hidden" name="machineNo" value="2">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
@@ -184,7 +172,7 @@
                 <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
                 <p><strong>속도:</strong> 1 ~ 15 km/h</p>
             </div>
-            <div class="light"></div> <!-- 기본 상태: inactive -->
+            <div class="light" id="machine2-status">Inactive</div> <!-- 상태를 동적으로 업데이트 할 부분 -->
         </div>
 
         <div class="equipment running" style="top: 8%; left: 25%;" data-machine_no="3" data-machine_name="러닝머신3">
@@ -202,8 +190,11 @@
                 <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
                 <p><strong>속도:</strong> 1 ~ 15 km/h</p>
             </div>
-            <div class="light"></div> <!-- 기본 상태: inactive -->
+            <!-- 기계 상태를 표시하는 요소 -->
+            <div id="machine3-status" class="status">비활성화</div>
+            <div class="light"></div> <!-- 상태 표시: 기본 inactive -->
         </div>
+
 
         <div class="equipment running" style="top: 8%; left: 36%;" data-machine_no="4" data-machine_name="러닝머신4">
             <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
@@ -276,8 +267,6 @@
             </div>
             <div class="light"></div> <!-- 기본 상태: inactive -->
         </div>
-
-
 
 
         <!-- 프론트 카운터 -->
@@ -711,7 +700,7 @@
             <div class="light"></div>
         </div>
 
-    <%-- 첫번쨰--%>
+        <%-- 첫번쨰--%>
         <div class="boundary-line" style="top: 45%; left: 76%; width: 24%;"></div>
 
         <!-- 스쿼트 존 -->
@@ -761,260 +750,259 @@
             <div class="light"></div>
         </div>
 
- </div>
+    </div>
 
 
 
-<!-- 스타일링 추가 -->
-<style>
-    /* 운동기구 설명 보기 스위치 스타일 */
-    .switch-label {
-        display: inline-block;
-        position: relative;
-        padding-left: 50px;
-        cursor: pointer;
-        font-size: 18px;
-        font-weight: bold;
-        color: #555;
-    }
+    <!-- 스타일링 추가 -->
+    <style>
+        /* 운동기구 설명 보기 스위치 스타일 */
+        .switch-label {
+            display: inline-block;
+            position: relative;
+            padding-left: 50px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            color: #555;
+        }
 
-    /* 스위치 버튼 */
-    .switch-label::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 40px;
-        height: 25px;
-        background-color: #ccc;
-        border-radius: 50px;
-        transition: 0.3s;
-    }
+        /* 스위치 버튼 */
+        .switch-label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 25px;
+            background-color: #ccc;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
 
-    .switch-label::after {
-        content: '';
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        width: 16px;
-        height: 16px;
-        background-color: white;
-        border-radius: 50%;
-        transition: 0.3s;
-    }
+        .switch-label::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
 
-    /* 체크박스가 체크되었을 때 */
-    input[type="checkbox"]:checked + .switch-label::before {
-        background-color: #4caf50; /* 스위치가 켜졌을 때 */
-    }
+        /* 체크박스가 체크되었을 때 */
+        input[type="checkbox"]:checked + .switch-label::before {
+            background-color: #4caf50; /* 스위치가 켜졌을 때 */
+        }
 
-    input[type="checkbox"]:checked + .switch-label::after {
-        left: 22px; /* 스위치가 오른쪽으로 이동 */
-    }
+        input[type="checkbox"]:checked + .switch-label::after {
+            left: 22px; /* 스위치가 오른쪽으로 이동 */
+        }
 
-    /* 체크박스 숨기기 */
-    input[type="checkbox"] {
-        display: none;
-    }
-
-
-    .bubble {
-        position: absolute;
-        top: 20px; /* 말풍선의 위치 조정 */
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #f1f1f1;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        width: 300px; /* 말풍선 너비 */
-        font-size: 14px;
-        color: #333;
-        opacity: 0; /* 처음에는 숨김 처리 */
-        visibility: hidden; /* 처음에는 보이지 않게 설정 */
-        transition: opacity 0.3s ease, visibility 0.3s ease; /* 부드럽게 나타나고 사라짐 */
-        z-index: 999; /* 말풍선의 기본 z-index 설정 */
-    }
-
-    .facility:hover .bubble {
-        opacity: 1; /* 마우스를 가져다 대면 말풍선이 보이게 */
-        visibility: visible; /* 마우스를 가져다 대면 보이게 설정 */
-        z-index: 9999; /* 말풍선이 부모 컨테이너에서 가장 위로 가도록 설정 */
-    }
-
-    .equipment:hover .bubble {
-        opacity: 1; /* 마우스를 가져다 대면 말풍선이 보이게 */
-        visibility: visible; /* 마우스를 가져다 대면 보이게 설정 */
-        z-index: 9999; /* 말풍선이 부모 컨테이너에서 가장 위로 가도록 설정 */
-    }
-
-    .area:hover .bubble {
-        opacity: 1; /* 마우스를 가져다 대면 말풍선이 보이게 */
-        visibility: visible; /* 마우스를 가져다 대면 보이게 설정 */
-        z-index: 9999; /* 말풍선이 부모 컨테이너에서 가장 위로 가도록 설정 */
-    }
-
-    .bubble::after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-width: 10px;
-        border-style: solid;
-        border-color: #f1f1f1 transparent transparent transparent;
-    }
+        /* 체크박스 숨기기 */
+        input[type="checkbox"] {
+            display: none;
+        }
 
 
-    .gym-layout {
-        position: relative;
-        width: 100%;
-        height: 780px;
-        background-color: #f0f0f0;
-        border: 2px solid #ccc;
-        margin-left: auto;
-        margin-right: auto;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-    }
+        .bubble {
+            position: absolute;
+            top: 20px; /* 말풍선의 위치 조정 */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f1f1f1;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px; /* 말풍선 너비 */
+            font-size: 14px;
+            color: #333;
+            opacity: 0; /* 처음에는 숨김 처리 */
+            visibility: hidden; /* 처음에는 보이지 않게 설정 */
+            transition: opacity 0.3s ease, visibility 0.3s ease; /* 부드럽게 나타나고 사라짐 */
+            z-index: 999; /* 말풍선의 기본 z-index 설정 */
+        }
 
-    .equipment, .facility {
+        .facility:hover .bubble {
+            opacity: 1; /* 마우스를 가져다 대면 말풍선이 보이게 */
+            visibility: visible; /* 마우스를 가져다 대면 보이게 설정 */
+            z-index: 9999; /* 말풍선이 부모 컨테이너에서 가장 위로 가도록 설정 */
+        }
 
-        position: absolute;
-        padding: 10px;
-        border-radius: 8px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 90px;
-        height: 90px;
-        font-size: 12px;
-        border: 2px solid #333; /* 경계선 추가 */
-        background-color: rgba(255, 255, 255, 0.8); /* 투명도 약간 추가 */
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* 아이템 그림자 */
-        transition: transform 0.3s ease, box-shadow 0.3s ease; /* 애니메이션 추가 */
-    }
+        .equipment:hover .bubble {
+            opacity: 1; /* 마우스를 가져다 대면 말풍선이 보이게 */
+            visibility: visible; /* 마우스를 가져다 대면 보이게 설정 */
+            z-index: 9999; /* 말풍선이 부모 컨테이너에서 가장 위로 가도록 설정 */
+        }
 
-    .equipment i, .facility i {
-        font-size: 24px;
-        margin-bottom: 5px;
-    }
+        .area:hover .bubble {
+            opacity: 1; /* 마우스를 가져다 대면 말풍선이 보이게 */
+            visibility: visible; /* 마우스를 가져다 대면 보이게 설정 */
+            z-index: 9999; /* 말풍선이 부모 컨테이너에서 가장 위로 가도록 설정 */
+        }
 
-    .equipment:hover, .facility:hover {
-        z-index: 9999; /* 마우스를 올리면 해당 equipment가 최상위로 올라가게 설정 */
-        transform: scale(1.1); /* 호버 시 크기 확대 */
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* 호버 시 그림자 강조 */
-    }
-
-    .boundary-line {
-        position: absolute;
-        top: 20%; /* 경계선의 위치 */
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background-color: black;
-    }
+        .bubble::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 10px;
+            border-style: solid;
+            border-color: #f1f1f1 transparent transparent transparent;
+        }
 
 
-    .equipment:hover .tooltip {
-        opacity: 1;
-        visibility: visible;
-    }
+        .gym-layout {
+            position: relative;
+            width: 100%;
+            height: 780px;
+            background-color: #f0f0f0;
+            border: 2px solid #ccc;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+        }
 
-    /* 불빛 이펙트 */
-    .light {
-        position: absolute;
-        top: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background-color: transparent; /* 기본 상태: 꺼짐 */
-        transition: background-color 0.3s ease;
-        animation: blink 1s infinite; /* 깜빡이는 애니메이션 */
-    }
+        .equipment, .facility {
 
-    /* machineStatus가 1일 경우 불빛이 켜짐 */
-    .light.on {
-        background-color: yellow;
-        box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* 빛나는 효과 */
-    }
+            position: absolute;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90px;
+            height: 90px;
+            font-size: 12px;
+            border: 2px solid #333; /* 경계선 추가 */
+            background-color: rgba(255, 255, 255, 0.8); /* 투명도 약간 추가 */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* 아이템 그림자 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* 애니메이션 추가 */
+        }
 
-    @keyframes blink {
-        0% { opacity: 1; }
-        50% { opacity: 0.5; }
-        100% { opacity: 1; }
-    }
+        .equipment i, .facility i {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
 
+        .equipment:hover, .facility:hover {
+            z-index: 9999; /* 마우스를 올리면 해당 equipment가 최상위로 올라가게 설정 */
+            transform: scale(1.1); /* 호버 시 크기 확대 */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* 호버 시 그림자 강조 */
+        }
 
-    .machine.active {
-        animation: blink 2s ease-in-out infinite; /* 2초 동안 깜빡이도록 설정 */
-    }
-
-    .machine {
-        position: relative;
-        width: 100px;
-        height: 100px;
-        margin: 20px;
-        display: inline-block;
-        text-align: center;
-        cursor: pointer;
-    }
-
-    .machine .light {
-        display: block;
-        position: absolute;
-        top: 8px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        background-color: transparent;
-    }
-
-    .machine .icon {
-        font-size: 30px;
-        margin-top: 10px;
-    }
+        .boundary-line {
+            position: absolute;
+            top: 20%; /* 경계선의 위치 */
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: black;
+        }
 
 
-    /* 운동기구 색깔 */
-    .running { background-color: #a8d0e6; }
-    .cardio { background-color: #f7a8b8; }
-    .weight { background-color: #d4edda; }
-    .strength { background-color: #f9e2a1; } /* 새로운 색: 밝은 노랑 */
-    .flexibility { background-color: #f8e6e6; } /* 새로운 색: 밝은 분홍 */
+        .equipment:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* 불빛 이펙트 */
+        .light {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: transparent; /* 기본 상태: 꺼짐 */
+            transition: background-color 0.3s ease;
+            animation: blink 1s infinite; /* 깜빡이는 애니메이션 */
+        }
+
+        /* machineStatus가 1일 경우 불빛이 켜짐 */
+        .light.on {
+            background-color: yellow;
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* 빛나는 효과 */
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
 
 
-    /* 시설 색깔 */
-    .reception { background-color: #f6c23e; }
-    .emergency { background-color: #e74a3b; }
-    .shower { background-color: #70a1ff; }
-    .changing { background-color: #3498db; }
-    .restroom { background-color: #2ecc71; }
+        .machine.active {
+            animation: blink 2s ease-in-out infinite; /* 2초 동안 깜빡이도록 설정 */
+        }
 
-    /* 남자 탈의실 (연한 파란색) */
-    .manlocker {
-        background-color: #add8e6; /* 연한 파란색 */
-    }
+        .machine {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 20px;
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+        }
 
-    /* 여자 탈의실 (연한 빨간색) */
-    .womanlocker {
-        background-color: #ffb6c1; /* 연한 빨간색 */
-    }
+        .machine .light {
+            display: block;
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: transparent;
+        }
 
-    h4 {
-        font-size: 12px;
-        color: #333;
-        margin: 0;
-        font-weight: bold; /* 제목 글씨 두껍게 */
-    }
-</style>
-
-<!-- Font Awesome CDN 추가 -->
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        .machine .icon {
+            font-size: 30px;
+            margin-top: 10px;
+        }
 
 
+        /* 운동기구 색깔 */
+        .running { background-color: #a8d0e6; }
+        .cardio { background-color: #f7a8b8; }
+        .weight { background-color: #d4edda; }
+        .strength { background-color: #f9e2a1; } /* 새로운 색: 밝은 노랑 */
+        .flexibility { background-color: #f8e6e6; } /* 새로운 색: 밝은 분홍 */
+
+
+        /* 시설 색깔 */
+        .reception { background-color: #f6c23e; }
+        .emergency { background-color: #e74a3b; }
+        .shower { background-color: #70a1ff; }
+        .changing { background-color: #3498db; }
+        .restroom { background-color: #2ecc71; }
+
+        /* 남자 탈의실 (연한 파란색) */
+        .manlocker {
+            background-color: #add8e6; /* 연한 파란색 */
+        }
+
+        /* 여자 탈의실 (연한 빨간색) */
+        .womanlocker {
+            background-color: #ffb6c1; /* 연한 빨간색 */
+        }
+
+        h4 {
+            font-size: 12px;
+            color: #333;
+            margin: 0;
+            font-weight: bold; /* 제목 글씨 두껍게 */
+        }
+    </style>
+
+    <!-- Font Awesome CDN 추가 -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</div>

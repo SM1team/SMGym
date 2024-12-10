@@ -14,7 +14,7 @@ public interface MachineRepository extends SMRepository<Integer, MachineDto> {
     void updateStatus(@Param("machineNo") Integer machineNo, @Param("machineStatus") boolean machineStatus) throws Exception;
 
     // 머신 상태 조회
-    boolean getStatus(Integer machineNo) throws Exception;
+    boolean getStatus(int machineNo) throws Exception;
 
     // 특정 machineNo에 대해 MachineDto 조회
     MachineDto selectOne(Integer machineNo) throws Exception;
