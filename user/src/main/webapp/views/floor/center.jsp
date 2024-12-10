@@ -7,6 +7,27 @@
 <%--헬스장 플로어 맵 동적 스크립트--%>
 <script>
 
+
+    document.querySelectorAll('.equipment').forEach(item => {
+        item.addEventListener('click', function() {
+            const machineNo = this.getAttribute('data-machine_no');
+            fetchMachineData(machineNo); // 서버에서 해당 machine_no로 데이터를 가져오는 함수 호출
+        });
+    });
+
+    function fetchMachineData(machineNo) {
+        // AJAX 요청을 통해 서버에서 해당 machine_no를 가진 머신 데이터를 가져옴
+        fetch(`/machine/details?machineNo=${machineNo}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); // 받은 데이터 출력 (예: 머신의 세부 정보)
+                // 추가적인 처리 로직을 여기에 작성 (예: 화면에 표시)
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+
+
     // document.addEventListener('DOMContentLoaded', function() {
     //     // 모든 운동기구를 대상으로 클릭 이벤트를 등록
     //     const equipmentElements = document.querySelectorAll('.equipment');
@@ -57,24 +78,14 @@
 
     <%--}--%>
     function confirmStatusChange(event, form) {
-        // form 요소의 부모인 .equipment에서 data-machine_name 값을 가져옵니다.
         let machineName = form.parentElement.getAttribute('data-machine_name');
+        const confirmation = confirm('해당 운동기구의 상태를 변경하시겠습니까?');
 
-        // machineName 값 확인
-        console.log("machineName:", machineName);  // 여기가 제대로 출력되는지 확인
-        console.log('선택한 운동기구의 상태를 변경하시겠습니까?');
-
-        // 백틱을 사용하여 문자열 안에 동적으로 machineName 값을 삽입
-        const confirmation = confirm(`${machineName}의 상태를 변경하시겠습니까?`);
-
-        // '예'를 클릭하면 폼 제출, '아니오'를 클릭하면 제출 취소
         if (!confirmation) {
             event.preventDefault(); // 폼 제출 취소
         }
         return confirmation; // '예' 클릭 시 폼이 제출됨
     }
-
-
 
 
 
@@ -93,6 +104,7 @@
 
         // 기계 상태 변경 후 메시지 출력
         alert(`Machine ${machineNo} 상태를 변경 요청하였습니다.`);
+        console.log(machineStatus)
     }
 
 
@@ -134,10 +146,11 @@
 
     <!-- 운동기구 설명 보기 체크박스 추가 -->
     <div class="gym-layout">
+
         <div class="equipment running" style="top: 8%; left: 3%;" data-machine_no="1" data-machine_name="러닝머신1">
             <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
                 <input type="hidden" name="machineNo" value="1">
-                <button type="submit" style="all: unset; cursor: pointer;">
+                <button type="button" style="all: unset; cursor: pointer;" onclick="fetchMachineDetails(1)">
                     <i class="fas fa-running"></i>
                     <h4>러닝머신 1</h4>
                 </button>
@@ -149,8 +162,12 @@
                 <p><strong>효율성:</strong> 고속 운동에 적합, 칼로리 소모가 많음</p>
                 <p><strong>속도:</strong> 1 ~ 15 km/h</p>
             </div>
-            <div class="light"></div> <!-- 기본 상태: inactive -->
+            <div class="light"></div>
         </div>
+
+
+
+
 
         <div class="equipment running" style="top: 8%; left: 14%;" data-machine_no="2" data-machine_name="러닝머신2">
             <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
@@ -914,23 +931,23 @@
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        background-color: transparent; /* 초기 상태: 꺼짐 */
+        background-color: transparent; /* 기본 상태: 꺼짐 */
         transition: background-color 0.3s ease;
         animation: blink 1s infinite; /* 깜빡이는 애니메이션 */
     }
 
-    /* 'on' 클래스가 추가되면 불빛이 켜짐 */
+    /* machineStatus가 1일 경우 불빛이 켜짐 */
     .light.on {
-        background-color: yellow; /* 불빛 켜짐 */
+        background-color: yellow;
         box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* 빛나는 효과 */
     }
 
-    /* 깜빡이는 효과 */
     @keyframes blink {
         0% { opacity: 1; }
         50% { opacity: 0.5; }
         100% { opacity: 1; }
     }
+
 
     .machine.active {
         animation: blink 2s ease-in-out infinite; /* 2초 동안 깜빡이도록 설정 */

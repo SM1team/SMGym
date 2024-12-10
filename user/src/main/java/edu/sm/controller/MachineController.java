@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -23,11 +24,18 @@ public class MachineController {
     @RequestMapping("/floor")
     public String main(Model model) throws Exception {
         List<MachineDto> machines = machineService.get(); // 모든 기계 상태 가져오기
-        model.addAttribute("machines", machines);
+
+        // machine_no가 있는 기구들만 필터링
+        List<MachineDto> machinesWithMachineNo = machines.stream()
+                .filter(machine -> machine.getMachineNo() > 0) // machine_no가 0보다 큰 것들만 필터링
+                .collect(Collectors.toList());
+
+        model.addAttribute("machines", machines); // 모델에 기계 상태 추가
         model.addAttribute("top", "floor/top");
         model.addAttribute("center", "floor/center");
         return "index"; // index.jsp 반환
     }
+
 
     @PostMapping("/machine/toggle")
     public String toggleMachineStatus(int machineNo) {
@@ -41,6 +49,19 @@ public class MachineController {
 
         // 상태 업데이트 후 /floor로 리다이렉트
         return "redirect:/floor";
+    }
+
+    @GetMapping("/machine/details")
+    @ResponseBody
+    public MachineDto getMachineDetails(@RequestParam("machineNo") Integer machineNo) throws Exception {
+        // DB에서 machineNo로 머신 정보 조회
+        MachineDto machine = null;
+        try {
+            machine = machineService.getMachineDetails(machineNo);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return machine; // JSON 형태로 자동 반환됨
     }
 
 }
