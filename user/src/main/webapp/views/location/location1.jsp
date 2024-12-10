@@ -29,8 +29,8 @@
         initMap: function () {
             let mapContainer = document.getElementById('map1');
             let mapOption = {
-                center: new kakao.maps.LatLng(36.7945989, 127.1045622),
-                level: 5
+                center: new kakao.maps.LatLng(36.7989764, 127.0750025),
+                level: 7
             };
 
             this.map = new kakao.maps.Map(mapContainer, mapOption);
@@ -41,7 +41,7 @@
             let zoomControl = new kakao.maps.ZoomControl();
             this.map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-            this.setExistingMarker(new kakao.maps.LatLng(36.7945989, 127.1045622)); // 기존 마커 설정
+            this.setExistingMarker(new kakao.maps.LatLng(36.7975413, 127.0605217)); // 기존 마커 설정
         },
 
         setExistingMarker: function (position) {
@@ -97,7 +97,7 @@
                 map1.initMap(); // 모달이 열릴 때 지도 초기화
             } else {
                 map1.map.relayout(); // 이미 지도가 생성되어 있다면 크기 재조정
-                map1.map.setCenter(new kakao.maps.LatLng(36.7945989, 127.1045622));
+                map1.map.setCenter(new kakao.maps.LatLng(36.7989764, 127.0750025));
             }
 
             // 현재 위치 설정
@@ -120,7 +120,7 @@
         });
     });
 </script>
-
+x
 
 <html lang="ko">
 <head>

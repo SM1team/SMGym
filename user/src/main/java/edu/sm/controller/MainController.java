@@ -75,6 +75,13 @@ public class MainController {
         return "index"; // login.jsp의 경로
     }
 
+    @RequestMapping("/mycheck")
+    public String mycheck(Model model) {
+        model.addAttribute("top", "top"); // 회원가입 페이지 제목 추가
+        model.addAttribute("center", "mycheck/"+"center"); // 회원가입 페이지 제목 추가
+        return "index"; // login.jsp의 경로
+    }
+
 
 
 

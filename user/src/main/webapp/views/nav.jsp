@@ -16,7 +16,7 @@
                 <li class="nav-item"><a class="nav-link" href="<c:url value='/#location'/>">Location</a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/floor"/>">FloorMap</a></li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<c:url value='/shop'/>#center">Shop</a> <!-- Shop 버튼에 #center 추가 -->
+                    <a class="nav-link" href="<c:url value='/shop'/>">Shop</a> <!-- Shop 버튼에 #center 추가 -->
                 </li>
 
                 <!-- Dropdown for Community and Notice -->

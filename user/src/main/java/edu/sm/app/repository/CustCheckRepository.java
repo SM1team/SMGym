@@ -1,6 +1,8 @@
 package edu.sm.app.repository;
 
+import com.github.pagehelper.Page;
 import edu.sm.app.dto.CustCheckDto;
+import edu.sm.app.dto.Search;
 import edu.sm.app.frame.SMRepository;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -18,5 +20,7 @@ public interface CustCheckRepository extends SMRepository<String, CustCheckDto> 
     void update(CustCheckDto custCheckDto);
 
     void updateCheckEndTime(CustCheckDto custCheckDto);
+
+    Page<CustCheckDto> custcheckfindpage(Search search);
 
 }

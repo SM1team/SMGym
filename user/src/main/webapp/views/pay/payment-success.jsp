@@ -36,6 +36,10 @@
       <th>고객 ID</th>
       <td>${payment.custId}</td>
     </tr>
+    <tr>
+      <th>트레이너 ID</th>
+      <td>${payment.trainerId}</td>
+    </tr>
   </table>
 
   <!-- 결제 후 돌아가기 버튼 -->

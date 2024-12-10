@@ -22,6 +22,7 @@
         cust_id,       <!-- 변경 -->
         amount,
         payment_status,
+        trainer_id,
         created_at
         ) VALUES (
         #{paymentId},
@@ -29,6 +30,7 @@
         #{custId},       <!-- 변경 -->
         #{amount},
         #{paymentStatus},
+        #{trainerId},
         NOW()
         )
     </insert>

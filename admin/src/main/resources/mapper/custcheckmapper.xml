@@ -125,6 +125,20 @@ ORDER BY
                                                 (SELECT COUNT(*) FROM custcheck WHERE date(check_start) = CURDATE() - INTERVAL 2 DAY) AS daybeforeyesterday_count
     </select>
 
+    <!-- 월별 방문자 수 조회 -->
+    <select id="getMonthlyVisitors" resultType="map">
+        SELECT
+            DATE_FORMAT(check_start, '%Y-%m') AS month,
+            COUNT(*) AS visitorCount
+        FROM
+            custcheck
+        GROUP BY
+            DATE_FORMAT(check_start, '%Y-%m')
+        ORDER BY
+            month ASC;
+    </select>
+
+
 
 
 

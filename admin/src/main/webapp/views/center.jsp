@@ -497,7 +497,7 @@
                                       </td>
                                       <td>
                                         <div class="d-flex ">
-                                          <img src="<c:url value='/assets/images/faces/face1.jpg'/>" alt="">
+                                          <img src="<c:url value='/assets/images/cust2.jpg'/>" alt="">
                                           <div>
                                             <h6>${member.custId}</h6>
                                             <p>Head admin</p>

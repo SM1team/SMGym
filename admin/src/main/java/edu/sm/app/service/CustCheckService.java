@@ -97,6 +97,10 @@ public class CustCheckService implements SMService<String, CustCheckDto> {
         return custCheckRepository.getDailyVisitors();
     }
 
+    public List<Map<String, Object>> getMonthlyVisitorStats() {
+        return custCheckRepository.getMonthlyVisitors();
+    }
+
     // 현재 출입 중인 회원 수를 가져오는 메서드
     public int getActiveMemberCount() {
         return custCheckRepository.getCurrentActiveMembers();

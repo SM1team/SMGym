@@ -23,6 +23,8 @@
 <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
+
+
 <%--HighCharts Lib  start --%>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -33,6 +35,8 @@
 <%--     Web Socket Lib    --%>
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
+
 
 <div class="container" style="max-width: 100%">
     <div class="row">
@@ -54,41 +58,48 @@
             </c:otherwise>
         </c:choose>
 
-        
     </div>
 </div>
 
-<%--<!-- Available Machines Section -->--%>
-<%--<div class="container">--%>
-<%--    <div class="row">--%>
-<%--        <div class="col-12">--%>
-<%--            <h2>Available Machines</h2>--%>
-<%--            <ul class="list-group">--%>
-<%--                <c:forEach var="machine" items="${services}">--%>
-<%--                    <li class="list-group-item">--%>
-<%--                        <h5>${machine.machineName}</h5> <!-- machine_name을 machineName으로 수정 -->--%>
-<%--                        <p>Status: ${machine.machineStatus ? 'Active' : 'Inactive'}</p> <!-- machineStatus를 boolean 값에 따라 출력 -->--%>
-<%--                        <p>Description: ${machine.machineTime}</p> <!-- machineTime을 출력 (예: 등록 시간 등) -->--%>
-<%--                    </li>--%>
-<%--                </c:forEach>--%>
-<%--            </ul>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-
 <!-- Footer-->
-<footer class="footer py-4" style="background-color: #f8f9fa;">
+<footer class="footer">
+
+    <style>
+        footer {
+            width: 100%;
+            background-color: #000000;
+            color: #f1f1f1;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style><!-- 지점들 section 색상과 동일한 배경색 -->
+
+    <style>
+        .btn-social {
+            background-color: #ffffff !important; /* 배경색 흰색으로 변경 */
+            color: #000000 !important; /* 아이콘 색상 검정으로 변경 */
+            border: 1px solid #ccc; /* 선택적으로 테두리 추가 */
+        }
+
+    </style>
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2023</div>
             <div class="col-lg-4 my-3 my-lg-0">
-                <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
             </div>
+
             <div class="col-lg-4 text-lg-end">
-                <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
-                <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
+                <a class="text-decoration-none me-3" href="#!" style="color: #f1f1f1">Privacy Policy</a>
+                <a class="text-decoration-none" href="#!" style="color: #f1f1f1">Terms of Use</a>
             </div>
         </div>
     </div>

@@ -1,41 +1,179 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const middlePosition = document.body.scrollHeight / 2;
+        window.scrollTo({
+            top: middlePosition,
+            behavior: "smooth"
+        });
+    });
 
+</script>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상품 상세 페이지</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <style>
+        .custom-card {
+            text-decoration: none; /* 링크의 기본 밑줄 제거 */
+            color: inherit; /* 부모 요소의 색상을 상속받도록 설정 */
+            display: block; /* 링크를 블록 요소로 설정해 전체 카드 클릭 가능하도록 */
+            border-radius: 10px; /* 모서리 둥글게 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+            background-color: #1a1a1a; /* 카드 배경을 페이지보다 밝은 검정색으로 설정 */
+            transition: all 0.3s ease-in-out; /* 카드 hover 시 부드러운 전환 효과 */
+            border: 2px solid #ae00c7; /* 기본 보라색 테두리 */
+
+            /* 크기와 비율 설정 */
+            width: 500px; /* 고정된 가로 크기 */
+            height: 100%; /* 고정된 세로 크기 */
+            position: relative; /* 내용 위치 설정 */
+        }
+
+        .custom-card:hover {
+            transform: translateY(-5px); /* 살짝 위로 이동 */
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* 그림자 강화 */
+            border-color: #ae00c7; /* 카드 hover 시 테두리 색을 #ae00c7로 변경 */
+        }
+
+        .custom-card .card-body {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            text-align: center;
+        }
+
+        /* 제품명 스타일 */
+        .custom-card h5 {
+            font-weight: bold;
+            font-size: 1.5rem; /* 약간 큰 텍스트 */
+            color: #ae00c7; /* 기본 보라색 텍스트 */
+            margin-bottom: 10px;
+            transition: color 0.3s ease; /* 텍스트 색상 전환 효과 */
+        }
+
+        /* 가격 스타일 */
+        .custom-card .text-center {
+            font-size: 1.5rem; /* 약간 큰 텍스트 */
+            color: #ae00c7; /* 기본 보라색 텍스트 */
+        }
+
+        .custom-card:hover h5,
+        .custom-card:hover .text-center {
+            color: #ae00c7; /* 마우스 hover 시 텍스트 색상이 #ae00c7로 변경 */
+        }
+
+    </style>
+    <style>
+        body {
+            background-color: #000; /* 페이지 배경 검정색 */
+            color: #fff; /* 텍스트 색상 흰색 */
+        }
+        .content-container {
+            background-color: #1a1a1a; /* 카드 및 콘텐츠 컨테이너 배경 */
+            border-radius: 10px; /* 컨테이너 모서리 둥글게 */
+            padding: 20px; /* 내부 여백 */
+        }
+        .related-products {
+            display: flex;
+            gap: 20px; /* 카드 간격 */
+            overflow-x: auto; /* 가로 스크롤 가능 */
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+        .related-products .product-card {
+            flex: 0 0 auto; /* 가로 스크롤을 위해 고정 폭 사용 */
+            width: 200px; /* 카드 너비 */
+            hight: 200px;
+            background-color: #1a1a1a; /* 카드 배경 */
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-decoration: none; /* 링크에 밑줄이 생기지 않도록 설정 */
+            color: #f1f1f1;
+            border: 2px solid transparent; /* 초기 테두리는 투명 */
+            transition: all 0.3s ease-in-out; /* 부드러운 전환 효과 */
+        }
+        .related-products .product-card:hover {
+            border-color: #ae00c7; /* 호버 시 보라색 */
+            transform: translateY(-5px); /* 살짝 위로 이동 */
+            color: #ae00c7; /* 마우스 hover 시 텍스트 색상이 #ae00c7로 변경 */
+        }
+        /* 카드 hover 시 텍스트 색상 변경 */
+        .custom-card:hover h5,
+        .custom-card:hover .text-center {
+            color: #ae00c7; /* 마우스 hover 시 텍스트 색상이 #ae00c7로 변경 */
+        }
+        /* 카드 hover 효과 */
+        .custom-card:hover {
+            transform: translateY(-5px); /* 살짝 위로 이동 */
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* 그림자 강화 */
+            border-color: #ae00c7; /* 카드 hover 시 테두리 색을 #ae00c7로 변경 */
+        }
+        /* 링크의 밑줄 제거 */
+        .custom-card a {
+            text-decoration: none; /* 링크에 밑줄이 생기지 않도록 설정 */
+        }
+
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init({
+                duration: 800, // 애니메이션 지속 시간
+                once: false,   // 스크롤할 때마다 애니메이션 재실행
+            });
+        });
+    </script>
 </head>
 <body>
+
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-md-6">
-            <!-- 상품 이미지 -->
-            <img class="img-fluid" src="/assets/img/${product.productImg}" alt="Product Image" />
+<%--    여백--%>
+    <div class="row" style="background-color: #000; height: 200px;"></div>
+    <!-- 상품 정보 표시 -->
+    <div class="row content-container" data-aos="fade-left">
+        <!-- 왼쪽: 상품 정보 카드 디자인 -->
+        <div class="col-md-6 d-flex justify-content-center align-items-center" style="height: 400px;">
+            <a href="<c:url value='/shop/detail'/>?productNo=${product.productNo}" class="card custom-card h-100">
+                <!-- Product details -->
+                <div class="card-body p-4">
+                    <div class="text-center">
+                        <!-- Product name -->
+                        <h5 class="fw-bolder">${product.productName}</h5>
+                        <!-- Product price -->
+                        ₩<fmt:formatNumber value="${product.productPrice}" type="number" groupingUsed="true" />
+                    </div>
+                </div>
+            </a>
         </div>
+        <!-- 오른쪽: 상품 정보 -->
         <div class="col-md-6">
             <!-- 상품 정보 표시 -->
-            <form id="product-form">
+            <form id="product-form" style="background-color: #1a1a1a; padding: 20px; border-radius: 10px;">
                 <div class="form-group">
-                    <label for="productName">상품 이름</label>
+                    <label for="productName" style="color: #fff;">상품 이름</label>
                     <input type="hidden" id="productName" name="productName" value="${product.productName}" />
-                    <input type="text" class="form-control" value="${product.productName}" readonly />
+                    <input type="text" class="form-control" style="background-color: #000; color: #fff; border: none;" value="${product.productName}" readonly />
                 </div>
 
                 <div class="form-group">
-                    <label for="productPrice">가격</label>
-                    <input type="text" id="productPrice" class="form-control" value="₩<fmt:formatNumber value="${product.productPrice}" type="number" groupingUsed="true" />원" readonly />
+                    <label for="productPrice" style="color: #fff;">가격</label>
+                    <input type="text" id="productPrice" class="form-control" style="background-color: #000; color: #fff; border: none;" value="₩<fmt:formatNumber value='${product.productPrice}' type='number' groupingUsed='true' />원" readonly />
                 </div>
 
                 <!-- 트레이너 선택 폼 -->
                 <div id="trainer-selection-form" class="form-group">
-                    <label for="trainerSelection">트레이너 선택</label>
-                    <select id="trainerSelection" name="trainerId" class="form-control">
+                    <label for="trainerSelection" style="color: #fff;">트레이너 선택</label>
+                    <select id="trainerSelection" name="trainerId" class="form-control" style="background-color: #000; color: #fff; border: none;">
                         <c:forEach var="trainer" items="${trainerList}">
                             <option value="${trainer.trainerId}">
                                     ${trainer.trainerName} (
@@ -51,7 +189,7 @@
                 </div>
             </form>
 
-            <div class="form-actions">
+            <div class="form-actions mt-3">
                 <!-- 결제하기 버튼 -->
                 <button id="btn-pay-ready"
                         onclick="checkLoginBeforePay()"
@@ -61,12 +199,26 @@
 
                 <!-- 찜하기 버튼 -->
                 <form action="/shop/wishlist/add" method="post" class="d-inline" id="wishlist-form">
-                    <button type="submit" class="btn btn-outline-secondary" onclick="checkLoginBeforeWishlist(event)">찜하기</button>
+                    <button type="submit" class="btn btn-outline-secondary" onclick="checkLoginBeforeWishlist(event)" style="color: #1a1a1a; border: 1px solid #fff;background: #f1f1f1">
+                        찜하기
+                    </button>
                 </form>
             </div>
         </div>
     </div>
+
+    <!-- 관련 상품 섹션 -->
+    <div class="related-products" data-aos="fade-left">
+        <c:forEach var="relatedProduct" items="${relatedProducts}">
+            <a href="<c:url value='/shop/detail'/>?productNo=${relatedProduct.productNo}" class="product-card">
+                <h5>${relatedProduct.productName}</h5>
+                <p>₩<fmt:formatNumber value="${relatedProduct.productPrice}" type="number" groupingUsed="true" /></p>
+            </a>
+        </c:forEach>
+    </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
@@ -109,40 +261,39 @@
     IMP.init("imp51232683"); // 가맹점 식별코드 설정
 
     function requestPay() {
-        // JSP에서 전달받은 상품 정보 활용
-        var productName = document.getElementById("productName").value; // 상품 이름
-        var productAmount = parseInt(document.getElementById("productPrice").value.replace('₩', '').replace(',', '')); // 상품 가격 (₩ 기호 및 쉼표 제거)
-        var merchantUid = "ORD" + new Date().getTime(); // 고유 주문번호 생성
+        var productName = document.getElementById("productName").value;
+        var productAmount = parseInt(document.getElementById("productPrice").value.replace('₩', '').replace(',', ''));
+        var merchantUid = "ORD" + new Date().getTime();
+        var trainerId = document.getElementById("trainerSelection").value; // 트레이너 선택 값 가져오기
+        var buyerName = "${cust.custName}";
+        var buyerPhone = "${cust.custPhone}";
+        var buyerGender = "${cust.custGender}";
+        var buyerAge = "${cust.custAge}";
+        var buyerAddr = "${cust.custAddress}";
 
-        // 로그인된 고객 정보
-        var buyerName = "${cust.custName}";  // 고객 이름
-        var buyerPhone = "${cust.custPhone}";  // 고객 전화번호
-        var buyerGender = "${cust.custGender}";  // 고객 성별
-        var buyerAge = "${cust.custAge}";  // 고객 나이
-        var buyerAddr = "${cust.custAddress}";  // 고객 주소
-
-        // 결제 요청
         IMP.request_pay({
-            pg: "kakaopay.TC0ONETIME", // 카카오페이 단건결제
-            pay_method: "card", // 결제 수단
-            merchant_uid: merchantUid, // 주문번호
-            name: productName, // 상품명
-            amount: productAmount, // 결제 금액
-            buyer_name: buyerName, // 구매자 이름
-            buyer_tel: buyerPhone, // 구매자 전화번호
-            buyer_gender: buyerGender, // 구매자 성별
-            buyer_age: buyerAge, // 구매자 나이
-            buyer_addr: buyerAddr, // 구매자 주소
-        }, function (rsp) { // 콜백 함수
+            pg: "kakaopay.TC0ONETIME",
+            pay_method: "card",
+            merchant_uid: merchantUid,
+            name: productName,
+            amount: productAmount,
+            buyer_name: buyerName,
+            buyer_tel: buyerPhone,
+            buyer_gender: buyerGender,
+            buyer_age: buyerAge,
+            buyer_addr: buyerAddr,
+            custom_data: { trainerId: trainerId }  // 트레이너 ID 추가
+        }, function (rsp) {
             if (rsp.success) {
                 $.ajax({
                     url: "/pay/complete",
                     type: "POST",
                     data: {
-                        paymentId: rsp.merchant_uid,  // 요청의 고유 주문번호
-                        productName: $("#productName").val(), // 상품 이름
-                        productPrice: productAmount, // 상품 가격
-                        custId: "${cust.custId}"  // 고객 ID
+                        paymentId: rsp.merchant_uid,
+                        productName: $("#productName").val(),
+                        productPrice: productAmount,
+                        custId: "${cust.custId}",
+                        trainerId: trainerId,  // 트레이너 ID 추가
                     },
                     success: function () {
                         alert("결제가 완료되었습니다.");
@@ -153,14 +304,13 @@
                     }
                 });
             } else {
-                // 결제 실패 처리
                 alert("결제가 실패되었습니다: " + rsp.error_msg);
             }
         });
     }
 </script>
 
-<!-- Bootstrap JS (필수) -->
+<!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
