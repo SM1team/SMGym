@@ -1,13 +1,8 @@
 package edu.sm.controller;
 
-import edu.sm.app.dto.BoardDto;
-import edu.sm.app.dto.CommentDto;
-import edu.sm.app.dto.CustDto;
-import edu.sm.app.dto.ReservationDto;
-import edu.sm.app.service.CommentService;
-import edu.sm.app.service.CustService;
-import edu.sm.app.service.ReservationService;
-import edu.sm.app.service.BoardService;
+import com.github.pagehelper.PageInfo;
+import edu.sm.app.dto.*;
+import edu.sm.app.service.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,12 +10,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -43,6 +40,7 @@ public class MainInputController {
     final ReservationService reservationService;
     final BoardService boardService;
     final CommentService commentService;
+    final CustCheckService custCheckService;
     String dir = "register/";
     String qdir = "qna/";
     String bdir = "board/";
@@ -57,6 +55,11 @@ public class MainInputController {
 
         CustDto custDto = custService.get(id);
         session.setAttribute("loginid", custDto);
+        // PT 이용권 구매 여부 확인 및 세션에 저장
+        boolean hasPT = custService.hasPurchasedPT(id);
+        session.setAttribute("hasPT", hasPT);
+
+
         return "index";
     }
     @RequestMapping("/logoutimpl")
@@ -170,6 +173,27 @@ public class MainInputController {
 
         return "redirect:/board"; // 게시글 저장 후 목록 페이지로 리디렉션
     }
+
+    @RequestMapping("/custcheckimpl")
+    public String custcheckimpl(Model model,
+                                Search search,
+                                @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                                @SessionAttribute("loginid") CustDto loginUser) throws Exception {  // 세션에서 로그인 사용자 정보 가져오기
+        log.info("Search:" + search.toString());
+
+        // 로그인된 사용자 ID를 Search 객체에 설정
+        search.setCustId(loginUser.getCustId());  // 로그인된 사용자의 custId를 검색 조건에 추가
+
+        PageInfo<CustCheckDto> p;
+        p = new PageInfo<>(custCheckService.custcheckfindpage(pageNo, search), 3); // 하단 네비게이션 수
+
+        model.addAttribute("custcheckpage", p);
+        model.addAttribute("search", search);
+        model.addAttribute("center", "mycheck/" + "center");
+
+        return "index";
+    }
+
 
 //    @RequestMapping("/commentwriteimpl")
 //    public String commentwriteimpl(Model model,

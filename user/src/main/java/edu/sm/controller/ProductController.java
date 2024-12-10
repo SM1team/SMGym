@@ -43,9 +43,10 @@ public class ProductController {
     public String detail(Model model, @RequestParam("productNo") int productNo, HttpSession session) throws Exception {
         ProductDto productDto = productService.get(productNo);
         List<TrainerDto> trainerList = trainerService.get();
-
+        List<ProductDto> relatedProducts = productService.get();
         model.addAttribute("product", productDto);
         model.addAttribute("trainerList", trainerList);
+        model.addAttribute("relatedProducts", relatedProducts);
 
         CustDto custDto = (CustDto) session.getAttribute("loginid");
         if (custDto != null) {

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.sm.app.repository.PaymentRepository">
+
+    <!-- 월별 매출 통계 쿼리 -->
+    <select id="getMonthlySales" resultType="map">
+        SELECT
+        DATE_FORMAT(created_at, '%Y-%m') AS month,
+        SUM(amount) AS total_sales
+        FROM payment
+        WHERE payment_status = 'SUCCESS'
+        GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+        ORDER BY month;
+    </select>
+
+    <!-- 성별 매출 통계 -->
+    <select id="getGenderSales" resultType="map">
+        SELECT
+            CASE
+                WHEN cust_gender = 1 THEN '남성'
+                WHEN cust_gender = 2 THEN '여성'
+                ELSE '기타'
+                END AS gender,
+            SUM(amount) AS total_sales
+        FROM payment p
+                 JOIN cust c ON p.cust_id = c.cust_id
+        WHERE payment_status = 'SUCCESS'
+        GROUP BY gender
+    </select>
+
+
+    <!-- 나이별 매출 통계 -->
+    <select id="getOldSales" resultType="map">
+        SELECT
+            CASE
+                WHEN c.cust_age BETWEEN 10 AND 19 THEN '10대'
+                WHEN c.cust_age BETWEEN 20 AND 29 THEN '20대'
+                WHEN c.cust_age BETWEEN 30 AND 39 THEN '30대'
+                WHEN c.cust_age BETWEEN 40 AND 49 THEN '40대'
+                ELSE '50대이상'
+                END AS age_group,
+            SUM(p.amount) AS total_sales
+        FROM
+            Cust c
+                JOIN
+            payment p
+            ON
+                c.cust_id = p.cust_id
+        WHERE
+            p.payment_status = 'SUCCESS' -- 성공적인 결제만 집계
+        GROUP BY
+            age_group
+        ORDER BY
+            age_group;
+
+    </select>
+
+    <!-- Mapper XML -->
+    <select id="getTodaysRevenue" resultType="BigDecimal">
+        SELECT SUM(amount)
+        FROM payment
+        WHERE DATE(created_at) = CURDATE()
+        AND payment_status = 'SUCCESS';  <!-- 결제 상태가 'SUCCESS'인 것만 계산 -->
+    </select>
+
+
+</mapper>

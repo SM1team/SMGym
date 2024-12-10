@@ -37,7 +37,8 @@ public interface NoticeRepository extends SMRepository<Integer, NoticeDto> {
     // 제목으로 공지사항 개수 조회
     int countSearchResults(@Param("searchKeyword") String searchKeyword);
 
-
+    // 최신 4개의 공지사항 조회
+    List<NoticeDto> selectRecentNotices();
     // 추가로 공지사항을 단일 조회하는 메서드
     NoticeDto selectNoticeByNo(@Param("noticeNo") int noticeNo);
 }

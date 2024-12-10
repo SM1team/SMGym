@@ -10,13 +10,13 @@
 </head>
 <body>
 <!-- Trainer 1 modal popup -->
-<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true" style="background: #ae00c7">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" style="background: #f1f1f1">
             <div class="close-modal" data-bs-dismiss="modal">
                 <img src="<c:url value='/assets/img/close-icon.svg'/>" alt="Close modal" />
             </div>
-            <div class="container">
+            <div class="container" style="background: #000000">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <div class="modal-body d-flex">

@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="smdb@127.1.0.1" uuid="bf5ce5d5-79ff-4b17-823d-eeff271fc085">
-      <imported>true</imported>
-      <remarks>$PROJECT_DIR$/admin/src/main/resources/application-dev.yml</remarks>
-      <jdbc-driver>net.sf.log4jdbc.sql.jdbcapi.DriverSpy</jdbc-driver>
-      <jdbc-url>jdbc:log4jdbc:mysql://127.1.0.1:3306/smdb?characterEncoding=utf8</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="final_db@210.119.34.205" uuid="df96af39-90dc-4e4b-b6a7-cc39448fd30b">
+    <data-source source="LOCAL" name="final_db@210.119.34.205" uuid="bfff384b-9baa-4209-9bed-fedfe99501e1">
+      <synchronize>true</synchronize>
       <imported>true</imported>
       <configured-by-url>true</configured-by-url>
       <remarks>$PROJECT_DIR$/user/src/main/resources/application-dev.yml</remarks>
@@ -17,6 +11,14 @@
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
       </jdbc-additional-properties>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="final_db@210.119.34.205" uuid="2ed04c75-aac4-4fe5-a449-5b8f4be28ac3">
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/admin/src/main/resources/application-dev.yml</remarks>
+      <jdbc-driver>net.sf.log4jdbc.sql.jdbcapi.DriverSpy</jdbc-driver>
+      <jdbc-url>jdbc:log4jdbc:mysql://210.119.34.205:3306/final_db?characterEncoding=utf8</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

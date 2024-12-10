@@ -1,45 +1,4 @@
-## 1. Tomcat Server Setting
-#server:
-#  port: 85
-#  servlet:
-#    encoding:
-#      charset: UTF-8
-#      force: true
-#
-## 2. SpringBoot Environment Setting
-#spring:
-#  mvc:
-#    view:
-#      prefix: /views/
-#      suffix: .jsp
-#  datasource:
-#    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-#    url: jdbc:log4jdbc:mysql://210.119.34.205:3306/final_db?characterEncoding=utf8
-#    #driver-class-name: com.mysql.cj.jdbc.Driver
-#    #url: jdbc:mysql://127.0.0.1:3306/smdb?characterEncoding=utf8
-#    username: smuser
-#    password: 111111
-## 3. Mybatis Setting
-#mybatis:
-#  type-aliases-package: edu.sm.app.dto
-#  mapper-locations: classpath:/mapper/*.xml
-#  configuration:
-#    map-underscore-to-camel-case: true
-## 4. Logging Setting
-#logging:
-#  level:
-#    root: info
-#  #  error > info > debug
-#
-## 5. Application Environment Setting
-#app:
-#  url:
-#    server-url: http://172.16.21.91:81
-#  dir:
-#    imgdir: file:///c:/springsm/imgs/
-#    uploadimgdir: c:/springsm/imgs/
-#    # logdir: /root/users/project/logs
-#    logdir: file:///c:/springsm/logs/
+
 # 1. Tomcat Server Setting
 server:
   port: 85
@@ -62,6 +21,12 @@ spring:
     # url: jdbc:mysql://127.0.0.1:3306/smdb?characterEncoding=utf8
     username: ENC(OAjB56HlNziHqNDu8ZFSAw==)
     password: ENC(zYoWFnp8CokAEj/HgST7Tw==)
+#    # MIME 타입 설정 추가
+#    servlet:
+#      context-parameters:
+#        "com.sun.jersey.api.json.POJOMappingFeature": "true"
+#      mapping:
+#        "application/javascript": ".js"
 
 # 3. Mybatis Setting
 mybatis:
@@ -84,7 +49,7 @@ app:
       # 이미지 업로드 디렉토리 경로
     uploadimgdir: c:/SMGym/imgs/
       # 이미지 파일을 서빙할 경로 (Spring Boot에서 정적 리소스 제공)
-    imgdir: file:///c:/SMGym/user/src/main/resources/static/assets/img
+    imgdir: file:///c:/SMGym/imgs/
       # 로그 디렉토리 경로
     logdir: file:///c:/SMGym/SMGym/logs/
     readlogdir: c:/SMGym/SMGym/logs/
@@ -94,6 +59,11 @@ app:
     wkey2: ENC(IaCxGmepCY1Whp5Er+hrlSw/x8KHH27jDlPonPGZq+FBPK6QzzXBY+ydg+ti50XN)
     algo: PBEWithMD5AndDES #알고리즘에 따라서 해당 평문에대한 암호화를 결정할 수 있다.
     skey: mykey
+
+    naver:
+      request-token-uri: https://nid.naver.com/oauth2.0/token
+      client-id: aw1RRWvVpiActYPMafa9
+      client-secret: UEgAxv_E_z
 
 iamport:
   apiKey: 6178544642102448

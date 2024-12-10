@@ -30,6 +30,7 @@ mybatis:
 logging:
   level:
     root: info
+    edu.sm: DEBUG
   #  error > info > debug
 
 # 5. Application Environment Setting

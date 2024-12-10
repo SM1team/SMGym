@@ -20,4 +20,6 @@ public interface CustRepository extends SMRepository<String, CustDto> {
 
     Page<CustDto> getpage() throws Exception;
 
+    // PT 이용권 구매 여부 확인 쿼리 추가
+    int hasPurchasedPT(String custId);
 }

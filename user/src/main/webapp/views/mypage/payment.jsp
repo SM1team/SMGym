@@ -37,6 +37,10 @@
                 <th>결제 일시</th>
                 <td>${payment.createdAt}</td>
             </tr>
+            <tr>
+                <th>트레이너 </th>
+                <td>${payment.trainerId}</td>
+            </tr>
 
         </table>
     </c:forEach>

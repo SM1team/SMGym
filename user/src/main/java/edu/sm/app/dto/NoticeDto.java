@@ -19,5 +19,4 @@ public class NoticeDto {
     private Date noticeDate;
     private String noticeImg;
 
-    private TrainerDto trainer; // 추가된 부분
 }

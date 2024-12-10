@@ -14,6 +14,7 @@
         <a href="/mypage/info" class="btn btn-primary">회원 정보 수정</a>
         <a href="/mypage/payment" class="btn btn-secondary">나의 결제 목록</a>
         <a href="/workout" class="btn btn-secondary">Workout Log </a>
+        <a href="/mycheck" class="btn btn-secondary">출석기록 </a>
 
     </div>
 </div>

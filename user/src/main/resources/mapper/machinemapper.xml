@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.sm.app.repository.MachineRepository">
+
+    <!-- Machine 추가 -->
+    <insert id="insert" parameterType="edu.sm.app.dto.MachineDto">
+        INSERT INTO machine (machine_no, machine_name, machine_time, machine_status)
+        VALUES (#{machineNo}, #{machineName}, CURRENT_TIMESTAMP, #{machineStatus})
+    </insert>
+
+    <!-- Machine 수정 -->
+    <update id="update" parameterType="edu.sm.app.dto.MachineDto">
+        UPDATE machine
+        SET machine_name = #{machineName},
+        machine_time = CURRENT_TIMESTAMP,  <!-- 현재 시간으로 갱신 -->
+        machine_status = #{machineStatus}
+        WHERE machine_no = #{machineNo}
+    </update>
+
+    <!-- Machine 삭제 -->
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM machine WHERE machine_no = #{machineNo}
+    </delete>
+
+    <!-- Machine 상세 조회 -->
+    <select id="selectOne" resultType="edu.sm.app.dto.MachineDto" parameterType="Integer">
+        SELECT machine_no, machine_name, machine_time, machine_status
+        FROM machine
+        WHERE machine_no = #{machineNo}
+    </select>
+
+    <!-- 모든 Machine 조회 -->
+    <select id="select" resultType="edu.sm.app.dto.MachineDto">
+        SELECT machine_no, machine_name, machine_time, machine_status
+        FROM machine
+    </select>
+
+    <!-- machineStatus만 변경 (시간도 자동 갱신) -->
+    <update id="updateMachineStatus" parameterType="map">
+        UPDATE machine
+        SET machine_status = #{machineStatus},
+        machine_time = CURRENT_TIMESTAMP  <!-- 현재 시간으로 갱신 -->
+        WHERE machine_no = #{machineNo}
+    </update>
+
+    <!-- 머신 상태 업데이트 쿼리 -->
+    <update id="toggleMachineStatus">
+        UPDATE machine
+        SET machine_status = CASE
+       WHEN machine_status = 1 THEN 0
+             ELSE 1
+            END
+        WHERE machine_no = #{machineNo}
+    </update>
+
+    <!-- machineStatus 조회 -->
+    <select id="getStatus" resultType="boolean" parameterType="Integer">
+        SELECT machine_status
+        FROM machine
+        WHERE machine_no = #{machineNo}
+    </select>
+
+</mapper>

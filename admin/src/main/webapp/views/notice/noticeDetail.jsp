@@ -31,7 +31,7 @@
 <body>
 <div class="container mt-5">
     <h2>${notice.noticeTitle}</h2>
-    <p><strong>작성자:</strong> ${notice.trainer.name}</p> <!-- 수정된 부분 -->
+    <p><strong>작성자:</strong> ${notice.trainerId}</p> <!-- 수정된 부분 -->
     <p><strong>작성일:</strong> ${notice.noticeDate}</p>
     <p><strong>내용:</strong> ${notice.noticeContent}</p>
     <p><strong>이미지:</strong>
