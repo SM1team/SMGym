@@ -98,10 +98,14 @@
     </delete>
 
     <select id="getTrainerMemberCount" resultType="TrainerMemberDto">
-        SELECT t.trainer_id, t.trainer_name, COUNT(p.cust_id) AS member_count
+        SELECT t.trainer_id,
+               t.trainer_name,
+               COUNT(p.cust_id) AS member_count
         FROM trainer t
                  LEFT JOIN payment p ON t.trainer_id = p.trainer_id
         WHERE t.trainer_id != 'admin1'
+      AND YEAR(p.created_at) = YEAR(CURRENT_DATE) -- 현재 연도와 일치
+      AND MONTH(p.created_at) = MONTH(CURRENT_DATE) -- 현재 월과 일치
         GROUP BY t.trainer_id, t.trainer_name
         ORDER BY member_count DESC
     </select>
