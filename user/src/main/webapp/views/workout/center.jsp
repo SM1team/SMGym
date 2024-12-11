@@ -2,16 +2,99 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div class="col-sm-10">
+<style>
+  /* 다크 테마 스타일 */
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    color: #e0e0e0;
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+  }
+
+  h2 {
+    text-align: center;
+    color: #ae00c7;
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #e0e0e0;
+    border: 1px solid #ae00c7;
+    background-color: #000000;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .btn:hover {
+    background-color: #ae00c7;
+    color: #ffffff;
+    border-color: #ffffff;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #1E1E1E;
+    color: #e0e0e0;
+  }
+
+  .table th, .table td {
+    padding: 10px;
+    border: 1px solid #ae00c7;
+    text-align: center;
+  }
+
+  .table th {
+    background-color: #333;
+    color: #e0e0e0;
+    font-weight: bold;
+  }
+
+  .table a {
+    color: #f1f1f1;
+    text-decoration: none;
+  }
+
+  .table a:hover {
+    text-decoration: underline;
+  }
+
+  .thead-dark th {
+    background-color: #ae00c7;
+  }
+
+  input[type="checkbox"] {
+    transform: scale(1.2);
+    accent-color: #ae00c7;
+  }
+
+  #workoutForm {
+    margin: 20px auto;
+    width: 90%;
+  }
+
+  #selectAll {
+    cursor: pointer;
+  }
+</style>
+
+<div class="col-sm-10" style="margin: auto">
+  <div style="height: 50px;"></div>
 
   <h2>운동일지 Page</h2>
 
   <!-- 버튼들 -->
-  <div class="mb-3">
-    <button class="btn btn-primary" onclick="location.href='/workout/write'">쓰기</button>
-    <button class="btn btn-warning" id="editBtn">수정하기</button>
-    <button class="btn btn-danger" id="deleteBtn">삭제하기</button>
-    <button class="btn btn-success" id="addBtn">새로운 항목 추가</button> <!-- 새로운 항목 추가 버튼 -->
+  <div class="mb-3" style="text-align: center;">
+    <button class="btn" onclick="location.href='/workout/write'">쓰기</button>
+    <button class="btn" id="editBtn">수정하기</button>
+    <button class="btn" id="deleteBtn">삭제하기</button>
+    <button class="btn" id="addBtn">새로운 항목 추가</button>
   </div>
 
   <form id="workoutForm" method="post">
@@ -35,7 +118,7 @@
           <td>${c.custId}</td>
           <td><fmt:formatDate value="${c.workoutDate}" pattern="yyyy-MM-dd" /></td>
           <td>${c.workoutTime}</td>
-          <td>${c.workoutCalories}</td> <!-- 총 소모 칼로리 표시 -->
+          <td>${c.workoutCalories}</td>
           <td>${c.workoutComments}</td>
         </tr>
       </c:forEach>
@@ -79,11 +162,7 @@
   // 새로운 항목 추가 버튼 클릭 시
   document.getElementById("addBtn").addEventListener("click", function () {
     if (confirm("새로운 항목을 만들어 드릴까요?")) {
-      // 확인 버튼을 누르면 DB에 새로운 항목 추가 요청
       addNewWorkout();
-    } else {
-      // 취소 버튼을 누르면 아무 작업도 하지 않음
-      return;
     }
   });
 
@@ -93,26 +172,4 @@
     return Array.from(checkboxes).map(cb => cb.value);
   }
 
-  // 새로운 운동 항목을 추가하는 함수 (AJAX)
-  function addNewWorkout() {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "/workout/add", true); // 요청 URL (새 항목 추가)
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-    // 서버로 보낼 데이터 (여기서는 예시로 cust_id 값을 하드코딩)
-    const data = "cust_id=sampleCustId";
-
-    // 요청 보내기
-    xhr.send(data);
-
-    // 서버 응답 처리
-    xhr.onload = function () {
-      if (xhr.status == 200) {
-        alert("새로운 항목이 추가되었습니다.");
-        location.reload(); // 새로고침하여 페이지 업데이트
-      } else {
-        alert("항목 추가에 실패했습니다.");
-      }
-    };
-  }
-</script>
+  // 새로운 운동 항목을 추가하는

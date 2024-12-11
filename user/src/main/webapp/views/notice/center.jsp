@@ -20,12 +20,6 @@
         align-items: center;
     }
 
-    /* 제목 스타일 */
-    h2 {
-        color: #f1f1f1; /* 흰색 제목 */
-        margin: auto;
-    }
-
     /* 버튼 스타일 */
     .btn {
         padding: 10px 15px;
@@ -45,11 +39,6 @@
         border-color: #ffffff; /* 테두리 흰색 */
     }
 
-    /* 검색 폼 */
-    .search-form {
-        text-align: center;
-        margin-bottom: 20px;
-    }
 
     .search-input {
         padding: 8px 10px;
@@ -77,6 +66,10 @@
         box-shadow: 0 0 8px #ae00c7;
         color: #ffffff; /* 텍스트 흰색 */
         background-color: #000000; /* 입력 필드 배경색 검정 */
+    }
+    .search-form {
+        text-align: center;
+        margin-top: 5px;/* 위쪽 여백(margin-top)을 5px로 줄이고 아래쪽 여백 유지 */
     }
 
     /* 테이블 스타일 */
@@ -118,51 +111,45 @@
     }
 </style>
 
-<h2>공지사항 목록</h2>
+<section class="board-container">
 
-<!-- 게시물 작성 버튼과 내가 쓴 글 버튼을 추가 -->
-<div style="margin-bottom: 20px; display: flex; gap: 10px;">
-    <!-- 항상 게시물 작성 버튼과 내가 쓴 글 보기 버튼을 표시 -->
-    <a href="<c:url value='/board/write' />" class="btn">게시물 작성</a>
-    <a href="<c:url value='/board/myboards' />" class="btn">내가 쓴 글</a>
-</div>
+    <form action="<c:url value='/notice/search' />" method="get" class="search-form">
+        <input type="text" name="searchKeyword" placeholder="제목으로 검색" class="search-input">
+        <button type="submit" class="btn">검색</button>
+    </form>
 
-<!-- 검색 기능 추가 -->
-<form action="<c:url value='/notice/search' />" method="get" class="search-form">
-    <input type="text" name="searchKeyword" placeholder="제목으로 검색" class="search-input">
-    <button type="submit" class="btn">검색</button>
-</form>
-
-<table class="board-table">
-    <thead>
-    <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th> <!-- 수정된 부분: ID 대신 이름을 출력 -->
-        <th>등록일</th>
-        <th>이미지</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="notice" items="${noticeList}">
+    <!-- 게시물 테이블 -->
+    <table class="board-table">
+        <thead>
         <tr>
-            <td>${notice.noticeNo}</td>
-            <td>
-                <a href="<c:url value='/notice/detail?noticeNo=${notice.noticeNo}' />" class="board-title-link">${notice.noticeTitle}</a>
-            </td>
-            <!-- 작성자 표시 -->
-            <td>${notice.trainerId}</td> <!-- 수정된 부분 -->
-            <td>${notice.noticeDate}</td>
-            <td>
-                <!-- 이미지가 있을 때만 표시하도록 조건 추가 -->
-                <c:if test="${not empty notice.noticeImg}">
-                    <img src="<c:url value='/imgs/${notice.noticeImg}' />" alt="게시물 이미지" class="board-image"/>
-                </c:if>
-            </td>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>등록일</th>
+            <th>이미지</th>
         </tr>
-    </c:forEach>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <c:forEach var="notice" items="${noticeList}">
+            <tr>
+                <td>${notice.noticeNo}</td>
+                <td>
+                    <a href="<c:url value='/notice/detail?noticeNo=${notice.noticeNo}' />" class="board-title-link">
+                            ${notice.noticeTitle}
+                    </a>
+                </td>
+                <td>${notice.trainerId}</td>
+                <td>${notice.noticeDate}</td>
+                <td>
+                    <c:if test="${not empty notice.noticeImg}">
+                        <img src="<c:url value='/imgs/${notice.noticeImg}' />" alt="게시물 이미지" class="board-image"/>
+                    </c:if>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 
-<!-- 페이지네이션 부분을 notice/page.jsp로 변경 -->
-<jsp:include page="/views/notice/page.jsp" />
+    <!-- 페이지네이션 포함 -->
+    <jsp:include page="/views/notice/page.jsp" />
+</section>

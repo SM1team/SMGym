@@ -4,6 +4,7 @@
 <!-- styles.css 파일을 링크로 추가 -->
 <link rel="stylesheet" href="<c:url value='/css/styles.css' />">
 
+
 <%--헬스장 플로어 맵 동적 스크립트--%>
 <script>
 

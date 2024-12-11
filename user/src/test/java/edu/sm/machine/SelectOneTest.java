@@ -21,6 +21,8 @@ class SelectOneTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        cnt++
     }
 
 }
