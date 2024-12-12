@@ -41,23 +41,6 @@
     };
 
 
-    <%--document.querySelectorAll('.equipment').forEach(item => {--%>
-    <%--    item.addEventListener('click', function() {--%>
-    <%--        const machineNo = this.getAttribute('data-machine_no');--%>
-    <%--        fetchMachineData(machineNo); // 서버에서 해당 machine_no로 데이터를 가져오는 함수 호출--%>
-    <%--    });--%>
-    <%--});--%>
-
-    <%--function fetchMachineData(machineNo) {--%>
-    <%--    // AJAX 요청을 통해 서버에서 해당 machine_no를 가진 머신 데이터를 가져옴--%>
-    <%--    fetch(`/machine/details?machineNo=${machineNo}`)--%>
-    <%--        .then(response => response.json())--%>
-    <%--        .then(data => {--%>
-    <%--            console.log(data); // 받은 데이터 출력 (예: 머신의 세부 정보)--%>
-    <%--            // 추가적인 처리 로직을 여기에 작성 (예: 화면에 표시)--%>
-    <%--        })--%>
-    <%--        .catch(error => console.error('Error:', error));--%>
-    <%--}--%>
 
 
 
@@ -123,24 +106,6 @@
 
 
 
-    <%--function toggleMachineStatus(element) {--%>
-    <%--    const machineNo = element.getAttribute('data-machine_no'); // data-machine_no에서 번호 가져오기--%>
-    <%--    const machineName = element.getAttribute('data-machine_name');--%>
-
-    <%--    const form = document.createElement('form'); // 폼 태그 생성--%>
-    <%--    form.method = 'POST'; // POST 방식 설정--%>
-    <%--    form.action = `/machine/toggle/${machineNo}`; // 컨트롤러 경로 설정--%>
-
-    <%--    // 폼 제출 시 화면 새로고침 방지--%>
-    <%--    form.style.display = 'none';--%>
-    <%--    document.body.appendChild(form);--%>
-    <%--    form.submit();--%>
-
-    <%--    // 기계 상태 변경 후 메시지 출력--%>
-    <%--    alert(`Machine ${machineNo} 상태를 변경 요청하였습니다.`);--%>
-    <%--    console.log(machineStatus)--%>
-    <%--}--%>
-
 
     document.addEventListener('DOMContentLoaded', function() {
         // 체크박스 상태 변경 이벤트 리스너
@@ -184,7 +149,7 @@
         <div class="equipment running" style="top: 8%; left: 3%;" data-machine_no="1" data-machine_name="러닝머신1">
             <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
                 <input type="hidden" name="machineNo" value="1">
-                <button type="button" style="all: unset; cursor: pointer;" onclick="fetchMachineDetails(1)">
+                <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
                     <h4>러닝머신 1</h4>
                 </button>
@@ -198,8 +163,6 @@
             </div>
             <div class="light"></div>
         </div>
-
-
 
 
 
@@ -220,6 +183,8 @@
             </div>
             <div class="light"></div> <!-- 기본 상태: inactive -->
         </div>
+
+
 
         <div class="equipment running" style="top: 8%; left: 25%;" data-machine_no="3" data-machine_name="러닝머신3">
             <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
@@ -562,6 +527,7 @@
                 <p><strong>추천 횟수:</strong> 10-15회 (1세트당)</p>
                 <p><strong>추천 세트:</strong> 3-4세트</p>
             </div>
+            <div class="light"></div>
         </div>
 
         <!-- 체스트 프레스 머신 -->
@@ -956,34 +922,34 @@
         visibility: visible;
     }
 
-    /*!* 불빛 이펙트 *!*/
-    /*.light {*/
-    /*    position: absolute;*/
-    /*    top: -10px;*/
-    /*    left: 50%;*/
-    /*    transform: translateX(-50%);*/
-    /*    width: 20px;*/
-    /*    height: 20px;*/
-    /*    border-radius: 50%;*/
-    /*    background-color: transparent; !* 기본 상태: 꺼짐 *!*/
-    /*    transition: background-color 0.3s ease;*/
-    /*    animation: blink 1s infinite; !* 깜빡이는 애니메이션 *!*/
-    /*}*/
+    /* 불빛 이펙트 */
+    .light {
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: transparent; /* 기본 상태: 꺼짐 */
+        transition: background-color 0.3s ease;
+        animation: blink 1s infinite; /* 깜빡이는 애니메이션 */
+    }
 
-    /*!* machineStatus가 1일 경우 불빛이 켜짐 *!*/
-    /*.light.on {*/
-    /*    background-color: yellow;*/
-    /*    box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); !* 빛나는 효과 *!*/
-    /*}*/
+    /* machineStatus가 1일 경우 불빛이 켜짐 */
+    .light.on {
+        background-color: yellow;
+        box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* 빛나는 효과 */
+    }
 
 
-     .light {
-         width: 20px; /* 원하는 크기 */
-         height: 20px; /* 원하는 크기 */
-         border-radius: 50%; /* 원 모양 */
-         background-color: red; /* 기본 상태: 빨간색 */
-         margin-top: 10px; /* 위치 조정 */
-     }
+     /*.light {*/
+     /*    width: 20px; !* 원하는 크기 *!*/
+     /*    height: 20px; !* 원하는 크기 *!*/
+     /*    border-radius: 50%; !* 원 모양 *!*/
+     /*    background-color: red; !* 기본 상태: 빨간색 *!*/
+     /*    margin-top: 10px; !* 위치 조정 *!*/
+     /*}*/
 
 
     @keyframes blink {

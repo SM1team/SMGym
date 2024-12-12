@@ -100,6 +100,7 @@ public class BoardController {
             boardDto = boardService.get(noticeNo);
         } catch (Exception e) {
             log.error("Failed to fetch board details for noticeNo: {}", noticeNo, e);
+            e.printStackTrace(); // 에러 메시지 출력
         }
 
         // 댓글 데이터 조회
