@@ -80,4 +80,11 @@ public class NoticeService implements SMService<Integer, NoticeDto> {
     public int getTotalSearchNoticeCount(String searchKeyword) throws Exception {
         return repository.countSearchResults(searchKeyword);
     }
+
+
+
+    // 게시물 저장 메서드
+    public void saveBoard(NoticeDto noticeDto) throws Exception {
+        repository.insert(noticeDto);
+    }
 }
