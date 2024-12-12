@@ -6,40 +6,45 @@
 
 <%--헬스장 플로어 맵 동적 스크립트--%>
 <script>
-
     // 페이지가 로드될 때마다 각 기계의 상태를 확인하고 업데이트
     window.onload = function() {
         // 각 기계의 상태를 가져올 수 있도록 반복문 또는 여러 요소를 다루는 코드 작성
         var equipmentElements = document.querySelectorAll('.equipment');
 
-        equipmentElements.forEach(function(equipment) {
-            var machineNo = equipment.getAttribute('data-machine_no');
-            console.log('Machine No:', machineNo);  // 콘솔에 machineNo 값 출력
-            // 기계 상태 API를 통해 상태 값 가져오기
-            fetch(`/machine/details?machineNo=` + machineNo)
+        function updateMachineStatus() {
+            equipmentElements.forEach(function(equipment) {
+                var machineNo = equipment.getAttribute('data-machine_no');
+                console.log('Machine No:', machineNo);  // 콘솔에 machineNo 값 출력
 
-                .then(response => response.json())
-                .then(data => {
-                    console.log(`/machine/details?machineNo=machineNo}`); // 콘솔에 URL을 찍어 확인
-                    console.log(data); // 여기에 추가된 코드
+                // 기계 상태 API를 통해 상태 값 가져오기
+                fetch(`/machine/details?machineNo=` + machineNo)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(`/machine/details?machineNo=${machineNo}`); // 콘솔에 URL을 찍어 확인
+                        console.log(data); // 상태 데이터 출력
 
+                        var lightElement = equipment.querySelector('.light');
+                        // 상태에 따라 light 요소 색상 변경
+                        if (data.machineStatus) {
+                            // 기계가 활성 상태일 경우 (true)
+                            lightElement.style.backgroundColor = 'green'; // 초록색
+                        } else {
+                            // 기계가 비활성 상태일 경우 (false)
+                            lightElement.style.backgroundColor = 'red'; // 빨간색
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching machine status:', error);
+                    });
+            });
+        }
 
-                    var lightElement = equipment.querySelector('.light');
-                    // 상태에 따라 light 요소 색상 변경
-                    if (data.machineStatus) {
-                        // 기계가 활성 상태일 경우 (true)
-                        lightElement.style.backgroundColor = 'green'; // 초록색
-                    } else {
-                        // 기계가 비활성 상태일 경우 (false)
-                        lightElement.style.backgroundColor = 'red'; // 빨간색
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching machine status:', error);
-                });
-        });
+        // 페이지 로드 후 상태를 한번 업데이트
+        updateMachineStatus();
+
+        // 5초마다 상태를 갱신
+        setInterval(updateMachineStatus, 5000);  // 5000ms = 5초
     };
-
 
 
 
@@ -56,7 +61,7 @@
                 const equipmentName = equipment.getAttribute('data-machine_name');
 
                 // 알림 창을 띄움
-                alert(equipmentName + ' 버튼이 눌렸습니다!');
+                alert(equipmentName +' ' +' 상태를 변경하시겠습니까?');
 
                 // toggleLight 함수 호출
                 toggleLight(equipment);
@@ -527,6 +532,7 @@
                 <p><strong>추천 횟수:</strong> 10-15회 (1세트당)</p>
                 <p><strong>추천 세트:</strong> 3-4세트</p>
             </div>
+            <div class="light"></div>
         </div>
 
         <!-- 체스트 프레스 머신 -->
