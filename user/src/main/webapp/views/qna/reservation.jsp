@@ -95,6 +95,41 @@
   .footer-text a:hover {
     color: #ae00c7;
   }
+  /* 날짜 입력 필드 스타일 */
+  input[type="date"] {
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    background-color: #ffffff; /* 달력 버튼 배경을 흰색으로 설정 */
+    border-radius: 5px; /* 버튼 모서리 둥글게 설정 */
+  }
+
+  /* 달력 내부 스타일 (브라우저에 따라 다를 수 있음) */
+  input[type="date"]:focus {
+    border-color: #ae00c7;
+    box-shadow: 0 0 8px #ae00c7;
+  }
+
+  /* 일부 브라우저에서 날짜 선택기 색상 변경을 위한 추가 스타일 */
+  input[type="date"]::-webkit-input-placeholder {
+    color: #ffffff;
+  }
+
+  /* 방문 시간 선택 아이콘 스타일 */
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    background-color: #ffffff; /* 아이콘 배경을 흰색으로 설정 */
+    border-radius: 50%; /* 아이콘을 둥글게 만듦 */
+    padding: 5px; /* 아이콘 안쪽 여백 */
+  }
+
+  /* 시간 선택 아이콘이 클릭될 때 포커스 스타일 */
+  input[type="time"]:focus::-webkit-calendar-picker-indicator {
+    box-shadow: 0 0 8px #ae00c7; /* 포커스 시 강조 효과 */
+  }
 
   /* 버튼 그룹 스타일 */
   .btn-group {
@@ -159,6 +194,9 @@
   }
 </style>
 
+
+
+
 <div class="col-sm-12">
 
   <!-- 상단 버튼 그룹 -->
@@ -198,8 +236,10 @@
 
         <div class="form-group">
           <label for="visitTime">방문 시간:</label>
-          <input type="time" class="form-control half-width" id="visitTime" name="visitTime">
+          <!-- step="600"으로 설정하여 10분 단위로 제한 -->
+          <input type="time" class="form-control half-width" id="visitTime" name="visitTime" step="600" style="appearance: auto !important;">
         </div>
+
 
         <div class="form-group">
           <label for="content">문의 내용:</label>
@@ -235,21 +275,42 @@
       width: 100%; /* 버튼 너비를 100%로 설정 */
     }
   </style>
+  <script>
+    // 브라우저에서 step 속성을 강제로 확인 및 설정
+    const timeInput = document.getElementById("visitTime");
+    timeInput.setAttribute("step", "600");
+  </script>
+
 
   <script type="text/javascript">
     document.getElementById("reservationForm").addEventListener("submit", function (event) {
       var visitDate = document.getElementById("visitDate").value;
       var visitTime = document.getElementById("visitTime").value;
 
-      if (visitDate && visitTime) {
-        var reservationDateTime = visitDate + 'T' + visitTime;
+      // 로그로 날짜와 시간 확인
+      console.log("Visit Date: ", visitDate);
+      console.log("Visit Time: ", visitTime);
 
+      // 방문 날짜와 시간이 모두 입력된 경우
+      if (visitDate && visitTime) {
+        // 날짜와 시간을 올바른 형식으로 변환 (YYYY-MM-DD HH:MM:SS)
+        var formattedDate = new Date(visitDate + ' ' + visitTime); // "2024-12-10 14:43"
+        var reservationDateTime = formattedDate.toISOString().slice(0, 19).replace('T', ' '); // "2024-12-10 14:43:00"
+
+        // 로그로 최종 예약 날짜 시간 확인
+        console.log("Formatted Reservation DateTime: ", reservationDateTime);
+
+        // hidden input으로 예약 날짜와 시간 전달
         var hiddenField = document.createElement("input");
         hiddenField.type = "hidden";
         hiddenField.name = "reservationDate";
         hiddenField.value = reservationDateTime;
 
         this.appendChild(hiddenField);
+      } else {
+        // 날짜 또는 시간이 입력되지 않으면 경고 표시
+        alert("방문 날짜와 시간을 모두 입력해주세요.");
+        event.preventDefault(); // 폼 제출을 중단
       }
     });
 
@@ -257,5 +318,8 @@
     alert("예약이 완료되었습니다.");
     </c:if>
   </script>
+
+
+
 </div>
 

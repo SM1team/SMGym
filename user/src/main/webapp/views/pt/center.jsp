@@ -5,6 +5,16 @@
 <div class="col-sm-10" style="margin: auto; padding: 20px;">
   <div style="background-color: #1a1a1a; margin-bottom: 10px;"></div>
 <h2 style="margin-left: 45%; font-weight : normal">PT 기록 </h2>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<div class="col-sm-10">
+
+  <h2>PT Page</h2>
+
+  <!-- 쓰기 버튼 -->
+  <div class="mb-3">
+    <button class="btn btn-danger" id="deleteBtn">삭제하기</button>
+  </div>
 
   <form id="ptform" method="post">
     <table class="table board-table">
@@ -27,7 +37,17 @@
           <td><a href="<c:url value='/pt/edit'/>?ptNo=${c.ptNo}" class="board-title-link">${c.ptNo}</a></td>
           <td>${c.productNo}</td>
           <td>${c.trainerId}</td>
-          <td>${c.ptContent}</td>
+          <!-- ptContent 30자만 출력 -->
+          <td>
+            <c:choose>
+              <c:when test="${fn:length(c.ptContent) > 30}">
+                ${fn:substring(c.ptContent, 0, 30)}...
+              </c:when>
+              <c:otherwise>
+                ${c.ptContent}
+              </c:otherwise>
+            </c:choose>
+          </td>
           <td>${c.ptDate}</td>
           <td>${c.ptCount}</td>
           <td>${c.custId}</td>
@@ -36,6 +56,7 @@
       </tbody>
     </table>
   </form>
+
 </div>
 
 <script>
@@ -43,6 +64,34 @@
   document.getElementById('selectAll').addEventListener('change', function () {
     const checkboxes = document.querySelectorAll('.rowCheckbox');
     checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+  });
+
+
+
+
+  // 삭제 버튼 클릭 이벤트
+  document.getElementById('deleteBtn').addEventListener('click', function () {
+    const selected = document.querySelectorAll('.rowCheckbox:checked');
+    if (selected.length > 0) {
+      const ptNos = Array.from(selected).map(checkbox => checkbox.value);
+      if (confirm('선택한 항목을 삭제하시겠습니까?')) {
+        fetch('/pt/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ptNos })
+        })
+                .then(response => {
+                  if (response.ok) {
+                    alert('삭제되었습니다.');
+                    location.reload();
+                  } else {
+                    alert('삭제에 실패했습니다.');
+                  }
+                });
+      }
+    } else {
+      alert('삭제할 항목을 선택해주세요.');
+    }
   });
 </script>
 

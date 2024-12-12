@@ -57,6 +57,20 @@
         </if>
     </select>
 
+    <select id="getMonthlyAttendance" resultType="map">
+        SELECT
+            DATE_FORMAT(check_start, '%Y-%m') AS month,
+            COUNT(*) AS attendance_count
+        FROM
+            custcheck
+        WHERE
+            cust_id = #{custId}
+        GROUP BY
+            DATE_FORMAT(check_start, '%Y-%m')
+        ORDER BY
+            month;
+    </select>
+
 
 
 </mapper>

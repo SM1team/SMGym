@@ -14,7 +14,7 @@
 <!--    </select>-->
 
 
-    <select id="custfindpage" resultType="CustDto" parameterType="search">
+    <select id="findBySearch" resultType="CustDto" parameterType="search">
         SELECT *
         FROM cust
         WHERE 1=1

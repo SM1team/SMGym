@@ -7,49 +7,71 @@
 
 <%--헬스장 플로어 맵 동적 스크립트--%>
 <script>
+    // 페이지가 로드될 때마다 각 기계의 상태를 확인하고 업데이트
+    window.onload = function() {
+        // 각 기계의 상태를 가져올 수 있도록 반복문 또는 여러 요소를 다루는 코드 작성
+        var equipmentElements = document.querySelectorAll('.equipment');
+
+        function updateMachineStatus() {
+            equipmentElements.forEach(function(equipment) {
+                var machineNo = equipment.getAttribute('data-machine_no');
+                console.log('Machine No:', machineNo);  // 콘솔에 machineNo 값 출력
+
+                // 기계 상태 API를 통해 상태 값 가져오기
+                fetch(`/machine/details?machineNo=` + machineNo)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(`/machine/details?machineNo=${machineNo}`); // 콘솔에 URL을 찍어 확인
+                        console.log(data); // 상태 데이터 출력
+
+                        var lightElement = equipment.querySelector('.light');
+                        // 상태에 따라 light 요소 색상 변경
+                        if (data.machineStatus) {
+                            // 기계가 활성 상태일 경우 (true)
+                            lightElement.style.backgroundColor = 'green'; // 초록색
+                        } else {
+                            // 기계가 비활성 상태일 경우 (false)
+                            lightElement.style.backgroundColor = 'red'; // 빨간색
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching machine status:', error);
+                    });
+            });
+        }
+
+        // 페이지 로드 후 상태를 한번 업데이트
+        updateMachineStatus();
+
+        // 5초마다 상태를 갱신
+        setInterval(updateMachineStatus, 5000);  // 5000ms = 5초
+    };
 
 
-    document.querySelectorAll('.equipment').forEach(item => {
-        item.addEventListener('click', function() {
-            const machineNo = this.getAttribute('data-machine_no');
-            fetchMachineData(machineNo); // 서버에서 해당 machine_no로 데이터를 가져오는 함수 호출
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // 모든 운동기구를 대상으로 클릭 이벤트를 등록
+        const equipmentElements = document.querySelectorAll('.equipment');
+
+        equipmentElements.forEach(function(equipment) {
+            // 각 운동기구 블록에 click 이벤트 추가
+            equipment.addEventListener('click', function() {
+                // 클릭된 운동기구의 ID 값을 가져옴
+                const machineNo = equipment.getAttribute('data-machine_no');
+                const equipmentName = equipment.getAttribute('data-machine_name');
+
+                // 알림 창을 띄움
+                alert(equipmentName +' ' +' 상태를 변경하시겠습니까?');
+
+                // toggleLight 함수 호출
+                toggleLight(equipment);
+            });
         });
     });
 
-    function fetchMachineData(machineNo) {
-        // AJAX 요청을 통해 서버에서 해당 machine_no를 가진 머신 데이터를 가져옴
-        fetch(`/machine/details?machineNo=${machineNo}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data); // 받은 데이터 출력 (예: 머신의 세부 정보)
-                // 추가적인 처리 로직을 여기에 작성 (예: 화면에 표시)
-            })
-            .catch(error => console.error('Error:', error));
-    }
-
-
-
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     // 모든 운동기구를 대상으로 클릭 이벤트를 등록
-    //     const equipmentElements = document.querySelectorAll('.equipment');
-    //
-    //     equipmentElements.forEach(function(equipment) {
-    //         // 각 운동기구 블록에 click 이벤트 추가
-    //         equipment.addEventListener('click', function() {
-    //             // 클릭된 운동기구의 ID 값을 가져옴
-    //             const machineNo = equipment.getAttribute('data-machine_no');
-    //             const equipmentName = equipment.getAttribute('data-machine_name');
-    //
-    //             // 알림 창을 띄움
-    //             alert(equipmentName + ' 버튼이 눌렸습니다!');
-    //
-    //             // toggleLight 함수 호출
-    //             toggleLight(equipment);
-    //         });
-    //     });
-    // });
-
-    <%--fetch(`/machine/toggle/${machineNo}`, {  // 수정된 경로 사용--%>
+    <%--// fetch(`/machine/toggle/${machineNo}`, {  // 수정된 경로 사용--%>
+    <%--fetch(`/machine/toggle/${machineNo}`, {--%>
     <%--    method: 'POST',  // 상태 변경에는 POST 메서드 사용--%>
     <%--    headers: {--%>
     <%--        'Accept': 'application/json',  // JSON 형식의 응답을 받을 것임을 명시--%>
@@ -77,36 +99,18 @@
     <%--        alert('An error occurred while toggling the machine status.\n' + error.message);  // alert 창에서 에러 메시지 출력--%>
     <%--    });--%>
 
+
+    <%--function confirmStatusChange(event, form) {--%>
+    <%--    let machineName = form.parentElement.getAttribute('data-machine_name');--%>
+    <%--    const confirmation = confirm('해당 운동기구의 상태를 변경하시겠습니까?');--%>
+
+    <%--    if (!confirmation) {--%>
+    <%--        event.preventDefault(); // 폼 제출 취소--%>
+    <%--    }--%>
+    <%--    return confirmation; // '예' 클릭 시 폼이 제출됨--%>
     <%--}--%>
-    function confirmStatusChange(event, form) {
-        let machineName = form.parentElement.getAttribute('data-machine_name');
-        const confirmation = confirm('해당 운동기구의 상태를 변경하시겠습니까?');
-
-        if (!confirmation) {
-            event.preventDefault(); // 폼 제출 취소
-        }
-        return confirmation; // '예' 클릭 시 폼이 제출됨
-    }
 
 
-
-    function toggleMachineStatus(element) {
-        const machineNo = element.getAttribute('data-machine_no'); // data-machine_no에서 번호 가져오기
-        const machineName = element.getAttribute('data-machine_name');
-
-        const form = document.createElement('form'); // 폼 태그 생성
-        form.method = 'POST'; // POST 방식 설정
-        form.action = `/machine/toggle/${machineNo}`; // 컨트롤러 경로 설정
-
-        // 폼 제출 시 화면 새로고침 방지
-        form.style.display = 'none';
-        document.body.appendChild(form);
-        form.submit();
-
-        // 기계 상태 변경 후 메시지 출력
-        alert(`Machine ${machineNo} 상태를 변경 요청하였습니다.`);
-        console.log(machineStatus)
-    }
 
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -151,7 +155,7 @@
         <div class="equipment running" style="top: 8%; left: 3%;" data-machine_no="1" data-machine_name="러닝머신1">
             <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
                 <input type="hidden" name="machineNo" value="1">
-                <button type="button" style="all: unset; cursor: pointer;" onclick="fetchMachineDetails(1)">
+                <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
                     <h4>러닝머신 1</h4>
                 </button>
@@ -165,8 +169,6 @@
             </div>
             <div class="light"></div>
         </div>
-
-
 
 
 
@@ -187,6 +189,8 @@
             </div>
             <div class="light"></div> <!-- 기본 상태: inactive -->
         </div>
+
+
 
         <div class="equipment running" style="top: 8%; left: 25%;" data-machine_no="3" data-machine_name="러닝머신3">
             <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
@@ -529,6 +533,7 @@
                 <p><strong>추천 횟수:</strong> 10-15회 (1세트당)</p>
                 <p><strong>추천 세트:</strong> 3-4세트</p>
             </div>
+            <div class="light"></div>
         </div>
 
         <!-- 체스트 프레스 머신 -->
@@ -942,6 +947,16 @@
         background-color: yellow;
         box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* 빛나는 효과 */
     }
+
+
+     /*.light {*/
+     /*    width: 20px; !* 원하는 크기 *!*/
+     /*    height: 20px; !* 원하는 크기 *!*/
+     /*    border-radius: 50%; !* 원 모양 *!*/
+     /*    background-color: red; !* 기본 상태: 빨간색 *!*/
+     /*    margin-top: 10px; !* 위치 조정 *!*/
+     /*}*/
+
 
     @keyframes blink {
         0% { opacity: 1; }
