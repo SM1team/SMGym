@@ -17,6 +17,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -99,6 +100,10 @@ public class CustCheckService implements SMService<String, CustCheckDto> {
         // PageHelper로 페이지 설정
         PageHelper.startPage(pageNo, 4); // 페이지당 4개씩
         return custCheckRepository.custcheckfindpage(search); // 페이지네이션된 결과 반환
+    }
+
+    public List<Map<String, Object>> getMonthlyAttendance(String custId) {
+        return custCheckRepository.getMonthlyAttendance(custId);
     }
 
 }

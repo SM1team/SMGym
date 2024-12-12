@@ -6,7 +6,11 @@ import edu.sm.app.service.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +28,7 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.time.format.DateTimeParseException;
 
 @Controller
 @Slf4j
@@ -96,15 +101,27 @@ public class MainInputController {
                                   @RequestParam("custName") String custName,
                                   @RequestParam("custPhone") String custPhone,
                                   @RequestParam("reservationContent") String reservationContent,
-                                  @RequestParam("reservationDate") String reservationDate,
+                                  @RequestParam("reservationDate") String reservationDate,  // 예약 날짜
                                   HttpSession session) throws Exception {
         log.info("reservation 까지옴");
 
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-            java.util.Date utilDate = sdf.parse(reservationDate);
-            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        // 예약 날짜를 로그로 출력
+        log.info("Received reservation date: " + reservationDate);
 
+        try {
+            // 예약 날짜 형식을 파싱
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime localDateTime = LocalDateTime.parse(reservationDate, formatter);  // 예약 날짜를 LocalDateTime으로 변환
+
+            // 입력받은 시간에 9시간 추가
+            LocalDateTime adjustedDateTime = localDateTime.plusHours(9);
+
+            // 9시간 추가된 시간을 Timestamp로 변환
+            Timestamp timestamp = Timestamp.valueOf(adjustedDateTime);
+
+            log.info("서버에서 받은 예약 시간 (9시간 추가): " + timestamp);
+
+            // 로그인된 사용자 정보 가져오기
             CustDto loggedInUser = (CustDto) session.getAttribute("loginid");
             if (loggedInUser == null) {
                 throw new Exception("로그인된 사용자가 없습니다.");
@@ -112,25 +129,41 @@ public class MainInputController {
 
             String custId = loggedInUser.getCustId();
 
+            // 예약 정보 설정
             ReservationDto reservationDto = new ReservationDto();
             reservationDto.setCustName(custName);
             reservationDto.setCustPhone(custPhone);
             reservationDto.setReservationContent(reservationContent);
-            reservationDto.setReservationDate(sqlDate);
+            reservationDto.setReservationDate(timestamp);  // 예약 날짜를 Timestamp로 저장
             reservationDto.setCustId(custId);
 
+            // 예약 정보 저장
             reservationService.add(reservationDto);
 
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
+            log.error("DateTimeParseException: " + e.getMessage());
             throw new Exception("날짜 형식이 잘못되었습니다.", e);
         }
 
+        // 모델에 예약 성공 메시지 추가
         model.addAttribute("reservationSuccess", true);
         model.addAttribute("top", qdir + "top");
         model.addAttribute("center", qdir + "reservation");
 
         return "index"; // 예약 후 index 페이지로 리턴
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
     @RequestMapping("/boardwriteimpl")
     public String boardwriteimpl(Model model,

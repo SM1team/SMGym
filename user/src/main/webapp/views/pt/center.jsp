@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div class="col-sm-10">
 
@@ -33,7 +33,17 @@
           <td><a href="<c:url value='/pt/edit'/>?ptNo=${c.ptNo}">${c.ptNo}</a></td>
           <td>${c.productNo}</td>
           <td>${c.trainerId}</td>
-          <td>${c.ptContent}</td>
+          <!-- ptContent 30자만 출력 -->
+          <td>
+            <c:choose>
+              <c:when test="${fn:length(c.ptContent) > 30}">
+                ${fn:substring(c.ptContent, 0, 30)}...
+              </c:when>
+              <c:otherwise>
+                ${c.ptContent}
+              </c:otherwise>
+            </c:choose>
+          </td>
           <td>${c.ptDate}</td>
           <td>${c.ptCount}</td>
           <td>${c.custId}</td>
@@ -51,9 +61,6 @@
     const checkboxes = document.querySelectorAll('.rowCheckbox');
     checkboxes.forEach(checkbox => checkbox.checked = this.checked);
   });
-
-
-
 
   // 삭제 버튼 클릭 이벤트
   document.getElementById('deleteBtn').addEventListener('click', function () {

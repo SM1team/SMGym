@@ -9,7 +9,7 @@
 </head>
 <body style="background-color: #000; color: #fff ; font-family: Arial, sans-serif; margin: 0; padding: 0;">
 
-<div class="container" style="background-color: #000; display: flex; justify-content: center; align-items: center; height: 100vh; padding: 20px;">
+<div class="container"  style="background-color: #000; display: flex; justify-content: center; align-items: center; height: 100vh; padding: 20px;">
     <div class="login-form" style="background-color: #222; padding: 30px 40px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); width: 100%; max-width: 400px;">
         <div class="brand-logo" style="text-align: center; margin-bottom: 20px;">
             <img src="<c:url value='/assets/images/logo.svg' />" alt="logo" style="max-width: 150px;">
