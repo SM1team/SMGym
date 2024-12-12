@@ -1,4 +1,4 @@
-#2024몰입형SW팀프로젝트 1팀 SM-GYM 🏋️‍♂️
+# 2024몰입형SW팀프로젝트 1팀 SM-GYM 🏋️‍♂️
 PL (Project Leader) : 곽인성 <br>
 Front&Back DEV : 박주민, 고윤재
 , 고윤재  
