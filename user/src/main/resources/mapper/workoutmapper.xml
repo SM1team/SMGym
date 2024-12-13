@@ -84,4 +84,8 @@
     </select>
     <!--    이 이름을 CustRepository가 가지고있는 함수와 맞추면 된다. -->
 
+    <delete id="deleteByworkoutNo" parameterType="integer">
+        DELETE FROM workoutlog WHERE workout_no = #{workoutNo}
+    </delete>
+
 </mapper>

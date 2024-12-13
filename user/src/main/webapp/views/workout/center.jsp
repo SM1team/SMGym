@@ -2,15 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
+
 <div class="col-sm-10">
 
   <h2>운동일지 Page</h2>
 
   <!-- 버튼들 -->
   <div class="mb-3">
-    <button class="btn btn-primary" onclick="location.href='/workout/write'">쓰기</button>
-    <button class="btn btn-warning" id="editBtn">수정하기</button>
-    <button class="btn btn-danger" id="deleteBtn">삭제하기</button>
+    <button class="btn btn-danger" type="button" id="btn_delete">삭제하기</button>
     <button class="btn btn-success" id="addBtn">새로운 항목 추가</button> <!-- 새로운 항목 추가 버튼 -->
   </div>
 
@@ -30,7 +30,7 @@
       <tbody>
       <c:forEach var="c" items="${workouts}">
         <tr>
-          <td><input type="checkbox" name="workoutNo" value="${c.workoutNo}"></td>
+          <td><input type="checkbox" name="workoutCheckbox" class="workoutCheckbox" value="${c.workoutNo}"></td>
           <td><a href="<c:url value='/workout/detail'/>?workoutNo=${c.workoutNo}">${c.workoutNo}</a></td>
           <td>${c.custId}</td>
           <td><fmt:formatDate value="${c.workoutDate}" pattern="yyyy-MM-dd" /></td>
@@ -44,7 +44,6 @@
   </form>
 
 </div>
-
 <script>
   // 체크박스 전체 선택/해제
   document.getElementById("selectAll").addEventListener("click", function () {
@@ -52,27 +51,32 @@
     checkboxes.forEach(cb => cb.checked = this.checked);
   });
 
-  // 수정 버튼 클릭 시
-  document.getElementById("editBtn").addEventListener("click", function () {
-    const selected = getSelectedWorkout();
-    if (selected.length === 1) {
-      location.href = `/editForm?id=${selected[0]}`;
-    } else {
-      alert("수정하려면 하나의 항목만 선택해야 합니다.");
-    }
-  });
 
-  // 삭제 버튼 클릭 시
-  document.getElementById("deleteBtn").addEventListener("click", function () {
-    const selected = getSelectedWorkout();
+
+
+  // 삭제 버튼 클릭 이벤트
+  document.getElementById('btn_delete').addEventListener('click', function () {
+    const selected = document.querySelectorAll('.workoutCheckbox:checked');
+    console.log("select checkbox:",selected);
     if (selected.length > 0) {
-      if (confirm("선택한 항목을 삭제하시겠습니까?")) {
-        const form = document.getElementById("workoutForm");
-        form.action = "/delete";
-        form.submit();
+      const workoutNos = Array.from(selected).map(checkbox => checkbox.value);
+      if (confirm('선택한 항목을 삭제하시겠습니까?')) {
+        fetch('/workout/workoutlog/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({workoutNos })
+        })
+                .then(response => {
+                  if (response.ok) {
+                    alert('삭제되었습니다.');
+                    location.reload();
+                  } else {
+                    alert('삭제에 실패했습니다.');
+                  }
+                });
       }
     } else {
-      alert("삭제할 항목을 선택하세요.");
+      alert('삭제할 항목을 선택해주세요.');
     }
   });
 
@@ -116,3 +120,5 @@
     };
   }
 </script>
+
+

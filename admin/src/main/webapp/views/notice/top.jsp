@@ -203,15 +203,9 @@
                             <div class="dropdown-header text-center">
                                 <p class="mb-1 mt-3 fw-semibold">${sessionScope.loginid.trainerId}</p>
                             </div>
-                            <a class="dropdown-item"><i
-                                    class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile
-                                <span class="badge badge-pill badge-danger">1</span></a>
+
                             <a class="dropdown-item" href="<c:url value='/qr'/>"><i
                                     class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i>QR CODE</a>
-                            <a class="dropdown-item"><i
-                                    class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i> Activity</a>
-                            <a class="dropdown-item"><i
-                                    class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i> FAQ</a>
                             <a class="dropdown-item" href="<c:url value='/logout'/>"><i
                                     class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>LogOut</a>
                         </div>

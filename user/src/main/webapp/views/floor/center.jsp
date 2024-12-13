@@ -135,11 +135,11 @@
     });
 </script>
 
-<div>
-    <input type="checkbox" id="showDescriptions" checked>
-    <label for="showDescriptions" class="switch-label">기구 설명 및 사용법 확인</label>
-</div>
-</div>
+    <div>
+        <input type="checkbox" id="showDescriptions" checked>
+        <label for="showDescriptions" class="switch-label">기구 설명 및 사용법 확인</label>
+    </div>
+
 
 
 <div class="container">
@@ -767,11 +767,14 @@
         </div>
 
  </div>
+</div>
 
 
 
 <!-- 스타일링 추가 -->
 <style>
+
+
     /* 운동기구 설명 보기 스위치 스타일 */
     .switch-label {
         display: inline-block;
@@ -873,12 +876,13 @@
 
     .gym-layout {
         position: relative;
-        width: 100%;
+        width: 80%;
         height: 780px;
         background-color: #f0f0f0;
         border: 2px solid #ccc;
         margin-left: auto;
         margin-right: auto;
+
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
     }
 

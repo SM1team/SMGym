@@ -62,4 +62,10 @@
         WHERE machine_no = #{machineNo}
     </select>
 
+    <select id="countActiveMachines" resultType="int">
+        SELECT COUNT(*)
+        FROM machine
+        WHERE machine_status = 0
+    </select>
+
 </mapper>

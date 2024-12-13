@@ -17,6 +17,7 @@ import java.time.LocalDate;
 public class Search {
     private String keyword;
     private String search;
+    private String trainerId; // 추가
 
 
 
