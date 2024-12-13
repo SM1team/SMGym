@@ -1,20 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<div style="background-color: #1a1a1a; height: 50px; margin-bottom: 20px;"></div>
-<div class="col-sm-10" style="margin: auto; padding: 20px;">
+<div style="background-color: #000000; height: 10px; margin-bottom: 20px;"></div>
   <div style="background-color: #1a1a1a; margin-bottom: 10px;"></div>
-<h2 style="margin-left: 45%; font-weight : normal">PT 기록 </h2>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<div class="col-sm-10">
+<div class="col-sm-10" style="margin: auto">
 
-  <h2>PT Page</h2>
 
+<h2 style="margin-left: 50%"> pt 기록</h2>
   <!-- 쓰기 버튼 -->
-  <div class="mb-3">
-    <button class="btn btn-danger" id="deleteBtn">삭제하기</button>
-  </div>
+<%--  <div class="mb-3">--%>
+<%--    <button class="btn btn-danger" id="deleteBtn">삭제하기</button>--%>
+<%--  </div>--%>
 
   <form id="ptform" method="post">
     <table class="table board-table">
@@ -135,10 +133,6 @@
     color: #ffffff;
   }
 
-  input[type="checkbox"] {
-    transform: scale(1.2);
-    accent-color: #ae00c7;
-  }
 
   .col-sm-10 {
     background-color: #1a1a1a;

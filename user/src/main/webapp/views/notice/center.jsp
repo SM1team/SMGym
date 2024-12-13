@@ -11,8 +11,6 @@
         font-family: Arial, sans-serif;
         color: #e0e0e0; /* 흰색 텍스트 */
         background-color: #000000; /* 검은색 배경 */
-        margin: 0;
-        padding: 0;
         display: flex;
         flex-direction: column;
         min-height: 100vh;
@@ -30,6 +28,7 @@
         border-radius: 5px;
         text-decoration: none;
         transition: background-color 0.3s ease, color 0.3s ease;
+        margin-left: 10px;
     }
 
     /* 버튼 hover 상태 */
@@ -40,37 +39,9 @@
     }
 
 
-    .search-input {
-        padding: 8px 10px;
-        width: 250px;
-        border: 4px solid #ffffff;
-        border-radius: 4px;
-        background-color: #000000;
-        color: #e0e0e0;
-        font-size: 1rem;
-    }
 
-    .search-input::placeholder {
-        color: #ae00c7;
-        border-color: #ae00c7; /* 보라색 테두리 */
-    }
 
-    /* 검색 입력창에 마우스 올릴 때 테두리 색 변경 */
-    .search-input:hover {
-        border-color: #ae00c7; /* 보라색 테두리 */
-    }
 
-    /* 검색 입력창에 포커스 상태일 때 테두리 색 변경 */
-    .search-input:focus {
-        border-color: #ae00c7;
-        box-shadow: 0 0 8px #ae00c7;
-        color: #ffffff; /* 텍스트 흰색 */
-        background-color: #000000; /* 입력 필드 배경색 검정 */
-    }
-    .search-form {
-        text-align: center;
-        margin-top: 5px;/* 위쪽 여백(margin-top)을 5px로 줄이고 아래쪽 여백 유지 */
-    }
 
     /* 테이블 스타일 */
     .board-table {
@@ -109,10 +80,45 @@
         border-radius: 4px;
         border: 1px solid #ae00c7;
     }
+
+
+    /* 검색 폼 */
+    .search-form {
+        text-align: center;
+        width: 50%;
+        margin: auto;
+    }
+
+    .search-input {
+        padding: 8px 10px;
+        width: 800px;
+        border: 2px solid #ae00c7;
+        border-radius: 4px;
+        background-color: #000000;
+        color: #e0e0e0;
+        font-size: 1rem;
+    }
+
+    .search-input::placeholder {
+        color: #ae00c7;
+        border-color: #ae00c7; /* 보라색 테두리 */
+    }
+
+    /* 검색 입력창에 마우스 올릴 때 테두리 색 변경 */
+    .search-input:hover {
+        border-color: #ae00c7; /* 보라색 테두리 */
+    }
+
+    /* 검색 입력창에 포커스 상태일 때 테두리 색 변경 */
+    .search-input:focus {
+        border-color: #ae00c7;
+        box-shadow: 0 0 8px #ae00c7;
+        color: #ffffff; /* 텍스트 흰색 */
+        background-color: #000000; /* 입력 필드 배경색 검정 */
+    }
 </style>
 
-<section class="board-container">
-
+    <div style="background-color: #000000; height: 70px;"></div>
     <form action="<c:url value='/notice/search' />" method="get" class="search-form">
         <input type="text" name="searchKeyword" placeholder="제목으로 검색" class="search-input">
         <button type="submit" class="btn">검색</button>
@@ -152,4 +158,3 @@
 
     <!-- 페이지네이션 포함 -->
     <jsp:include page="/views/notice/page.jsp" />
-</section>
