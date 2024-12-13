@@ -508,7 +508,7 @@
             <div class="light"></div>
         </div>
 
-        <div class="boundary-line" style="top: 22%; left: 60.6%; width: 2px; height: 57%; background-color: black;"></div>
+        <div class="boundary-line" style="top: 22%; left: 60.6%; width: 3px; height: 85%; background-color: black;"></div>
 
 
         <!-- 레그 프레스 머신 -->
