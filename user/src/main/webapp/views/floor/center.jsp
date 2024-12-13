@@ -888,16 +888,17 @@
     /* 불빛 이펙트 */
     .light {
         position: absolute;
-        top: -10px;
+        top: -5px; /* 기구 맨 위쪽에 배치 */
         left: 50%;
         transform: translateX(-50%);
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
+        width: 80%; /* 길게 설정 (전체 너비의 80%) */
+        height: 8px; /* 높이는 얇게 설정 */
         background-color: transparent; /* 기본 상태: 꺼짐 */
-        transition: background-color 0.3s ease;
-        animation: blink 1s infinite; /* 깜빡이는 애니메이션 */
+        border-radius: 4px; /* 살짝 둥근 직사각형 */
+        transition: background-color 0.3s ease, box-shadow 0.3s ease; /* 전환 효과 */
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0); /* 초기 상태 */
     }
+
 
     /* machineStatus가 1일 경우 불빛이 켜짐 */
     .light.on {
