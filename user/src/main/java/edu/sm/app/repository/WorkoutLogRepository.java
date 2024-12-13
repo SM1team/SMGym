@@ -41,6 +41,8 @@ public interface WorkoutLogRepository extends SMRepository<Integer, WorkoutLogDt
     // 수정
     void updateWorkoutDetail(WorkoutDetailDto workoutDetailDto);
 
+    int deleteByworkoutNo(Integer workoutNo);
+
 
 
 }

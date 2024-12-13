@@ -59,10 +59,12 @@
 
     <select id="trainercheckfindpage" parameterType="search" resultType="TrainerCheckDto">
         SELECT *
-        FROM
-        trainercheck
-        WHERE
-        1=1
+        FROM trainercheck
+        WHERE 1=1
+        <!-- 로그인된 trainerId에 따른 조건 추가 -->
+        <if test="trainerId != 'admin1'">
+            AND trainer_id = #{trainerId}
+        </if>
         <!-- keyword 값에 따라 조건 변경 -->
         <if test="keyword == 'id'">
             AND trainer_id LIKE CONCAT('%', #{search}, '%')

@@ -5,10 +5,12 @@ import edu.sm.app.dto.CustDto;
 
 import edu.sm.app.dto.WorkoutDetailDto;
 import edu.sm.app.dto.WorkoutLogDto;
+import edu.sm.app.service.WorkoutDetailService;
 import edu.sm.app.service.WorkoutLogService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 @Controller
@@ -31,6 +34,9 @@ import java.util.Random;
 public class WorkoutController {
 
     final WorkoutLogService workoutLogService;
+    private final WorkoutDetailService workoutDetailService;
+
+
 
 //    @Value("${app.url.server-url}")
 //    String serverurl;
@@ -148,18 +154,57 @@ public class WorkoutController {
         return "redirect:/workout/detail?workoutNo=" + workoutDetailDto.getWorkoutNo();
     }
 
-    @RequestMapping("/detail/delete")
-    public String delete(@RequestParam("workoutNo") int workoutNo, HttpSession session) {
-        if (workoutNo == 0) {
-            return "redirect:/workout"; // 잘못된 요청이라면 리다이렉트
+    // PT 삭제 처리
+    @PostMapping("/detail/delete")
+    public String deleteworkout(Model model,@RequestBody Map<String, List<Integer>> request) {
+        List<Integer> wdetailIds = request.get("wdetailIds");
+
+        workoutDetailService.deletewdetials(wdetailIds); // 여러 PT 삭제
+
+
+        model.addAttribute("top", "workout/"+"top");
+        model.addAttribute("center", "workout/"+"detail");
+
+        return "index";
+    }
+
+    // PT 삭제 처리
+    @PostMapping("/update")
+    public String updateWorkoutDetail(WorkoutDetailDto workoutDetailDto,Model model) {
+        try {
+            workoutDetailService.modify(workoutDetailDto);
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
-        try {
-            workoutLogService.deleteWorkoutDetail(workoutNo);  // workoutNo를 이용한 삭제 처리
-            return "redirect:/workout";  // 삭제 후 목록으로 리다이렉트
-        } catch (Exception e) {
-            return "redirect:/workout";  // 오류 발생 시 목록 페이지로 리다이렉트
-        }
+        return "redirect:/workout/detail?workoutNo="+ workoutDetailDto.getWorkoutNo();
+    }
+
+    @GetMapping("/editWorkoutDetail")
+    public String editWorkoutDetail(@RequestParam("wdetailId") int wdetailId, Model model) throws Exception {
+        // 선택된 운동 세부 정보를 조회
+        log.info("update페이지가는 controller 들어옴");
+        WorkoutDetailDto detail = workoutDetailService.get(wdetailId);
+        model.addAttribute("detail", detail);
+        log.info("내가 누른 정보:" + detail);
+        model.addAttribute("center","workout/update");
+        return "index"; // 수정 페이지 JSP 파일명
+    }
+
+    // PT 삭제 처리
+    @PostMapping("/workoutlog/delete")
+    public String workoutdelete(Model model,@RequestBody Map<String, List<Integer>> request) {
+        List<Integer> workoutNos = request.get("workoutNos");
+
+        workoutLogService.deleteworkouts(workoutNos); // 여러 PT 삭제
+
+
+        model.addAttribute("top", "workout/"+"top");
+        model.addAttribute("center", "workout/"+"center");
+
+        return "index";
     }
 
     // 운동 세부 기록 수정
