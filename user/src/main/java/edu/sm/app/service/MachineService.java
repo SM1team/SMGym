@@ -25,7 +25,7 @@ public class MachineService {
     }
 
     // 특정 머신의 상태를 가져오는 메서드
-    public boolean getMachineStatus(Integer machineNo) throws Exception {
+    public boolean getMachineStatus(int machineNo) throws Exception {
         return machineRepository.getStatus(machineNo); // 머신 번호에 따른 상태 조회
     }
 

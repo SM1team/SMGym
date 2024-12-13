@@ -30,6 +30,11 @@
                         <li class="nav-item"><a class="nav-link" href="/checkout">퇴근
                             </a></li>
                     </ul>
+
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/trainercheck"/>">내 출석
+                        </a></li>
+                    </ul>
                 </div>
 
             </li>
@@ -81,10 +86,6 @@
                 <div class="collapse" id="charts">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"><a class="nav-link" href="<c:url value="/chart/gender"/>" >방문 현황</a></li>
-                    </ul>
-
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="<c:url value="/chart/sales"/>" >매출 현황</a></li>
                     </ul>
 
                 </div>

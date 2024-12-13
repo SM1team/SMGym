@@ -128,5 +128,16 @@ public class WorkoutLogService implements SMService<Integer, WorkoutLogDto> {
         return workoutLogRepository.workdetail(workoutNo); // Repository에서 해당 workoutNo에 대한 WorkoutDetailDto를 가져옴
     }
 
+    public void deleteworkouts(List<Integer> workoutNos) {
+        for (Integer workoutNo : workoutNos) {
+            int rowsAffected = workoutLogRepository.deleteByworkoutNo(workoutNo);
+            if (rowsAffected > 0) {
+                System.out.println("삭제 성공: PT 번호 " + workoutNo);
+            } else {
+                System.out.println("삭제 실패: PT 번호 " + workoutNo);
+            }
+        }
+    }
+
 
 }

@@ -292,27 +292,42 @@ public class MainController {
     }
 
     @RequestMapping("/trainercheckimpl")
-    public String trainercheckimpl(Model model,
-                                  Search search,
-                                  @RequestParam(value = "pageNo",defaultValue = "1") int pageNo
+    public String trainercheckimpl(
+            Model model,
+            Search search,
+            @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+            HttpSession session
     ) throws Exception {
-        log.info("Search:" + search.toString());//실제 값 제대로 올라오는지 check 위해.
-        PageInfo<TrainerCheckDto> p;
-        p = new PageInfo<>(trainerCheckService.trainercheckfindpage(pageNo,search),3); //5: 하단 네비게이션 수
+        // 세션에서 loginid로 저장된 TrainerDto 가져오기
+        TrainerDto trainerDto = (TrainerDto) session.getAttribute("loginid");
 
-        model.addAttribute("trainercheckpage",p); //cpage라는 이름으로 PageInfo객체 담음.
-//        model.addAttribute("target","reservation");
+        // trainerDto가 null인 경우(로그인되지 않은 상태) 처리
+        if (trainerDto == null) {
+            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+        }
 
-        model.addAttribute("search",search);
-        //화면에서 search를 했다는 증표를 넣어준다.(객체를 넣어준것.)
+        // TrainerDto에서 trainerId 가져오기
+        String trainerId = trainerDto.getTrainerId();
 
+        // 로그 출력으로 디버깅
+        log.info("Search: " + search.toString());
+        log.info("Logged-in trainerId: " + trainerId);
 
+        // search 객체에 trainerId 추가
+        search.setTrainerId(trainerId);
 
+        // 서비스 호출 시 search와 함께 trainerId를 전달
+        PageInfo<TrainerCheckDto> p = new PageInfo<>(trainerCheckService.trainercheckfindpage(pageNo, search), 3);
+
+        // Model에 필요한 데이터 추가
+        model.addAttribute("trainercheckpage", p); // 페이지 정보를 모델에 추가
+        model.addAttribute("search", search);      // 검색 조건 전달
         model.addAttribute("center", "trainercheck");
 
         return "index";
-
     }
+
+
 
 
     @RequestMapping("/trainer")

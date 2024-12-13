@@ -13,37 +13,56 @@
             });
         });
 
-        // 삭제 버튼 클릭 시
-        document.getElementById("btn_delete").addEventListener("click", function () {
-            let selected = getSelectedDetails();
+        // 삭제 버튼 클릭 이벤트
+        document.getElementById('btn_delete').addEventListener('click', function () {
+            const selected = document.querySelectorAll('.detailCheckbox:checked');
             if (selected.length > 0) {
-                if (confirm("선택한 운동 세부 정보를 삭제하시겠습니까?")) {
-                    document.getElementById("deleteForm").submit(); // 삭제 폼 제출
+                const wdetailIds = Array.from(selected).map(checkbox => checkbox.value);
+                if (confirm('선택한 항목을 삭제하시겠습니까?')) {
+                    fetch('/workout/detail/delete', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({wdetailIds })
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                alert('삭제되었습니다.');
+                                location.reload();
+                            } else {
+                                alert('삭제에 실패했습니다.');
+                            }
+                        });
                 }
             } else {
-                alert("삭제할 항목을 선택하세요.");
+                alert('삭제할 항목을 선택해주세요.');
             }
         });
 
-        // 수정 버튼 클릭 시
-        document.getElementById("btn_edit").addEventListener("click", function () {
-            let selected = getSelectedDetails();
-            if (selected.length === 1) {
-                window.location.href = '/workout/detail/edit?detailId=' + selected[0]; // 수정 페이지로 이동
-            } else {
-                alert("수정하려면 하나의 항목만 선택해야 합니다.");
-            }
+            //수정버튼 클릭시,
+            document.getElementById("btn_edit").addEventListener("click", function () {
+            // 선택된 체크박스 가져오기
+            const selectedCheckbox = document.querySelector('.detailCheckbox:checked');
+            if (!selectedCheckbox) {
+            alert("수정할 항목을 선택하세요!");
+            return;
+        }
+
+            // 선택된 값 가져오기
+            const selectedValue = selectedCheckbox.value;
+
+            // 수정 페이지로 이동
+            window.location.href = "/workout/editWorkoutDetail?wdetailId=" + selectedValue;
         });
 
-        // 새로운 항목 추가 버튼 클릭 시
+
+
+
+// 새로운 항목 추가 버튼 클릭 시
         document.getElementById("btn_add").addEventListener("click", function () {
             document.getElementById("newWorkoutDetail").style.display = "block"; // 추가 폼 표시
         });
 
-        // 이전 페이지로 돌아가기 버튼
-        document.getElementById("btn_back").addEventListener("click", function () {
-            window.location.href = "/workout"; // 특정 workout 페이지로 이동
-        });
+
 
         const currentDate = new Date().toISOString().split('T')[0];
         document.getElementById("workoutDate").value = currentDate;
@@ -69,18 +88,18 @@
         <button id="btn_add" type="button" class="btn btn-success">새로운 항목 추가</button>
         <button id="btn_edit" type="button" class="btn btn-warning">수정하기</button>
         <button id="btn_delete" type="button" class="btn btn-danger">삭제하기</button>
-        <button id="btn_back" type="button" class="btn btn-secondary">돌아가기</button>
+
     </div>
 
     <!-- 운동 세부 정보 테이블 -->
-    <form id="deleteForm" method="post" action="<c:url value='/workout/detail/delete'/>">
+    <form id="deleteForm" method="post">
         <table class="table">
             <thead class="thead-dark">
             <tr>
                 <th><input type="checkbox" id="selectAll"></th>
                 <th>운동 세부 번호</th>
                 <th>운동 일지 번호</th>
-                <th>운동기구 번호</th>
+
                 <th>운동 이름</th>
                 <th>세트 수</th>
                 <th>총 개수</th>
@@ -94,10 +113,10 @@
             <tbody>
             <c:forEach var="c" items="${details}">
                 <tr>
-                    <td><input type="checkbox" name="detailCheckbox" value="${c.wdetailId}"></td>
+                    <td><input type="checkbox" name="detailCheckbox" class="detailCheckbox" value="${c.wdetailId}"></td>
                     <td>${c.wdetailId}</td>
                     <td>${c.workoutNo}</td>
-                    <td>${c.machineNo}</td>
+
                     <td>${c.wdetailExname}</td>
                     <td>${c.wdetailSets}</td>
                     <td>${c.wdetailCount}</td>

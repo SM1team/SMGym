@@ -10,159 +10,181 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1"></script>
 </head>
+<style>
+    body {
+
+        justify-content: center;
+        align-items: center;
+
+        font-family: Arial, sans-serif;
+        min-height: 100vh; /* 화면 전체 높이를 채우도록 설정 */
+        margin: 0;
+
+    }
+    .container mt-5 {
+        max-width: 1200px; /* 원하는 최대 너비 설정 */
+        padding: 50px;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 50%;
+
+
+    }
+</style>
 <div>
-<div class="container mt-5">
-    <div class="row">
-
-        <!-- 피트니스 방문자 차트 카드 -->
-        <div class="col-md-8">
-            <div class="card shadow">
-                <div class="card-header">
-                    <h5 class="card-title mb-0 text-center">일별 방문자 수</h5>
-                </div>
-                <div class="card-body text-center">
-                    <canvas id="performanceLine4" width="500" height="180"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- 성별 통계 차트 카드 -->
-        <div class="col-md-4">
-            <div class="card mb-4 shadow">
-                <div class="card-header">
-                    <h5 class="card-title mb-0 text-center">성별 통계</h5>
-                </div>
-                <div class="card-body text-center">
-                    <canvas id="genderChart1" width="400" height="400"></canvas>
+    <div class="container mt-5">
+        <div class="row g-4">
+            <!-- 월별 매출 통계 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-header text-center">
+                        <h5 class="card-title mb-0">월별 매출 통계</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="monthlySalesChart" width="400" height="400"></canvas>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- 차트 캔버스 -->
-        <div class="col-md-8">
-            <div class="card shadow">
-                <div class="card-header">
-                    <h5 class="card-title mb-0 text-center">월별 방문자 수</h5>
-                </div>
-                <div class="card-body text-center">
-                    <canvas id="performanceLine5" width="500" height="180"></canvas>
+            <!-- 성별 매출 통계 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-header text-center">
+                        <h5 class="card-title mb-0">성별 매출 통계</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="genderSalesChart" width="400" height="400"></canvas>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-8">
+            <!-- 나이대별 매출 통계 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-header text-center">
+                        <h5 class="card-title mb-0">나이대별 매출 통계</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="oldSalesChart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
 
-            <div class="row flex-grow">
-                <div class="col-12 grid-margin stretch-card">
-                    <div class="card card-rounded">
-                        <div class="card-body">
-                            <div class="d-sm-flex justify-content-between align-items-start">
-                                <div>
-                                    <h4 class="card-title card-title-dash"> ${currentMonth}달 우수 트레이너
-                                    </h4>
+            <!-- 일별 방문자 수 -->
+            <div class="col-md-12 col-lg-8">
+                <div class="card h-100 shadow">
+                    <div class="card-header text-center">
+                        <h5 class="card-title mb-0">일별 방문자 수</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="performanceLine4" width="500" height="180"></canvas>
+                    </div>
+                </div>
+            </div>
 
-                                </div>
+            <!-- 성별 통계 -->
+            <div class="col-md-12 col-lg-4">
+                <div class="card h-100 shadow">
+                    <div class="card-header text-center">
+                        <h5 class="card-title mb-0">성별 통계</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="genderChart1" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
 
-                            </div>
-                            <div class="table-responsive  mt-1">
-<%--                               우수 트레이너 테이블시작--%>
-                                <table class="table select-table">
-                                    <thead>
+            <!-- 월별 방문자 수 -->
+            <div class="col-md-12">
+                <div class="card h-100 shadow">
+                    <div class="card-header text-center">
+                        <h5 class="card-title mb-0">월별 방문자 수</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="performanceLine5" width="500" height="180"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 우수 트레이너 테이블 -->
+            <div class="col-md-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="card-title">${currentMonth}월 우수 트레이너</h4>
+                        <div class="table-responsive mt-3">
+                            <table class="table select-table">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <div class="form-check form-check-flat mt-0">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" class="form-check-input" id="check-all">
+                                                <i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                    </th>
+                                    <th>트레이너 ID</th>
+                                    <th>담당 회원수</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="member" items="${trainermember}">
                                     <tr>
-                                        <th>
+                                        <td>
                                             <div class="form-check form-check-flat mt-0">
                                                 <label class="form-check-label">
-                                                    <input type="checkbox"
-                                                           class="form-check-input"
-                                                           aria-checked="false"
-                                                           id="check-all"><i
-                                                        class="input-helper"></i></label>
+                                                    <input type="checkbox" class="form-check-input">
+                                                    <i class="input-helper"></i>
+                                                </label>
                                             </div>
-                                        </th>
-                                        <th>트레이너 ID</th>
-                                        <th>담당 회원수</th>
-
-                                    </tr>
-                                    </thead>
-<%--                                    여기서부터 내용--%>
-                                    <tbody>
-                                    <c:forEach var="member" items="${members}">
-                                        <tr>
-                                            <td>
-                                                <div class="form-check form-check-flat mt-0">
-                                                    <label class="form-check-label">
-                                                        <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex ">
-                                                    <img src="<c:url value='/assets/images/cust2.jpg'/>" alt="">
-                                                    <div>
-                                                        <h6>${member.custId}</h6>
-                                                        <p>Head admin</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h6>${member.attendanceCount}/${member.totalDaysInMonth}</h6>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="<c:url value='/assets/images/cust2.jpg'/>" alt="" class="me-2 rounded-circle" style="width: 50px; height: 50px;">
                                                 <div>
-                                                    <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                                        <p class="text-success">${member.attendanceRate}%</p>
-                                                    </div>
-                                                    <div class="progress progress-md">
-                                                        <div class="progress-bar bg-success" role="progressbar"
-                                                             style="width: ${member.attendanceRate}%"
-                                                             aria-valuenow="${member.attendanceRate}" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
+                                                    <h6>${member.trainerName}</h6>
+                                                    <p>${member.trainerId}</p>
                                                 </div>
-                                            </td>
-                                            <td>
-                                                <div class="badge badge-opacity-warning">In progress</div>
-
-                                            </td>
-
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h6>${member.memberCount}</h6>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 
-
-
-
-    </div>
 </div>
-</div>
-
-
 <script>
     // ======= 성별 통계 차트 =======
     const genderCounts = JSON.parse('${genderCounts}');
-    const genderLabels = Object.keys(genderCounts);  // ["남성", "여성"]
-    const genderData = Object.values(genderCounts); // [남성 수, 여성 수]
+    const genderLabels1 = Object.keys(genderCounts);  // ["남성", "여성"]
+    const genderData1 = Object.values(genderCounts); // [남성 수, 여성 수]
 
-    const genderCtx = document.getElementById('genderChart1').getContext('2d');
-    new Chart(genderCtx, {
+    const genderCtx1 = document.getElementById('genderChart1').getContext('2d');
+    new Chart(genderCtx1, {
         type: 'doughnut',
         data: {
-            labels: genderLabels,
+            labels: genderLabels1,
             datasets: [{
                 label: '성별 인원 수',
-                data: genderData,
+                data: genderData1,
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.6)', // 남성 색상
-                    'rgba(54, 162, 235, 0.6)'
+                    'rgba(251,4,56,0.6)', // 남성 색상
+                    'rgb(54,162,236)'
                     // 여성 색상
                 ],
                 borderColor: [
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 99, 132, 1)'
+                    'rgba(251,4,56,0.6)',
+                    'rgba(20,104,227,0.6)'
                 ],
                 borderWidth: 1
             }]
@@ -402,12 +424,105 @@
 
     document.addEventListener('DOMContentLoaded', renderMonthlyVisitorChart);
 
+    // 월별 매출 데이터
+    const monthlySales = JSON.parse('${monthlySales}');
+    const monthlyLabels = Object.keys(monthlySales); // ["1월", "2월", "3월", ...]
+    const monthlyData = Object.values(monthlySales); // [매출1, 매출2, 매출3, ...]
+
+    const monthlyCtx = document.getElementById('monthlySalesChart').getContext('2d');
+    new Chart(monthlyCtx, {
+        type: 'bar',
+        data: {
+            labels: monthlyLabels,
+            datasets: [{
+                label: '월별 매출',
+                data: monthlyData,
+                backgroundColor: 'rgba(75, 192, 192, 1)',
+                borderColor: 'rgba(75, 192, 192, 0.6)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            }
+        }
+    });
+
+    // 나이대별 매출 데이터
+    const oldSales = JSON.parse('${oldSales}');
+    const oldLabels = Object.keys(oldSales); // ["20대", "30대", "40대", "50대", "60대 이상"]
+    const oldData = Object.values(oldSales); // [20대 매출, 30대 매출, ...]
+
+    const oldCtx = document.getElementById('oldSalesChart').getContext('2d');
+    new Chart(oldCtx, {
+        type: 'doughnut',
+        data: {
+            labels: oldLabels,
+            datasets: [{
+                label: '나이대별 매출',
+                data: oldData,
+                backgroundColor: ['#FF5733', '#FFC300', '#28A745', '#17A2B8', '#6F42C1']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            }
+        }
+    });
+
+    // 성별 매출 데이터
+    const genderSales = JSON.parse('${genderSales}');
+    const genderLabels = Object.keys(genderSales); // ["남성", "여성", "기타"]
+    const genderData = Object.values(genderSales); // [남성 매출, 여성 매출, 기타 매출]
+
+    const genderCtx = document.getElementById('genderSalesChart').getContext('2d');
+    new Chart(genderCtx, {
+        type: 'doughnut',
+        data: {
+            labels: genderLabels,
+            datasets: [{
+                label: '성별 매출',
+                data: genderData,
+                backgroundColor: ['#FF6384', '#36a2ec', '#FFCE56']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            }
+        }
+    });
+
 
 
 
 
 
 </script>
+<script>
+
+
+
+
+
+</script>
+
+
+
 </body>
 </html>
 

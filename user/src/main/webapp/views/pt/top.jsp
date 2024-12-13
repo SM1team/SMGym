@@ -40,7 +40,7 @@
 <header class="masthead">
   <div class="container">
     <div class="masthead-subheading">Welcome To Our Gym!</div>
-    <div class="masthead-heading text-uppercase">운동 일지 페이지 입니다.</div>
+    <div class="masthead-heading text-uppercase">PT 페이지 입니다.</div>
   </div>
 </header>
 
