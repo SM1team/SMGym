@@ -99,7 +99,7 @@
                 <th><input type="checkbox" id="selectAll"></th>
                 <th>운동 세부 번호</th>
                 <th>운동 일지 번호</th>
-                <th>운동기구 번호</th>
+
                 <th>운동 이름</th>
                 <th>세트 수</th>
                 <th>총 개수</th>
@@ -116,7 +116,7 @@
                     <td><input type="checkbox" name="detailCheckbox" class="detailCheckbox" value="${c.wdetailId}"></td>
                     <td>${c.wdetailId}</td>
                     <td>${c.workoutNo}</td>
-                    <td>${c.machineNo}</td>
+
                     <td>${c.wdetailExname}</td>
                     <td>${c.wdetailSets}</td>
                     <td>${c.wdetailCount}</td>
