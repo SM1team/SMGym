@@ -3,7 +3,8 @@
 
 <!-- styles.css 파일을 링크로 추가 -->
 <link rel="stylesheet" href="<c:url value='/css/styles.css' />">
-
+<!-- Font Awesome CDN 추가 -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <%--헬스장 플로어 맵 동적 스크립트--%>
 <script>
     // 페이지가 로드될 때마다 각 기계의 상태를 확인하고 업데이트
@@ -69,46 +70,6 @@
         });
     });
 
-    <%--// fetch(`/machine/toggle/${machineNo}`, {  // 수정된 경로 사용--%>
-    <%--fetch(`/machine/toggle/${machineNo}`, {--%>
-    <%--    method: 'POST',  // 상태 변경에는 POST 메서드 사용--%>
-    <%--    headers: {--%>
-    <%--        'Accept': 'application/json',  // JSON 형식의 응답을 받을 것임을 명시--%>
-    <%--    },--%>
-    <%--})--%>
-    <%--    .then(response => {--%>
-    <%--        if (!response.ok) {--%>
-    <%--            throw new Error('Failed to toggle machine status');--%>
-    <%--        }--%>
-    <%--        return response.json();  // JSON 응답으로 변환--%>
-    <%--    })--%>
-    <%--    .then(data => {--%>
-    <%--        console.log('Machine status toggled:', data);  // 새 상태 출력--%>
-    <%--        alert(`Machine status: ${data ? 'Active' : 'Inactive'}`);  // 상태에 따라 출력--%>
-    <%--    })--%>
-    <%--    .catch(error => {--%>
-    <%--        if (error instanceof Error) {--%>
-    <%--            console.error('Error:', error);  // 에러 로그 콘솔에 출력--%>
-    <%--            console.error('Error message:', error.message);  // 에러 메시지를 별도로 출력--%>
-    <%--            console.error('Error stack:', error.stack);  // 에러의 stack trace도 출력--%>
-    <%--        } else {--%>
-    <%--            console.error('Unknown error:', error);  // error가 Error 객체가 아니면 다른 처리--%>
-    <%--        }--%>
-
-    <%--        alert('An error occurred while toggling the machine status.\n' + error.message);  // alert 창에서 에러 메시지 출력--%>
-    <%--    });--%>
-
-
-    <%--function confirmStatusChange(event, form) {--%>
-    <%--    let machineName = form.parentElement.getAttribute('data-machine_name');--%>
-    <%--    const confirmation = confirm('해당 운동기구의 상태를 변경하시겠습니까?');--%>
-
-    <%--    if (!confirmation) {--%>
-    <%--        event.preventDefault(); // 폼 제출 취소--%>
-    <%--    }--%>
-    <%--    return confirmation; // '예' 클릭 시 폼이 제출됨--%>
-    <%--}--%>
-
 
 
 
@@ -135,17 +96,15 @@
     });
 </script>
 
-    <div>
+
+<div class="container" >
+    <div class="ds"  style="margin-bottom: 50px">
         <input type="checkbox" id="showDescriptions" checked>
         <label for="showDescriptions" class="switch-label">기구 설명 및 사용법 확인</label>
     </div>
-
-
-
-<div class="container">
     <div class="text-center">
-        <h2 class="section-heading text-uppercase">헬스장 플로어 맵</h2>
-        <h3 class="section-subheading text-muted">운동 기구와 주요 시설을 한눈에 확인해보세요!</h3>
+        <h2 class="section-heading text-uppercase" style="color: #ae00c7">헬스장 플로어 맵</h2>
+        <h3 class="section-subheading text-uppercase" style="color: #f1f1f1; font-weight: bolder; margin-bottom: 20px;">운동 기구와 주요 시설을 한눈에 확인해보세요!</h3>
     </div>
 
     <!-- 운동기구 설명 보기 체크박스 추가 -->
@@ -765,16 +724,13 @@
             </div>
             <div class="light"></div>
         </div>
-
+    </div>
  </div>
-</div>
 
 
 
 <!-- 스타일링 추가 -->
 <style>
-
-
     /* 운동기구 설명 보기 스위치 스타일 */
     .switch-label {
         display: inline-block;
@@ -783,7 +739,7 @@
         cursor: pointer;
         font-size: 18px;
         font-weight: bold;
-        color: #555;
+        color: #f1f1f1;
     }
 
     /* 스위치 버튼 */
@@ -880,9 +836,7 @@
         height: 780px;
         background-color: #f0f0f0;
         border: 2px solid #ccc;
-        margin-left: auto;
-        margin-right: auto;
-
+        margin: auto;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
     }
 
@@ -934,16 +888,17 @@
     /* 불빛 이펙트 */
     .light {
         position: absolute;
-        top: -10px;
+        top: -5px; /* 기구 맨 위쪽에 배치 */
         left: 50%;
         transform: translateX(-50%);
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
+        width: 80%; /* 길게 설정 (전체 너비의 80%) */
+        height: 8px; /* 높이는 얇게 설정 */
         background-color: transparent; /* 기본 상태: 꺼짐 */
-        transition: background-color 0.3s ease;
-        animation: blink 1s infinite; /* 깜빡이는 애니메이션 */
+        border-radius: 4px; /* 살짝 둥근 직사각형 */
+        transition: background-color 0.3s ease, box-shadow 0.3s ease; /* 전환 효과 */
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0); /* 초기 상태 */
     }
+
 
     /* machineStatus가 1일 경우 불빛이 켜짐 */
     .light.on {
@@ -1031,9 +986,9 @@
         margin: 0;
         font-weight: bold; /* 제목 글씨 두껍게 */
     }
+
+    body{
+        background-color: #000000;
+    }
+
 </style>
-
-<!-- Font Awesome CDN 추가 -->
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
-

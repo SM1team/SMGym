@@ -11,11 +11,72 @@
   <title>게시물 상세보기</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <style>
-    #commentForm {
-      display: none;
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #e0e0e0;
+      margin: 0;
+      padding: 0;
     }
-    #commentEditForm {
+
+    h2 {
+      color: #ae00c7;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+
+    .btn {
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #e0e0e0;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 1rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: #ae00c7;
+      border: 1px solid #ae00c7;
+    }
+
+    .btn-primary:hover {
+      background-color: #e0e0e0;
+      color: #ae00c7;
+    }
+
+    #commentForm, #commentEditForm {
       display: none;
+      background-color: #1e1e1e;
+      border: 1px solid #ae00c7;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    .text-muted {
+      color: #888;
+    }
+
+    .form-group{
+      background-color: #1a1a1a;!important;
+      color: #f1f1f1;!important;
+    }
+
+    .btn-warning, .btn-danger {
+      background-color: #ae00c7;
+      border: 1px solid #ae00c7;
+      color: #e0e0e0;
+    }
+
+    .btn-warning:hover, .btn-danger:hover {
+      background-color: #e0e0e0;
+      color: #ae00c7;
     }
   </style>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -26,20 +87,16 @@
         $("#commentForm").slideToggle();
       });
 
-
       // 댓글 수정 폼 토글
       $(".commentEditBtn").click(function () {
-        var content = $(this).data("content");      // 댓글 내용 가져오기
-        var commentNo = $(this).data("commentno");  // 댓글 번호 가져오기
-        var noticeNo = "${board.noticeNo}";          // 게시글 번호 가져오기
+        var content = $(this).data("content");
+        var commentNo = $(this).data("commentno");
+        var noticeNo = "${board.noticeNo}";
 
-        // 댓글 수정 폼 표시
         $("#commentEditForm").slideDown();
-
-        // 댓글 수정 폼에 데이터 설정
         $("#commentEditForm #content").val(content);
-        $("#commentEditForm #commentNo").val(commentNo);  // 댓글 번호를 수정 폼에 설정
-        $("#commentEditForm #noticeNoEdit").val(noticeNo);  // 게시글 번호를 수정 폼에 설정
+        $("#commentEditForm #commentNo").val(commentNo);
+        $("#commentEditForm #noticeNoEdit").val(noticeNo);
       });
     });
   </script>
@@ -51,27 +108,30 @@
   <p><strong>작성일:</strong> ${board.noticeDate}</p>
   <p><strong>내용:</strong> ${board.noticeContent}</p>
   <p><strong>이미지:</strong>
-    <img src="<c:url value='/imgs/${board.boardImg}' />" alt="게시물 관련 이미지" height="400" width="550" />
+    <img src="<c:url value='/imgs/${board.boardImg}' />" alt="게시물 관련 이미지" style="
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 15px;
+      border: 1px solid #ae00c7;
+      border-radius: 5px;
+    " />
   </p>
 
   <!-- 목록으로 돌아가기와 댓글 작성 버튼 -->
   <a href="<c:url value='/board' />" class="btn btn-primary">목록으로 돌아가기</a>
-
-    <a href="javascript:void(0)" id="commentToggleBtn" class="btn btn-success ml-2">댓글 작성</a>
-
+  <a href="javascript:void(0)" id="commentToggleBtn" class="btn btn-primary ml-2">댓글 작성</a>
 
   <!-- 댓글 리스트 -->
   <div id="commentsSection" class="mt-4">
     <c:if test="${empty comments}">
-      <p><strong>아직 댓글이 없습니다. 제일 먼저 댓글을 작성해보세요!</strong></p>
+      <p class="text-muted">아직 댓글이 없습니다. 제일 먼저 댓글을 작성해보세요!</p>
     </c:if>
     <c:forEach var="comment" items="${comments}">
-      <div class="comment mt-3 p-2 border rounded">
+      <div class="comment">
         <p><strong>${comment.custId}</strong>
           <span class="text-muted">(${fn:replace(comment.commentDate, 'T', ' ')})</span>
         </p>
         <p>${comment.commentContent}</p>
-
 
         <!-- 댓글 수정 및 삭제 버튼 표시 -->
         <c:if test="${comment.custId == loginUser.custId}">
@@ -80,7 +140,6 @@
                   data-content="${comment.commentContent}">
             수정버튼
           </button>
-          <!-- 댓글 삭제 버튼 -->
           <a href="<c:url value='/comment/delete?commentId=${comment.commentNo}&noticeNo=${board.noticeNo}' />" class="btn btn-danger btn-sm">삭제</a>
         </c:if>
       </div>
@@ -88,45 +147,40 @@
   </div>
 
   <!-- 댓글 작성 폼 -->
-  <div id="commentForm" class="mt-4">
+  <div id="commentForm">
     <form action="<c:url value='/comment/save' />" method="post">
-      <div class="form-group">
+      <div class="form-group" s>
         <label for="noticeNo">게시글 번호</label>
-        <input type="text" class="form-control" id="noticeNo" name="noticeNo" value="${board.noticeNo}" readonly/>
+        <input type="text" class="form-control" id="noticeNo" name="noticeNo" value="${board.noticeNo}" readonly style="background-color: #1a1a1a; color: #f1f1f1"/>
       </div>
       <div class="form-group">
         <label for="custId">작성자 ID</label>
-        <input type="text" class="form-control" id="custId" name="custId" value="${loginUser.custId}" readonly/>
+        <input type="text" class="form-control" id="custId" name="custId" value="${loginUser.custId}" readonly style="background-color: #1a1a1a; color: #f1f1f1"/>
       </div>
       <div class="form-group">
         <label for="commentContent">댓글 내용</label>
-        <textarea class="form-control" id="commentContent" name="content" rows="3" placeholder="댓글 내용을 입력하세요"></textarea>
+        <textarea class="form-control" id="commentContent" name="content" rows="3" placeholder="댓글 내용을 입력하세요" style="background-color: #1a1a1a; color: #f1f1f1"></textarea>
       </div>
-      <button type="submit" class="btn btn-success">댓글 작성</button>
+      <button type="submit" class="btn btn-primary">댓글 작성</button>
     </form>
   </div>
-
   <!-- 댓글 수정 폼 -->
-  <div id="commentEditForm" class="mt-4" style="display: none;">
+  <div id="commentEditForm">
     <form action="<c:url value='/comment/modify' />" method="post">
-      <div class="form-group">
+      <div class="form-group" >
         <label for="noticeNoEdit">게시글 번호</label>
-        <input type="text" class="form-control" id="noticeNoEdit" name="noticeNo" value="${board.noticeNo}" readonly/>
+        <input type="text" class="form-control" id="noticeNoEdit" name="noticeNo" value="${board.noticeNo}" readonly style="background-color: #1a1a1a; color: #f1f1f1"/>
       </div>
       <div class="form-group">
         <label for="commentNo">댓글 번호</label>
-        <input type="text" class="form-control" id="commentNo" name="commentNo" value="${comment.commentNo}" readonly/>
-      </div>
-      <div class="form-group">
-        <label for="custIdEdit">작성자 ID</label>
-        <input type="text" class="form-control" id="custIdEdit" name="custId" value="${loginUser.custId}" readonly/>
+        <input type="text" class="form-control" id="commentNo" name="commentNo" readonly style="background-color: #1a1a1a; color: #f1f1f1"/>
       </div>
       <div class="form-group">
         <label for="content">댓글 내용</label>
-        <textarea class="form-control" id="content" name="commentContent" rows="3"></textarea>
+        <textarea class="form-control" id="content" name="commentContent" rows="3" style="background-color: #1a1a1a; color: #f1f1f1"></textarea>
       </div>
       <button type="submit" class="btn btn-primary">댓글 수정</button>
-      <a href="<c:url value='/board/detail?noticeNo=${board.noticeNo}' />" class="btn btn-secondary ml-2">취소</a>
+      <a href="<c:url value='/board/detail?noticeNo=${board.noticeNo}' />" class="btn btn-primary">취소</a>
     </form>
   </div>
 

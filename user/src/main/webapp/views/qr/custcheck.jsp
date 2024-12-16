@@ -10,7 +10,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
+      background-color: #1a1a1a;
 
       height: 100vh;
       text-align: center;
@@ -66,7 +66,7 @@
   <h1>나의 전용 QR 코드</h1>
 
   <!-- 사용자 정보 표시 -->
-  <h5>${sessionScope.loginid.custId}님의 QR코드.</h5>
+  <h5 style="color: #f1f1f1; font-weight: bolder;">${sessionScope.loginid.custId}님의 QR코드</h5>
 
   <!-- QR 코드 이미지 출력 (Base64로 인코딩된 QR 코드) -->
   <img src="${qrCodeImage}" alt="QR 코드" id="qrCodeImage" />
