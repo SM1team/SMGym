@@ -1,197 +1,172 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<style>
-    /* 다크 테마 기본 설정 */
-    body {
-        font-family: Arial, sans-serif;
-        line-height: 1.5;
-        color: #e0e0e0;
-        background-color: #000000;
-        margin: 0;
-        padding: 0;
-    }
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판 목록</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <style>
+        /* 다크 테마 기본 설정 */
+        body {
+            background-color: #000000; /* 배경 검정 */
+            color: #ffffff; /* 기본 텍스트 흰색 */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-    .board-container {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 20px;
-        border-radius: 8px;
-        background-color: #000000;
-    }
+        .board-container {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 30px;
+            background-color: #1a1a1a; /* 다크한 배경 */
+            border-radius: 15px;
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+            border: 2px solid #ae00c7;
+        }
 
-    .board-title {
-        font-size: 1.8rem;
-        margin-bottom: 20px;
-        text-align: center;
-        color: #ae00c7;
-    }
+        .board-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #ae00c7; /* 포인트 색상 */
+            margin-bottom: 20px;
+        }
 
-    /* 버튼 스타일 */
-    .action-buttons {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-        justify-content: center;
-    }
+        /* 상단 버튼 스타일 */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
 
-    .btn {
-        padding: 10px 15px;
-        text-decoration: none;
-        color: #e0e0e0;
-        border-radius: 5px;
-        text-align: center;
-        font-size: 1rem;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
+        .btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            text-align: center;
+            border-radius: 10px;
+            text-decoration: none;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: 2px solid #ae00c7;
+            transition: all 0.3s ease;
+        }
 
-    /* 게시물 작성 버튼 hover */
-    .btn.primary-btn {
-        background-color: #000000;!important; /* 배경 흰색 */
-        color: #ffffff; !important;/* 텍스트 보라색 */
-        border: 1px solid #ae00c7;
+        .btn:hover {
+            background-color: #ae00c7; /* 포인트 색상 */
+            color: #ffffff;
+            border-color: #ffffff; /* 강조된 테두리 */
+        }
 
-    }
+        /* 검색 폼 */
+        .search-form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
 
-    /* 내가 쓴 글 버튼 hover */
-    .btn.secondary-btn {
-        background-color: #000000;!important; /* 배경 흰색 */
-        color: #ffffff; !important;/* 텍스트 보라색 */
-        border: 1px solid #ae00c7;
-    }
+        .search-input {
+            width: 60%;
+            padding: 10px;
+            font-size: 1rem;
+            color: #ffffff;
+            background-color: #000000;
+            border: 2px solid #ae00c7;
+            border-radius: 10px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    /* 검색 버튼 hover */
-    .btn.search-btn {
-        background-color: #000000;!important; /* 배경 흰색 */
-        color: #ffffff; !important;/* 텍스트 보라색 */
-        border: 1px solid #ae00c7;
-        margin-top: 10px;
-    }
+        .search-input:focus {
+            border-color: #ffffff; /* 강조된 테두리 */
+            box-shadow: 0 0 8px #ae00c7;
+            outline: none;
+        }
 
-    /* 게시물 작성 버튼 hover */
-    .btn.primary-btn:hover {
-        background-color: #ae00c7; !important;/* 배경 보라색 */
-        color: #ffffff; !important;/* 텍스트 흰색 */
-        border-color: #ffffff;!important; /* 테두리 흰색 */
-    }
+        .search-btn {
+            padding: 10px 20px;
+            margin-left: 10px;
+            font-size: 1rem;
+            background-color: #000000;
+            color: #ffffff;
+            border: 2px solid #ae00c7;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-    /* 내가 쓴 글 버튼 hover */
-    .btn.secondary-btn:hover {
-        background-color: #ae00c7; !important;/* 배경 보라색 */
-        color: #ffffff; !important;/* 텍스트 흰색 */
-        border-color: #ffffff;!important; /* 테두리 흰색 */
-    }
+        .search-btn:hover {
+            background-color: #ae00c7;
+            color: #ffffff;
+            border-color: #ffffff;
+        }
 
-    /* 검색 버튼 hover */
-    .btn.search-btn:hover {
-        background-color: #ae00c7; !important; /* 배경 보라색 */
-        color: #ffffff;!important; /* 텍스트 흰색 */
-        border-color: #ffffff; !important;/* 테두리 흰색 */
-    }
+        /* 게시물 테이블 */
+        .board-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
 
+        .board-table th,
+        .board-table td {
+            padding: 15px;
+            border: 1px solid #ae00c7;
+            text-align: center;
+        }
 
+        .board-table th {
+            background-color: #333333;
+            color: #ffffff;
+            font-weight: bold;
+        }
 
+        .board-table a {
+            color: #ffffff;
+            text-decoration: none;
+        }
 
-    /* 검색 폼 */
-    .search-form {
-        text-align: center;
-        width: 50%;
-        margin: auto;
-    }
+        .board-table a:hover {
+            text-decoration: underline;
+            color: #ae00c7;
+        }
 
-    .search-input {
-        padding: 8px 10px;
-        width: 250px;
-        border: 4px solid #ffffff;
-        border-radius: 4px;
-        background-color: #000000;
-        color: #e0e0e0;
-        font-size: 1rem;
-    }
-
-    .search-input::placeholder {
-        color: #ae00c7;
-        border-color: #ae00c7; /* 보라색 테두리 */
-    }
-
-    /* 검색 입력창에 마우스 올릴 때 테두리 색 변경 */
-    .search-input:hover {
-        border-color: #ae00c7; /* 보라색 테두리 */
-    }
-
-    /* 검색 입력창에 포커스 상태일 때 테두리 색 변경 */
-    .search-input:focus {
-        border-color: #ae00c7;
-        box-shadow: 0 0 8px #ae00c7;
-        color: #ffffff; /* 텍스트 흰색 */
-        background-color: #000000; /* 입력 필드 배경색 검정 */
-    }
-
-
-    /* 테이블 스타일 */
-    .board-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        text-align: left;
-        background-color: #1E1E1E;
-        color: #e0e0e0;
-    }
-
-    .board-table th,
-    .board-table td {
-        padding: 10px;
-        border: 1px solid #ae00c7;
-    }
-
-    .board-table th {
-        background-color: #333;
-        font-weight: bold;
-        color: #e0e0e0;
-    }
-
-    .board-table .board-title-link {
-        color: #f1f1f1;
-        text-decoration: none;
-    }
-
-    .board-table .board-title-link:hover {
-        text-decoration: underline;
-    }
-
-    .board-image {
-        height: 50px;
-        width: 50px;
-        object-fit: cover;
-        border-radius: 4px;
-        border: 1px solid #ae00c7;
-
-    }
-
-
-</style>
-<!-- styles.css 파일을 링크로 추가 -->
-<link rel="stylesheet" href="<c:url value='/css/styles.css' />">
-
-<section class="board-container">
+        .board-image {
+            height: 50px;
+            width: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 1px solid #ae00c7;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init({
+                duration: 800,
+                once: true,
+            });
+        });
+    </script>
+</head>
+<body>
+<section class="board-container" data-aos="fade-up">
     <h2 class="board-title">게시판 목록</h2>
 
-    <!-- 상단 버튼 컨테이너 -->
+    <!-- 상단 버튼 -->
     <div class="action-buttons">
-        <a href="<c:url value='/board/write' />" class="btn primary-btn" >게시물 작성</a>
-        <a href="<c:url value='/board/myboards' />" class="btn secondary-btn" >내가 쓴 글</a>
+        <a href="<c:url value='/board/write' />" class="btn">게시물 작성</a>
+        <a href="<c:url value='/board/myboards' />" class="btn">내가 쓴 글</a>
     </div>
 
     <!-- 검색 폼 -->
     <form action="<c:url value='/board/search' />" method="get" class="search-form">
-        <input
-                type="text"
-                name="searchKeyword"
-                placeholder="제목으로 검색"
-                class="form-control search-input"
-                style="background-color:  #000000; color: #ffffff; border :1px solid #ae00c7;">
-        <button type="submit" class="btn search-btn">검색</button>
+        <input type="text" name="searchKeyword" class="search-input" placeholder="제목으로 검색">
+        <button type="submit" class="search-btn">검색</button>
     </form>
-
 
     <!-- 게시물 테이블 -->
     <table class="board-table">
@@ -199,7 +174,7 @@
         <tr>
             <th>번호</th>
             <th>제목</th>
-            <th>작성자ID</th>
+            <th>작성자</th>
             <th>등록일</th>
             <th>이미지</th>
         </tr>
@@ -209,12 +184,11 @@
             <tr>
                 <td>${board.noticeNo}</td>
                 <td>
-                    <a href="<c:url value='/board/detail?noticeNo=${board.noticeNo}' />" class="board-title-link">${board.noticeTitle}</a>
+                    <a href="<c:url value='/board/detail?noticeNo=${board.noticeNo}' />">${board.noticeTitle}</a>
                 </td>
                 <td>${board.custId}</td>
                 <td>${board.noticeDate}</td>
                 <td>
-                    <!-- 이미지 표시 -->
                     <c:if test="${not empty board.boardImg}">
                         <img src="<c:url value='/imgs/${board.boardImg}' />" alt="게시물 이미지" class="board-image" />
                     </c:if>
@@ -224,6 +198,8 @@
         </tbody>
     </table>
 
-    <!-- 페이지네이션 포함 -->
+    <!-- 페이지네이션 -->
     <jsp:include page="/views/board/page.jsp" />
 </section>
+</body>
+</html>
