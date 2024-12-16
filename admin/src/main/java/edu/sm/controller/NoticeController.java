@@ -197,11 +197,11 @@ public class NoticeController {
 
     @RequestMapping("/noticewriteimpl")
     public String noticewriteimpl(Model model,
-                                 @RequestParam("title") String title,
-                                 @RequestParam("content") String content,
+                                  @RequestParam("title") String title,
+                                  @RequestParam("content") String content,
 
-                                 @RequestParam(value = "noticeImg", required = false) MultipartFile noticeImg,
-                                 HttpSession session) throws Exception {
+                                  @RequestParam(value = "noticeImg", required = false) MultipartFile noticeImg,
+                                  HttpSession session) throws Exception {
         log.info("공지사항 저장 요청: 제목={}, 내용={}", title, content);
 
         try {
