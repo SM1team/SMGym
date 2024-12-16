@@ -9,13 +9,26 @@
   <title>결제 완료</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body{
+    background-color: #000000;
+    }
+    .btn.btn-primary{
+    background-color: #ae00c7; color: #f1f1f1
+    }
+    .btn.btn-primary:hover{
+      background-color: #f1f1f1;
+      color: #ae00c7;
+    }
+
+  </style>
 </head>
 <body>
-<div class="container mt-5">
-  <h1>결제가 완료되었습니다.</h1>
+<div class="container mt-5" >
+  <h1 style="color: #ae00c7; font-weight: bolder">결제가 완료되었습니다</h1>
 
   <!-- 결제 정보 표시 -->
-  <table class="table">
+  <table class="table" style="color: #f1f1f1;border: 4px #ae00c7">
     <tr>
       <th>결제 ID</th>
       <td>${payment.paymentId}</td>

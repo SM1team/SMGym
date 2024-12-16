@@ -900,6 +900,8 @@
     }
 
 
+
+
     /* machineStatus가 1일 경우 불빛이 켜짐 */
     .light.on {
         background-color: yellow;
