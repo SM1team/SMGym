@@ -148,7 +148,7 @@ public class MainInputController {
         // 모델에 예약 성공 메시지 추가
         model.addAttribute("reservationSuccess", true);
         model.addAttribute("top", qdir + "top");
-        model.addAttribute("center", qdir + "reservation");
+        model.addAttribute("center", qdir + "history");
 
         return "index"; // 예약 후 index 페이지로 리턴
     }
