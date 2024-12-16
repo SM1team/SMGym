@@ -72,7 +72,6 @@
     background-color: #1a1a1a;
     border-radius: 15px;
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
-    border: 2px solid #ae00c7;
   }
 
 

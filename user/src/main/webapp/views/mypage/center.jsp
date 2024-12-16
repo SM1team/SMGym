@@ -1,5 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script>
+    // 페이지 로드 후 화면을 중간으로 이동
+    window.onload = function() {
+        // 페이지 높이의 50% 위치로 스크롤
+        const middlePosition = document.body.scrollHeight / 2.5;
+        window.scrollTo({
+            top: middlePosition,
+            behavior: "smooth" // 부드러운 스크롤 효과
+        });
+    };
+</script>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
