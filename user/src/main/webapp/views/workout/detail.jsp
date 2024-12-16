@@ -278,7 +278,7 @@
                 <input type="date" class="form-control" id="workoutDate" name="workoutDate" required />
             </div>
 
-            <button type="submit" class="btn btn-primary">항목 추가</button>
+            <button type="submit" class="btn btn-primary" style="background-color: #ae00c7">항목 추가</button>
         </form>
     </div>
 </div>
