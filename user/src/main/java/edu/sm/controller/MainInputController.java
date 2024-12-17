@@ -29,6 +29,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -108,7 +109,7 @@ public class MainInputController {
         // 예약 날짜를 로그로 출력
         log.info("Received reservation date: " + reservationDate);
 
-        try {
+
             // 예약 날짜 형식을 파싱
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime localDateTime = LocalDateTime.parse(reservationDate, formatter);  // 예약 날짜를 LocalDateTime으로 변환
@@ -129,6 +130,7 @@ public class MainInputController {
 
             String custId = loggedInUser.getCustId();
 
+
             // 예약 정보 설정
             ReservationDto reservationDto = new ReservationDto();
             reservationDto.setCustName(custName);
@@ -139,16 +141,16 @@ public class MainInputController {
 
             // 예약 정보 저장
             reservationService.add(reservationDto);
+            List<ReservationDto> reservations = reservationService.getReservationsByCustId(custId);
 
-        } catch (DateTimeParseException e) {
-            log.error("DateTimeParseException: " + e.getMessage());
-            throw new Exception("날짜 형식이 잘못되었습니다.", e);
-        }
+
 
         // 모델에 예약 성공 메시지 추가
+        // 예약 데이터를 모델에 추가
+        model.addAttribute("reservations", reservations);
         model.addAttribute("reservationSuccess", true);
         model.addAttribute("top", qdir + "top");
-        model.addAttribute("center", qdir + "reservation");
+        model.addAttribute("center", qdir + "history");
 
         return "redirect:/qna/history"; // 예약 후 index 페이지로 리턴
     }

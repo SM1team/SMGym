@@ -176,6 +176,9 @@
   document.getElementById("addBtn").addEventListener("click", function () {
     if (confirm("새로운 항목을 만들어 드릴까요?")) {
       addNewWorkout();
+    } else {
+      // 취소 버튼을 누르면 아무 작업도 하지 않음
+      return;
     }
   });
 

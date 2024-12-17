@@ -52,7 +52,8 @@
         SELECT COUNT(*)
         FROM payment
         WHERE cust_id = #{custId}
-          AND product_name LIKE '%필라%'
+          AND (product_name LIKE '%필라%' OR product_name LIKE '%피티%' OR product_name LIKE '%PT%')
           AND payment_status = 'SUCCESS'
+
     </select>
 </mapper>

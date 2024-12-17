@@ -211,7 +211,7 @@
   </div>
 
   <!-- 예약 폼 카드 -->
-  <div class="card" style="max-width: 800px; padding: 20px; margin-top: 5 0px">
+  <div class="card" style="max-width: 800px; padding: 20px; margin-top: 50px">
     <div class="card-body">
       <h3 class="card-header text-center" style="background-color: #1a1a1a; color: white; padding: 10px; border-radius: 5px;">
         예약하기
@@ -235,7 +235,7 @@
         </div>
 
         <div class="form-group">
-          <label for="visitTime">방문 시간:</label>
+          <label for="visitTime">방문 시간:(10분단위로 해주세요!)</label>
           <!-- step="600"으로 설정하여 10분 단위로 제한 -->
           <input type="time" class="form-control half-width" id="visitTime" name="visitTime" step="600" style="appearance: auto !important;">
         </div>
