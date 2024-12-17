@@ -12,9 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 @Controller
@@ -148,4 +151,51 @@ public class NoticeController {
 
         return "index";
     }
+
+    @RequestMapping("/noticewriteimpl")
+    public String noticewriteimpl(Model model,
+                                  @RequestParam("title") String title,
+                                  @RequestParam("content") String content,
+
+                                  @RequestParam(value = "noticeImg", required = false) MultipartFile noticeImg,
+                                  HttpSession session) throws Exception {
+        log.info("공지사항 저장 요청: 제목={}, 내용={}", title, content);
+
+        try {
+            TrainerDto loggedInUser = (TrainerDto) session.getAttribute("loginid");
+            if (loggedInUser == null) {
+                throw new Exception("로그인된 사용자가 없습니다.");
+            }
+
+            NoticeDto newNotice = new NoticeDto();
+            newNotice.setNoticeTitle(title);
+            newNotice.setNoticeContent(content);
+            newNotice.setTrainerId(loggedInUser.getTrainerId());
+            if (noticeImg != null && !noticeImg.isEmpty()) {
+                String fileName = StringUtils.cleanPath(noticeImg.getOriginalFilename());
+                File directory = new File(uploadDir);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                File uploadFile = new File(uploadDir + fileName);
+                noticeImg.transferTo(uploadFile);
+                newNotice.setImg(fileName);
+            }
+
+            noticeService.saveBoard(newNotice);
+
+        } catch (Exception e) {
+            log.error("게시글 저장 중 오류", e);
+
+            // 예외를 콘솔에도 출력 (혹은 개발자 환경에서만 사용)
+            e.printStackTrace();  // 이 줄을 추가하여 스택 트레이스를 콘솔에 출력
+
+            model.addAttribute("error", "게시글 저장 중 오류가 발생했습니다.");
+
+            return "redirect:/notice/write"; // 게시글 작성 페이지로 돌아가기
+        }
+        return "redirect:/notice"; // 게시글 저장 후 목록 페이지로 리디렉션
+    }
+
 }
