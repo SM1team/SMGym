@@ -40,7 +40,7 @@ class LocaleResolve implements LocaleContextResolver {//사용자의 browser에 
     @Override
     public LocaleContext resolveLocaleContext(ServerWebExchange exchange) {
         //String language = exchange.getRequest().getHeaders().getFirst("Accept-Language");
-        String language = exchange.getRequest().getQueryParams().getFirst("lang");
+        String language = exchange.getRequest().getQueryParams().getFirst("ja");
         Locale targetLocale = Locale.getDefault();
         if (language != null && !language.isEmpty()) {
             targetLocale = Locale.forLanguageTag(language);
