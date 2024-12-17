@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
+<!DOCTYPE html>
+<html lang="en">
 <!-- styles.css 파일을 링크로 추가 -->
 <link rel="stylesheet" href="<c:url value='/css/styles.css' />">
 <!-- Font Awesome CDN 추가 -->
@@ -96,16 +99,16 @@
     });
 </script>
 
-
 <div class="container" >
     <div class="ds"  style="margin-bottom: 50px">
         <input type="checkbox" id="showDescriptions" checked>
-        <label for="showDescriptions" class="switch-label">기구 설명 및 사용법 확인</label>
+        <label for="showDescriptions" class="switch-label"><spring:message code="site.miniIitle"/></label>
     </div>
     <div class="text-center">
-        <h2 class="section-heading text-uppercase" style="color: #ae00c7">헬스장 플로어 맵</h2>
-        <h3 class="section-subheading text-uppercase" style="color: #f1f1f1; font-weight: bolder; margin-bottom: 20px;">운동 기구와 주요 시설을 한눈에 확인해보세요!</h3>
+        <h2 class="section-heading text-uppercase" style="color: #ae00c7"><spring:message code="site.title"/></h2>
+        <h3 class="section-subheading text-uppercase" style="color: #f1f1f1; font-weight: bolder; margin-bottom: 20px;"><spring:message code="site.subTitle"/></h3>
     </div>
+
 
     <!-- 운동기구 설명 보기 체크박스 추가 -->
     <div class="gym-layout">
@@ -992,3 +995,4 @@
     }
 
 </style>
+</html>
