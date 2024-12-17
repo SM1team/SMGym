@@ -88,7 +88,25 @@
 
 
     <insert id="insert" parameterType="trainerDto">
-        INSERT INTO trainer VALUES (#{trainerId},#{trainerName},#{trainerAge},#{trainerGender},#{trainerPhone},#{trainerAddress},#{trainerPwd},#{placeNo})
+        INSERT INTO trainer (
+            trainer_id,
+            trainer_name,
+            trainer_age,
+            trainer_gender,
+            trainer_phone,
+            trainer_address,
+            trainer_pwd,
+            place_no
+        ) VALUES (
+                     #{trainerId},
+                     #{trainerName},
+                     #{trainerAge},
+                     #{trainerGender},
+                     #{trainerPhone},
+                     #{trainerAddress},
+                     #{trainerPwd},
+                     #{placeNo}
+                 );
     </insert>
 <!--    <update id="update" parameterType="custDto">-->
 <!--        UPDATE db_cust SET pwd=#{pwd},name=#{name} WHERE id=#{id}-->
