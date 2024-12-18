@@ -45,7 +45,7 @@
 
     /* 상대방이 보낸 메시지 (왼쪽 정렬) */
     .other-message {
-        background-color: #e9ecef;
+        background-color: #ccf6f1;!important;
         margin-right: auto;
         text-align: left;
         border-bottom-left-radius: 0;
@@ -145,7 +145,7 @@
             this.subscribe('/send/to/' + this.id, function (msg) {
                 // 상대방 메시지를 화면에 표시 (왼쪽 정렬)
                 $("#to").append(
-                    "<div class='message other-message'>" +
+                    "<div class='message other-message' >" +
                     JSON.parse(msg.body).sendid + ": " +
                     JSON.parse(msg.body).content1 +
                     "</div>"
@@ -163,7 +163,7 @@
                 websocket.stompClient.subscribe('/send/to/' + sid, function (msg) {
                     // 상대방 메시지도 append로 변경
                     $("#to").append(
-                        "<h4>" + JSON.parse(msg.body).sendid + ": " +
+                        "<div class='message other-message'>" + JSON.parse(msg.body).sendid + ": " +
                         JSON.parse(msg.body).content1 +
                         "</h4>"
                     );

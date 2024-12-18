@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -126,7 +128,7 @@
         <div class="col-md-8">
             <div class="chart-container">
                 <h5 class="card-title mb-0 text-center">일별 방문자 수</h5>
-                <canvas id="performanceLine4" style="background-color: #1a1a1a"></canvas>
+                <canvas id="performanceLine4"></canvas>
             </div>
         </div>
 

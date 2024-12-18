@@ -63,6 +63,7 @@
 <body>
 <div class="container2">
   <!-- 나의 전용 QR 코드 제목 -->
+  <div style="background-color: #1a1a1a;height: 50px;"></div>
   <h1>나의 전용 QR 코드</h1>
 
   <!-- 사용자 정보 표시 -->
@@ -77,7 +78,7 @@
   </form>
 
   <p>이 QR 코드를 스캔하여 출석을 체크하세요!</p>
-
+  <div style="background-color: #1a1a1a;height: 50px;"></div>
 
 </div>
 </body>

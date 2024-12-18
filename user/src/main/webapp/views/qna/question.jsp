@@ -333,8 +333,8 @@
   <button type="button" class="btn3"
           onclick="location.href='<c:url value="/qna/history"/>'">나의 예약내역</button>
 </div>
-  <!-- 버튼 그룹을 세로로 배치 -->
-  <!-- 버튼 그룹을 채팅창 위에 가로로 배치 -->
+<!-- 버튼 그룹을 세로로 배치 -->
+<!-- 버튼 그룹을 채팅창 위에 가로로 배치 -->
 
 
 
@@ -351,4 +351,3 @@
     </div>
   </div>
 </div>
-
