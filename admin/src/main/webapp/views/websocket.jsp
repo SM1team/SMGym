@@ -45,7 +45,7 @@
 
     /* 상대방이 보낸 메시지 (왼쪽 정렬) */
     .other-message {
-        background-color: #4fbcb0; /* 적절한 색상 지정 */
+        background-color: #c5f4ef; /* 적절한 색상 지정 */
         margin-right: auto;
         text-align: left;
         border-bottom-left-radius: 0;
