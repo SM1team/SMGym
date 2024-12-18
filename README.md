@@ -92,7 +92,7 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 ***
 
 ### ✨개발 환경 및 수행 도구
-<img width="100%" alt="스크린샷 2023-02-16 오후 9 47 19" src="https://user-images.githubusercontent.com/115512265/219368819-304509f4-7cdb-40a0-ada3-29305b153e73.png">
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/20576f3b-10ce-4452-a8b1-aadd69f62d7f/32271991-345a-40b8-aec6-2c170f43f343/image.png)
 
 ![개발도구](https://user-images.githubusercontent.com/117332944/219248953-8078a028-2ca4-4336-b361-169071fd5538.png)
 
