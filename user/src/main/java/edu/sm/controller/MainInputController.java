@@ -152,7 +152,7 @@ public class MainInputController {
         model.addAttribute("top", qdir + "top");
         model.addAttribute("center", qdir + "history");
 
-        return "index"; // 예약 후 index 페이지로 리턴
+        return "redirect:/qna/history"; // 예약 후 index 페이지로 리턴
     }
 
 

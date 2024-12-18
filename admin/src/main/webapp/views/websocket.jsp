@@ -45,10 +45,11 @@
 
     /* 상대방이 보낸 메시지 (왼쪽 정렬) */
     .other-message {
-        background-color: #e9ecef;
+        background-color: #4fbcb0; /* 적절한 색상 지정 */
         margin-right: auto;
         text-align: left;
         border-bottom-left-radius: 0;
+
     }
 
     /* 입력창과 버튼 영역 */
@@ -143,11 +144,12 @@
             });
 
             this.subscribe('/send/to/' + this.id, function (msg) {
-                // 상대방 메시지를 화면에 표시 (왼쪽 정렬)
+                const parsedMsg = JSON.parse(msg.body);
+
                 $("#to").append(
                     "<div class='message other-message'>" +
-                    JSON.parse(msg.body).sendid + ": " +
-                    JSON.parse(msg.body).content1 +
+                    "<span style='color: green;'>" + parsedMsg.sendid + ":</span> " +
+                    parsedMsg.content1 +
                     "</div>"
                 );
             });

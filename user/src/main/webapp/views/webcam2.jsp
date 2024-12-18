@@ -163,7 +163,7 @@
                         scanTime: scanTime
                     };
 
-                    fetch('/check/checkin', {
+                    fetch('/check/checkout', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
