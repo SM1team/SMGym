@@ -102,7 +102,7 @@
 <div class="container" >
     <div class="ds"  style="margin-bottom: 50px">
         <input type="checkbox" id="showDescriptions" checked>
-        <label for="showDescriptions" class="switch-label"><spring:message code="site.miniIitle"/></label>
+        <label for="showDescriptions" class="switch-label"><spring:message code="site.miniTitle"/></label>
     </div>
     <div class="text-center">
         <h2 class="section-heading text-uppercase" style="color: #ae00c7"><spring:message code="site.title"/></h2>
@@ -118,7 +118,7 @@
                 <input type="hidden" name="machineNo" value="1">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>러닝머신 1</h4>
+                    <h4><spring:message code="site.treadmill1"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -138,7 +138,7 @@
                 <input type="hidden" name="machineNo" value="2">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>러닝머신 2</h4>
+                    <h4><spring:message code="site.treadmill2"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -158,7 +158,7 @@
                 <input type="hidden" name="machineNo" value="3">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>러닝머신 3</h4>
+                    <h4><spring:message code="site.treadmill3"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -176,7 +176,7 @@
                 <input type="hidden" name="machineNo" value="4">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>러닝머신 4</h4>
+                    <h4><spring:message code="site.treadmill4"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -194,7 +194,7 @@
                 <input type="hidden" name="machineNo" value="5">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>러닝머신 5</h4>
+                    <h4><spring:message code="site.treadmill5"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -212,7 +212,7 @@
                 <input type="hidden" name="machineNo" value="6">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>러닝머신 6</h4>
+                    <h4><spring:message code="site.treadmill6"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -230,7 +230,7 @@
                 <input type="hidden" name="machineNo" value="7">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>러닝머신 7</h4>
+                    <h4><spring:message code="site.treadmill7"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -249,7 +249,7 @@
         <!-- 프론트 카운터 -->
         <div class="facility reception" style="top: 8%; left: 80%; width: 180px;">
             <i class="fas fa-cogs"></i>
-            <h4>프론트 카운터</h4>
+            <h4><spring:message code="site.front"/></h4>
             <div class="bubble">
                 <p><strong>프론트 카운터란?</strong></p>
                 <img class="img-fluid" src="<c:url value="/assets/img/logos/counter.jpg"/>" alt="..." />
@@ -267,44 +267,44 @@
         <!-- 남자 화장실 -->
         <div class="facility manlocker" style="top: 23%; left: 1%; height: 60px;">
             <i class="fas fa-toilet"></i>
-            <h4>남자 화장실</h4>
+            <h4><spring:message code="site.restroom1"/></h4>
         </div>
 
         <!-- 남자 샤워실 -->
         <div class="facility manlocker" style="top: 33%; left: 1%; height: 60px;">
             <i class="fas fa-shower"></i>
-            <h4>남자 샤워실</h4>
+            <h4><spring:message code="site.showerRoom"/></h4>
         </div>
 
         <!-- 남자 탈의실 -->
         <div class="facility manlocker" style="top: 43%; left: 1%; height: 60px;">
             <i class="fas fa-tshirt"></i>
-            <h4>남자 탈의실</h4>
+            <h4><spring:message code="site.lockers"/></h4>
         </div>
 
         <!-- 여자 화장실 -->
         <div class="facility womanlocker" style="top: 53%; left: 1%; height: 60px;">
             <i class="fas fa-toilet"></i>
-            <h4>여자 화장실</h4>
+            <h4><spring:message code="site.restroom2"/></h4>
         </div>
 
         <!-- 여자 샤워실 -->
         <div class="facility womanlocker" style="top: 63%; left: 1%; height: 60px;">
             <i class="fas fa-shower"></i>
-            <h4>여자 샤워실</h4>
+            <h4><spring:message code="site.showerRoom2"/></h4>
         </div>
 
         <!-- 여자 탈의실 -->
         <div class="facility womanlocker" style="top: 73%; left: 1%; height: 60px;">
             <i class="fas fa-tshirt"></i>
-            <h4>여자 탈의실</h4>
+            <h4><spring:message code="site.lockers2"/></h4>
         </div>
 
 
         <!-- 비상구 -->
         <div class="facility emergency" style="top: 83%; left: 0.5%; height: 120px;">
             <i class="fas fa-exclamation-triangle"></i>
-            <h4>비상구</h4>
+            <h4><spring:message code="site.emergencyExit"/></h4>
         </div>
 
 
@@ -315,7 +315,7 @@
                 <input type="hidden" name="machineNo" value="8">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4>밴치 프레스</h4>
+                    <h4><spring:message code="site.benchPress"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -335,7 +335,7 @@
                 <input type="hidden" name="machineNo" value="9">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4>숄더 프레스</h4>
+                    <h4><spring:message code="site.shoulderPress"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -354,7 +354,7 @@
                 <input type="hidden" name="machineNo" value="10">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4>플라잉 머신</h4>
+                    <h4><spring:message code="site.flyingMachine"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -375,7 +375,7 @@
                 <input type="hidden" name="machineNo" value="26">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4>단체 PT 존</h4>
+                    <h4><spring:message code="site.groupPTZone"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -401,7 +401,7 @@
                 <input type="hidden" name="machineNo" value="11">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-bicycle"></i>
-                    <h4>스핀 바이크 1</h4>
+                    <h4><spring:message code="site.spinBike1"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -419,7 +419,7 @@
                 <input type="hidden" name="machineNo" value="12">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-bicycle"></i>
-                    <h4>스핀 바이크 2</h4>
+                    <h4><spring:message code="site.spinBike2"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -439,7 +439,7 @@
                 <input type="hidden" name="machineNo" value="13">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-bicycle"></i>
-                    <h4>인도어사이클 1</h4>
+                    <h4><spring:message code="site.indoorBicycle1"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -457,7 +457,7 @@
                 <input type="hidden" name="machineNo" value="14">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-bicycle"></i>
-                    <h4>인도어사이클 2</h4>
+                    <h4><spring:message code="site.indoorBicycle2"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -482,7 +482,7 @@
                 <input type="hidden" name="machineNo" value="15">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4 style="white-space: nowrap;">레그 프레스 머신</h4>
+                    <h4 style="white-space: nowrap;"><spring:message code="site.legPressMachine"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -503,7 +503,7 @@
                 <input type="hidden" name="machineNo" value="16">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4 style="white-space: nowrap;">체스트 프레스 머신</h4>
+                    <h4 style="white-space: nowrap;"><spring:message code="site.chestPressMachine"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -524,7 +524,7 @@
                 <input type="hidden" name="machineNo" value="17">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4>스미스 머신</h4>
+                    <h4><spring:message code="site.smithMachine"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -545,7 +545,7 @@
                 <input type="hidden" name="machineNo" value="18">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4>덤벨존</h4>
+                    <h4><spring:message code="site.dumbbellZone"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -565,7 +565,7 @@
                 <input type="hidden" name="machineNo" value="19">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4>렛풀다운</h4>
+                    <h4><spring:message code="site.latPullDown"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -585,7 +585,7 @@
                 <input type="hidden" name="machineNo" value="20">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-fire-flame-simple"></i>
-                    <h4>풀업 바</h4>
+                    <h4><spring:message code="site.pullUpBar"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -605,7 +605,7 @@
                 <input type="hidden" name="machineNo" value="21">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-fire-flame-simple"></i>
-                    <h4>딥스 바</h4>
+                    <h4><spring:message code="site.dipsBar"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -623,7 +623,7 @@
         <!-- 준비운동 구역 -->
         <div class="area cardio" style="top: 30%; left: 70%;">
             <i class="fas fa-heartbeat"></i>
-            <h4>준비운동 구역</h4>
+            <h4><spring:message code="site.readyZone"/></h4>
             <div class="bubble">
                 <p><strong>준비운동 구역이란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/준비운동.jpg'/>" alt="..." />
@@ -643,7 +643,7 @@
                 <input type="hidden" name="machineNo" value="22">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>스텝밀 머신 1</h4>
+                    <h4><spring:message code="site.stepMill1"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -664,7 +664,7 @@
                 <input type="hidden" name="machineNo" value="23">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>스텝밀 머신 2</h4>
+                    <h4><spring:message code="site.stepMill2"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -687,7 +687,7 @@
                 <input type="hidden" name="machineNo" value="24">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4>스쿼트 존</h4>
+                    <h4><spring:message code="site.squatZone"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -710,7 +710,7 @@
                 <input type="hidden" name="machineNo" value="25">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell" style="font-size: 48px;"></i>
-                    <h4>케이블 머신 존</h4>
+                    <h4><spring:message code="site.cableMachineZone"/></h4>
                 </button>
             </form>
             <div class="bubble">
