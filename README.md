@@ -48,12 +48,14 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 ***
 
 ### ✨USER-FLOW
-![유저플로우](https://user-images.githubusercontent.com/110235270/219033791-78c7bc1d-8220-4887-86de-b9169a6de0cc.jpg)
+![image](https://github.com/user-attachments/assets/1f101cb2-0f56-4dfd-b52f-32f698105d6c)
+
 
 ***
 
 ### ✨ADMIN-FLOW
-![어드민플로우](https://user-images.githubusercontent.com/110235270/219039118-5f36d236-5d3b-45a1-85df-c311a38db64e.jpg)
+![image](https://github.com/user-attachments/assets/49011863-8407-4e48-9842-ffc8b038d11f)
+
 
 ***
 
