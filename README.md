@@ -127,6 +127,8 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
   
 ![FINAL 시연 영상 - 4K mov_000279333-min](https://user-images.githubusercontent.com/114971312/218620626-d9855862-8de3-4535-af29-3ccf397d5224.gif)
+![map](https://github.com/user-attachments/assets/c2a3a744-a3bd-4782-be7f-004652b4f0dd)
+
 ![FINAL 시연 영상 - 4K mov_000294966](https://user-images.githubusercontent.com/114971312/218620635-8f4133c4-4c6f-4282-8c4b-0545f7a138ff.gif)
 
 ***
