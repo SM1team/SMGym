@@ -62,7 +62,8 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 ***
 
 ### ✨시스템 구성도
-![스크린샷 2024-12-18 134508](https://github.com/user-attachments/assets/824a50e9-6305-40a3-ae00-e67823a2cc66)
+![스크린샷 2024-12-19 182401](https://github.com/user-attachments/assets/9fbb2a2f-9768-4ca8-a3f5-a28d852427a4)
+
 
   
 ***  
@@ -109,7 +110,7 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 |곽인성|관리자 모듈 화면 대시보드 설계 및 구축<br>사용자 로그인 회원가입 페이지 기능 구현<br>로그인 세션 기록 저장 기능<br>사용자별 QR 코드 생성<br>WEBCAM QR 출퇴근 기록 로그 기능<br>카카오 map API 제작<br>예약 및 문의 페이지 1:1 JAVA WEBSOCKET 채팅 구현<br>관리자 회원 및 트레이너 CRUD 및 페이징 구현<br>관리자 모듈 AJAX 통계 및 매출 차트 페이지 구현<br>헬스장 운동기구 DB 연동 및 비동기 처리<br>운동 기록 CRUD 및 상세 페이지 구현<br>마이페이지 기능 구현 및 디자인 (회원정보 수정, 결제 목록, 운동 기록, 출석 기록)|  
 |박주민|사용자 모듈 설계 및 구축<br>사용자 UI/UX 구성<br>사용자 페이지 앵커 링크 구현<br>사용자 로그인 회원가입 페이지 UI 구현<br>관리자 대시보드 공지사항 바로가기 기능 구현<br>공지사항 CRUD 및 페이징 처리<br>자유게시판 CRUD 및 페이징 처리<br>트레이너 & 사용자 각 페이지 로그인 세션 기록 기능<br>게시물 제목으로 검색 기능 구현<br>게시판 댓글 수정 및 삭제 기능 구현<br>헬스장 단면도 UI디자인<br>운동기구별 반응형 툴팁 기능 적용<br>헬스장 운동기구 DB 연동 및 비동기 처리|  
 |황민우|사용자 모듈 각 화면 페이지 UI/UX 디자인 총괄<br>각 트레이너 프로필 화면 구성<br>상품 및 결제 화면 디자인<br>공지사항 페이지 디자인<br>자유게시판 페이지 디자인<br>카카오 map API 제작<br>MySQL DB 테이블 구축<br>아임포트 카카오페이 결제 API 구현 및 결제 완료 페이지 구현<br>관리자 상품 판매 기록 페이지 구현<br>관리자 모듈 AJAX 통계 및 매출 차트 페이지 구현<br>마이페이지 기능 구현 및 디자인 (회원정보 수정, 결제 목록, 운동 기록, 출석 기록)|  
-|고윤재|운동 기록 CRUD 및 상세 페이지 구현|
+|고윤재|운동 기록 CRUD 및 상세 페이지 구현<br>관리자 모듈 설계 및 구축<br>관리자 UI/UX 구성<br>관리자 앵커 링크 구현|
 
   
 
@@ -127,7 +128,7 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
   
 ![FINAL 시연 영상 - 4K mov_000279333-min](https://user-images.githubusercontent.com/114971312/218620626-d9855862-8de3-4535-af29-3ccf397d5224.gif)
-![map](https://github.com/user-attachments/assets/c2a3a744-a3bd-4782-be7f-004652b4f0dd)
+
 
 ![FINAL 시연 영상 - 4K mov_000294966](https://user-images.githubusercontent.com/114971312/218620635-8f4133c4-4c6f-4282-8c4b-0545f7a138ff.gif)
 
@@ -135,8 +136,8 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
 <br><br>
 
-### 2) 지도 (Map)
-- 각 헬스장의 위치를 카카오 Map Api를 사용하여 각 지점마다 마커를 표시 
+### 1) 지도 (카카오 지도 Api)
+- 각 헬스장의 위치를 카카오 지도 Api를 사용하여 각 지점마다 마커를 표시 
 ![map](https://github.com/user-attachments/assets/046f760a-7fbe-459f-be08-b290afc4d1c2)
 
 - 지점 헬스장 이미지 클릭 시 해당 헬스장의 정확한 위치 정보 표시
@@ -146,23 +147,29 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 ***
 <br><br>
 
-### 3) 회원가입/로그인(Register/Login) 
-- 회원가입 진행 후 로그인을 하여 계정을 통하여 다양한 기능 사용
+### 2) 회원가입/로그인(Register/Login) 
+- 양식을 통한 회원가입 진행 후 계정 생성성 
     
   <br>  
 ![regis](https://github.com/user-attachments/assets/5c2f1c7b-cad7-4cf3-b9aa-c11c629b889b)
-![image](https://github.com/user-attachments/assets/89c9ab21-8e9f-4e4c-9879-444621b41d61)
+![image](https://github.com/user-attachments/assets/01c2a645-8300-409b-9a3e-17c55301ec08)
+
 - 회원가입을 통해서 만든 아이디를 입력
-  
+- 로그인 성공 시, 로그인을 하여 계정을 통하여 다양한 기능 사용
   
 ***
 <br><br>
 
 
-### 4) 상품 상세
-- 상품에 해당하는 전체 후기의 평균 평점 출력  
+### 3) 상품 상세
+- 상품 선택시 구매 창으로 이동
+![shop1](https://github.com/user-attachments/assets/5d36d282-4fba-410c-8b55-e638d1945588)
+- 선택에 따른 옵션 유무(PT, 필라테스 선택시)
+![shop2](https://github.com/user-attachments/assets/67f6e71d-a9a1-4c25-bc81-5ae59ef11078)
 - 장바구니와 찜 기능 연동  
-- AJAX를 활용한 후기와 문의 게시판 각각 구현(후기는 구매자만 작성 가능, CRUD, 관리자 댓글 조회)     
+
+
+
   
 ![상품상세](https://user-images.githubusercontent.com/110235270/218684829-d83985fc-407a-4901-b596-d6c05bb57df1.png)
 ![상품 상세 재 업로드](https://user-images.githubusercontent.com/114971312/218688929-efc6dde6-4508-448a-a0b0-8ea3957566cb.JPG)
@@ -172,12 +179,22 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 ***
 <br><br>
 
+### 4) 트레이너 (Trainer)
+- 고객은 각 트레이너의 프로필을 확인할 수 있음
+  ![trainer](https://github.com/user-attachments/assets/c4ee5f15-bdf4-48a5-9750-b0a3cd6a757a)
 
-### 5) 배송 조회 (스마트택배 API)
-- 스마트택배 API를 활용한 배송조회 기능
-- 사용자의 주문리스트에 운송장번호를 hidden으로 넣어놔서 조회버튼을 누름과 동시에 운송장번호를 가지고 자동으로 조회가능.  
+- 트레이너와 실시간으로 채팅하거나 피드백을 주고받으며 운동에 대한 전문적인 조언을 구할 수 있음.      
+  ![trainerdetail](https://github.com/user-attachments/assets/57f6024b-9d99-410f-ac8e-b92b3f7daee7)
 
-![FINAL 시연 영상 - 4K mov_000269666](https://user-images.githubusercontent.com/114971312/218614121-be281a12-920e-4300-a1c0-787884ab4116.gif)
+
+***
+<br><br>
+
+
+### 5) 상품 결제 (카카오 결제 API)
+- 카카오 Pay Api를 이용하여 QR코드 결제, 카카오 ID 결제등 다양한 결제 방안 제시
+![payapi](https://github.com/user-attachments/assets/4529b0bc-f15c-4d8c-8aa2-537a78b8cc71)
+![payapi2](https://github.com/user-attachments/assets/f96df512-75d5-454a-96e2-217d702e7072)
 
 
 ***
@@ -192,6 +209,7 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
 ***
 <br><br>
+
 
 
 ## 관리자 페이지 🧐
