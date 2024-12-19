@@ -71,10 +71,10 @@ public class MainController {
         // 세션에서 로그인 정보 확인
         Object loginId = session.getAttribute("loginid");
 
-//        if (loginId == null) {
-//            // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
-//            return "redirect:/login";
-//        }
+        if (loginId == null) {
+            // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
 
         // 월별 매출 통계 가져오기
         Map<String, Double> monthlySales = paymentService.getMonthlySales();

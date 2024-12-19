@@ -91,13 +91,22 @@
                       fetch('/api/payment/todays-revenue')
                               .then(response => response.json())
                               .then(data => {
-                                const revenue = data.todayRevenue;
+                                // 데이터를 숫자로 변환
+                                const revenue = Number(data.todayRevenue);
 
-                                // 당일 매출 표시 (숫자 뒤에 \ 기호 추가)
-                                document.getElementById('todays-revenue').textContent = revenue.toLocaleString() + '원';
+                                // 매출 데이터 확인 (디버깅용)
+                                console.log('Today Revenue:', revenue);
+
+                                // 당일 매출 표시 (숫자 뒤에 "원" 추가)
+                                if (!isNaN(revenue)) {
+                                  document.getElementById('todays-revenue').textContent = revenue.toLocaleString() + '원';
+                                } else {
+                                  document.getElementById('todays-revenue').textContent = '데이터 오류';
+                                }
                               })
                               .catch(error => console.error('Error fetching revenue data:', error));
                     </script>
+
 
 
                     <div>
@@ -278,7 +287,8 @@
                               },
                               callback: function(value) {
                                 return value + '명';  // y축 값 뒤에 '명' 추가
-                              }
+                              },
+                              stepSize: 1 // Y축을 1명 단위로 표시
                             },
                             grid: {
                               color: 'rgba(0, 0, 0, 0.1)',  // y축 그리드 색상
@@ -295,8 +305,14 @@
                             .then(response => response.json())
                             .then(data => {
                               // 날짜와 방문자 수 배열 만들기
-                              const dates = data.map(item => item.visit_date);
-                              const visitors = data.map(item => item.daily_visitors);
+                              let dates = data.map(item => item.visit_date);
+                              let visitors = data.map(item => item.daily_visitors);
+
+                              // 최근 7개의 데이터만 추출
+                              if (dates.length > 7) {
+                                dates = dates.slice(-7); // 뒤에서 7개
+                                visitors = visitors.slice(-7); // 뒤에서 7개
+                              }
 
                               console.log('Dates:', dates);
                               console.log('Visitors:', visitors);
@@ -305,7 +321,7 @@
                               const canvasElement = document.getElementById('performanceLine2');
 
                               if (myChart) {
-                                myChart.destroy();  // 기존 차트 파괴
+                                myChart.destroy(); // 기존 차트 파괴
                               }
 
                               // 차트를 새로 그리기 전에 canvas 크기 재설정

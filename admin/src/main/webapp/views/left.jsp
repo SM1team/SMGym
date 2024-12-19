@@ -85,7 +85,7 @@
                 </a>
                 <div class="collapse" id="charts">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="<c:url value="/chart/gender"/>" >방문 현황</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/chart/gender"/>" >통계</a></li>
                     </ul>
 
                 </div>
