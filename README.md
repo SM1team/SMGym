@@ -135,26 +135,25 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
 <br><br>
 
-### 2) 주문/결제(I'm port)
-- 기본배송지가 있을 시 해당 배송지 정보를 바로 사용할 수 있게 표시
-![KakaoTalk_20230214_171948660](https://user-images.githubusercontent.com/110235270/218678776-b8563429-e718-4448-b771-d0a430e3c887.png)
+### 2) 지도 (Map)
+- 각 헬스장의 위치를 카카오 Map Api를 사용하여 각 지점마다 마커를 표시 
+![map](https://github.com/user-attachments/assets/046f760a-7fbe-459f-be08-b290afc4d1c2)
 
-- 장바구니의 데이터를 가져와서 주문할 정보 생성
-- I'mport(아임포트) API를 이용하여 카드결제, 카카오결제 등 실제 결제 가능   
-![import_api-min](https://user-images.githubusercontent.com/117332944/218477489-658a1227-6b80-4580-8e55-d6dba3911172.gif)
+- 지점 헬스장 이미지 클릭 시 해당 헬스장의 정확한 위치 정보 표시
+![map2](https://github.com/user-attachments/assets/4db1b03d-ee3d-4f98-8911-2b6a0020169a)
+
 
 ***
 <br><br>
 
-### 3) 1:1 채팅 문의(1:1 chating) 
-- 카카오 로그인 API를 이용하여 소셜 로그인 구현
-  →  SNS계정으로 처음 로그인을 하는 경우, 카카오 서버는 redirect url로 인증코드를 전달   
-  → 클라이언트(Web)쪽에서 인증코드를 이용하여  access_token발급받은 후 서버로 전송   
-  → 서버에서는 access_token을 이용하여 카카오 서버로부터 사용자 정보(이름, 이메일)를 받음   
-  → 사용자정보를 db에 저장하며 로그인   
+### 3) 회원가입/로그인(Register/Login) 
+- 회원가입 진행 후 로그인을 하여 계정을 통하여 다양한 기능 사용
+    
   <br>  
-  ![카카오](https://user-images.githubusercontent.com/110235270/218476026-ffb0e851-fa6d-467e-98b3-cb0d7eab194b.gif)
-
+![regis](https://github.com/user-attachments/assets/5c2f1c7b-cad7-4cf3-b9aa-c11c629b889b)
+![image](https://github.com/user-attachments/assets/89c9ab21-8e9f-4e4c-9879-444621b41d61)
+- 회원가입을 통해서 만든 아이디를 입력
+  
   
 ***
 <br><br>
