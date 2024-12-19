@@ -117,7 +117,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">운동 기록 저장</button>
-    <a href="<c:url value='/board' />" class="btn btn-secondary" style="margin-left: 10px;">취소</a>
+    <a href="<c:url value='/workout' />" class="btn btn-secondary" style="margin-left: 10px;">취소</a>
 </form>
 </body>
 </html>
