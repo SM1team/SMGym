@@ -27,7 +27,7 @@
     }
 
     h1 {
-      color: #ae00c7;
+      color: #67acf4;
       margin-bottom: 20px;
     }
 
@@ -39,14 +39,14 @@
     #qrCodeImage {
       width: 150px; /* 적절한 크기 설정 */
       height: 150px; /* 적절한 크기 설정 */
-      border: 3px solid #ae00c7;
+      border: 3px solid #67acf4;
       border-radius: 10px;
       margin-bottom: 20px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     form button {
-      background-color: #ae00c7;
+      background-color: #67acf4;
       color: white;
       border: none;
       padding: 10px 20px;
@@ -57,7 +57,7 @@
     }
 
     form button:hover {
-      background-color: #9400a6;
+      background-color: #67acf4;
     }
 
     p {

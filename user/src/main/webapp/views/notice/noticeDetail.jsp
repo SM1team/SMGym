@@ -5,18 +5,88 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="공지사항 상세보기" />
     <title>공지사항 상세보기</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            color: #e0e0e0;
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+        }
+
+        .board-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #000000;
+        }
+
+        .board-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #ae00c7;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #e0e0e0;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn.primary-btn {
+            background-color: #000000;
+            color: #ffffff;
+            border: 1px solid #ae00c7;
+        }
+
+        .btn.primary-btn:hover {
+            background-color: #ae00c7;
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+
+        .comment {
+            background-color: #1E1E1E;
+            border: 1px solid #ae00c7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
         #commentForm {
             display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #1E1E1E;
+            border: 1px solid #ae00c7;
+            border-radius: 5px;
         }
-        #commentEditForm {
-            display: none;
+
+        .form-control {
+            background-color: #000000;
+            color: #e0e0e0;
+            border: 1px solid #ae00c7;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 1rem;
         }
+
+        .form-control:focus {
+            border-color: #ae00c7;
+            box-shadow: 0 0 8px #ae00c7;
+        }
+
+
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -29,28 +99,31 @@
     </script>
 </head>
 <body>
-<div class="container mt-5">
-    <h2>${notice.noticeTitle}</h2>
-    <p><strong>작성자:</strong> ${notice.trainer.name}</p> <!-- 수정된 부분 -->
+<section class="board-container">
+    <h2 class="board-title">${notice.noticeTitle}</h2>
+    <p><strong>작성자:</strong> ${notice.trainerId}</p>
     <p><strong>작성일:</strong> ${notice.noticeDate}</p>
-    <p><strong>내용:</strong> ${notice.noticeContent}</p>
-    <p><strong>이미지:</strong>
-        <img src="<c:url value='/imgs/${notice.noticeImg}' />" alt="게시물 관련 이미지" height="400" width="550" />
-    </p>
+    <p><strong>내용:</strong></p>
+    <p>${notice.noticeContent}</p>
+    <p><strong>이미지:</strong></p>
+    <img src="<c:url value='/imgs/${notice.noticeImg}' />" alt="게시물 관련 이미지"  style="
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ae00c7;
+            border-radius: 4px;
+    "/>
 
-    <!-- 목록으로 돌아가기와 댓글 작성 버튼 -->
-    <a href="<c:url value='/notice' />" class="btn btn-primary">목록으로 돌아가기</a>
+    <div class="action-buttons">
+        <a href="<c:url value='/notice' />" class="btn primary-btn" style="margin-top: 20px">목록으로 돌아가기</a>
+        <button id="commentToggleBtn" class="btn primary-btn" style="margin-top: 20px">댓글 작성</button>
+    </div>
 
-    <!-- 댓글 작성 버튼 (댓글 작성 폼 토글) -->
-    <a href="javascript:void(0)" id="commentToggleBtn" class="btn btn-success ml-2">댓글 작성</a>
-
-    <!-- 댓글 리스트 -->
-    <div id="commentsSection" class="mt-4">
+    <div id="commentsSection">
         <c:if test="${empty comments}">
-            <p><strong>아직 댓글이 없습니다. 제일 먼저 댓글을 작성해보세요!</strong></p>
+            <p class="text-muted">아직 댓글이 없습니다. 제일 먼저 댓글을 작성해보세요!</p>
         </c:if>
         <c:forEach var="comment" items="${comments}">
-            <div class="comment mt-3 p-2 border rounded">
+            <div class="comment">
                 <p><strong>${comment.custId}</strong>
                     <span class="text-muted">(${fn:replace(comment.commentDate, 'T', ' ')})</span>
                 </p>
@@ -59,24 +132,23 @@
         </c:forEach>
     </div>
 
-    <!-- 댓글 작성 폼 (작성 폼은 필요시 사용할 수 있도록 유지) -->
-    <div id="commentForm" class="mt-4">
+    <div id="commentForm">
         <form action="<c:url value='/comment/save' />" method="post">
             <div class="form-group">
                 <label for="noticeNo">게시글 번호</label>
-                <input type="text" class="form-control" id="noticeNo" name="noticeNo" value="${notice.noticeNo}" readonly/>
+                <input type="text" class="form-control" id="noticeNo" name="noticeNo" value="${notice.noticeNo}" readonlystyle="color:#000000" />
             </div>
             <div class="form-group">
                 <label for="custId">작성자 ID</label>
-                <input type="text" class="form-control" id="custId" name="custId" value="${notice.trainerId}" readonly/> <!-- 수정된 부분 -->
+                <input type="text" class="form-control" id="custId" name="custId" value="${notice.trainerId}" readonlystyle="color:#000000"/>
             </div>
             <div class="form-group">
                 <label for="commentContent">댓글 내용</label>
                 <textarea class="form-control" id="commentContent" name="content" rows="3" placeholder="댓글 내용을 입력하세요"></textarea>
             </div>
-            <button type="submit" class="btn btn-success">댓글 작성</button>
+            <button type="submit" class="btn primary-btn">댓글 작성</button>
         </form>
     </div>
-</div>
+</section>
 </body>
 </html>

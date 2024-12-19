@@ -4,14 +4,17 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/admin/src/main/webapp/views/center.jsp" value="file://$PROJECT_DIR$/admin/src/main/webapp/views" />
+        <entry key="file://$PROJECT_DIR$/admin/src/main/webapp/views/chart/gender.jsp" value="file://$PROJECT_DIR$/admin/src/main/webapp/views/chart" />
         <entry key="file://$PROJECT_DIR$/admin/src/main/webapp/views/pt/center.jsp" value="file://$PROJECT_DIR$/admin/src/main/webapp/views/pt" />
         <entry key="file://$PROJECT_DIR$/user/src/main/webapp/views/board/boardDetail.jsp" value="file://$PROJECT_DIR$/user/src/main/webapp/views/board" />
         <entry key="file://$PROJECT_DIR$/user/src/main/webapp/views/board/search.jsp" value="file://$PROJECT_DIR$/user/src/main/webapp/views/board" />
+        <entry key="file://$PROJECT_DIR$/user/src/main/webapp/views/floor/center.jsp" value="file://$PROJECT_DIR$/user/src/main/webapp/views/floor" />
         <entry key="file://$PROJECT_DIR$/user/src/main/webapp/views/index.jsp" value="file://$PROJECT_DIR$/user/src/main/webapp/views" />
         <entry key="file://$PROJECT_DIR$/user/src/main/webapp/views/login.jsp" value="file://$PROJECT_DIR$/user/src/main/webapp/views" />
         <entry key="file://$PROJECT_DIR$/user/src/main/webapp/views/register/center.jsp" value="file://$PROJECT_DIR$/user/src/main/webapp/views/register" />
         <entry key="file://$PROJECT_DIR$/user/src/main/webapp/views/shop/center.jsp" value="file://$PROJECT_DIR$/user/src/main/webapp/views/shop" />
         <entry key="file://$PROJECT_DIR$/user/src/main/webapp/views/shop/detail.jsp" value="file://$PROJECT_DIR$/user/src/main/webapp/views/shop" />
+        <entry key="file://$PROJECT_DIR$/user/src/main/webapp/views/workout/center.jsp" value="file://$PROJECT_DIR$/user/src/main/webapp/views/workout" />
         <entry key="file://$PROJECT_DIR$/user/src/main/webapp/views/workout/write.jsp" value="file://$PROJECT_DIR$/user/src/main/webapp/views/workout" />
       </map>
     </option>

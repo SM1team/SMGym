@@ -30,6 +30,11 @@
                         <li class="nav-item"><a class="nav-link" href="/checkout">퇴근
                             </a></li>
                     </ul>
+
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/trainercheck"/>">내 출석
+                        </a></li>
+                    </ul>
                 </div>
 
             </li>
@@ -44,30 +49,33 @@
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"><a class="nav-link" href="/cust"> 회원 조회</a></li>
                     </ul>
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="/pt"> PT관리</a></li>
+                    </ul>
                 </div>
             </li>
             </c:when>
             <c:otherwise>
 
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false"
-                   aria-controls="form-elements">
-                    <i class="menu-icon mdi mdi-card-text-outline"></i>
-                    <span class="menu-title">트레이너 출석</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="form-elements2">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="/checkin">출근
-                        </a></li>
-                    </ul>
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="/checkout">퇴근
-                        </a></li>
-                    </ul>
-                </div>
+<%--            <li class="nav-item">--%>
+<%--                <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false"--%>
+<%--                   aria-controls="form-elements">--%>
+<%--                    <i class="menu-icon mdi mdi-card-text-outline"></i>--%>
+<%--                    <span class="menu-title">트레이너 출석</span>--%>
+<%--                    <i class="menu-arrow"></i>--%>
+<%--                </a>--%>
+<%--                <div class="collapse" id="form-elements2">--%>
+<%--                    <ul class="nav flex-column sub-menu">--%>
+<%--                        <li class="nav-item"><a class="nav-link" href="/checkin">출근--%>
+<%--                        </a></li>--%>
+<%--                    </ul>--%>
+<%--                    <ul class="nav flex-column sub-menu">--%>
+<%--                        <li class="nav-item"><a class="nav-link" href="/checkout">퇴근--%>
+<%--                        </a></li>--%>
+<%--                    </ul>--%>
+<%--                </div>--%>
 
-            </li>
+<%--            </li>--%>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false"
                    aria-controls="charts">
@@ -77,11 +85,7 @@
                 </a>
                 <div class="collapse" id="charts">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="<c:url value="/chart/gender"/>" >일 방문 현황</a></li>
-                    </ul>
-
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="<c:url value="/chart/sales"/>" >매출 현황</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/chart/gender"/>" >방문 현황</a></li>
                     </ul>
 
                 </div>
@@ -112,7 +116,7 @@
                 <div class="collapse" id="notice">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"><a class="nav-link" href="<c:url value="/notice"/>">공지사항 조회</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<c:url value="/notice/add"/>">공지사항 추가</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/notice/write"/>">공지사항 추가</a></li>
                     </ul>
                 </div>
             </li>
@@ -152,14 +156,14 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="/websocket">
-                    <i class="menu-icon mdi mdi-file-document"></i>
+                    <i class="menu-icon mdi mdi-message"></i>
                     <span class="menu-title">문의 관리</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/reservation">
-                    <i class="menu-icon mdi mdi-file-document"></i>
+                    <i class="menu-icon mdi mdi-calendar-check"></i>
                     <span class="menu-title">예약관리</span>
                 </a>
             </li>

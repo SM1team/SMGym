@@ -5,8 +5,11 @@ import edu.sm.app.dto.CustCheckDto;
 import edu.sm.app.dto.Search;
 import edu.sm.app.frame.SMRepository;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -22,5 +25,7 @@ public interface CustCheckRepository extends SMRepository<String, CustCheckDto> 
     void updateCheckEndTime(CustCheckDto custCheckDto);
 
     Page<CustCheckDto> custcheckfindpage(Search search);
+
+    List<Map<String, Object>> getMonthlyAttendance(@Param("custId") String custId);
 
 }

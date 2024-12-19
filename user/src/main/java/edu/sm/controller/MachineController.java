@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -38,7 +40,7 @@ public class MachineController {
 
 
     @PostMapping("/machine/toggle")
-    public String toggleMachineStatus(int machineNo) {
+    public String toggleMachineStatus(Model model ,int machineNo) {
         // 상태 변경 처리
         try {
             machineService.toggleMachineStatus(machineNo);
@@ -46,14 +48,18 @@ public class MachineController {
         } catch (Exception e) {
             log.error("Error while toggling machine status", e);
         }
+        model.addAttribute("top", "floor/top");
+        model.addAttribute("center", "floor/center");
+        return "index"; // index.jsp 반환
 
-        // 상태 업데이트 후 /floor로 리다이렉트
-        return "redirect:/floor";
     }
 
     @GetMapping("/machine/details")
     @ResponseBody
     public MachineDto getMachineDetails(@RequestParam("machineNo") Integer machineNo) throws Exception {
+        log.info("디테일 컨트롤러 들어옴");
+
+        log.info("머신 번호:", machineNo);
         // DB에서 machineNo로 머신 정보 조회
         MachineDto machine = null;
         try {

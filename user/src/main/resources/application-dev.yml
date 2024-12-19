@@ -9,6 +9,11 @@ server:
 
 # 2. SpringBoot Environment Setting
 spring:
+  messages:
+    basename: messages/message_en
+    encoding: utf-8
+    cache-duration: 10
+    fallback-to-system-locale: false
   mvc:
     view:
       prefix: /views/

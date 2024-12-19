@@ -1,19 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<div style="background-color: #000000; height: 10px; margin-bottom: 20px;"></div>
+  <div style="background-color: #1a1a1a; margin-bottom: 10px;"></div>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<div class="col-sm-10">
+<div class="col-sm-10" style="margin: auto">
 
-  <h2>PT Page</h2>
 
+<h2 style="margin-left: 50%"> pt 기록</h2>
   <!-- 쓰기 버튼 -->
-  <div class="mb-3">
-    <button class="btn btn-danger" id="deleteBtn">삭제하기</button>
-  </div>
+<%--  <div class="mb-3">--%>
+<%--    <button class="btn btn-danger" id="deleteBtn">삭제하기</button>--%>
+<%--  </div>--%>
 
   <form id="ptform" method="post">
-    <table class="table">
-      <thead class="thead-dark">
+    <table class="table board-table">
+      <thead>
       <tr>
         <th><input type="checkbox" id="selectAll"></th>
         <th>PT일지 번호</th>
@@ -29,11 +32,20 @@
       <c:forEach var="c" items="${pts}">
         <tr>
           <td><input type="checkbox" class="rowCheckbox" value="${c.ptNo}"></td>
-          <!-- pt일지 번호 클릭 시 ptContent 상세보기 -->
-          <td><a href="<c:url value='/pt/edit'/>?ptNo=${c.ptNo}">${c.ptNo}</a></td>
+          <td><a href="<c:url value='/pt/edit'/>?ptNo=${c.ptNo}" class="board-title-link">${c.ptNo}</a></td>
           <td>${c.productNo}</td>
           <td>${c.trainerId}</td>
-          <td>${c.ptContent}</td>
+          <!-- ptContent 30자만 출력 -->
+          <td>
+            <c:choose>
+              <c:when test="${fn:length(c.ptContent) > 30}">
+                ${fn:substring(c.ptContent, 0, 30)}...
+              </c:when>
+              <c:otherwise>
+                ${c.ptContent}
+              </c:otherwise>
+            </c:choose>
+          </td>
           <td>${c.ptDate}</td>
           <td>${c.ptCount}</td>
           <td>${c.custId}</td>
@@ -80,3 +92,57 @@
     }
   });
 </script>
+
+<style>
+  body {
+    background-color: #000000;
+    font-family: Arial, sans-serif;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .board-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #1E1E1E;
+    color: #e0e0e0;
+  }
+
+  .board-table th,
+  .board-table td {
+    padding: 10px;
+    border: 1px solid #ae00c7;
+    text-align: left;
+  }
+
+  .board-table th {
+    background-color: #333;
+    font-weight: bold;
+    color: #e0e0e0;
+  }
+
+  .board-table .board-title-link {
+    color: #ae00c7;
+    text-decoration: none;
+  }
+
+  .board-table .board-title-link:hover {
+    text-decoration: underline;
+    color: #ffffff;
+  }
+
+
+  .col-sm-10 {
+    background-color: #1a1a1a;
+    border: 1px solid #ae00c7;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(174, 0, 199, 0.5);
+  }
+
+  .table {
+    color: #f1f1f1;
+  }
+
+</style>

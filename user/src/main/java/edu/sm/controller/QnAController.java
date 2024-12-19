@@ -44,31 +44,7 @@ public class QnAController {
         return "index";
     }
 
-//    @RequestMapping("/history")
-//    public String history(Model model,@RequestParam("id") Integer phone) throws Exception {//id를 받기위함
-//        ReservationDto reservationDto = null;
-//        reservationDto = reservationService.get(phone);
-//        model.addAttribute("reservation",reservationDto);
-//
-//        model.addAttribute("top",qdir +"top");
-//        model.addAttribute("center",qdir+"history");
-//        return "index";
-//
-//    }
-//    @RequestMapping("/history")
-//    public String history(Model model) throws Exception {
-//        List<ReservationDto> reservations = new ArrayList<ReservationDto>();
-//        reservations = reservationService.get();
-//
-//
-//        model.addAttribute("reservations",reservations);
-//        model.addAttribute("top",qdir +"top");
-//        model.addAttribute("center",qdir+"history");
-//        return "index";
-//
-//
-//
-//    }
+
 
     @RequestMapping("/history")
     public String history(Model model, HttpSession session) throws Exception {

@@ -91,13 +91,22 @@
                       fetch('/api/payment/todays-revenue')
                               .then(response => response.json())
                               .then(data => {
-                                const revenue = data.todayRevenue;
+                                // 데이터를 숫자로 변환
+                                const revenue = Number(data.todayRevenue);
 
-                                // 당일 매출 표시 (숫자 뒤에 \ 기호 추가)
-                                document.getElementById('todays-revenue').textContent = revenue.toLocaleString() + '원';
+                                // 매출 데이터 확인 (디버깅용)
+                                console.log('Today Revenue:', revenue);
+
+                                // 당일 매출 표시 (숫자 뒤에 "원" 추가)
+                                if (!isNaN(revenue)) {
+                                  document.getElementById('todays-revenue').textContent = revenue.toLocaleString() + '원';
+                                } else {
+                                  document.getElementById('todays-revenue').textContent = '데이터 오류';
+                                }
                               })
                               .catch(error => console.error('Error fetching revenue data:', error));
                     </script>
+
 
 
                     <div>
@@ -128,18 +137,54 @@
                       setInterval(fetchCurrentTime, 1000);
                     </script>
 
+                    <script>
+                      // 데이터를 비동기로 가져와서 업데이트
+                      async function fetchActiveMachineCount() {
+                        try {
+                          const response = await fetch('/api/machine/active-count');
+                          if (!response.ok) {
+                            throw new Error('데이터를 가져오는 중 오류 발생');
+                          }
+                          const activeMachineCount = await response.json();
+                          document.getElementById('active-machine-count').innerText = activeMachineCount;
+                        } catch (error) {
+                          console.error(error);
+                          document.getElementById('active-machine-count').innerText = "오류 발생";
+                        }
+                      }
+
+                      // 주기적으로 데이터를 가져오기 위해 setInterval 사용
+                      setInterval(fetchActiveMachineCount, 5000); // 5000ms (5초)마다 호출
+
+                    </script>
+
                     <div class="d-none d-md-block">
                       <p class="statistics-title">사용중인 운동기구 수</p>
-                      <h3 class="rate-percentage">2m:35s</h3>
-                      <p class="text-success d-flex"><i
-                              class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
+                      <h3 class="rate-percentage" id="active-machine-count">로딩 중...</h3>
                     </div>
-                    <div class="d-none d-md-block">
-                      <p class="statistics-title">New Sessions</p>
-                      <h3 class="rate-percentage">68.8</h3>
-                      <p class="text-danger d-flex"><i
-                              class="mdi mdi-menu-down"></i><span>68.8</span></p>
-                    </div>
+
+                    <script>
+                      // 데이터를 비동기로 가져와서 업데이트
+                      async function fetchActiveMachineCount() {
+                        try {
+                          const response = await fetch('/api/machine/active-count');
+                          if (!response.ok) {
+                            throw new Error('데이터를 가져오는 중 오류 발생');
+                          }
+                          const activeMachineCount = await response.json();
+                          document.getElementById('active-machine-count').innerText = activeMachineCount;
+                        } catch (error) {
+                          console.error(error);
+                          document.getElementById('active-machine-count').innerText = "오류 발생";
+                        }
+                      }
+
+                      // 주기적으로 데이터를 가져오기 위해 setInterval 사용
+                      setInterval(fetchActiveMachineCount, 5000); // 5000ms (5초)마다 호출
+
+                    </script>
+
+
 
                   </div>
                 </div>
@@ -242,7 +287,8 @@
                               },
                               callback: function(value) {
                                 return value + '명';  // y축 값 뒤에 '명' 추가
-                              }
+                              },
+                              stepSize: 1 // Y축을 1명 단위로 표시
                             },
                             grid: {
                               color: 'rgba(0, 0, 0, 0.1)',  // y축 그리드 색상
@@ -253,34 +299,50 @@
                     });
                   }
 
-                  fetch('/api/attendance/getDailyVisitors')
-                          .then(response => response.json())
-                          .then(data => {
-                            // 날짜와 방문자 수 배열 만들기
-                            const dates = data.map(item => item.visit_date);
-                            const visitors = data.map(item => item.daily_visitors);
+                  // 데이터를 주기적으로 가져와서 차트를 업데이트하는 함수
+                  function fetchAndUpdateChart() {
+                    fetch('/api/attendance/getDailyVisitors')
+                            .then(response => response.json())
+                            .then(data => {
+                              // 날짜와 방문자 수 배열 만들기
+                              let dates = data.map(item => item.visit_date);
+                              let visitors = data.map(item => item.daily_visitors);
 
-                            console.log('Dates:', dates);
-                            console.log('Visitors:', visitors);
+                              // 최근 7개의 데이터만 추출
+                              if (dates.length > 7) {
+                                dates = dates.slice(-7); // 뒤에서 7개
+                                visitors = visitors.slice(-7); // 뒤에서 7개
+                              }
 
-                            // 차트를 그리기 전에 기존 차트를 파괴하고 canvas 초기화
-                            const canvasElement = document.getElementById('performanceLine2');
+                              console.log('Dates:', dates);
+                              console.log('Visitors:', visitors);
 
-                            if (myChart) {
-                              myChart.destroy();  // 기존 차트 파괴
-                            }
+                              // 차트를 그리기 전에 기존 차트를 파괴하고 canvas 초기화
+                              const canvasElement = document.getElementById('performanceLine2');
 
-                            // 차트를 새로 그리기 전에 canvas 크기 재설정
-                            const canvasParentWidth = canvasElement.parentElement.clientWidth; // 부모 요소의 너비
-                            canvasElement.width = canvasParentWidth; // 부모 너비에 맞게 canvas 크기 설정
-                            canvasElement.height = 300; // 차트의 높이를 고정 (필요에 따라 변경)
+                              if (myChart) {
+                                myChart.destroy(); // 기존 차트 파괴
+                              }
 
-                            drawChart(dates, visitors, canvasElement);
-                          })
-                          .catch(error => {
-                            console.error('Error fetching daily visitors data:', error);
-                          });
+                              // 차트를 새로 그리기 전에 canvas 크기 재설정
+                              const canvasParentWidth = canvasElement.parentElement.clientWidth; // 부모 요소의 너비
+                              canvasElement.width = canvasParentWidth; // 부모 너비에 맞게 canvas 크기 설정
+                              canvasElement.height = 300; // 차트의 높이를 고정 (필요에 따라 변경)
+
+                              drawChart(dates, visitors, canvasElement);
+                            })
+                            .catch(error => {
+                              console.error('Error fetching daily visitors data:', error);
+                            });
+                  }
+
+                  // 처음 로드 시 차트 업데이트
+                  fetchAndUpdateChart();
+
+                  // 5초마다 차트 데이터 갱신
+                  setInterval(fetchAndUpdateChart, 5000); // 5000ms (5초)마다 호출
                 </script>
+
 
               <%--     오른쪽 표 --%>
                 <div class="col-lg-4 d-flex flex-column">

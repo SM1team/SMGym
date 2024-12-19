@@ -1,14 +1,22 @@
 package edu.sm.controller;
 
+import edu.sm.app.dto.CustDto;
 import edu.sm.app.dto.MachineDto;
+import edu.sm.app.service.CustCheckService;
 import edu.sm.app.service.MachineService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -22,6 +30,8 @@ public class MainController {
 
     @Autowired
     private MachineService machineService;
+    @Autowired
+    private CustCheckService custCheckService;
     // 메인 페이지의 기본 엔드포인트
     @RequestMapping("/")
     public String main(Model model) throws Exception {
@@ -80,6 +90,16 @@ public class MainController {
         model.addAttribute("top", "top"); // 회원가입 페이지 제목 추가
         model.addAttribute("center", "mycheck/"+"center"); // 회원가입 페이지 제목 추가
         return "index"; // login.jsp의 경로
+    }
+
+    @GetMapping("/monthlyAttendance")
+    @ResponseBody
+    public List<Map<String, Object>> getMonthlyAttendance(@RequestParam("custId") String custId,HttpSession httpSession) throws Exception {
+        CustDto loggedInUser = (CustDto) httpSession.getAttribute("loginid");
+        if (loggedInUser == null) {
+            throw new Exception("로그인된 사용자가 없습니다.");
+        }
+        return custCheckService.getMonthlyAttendance(custId);
     }
 
 

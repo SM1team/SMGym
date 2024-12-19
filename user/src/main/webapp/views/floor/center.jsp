@@ -1,111 +1,79 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
+<!DOCTYPE html>
+<html lang="en">
 <!-- styles.css 파일을 링크로 추가 -->
 <link rel="stylesheet" href="<c:url value='/css/styles.css' />">
-
+<!-- Font Awesome CDN 추가 -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <%--헬스장 플로어 맵 동적 스크립트--%>
 <script>
+    // 페이지가 로드될 때마다 각 기계의 상태를 확인하고 업데이트
+    window.onload = function() {
+        // 각 기계의 상태를 가져올 수 있도록 반복문 또는 여러 요소를 다루는 코드 작성
+        var equipmentElements = document.querySelectorAll('.equipment');
+
+        function updateMachineStatus() {
+            equipmentElements.forEach(function(equipment) {
+                var machineNo = equipment.getAttribute('data-machine_no');
+                console.log('Machine No:', machineNo);  // 콘솔에 machineNo 값 출력
+
+                // 기계 상태 API를 통해 상태 값 가져오기
+                fetch(`/machine/details?machineNo=` + machineNo)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(`/machine/details?machineNo=${machineNo}`); // 콘솔에 URL을 찍어 확인
+                        console.log(data); // 상태 데이터 출력
+
+                        var lightElement = equipment.querySelector('.light');
+                        // 상태에 따라 light 요소 색상 변경
+                        if (data.machineStatus) {
+                            // 기계가 활성 상태일 경우 (true)
+                            lightElement.style.backgroundColor = 'green'; // 초록색
+                        } else {
+                            // 기계가 비활성 상태일 경우 (false)
+                            lightElement.style.backgroundColor = 'red'; // 빨간색
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching machine status:', error);
+                    });
+            });
+        }
+
+        // 페이지 로드 후 상태를 한번 업데이트
+        updateMachineStatus();
+
+        // 5초마다 상태를 갱신
+        setInterval(updateMachineStatus, 5000);  // 5000ms = 5초
+    };
 
 
-    document.querySelectorAll('.equipment').forEach(item => {
-        item.addEventListener('click', function() {
-            const machineNo = this.getAttribute('data-machine_no');
-            fetchMachineData(machineNo); // 서버에서 해당 machine_no로 데이터를 가져오는 함수 호출
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // 모든 운동기구를 대상으로 클릭 이벤트를 등록
+        const equipmentElements = document.querySelectorAll('.equipment');
+
+        equipmentElements.forEach(function(equipment) {
+            // 각 운동기구 블록에 click 이벤트 추가
+            equipment.addEventListener('click', function() {
+                // 클릭된 운동기구의 ID 값을 가져옴
+                const machineNo = equipment.getAttribute('data-machine_no');
+                const equipmentName = equipment.getAttribute('data-machine_name');
+
+                // 알림 창을 띄움
+                alert(equipmentName +' ' +' 상태를 변경하시겠습니까?');
+
+                // toggleLight 함수 호출
+                toggleLight(equipment);
+            });
         });
     });
 
-    function fetchMachineData(machineNo) {
-        // AJAX 요청을 통해 서버에서 해당 machine_no를 가진 머신 데이터를 가져옴
-        fetch(`/machine/details?machineNo=${machineNo}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data); // 받은 데이터 출력 (예: 머신의 세부 정보)
-                // 추가적인 처리 로직을 여기에 작성 (예: 화면에 표시)
-            })
-            .catch(error => console.error('Error:', error));
-    }
 
-
-
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     // 모든 운동기구를 대상으로 클릭 이벤트를 등록
-    //     const equipmentElements = document.querySelectorAll('.equipment');
-    //
-    //     equipmentElements.forEach(function(equipment) {
-    //         // 각 운동기구 블록에 click 이벤트 추가
-    //         equipment.addEventListener('click', function() {
-    //             // 클릭된 운동기구의 ID 값을 가져옴
-    //             const machineNo = equipment.getAttribute('data-machine_no');
-    //             const equipmentName = equipment.getAttribute('data-machine_name');
-    //
-    //             // 알림 창을 띄움
-    //             alert(equipmentName + ' 버튼이 눌렸습니다!');
-    //
-    //             // toggleLight 함수 호출
-    //             toggleLight(equipment);
-    //         });
-    //     });
-    // });
-
-    <%--fetch(`/machine/toggle/${machineNo}`, {  // 수정된 경로 사용--%>
-    <%--    method: 'POST',  // 상태 변경에는 POST 메서드 사용--%>
-    <%--    headers: {--%>
-    <%--        'Accept': 'application/json',  // JSON 형식의 응답을 받을 것임을 명시--%>
-    <%--    },--%>
-    <%--})--%>
-    <%--    .then(response => {--%>
-    <%--        if (!response.ok) {--%>
-    <%--            throw new Error('Failed to toggle machine status');--%>
-    <%--        }--%>
-    <%--        return response.json();  // JSON 응답으로 변환--%>
-    <%--    })--%>
-    <%--    .then(data => {--%>
-    <%--        console.log('Machine status toggled:', data);  // 새 상태 출력--%>
-    <%--        alert(`Machine status: ${data ? 'Active' : 'Inactive'}`);  // 상태에 따라 출력--%>
-    <%--    })--%>
-    <%--    .catch(error => {--%>
-    <%--        if (error instanceof Error) {--%>
-    <%--            console.error('Error:', error);  // 에러 로그 콘솔에 출력--%>
-    <%--            console.error('Error message:', error.message);  // 에러 메시지를 별도로 출력--%>
-    <%--            console.error('Error stack:', error.stack);  // 에러의 stack trace도 출력--%>
-    <%--        } else {--%>
-    <%--            console.error('Unknown error:', error);  // error가 Error 객체가 아니면 다른 처리--%>
-    <%--        }--%>
-
-    <%--        alert('An error occurred while toggling the machine status.\n' + error.message);  // alert 창에서 에러 메시지 출력--%>
-    <%--    });--%>
-
-    <%--}--%>
-    function confirmStatusChange(event, form) {
-        let machineName = form.parentElement.getAttribute('data-machine_name');
-        const confirmation = confirm('해당 운동기구의 상태를 변경하시겠습니까?');
-
-        if (!confirmation) {
-            event.preventDefault(); // 폼 제출 취소
-        }
-        return confirmation; // '예' 클릭 시 폼이 제출됨
-    }
-
-
-
-    function toggleMachineStatus(element) {
-        const machineNo = element.getAttribute('data-machine_no'); // data-machine_no에서 번호 가져오기
-        const machineName = element.getAttribute('data-machine_name');
-
-        const form = document.createElement('form'); // 폼 태그 생성
-        form.method = 'POST'; // POST 방식 설정
-        form.action = `/machine/toggle/${machineNo}`; // 컨트롤러 경로 설정
-
-        // 폼 제출 시 화면 새로고침 방지
-        form.style.display = 'none';
-        document.body.appendChild(form);
-        form.submit();
-
-        // 기계 상태 변경 후 메시지 출력
-        alert(`Machine ${machineNo} 상태를 변경 요청하였습니다.`);
-        console.log(machineStatus)
-    }
 
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -131,18 +99,16 @@
     });
 </script>
 
-<div>
-    <input type="checkbox" id="showDescriptions" checked>
-    <label for="showDescriptions" class="switch-label">기구 설명 및 사용법 확인</label>
-</div>
-</div>
-
-
-<div class="container">
-    <div class="text-center">
-        <h2 class="section-heading text-uppercase">헬스장 플로어 맵</h2>
-        <h3 class="section-subheading text-muted">운동 기구와 주요 시설을 한눈에 확인해보세요!</h3>
+<div class="container" >
+    <div class="ds"  style="margin-bottom: 50px">
+        <input type="checkbox" id="showDescriptions" checked>
+        <label for="showDescriptions" class="switch-label"><spring:message code="site.miniTitle"/></label>
     </div>
+    <div class="text-center">
+        <h2 class="section-heading text-uppercase" style="color: #ae00c7"><spring:message code="site.title"/></h2>
+        <h3 class="section-subheading text-uppercase" style="color: #f1f1f1; font-weight: bolder; margin-bottom: 20px;"><spring:message code="site.subTitle"/></h3>
+    </div>
+
 
     <!-- 운동기구 설명 보기 체크박스 추가 -->
     <div class="gym-layout">
@@ -150,9 +116,9 @@
         <div class="equipment running" style="top: 8%; left: 3%;" data-machine_no="1" data-machine_name="러닝머신1">
             <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
                 <input type="hidden" name="machineNo" value="1">
-                <button type="button" style="all: unset; cursor: pointer;" onclick="fetchMachineDetails(1)">
+                <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>러닝머신 1</h4>
+                    <h4><spring:message code="site.treadmill1"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -167,14 +133,12 @@
 
 
 
-
-
         <div class="equipment running" style="top: 8%; left: 14%;" data-machine_no="2" data-machine_name="러닝머신2">
             <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
                 <input type="hidden" name="machineNo" value="2">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>러닝머신 2</h4>
+                    <h4><spring:message code="site.treadmill2"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -187,12 +151,14 @@
             <div class="light"></div> <!-- 기본 상태: inactive -->
         </div>
 
+
+
         <div class="equipment running" style="top: 8%; left: 25%;" data-machine_no="3" data-machine_name="러닝머신3">
             <form action="/machine/toggle" method="POST" onsubmit="return confirmStatusChange(event, this)">
                 <input type="hidden" name="machineNo" value="3">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>러닝머신 3</h4>
+                    <h4><spring:message code="site.treadmill3"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -210,7 +176,7 @@
                 <input type="hidden" name="machineNo" value="4">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>러닝머신 4</h4>
+                    <h4><spring:message code="site.treadmill4"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -228,7 +194,7 @@
                 <input type="hidden" name="machineNo" value="5">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>러닝머신 5</h4>
+                    <h4><spring:message code="site.treadmill5"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -246,7 +212,7 @@
                 <input type="hidden" name="machineNo" value="6">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>러닝머신 6</h4>
+                    <h4><spring:message code="site.treadmill6"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -264,7 +230,7 @@
                 <input type="hidden" name="machineNo" value="7">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>러닝머신 7</h4>
+                    <h4><spring:message code="site.treadmill7"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -283,7 +249,7 @@
         <!-- 프론트 카운터 -->
         <div class="facility reception" style="top: 8%; left: 80%; width: 180px;">
             <i class="fas fa-cogs"></i>
-            <h4>프론트 카운터</h4>
+            <h4><spring:message code="site.front"/></h4>
             <div class="bubble">
                 <p><strong>프론트 카운터란?</strong></p>
                 <img class="img-fluid" src="<c:url value="/assets/img/logos/counter.jpg"/>" alt="..." />
@@ -301,44 +267,44 @@
         <!-- 남자 화장실 -->
         <div class="facility manlocker" style="top: 23%; left: 1%; height: 60px;">
             <i class="fas fa-toilet"></i>
-            <h4>남자 화장실</h4>
+            <h4><spring:message code="site.restroom1"/></h4>
         </div>
 
         <!-- 남자 샤워실 -->
         <div class="facility manlocker" style="top: 33%; left: 1%; height: 60px;">
             <i class="fas fa-shower"></i>
-            <h4>남자 샤워실</h4>
+            <h4><spring:message code="site.showerRoom"/></h4>
         </div>
 
         <!-- 남자 탈의실 -->
         <div class="facility manlocker" style="top: 43%; left: 1%; height: 60px;">
             <i class="fas fa-tshirt"></i>
-            <h4>남자 탈의실</h4>
+            <h4><spring:message code="site.lockers"/></h4>
         </div>
 
         <!-- 여자 화장실 -->
         <div class="facility womanlocker" style="top: 53%; left: 1%; height: 60px;">
             <i class="fas fa-toilet"></i>
-            <h4>여자 화장실</h4>
+            <h4><spring:message code="site.restroom2"/></h4>
         </div>
 
         <!-- 여자 샤워실 -->
         <div class="facility womanlocker" style="top: 63%; left: 1%; height: 60px;">
             <i class="fas fa-shower"></i>
-            <h4>여자 샤워실</h4>
+            <h4><spring:message code="site.showerRoom2"/></h4>
         </div>
 
         <!-- 여자 탈의실 -->
         <div class="facility womanlocker" style="top: 73%; left: 1%; height: 60px;">
             <i class="fas fa-tshirt"></i>
-            <h4>여자 탈의실</h4>
+            <h4><spring:message code="site.lockers2"/></h4>
         </div>
 
 
         <!-- 비상구 -->
         <div class="facility emergency" style="top: 83%; left: 0.5%; height: 120px;">
             <i class="fas fa-exclamation-triangle"></i>
-            <h4>비상구</h4>
+            <h4><spring:message code="site.emergencyExit"/></h4>
         </div>
 
 
@@ -349,7 +315,7 @@
                 <input type="hidden" name="machineNo" value="8">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4>밴치 프레스</h4>
+                    <h4><spring:message code="site.benchPress"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -369,7 +335,7 @@
                 <input type="hidden" name="machineNo" value="9">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4>숄더 프레스</h4>
+                    <h4><spring:message code="site.shoulderPress"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -388,7 +354,7 @@
                 <input type="hidden" name="machineNo" value="10">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4>플라잉 머신</h4>
+                    <h4><spring:message code="site.flyingMachine"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -409,7 +375,7 @@
                 <input type="hidden" name="machineNo" value="26">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4>단체 PT 존</h4>
+                    <h4><spring:message code="site.groupPTZone"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -435,7 +401,7 @@
                 <input type="hidden" name="machineNo" value="11">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-bicycle"></i>
-                    <h4>스핀 바이크 1</h4>
+                    <h4><spring:message code="site.spinBike1"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -453,7 +419,7 @@
                 <input type="hidden" name="machineNo" value="12">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-bicycle"></i>
-                    <h4>스핀 바이크 2</h4>
+                    <h4><spring:message code="site.spinBike2"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -473,7 +439,7 @@
                 <input type="hidden" name="machineNo" value="13">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-bicycle"></i>
-                    <h4>인도어사이클 1</h4>
+                    <h4><spring:message code="site.indoorBicycle1"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -491,7 +457,7 @@
                 <input type="hidden" name="machineNo" value="14">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-bicycle"></i>
-                    <h4>인도어사이클 2</h4>
+                    <h4><spring:message code="site.indoorBicycle2"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -504,7 +470,7 @@
             <div class="light"></div>
         </div>
 
-        <div class="boundary-line" style="top: 22%; left: 60.6%; width: 2px; height: 57%; background-color: black;"></div>
+        <div class="boundary-line" style="top: 22%; left: 60.6%; width: 3px; height: 85%; background-color: black;"></div>
 
 
         <!-- 레그 프레스 머신 -->
@@ -516,7 +482,7 @@
                 <input type="hidden" name="machineNo" value="15">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4 style="white-space: nowrap;">레그 프레스 머신</h4>
+                    <h4 style="white-space: nowrap;"><spring:message code="site.legPressMachine"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -528,6 +494,7 @@
                 <p><strong>추천 횟수:</strong> 10-15회 (1세트당)</p>
                 <p><strong>추천 세트:</strong> 3-4세트</p>
             </div>
+            <div class="light"></div>
         </div>
 
         <!-- 체스트 프레스 머신 -->
@@ -536,7 +503,7 @@
                 <input type="hidden" name="machineNo" value="16">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4 style="white-space: nowrap;">체스트 프레스 머신</h4>
+                    <h4 style="white-space: nowrap;"><spring:message code="site.chestPressMachine"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -557,7 +524,7 @@
                 <input type="hidden" name="machineNo" value="17">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4>스미스 머신</h4>
+                    <h4><spring:message code="site.smithMachine"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -578,7 +545,7 @@
                 <input type="hidden" name="machineNo" value="18">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4>덤벨존</h4>
+                    <h4><spring:message code="site.dumbbellZone"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -598,7 +565,7 @@
                 <input type="hidden" name="machineNo" value="19">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4>렛풀다운</h4>
+                    <h4><spring:message code="site.latPullDown"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -618,7 +585,7 @@
                 <input type="hidden" name="machineNo" value="20">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-fire-flame-simple"></i>
-                    <h4>풀업 바</h4>
+                    <h4><spring:message code="site.pullUpBar"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -638,7 +605,7 @@
                 <input type="hidden" name="machineNo" value="21">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-fire-flame-simple"></i>
-                    <h4>딥스 바</h4>
+                    <h4><spring:message code="site.dipsBar"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -656,7 +623,7 @@
         <!-- 준비운동 구역 -->
         <div class="area cardio" style="top: 30%; left: 70%;">
             <i class="fas fa-heartbeat"></i>
-            <h4>준비운동 구역</h4>
+            <h4><spring:message code="site.readyZone"/></h4>
             <div class="bubble">
                 <p><strong>준비운동 구역이란?</strong></p>
                 <img class="img-fluid" src="<c:url value='/assets/img/logos/준비운동.jpg'/>" alt="..." />
@@ -676,7 +643,7 @@
                 <input type="hidden" name="machineNo" value="22">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>스텝밀 머신 1</h4>
+                    <h4><spring:message code="site.stepMill1"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -697,7 +664,7 @@
                 <input type="hidden" name="machineNo" value="23">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-running"></i>
-                    <h4>스텝밀 머신 2</h4>
+                    <h4><spring:message code="site.stepMill2"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -720,7 +687,7 @@
                 <input type="hidden" name="machineNo" value="24">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell"></i>
-                    <h4>스쿼트 존</h4>
+                    <h4><spring:message code="site.squatZone"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -743,7 +710,7 @@
                 <input type="hidden" name="machineNo" value="25">
                 <button type="submit" style="all: unset; cursor: pointer;">
                     <i class="fas fa-dumbbell" style="font-size: 48px;"></i>
-                    <h4>케이블 머신 존</h4>
+                    <h4><spring:message code="site.cableMachineZone"/></h4>
                 </button>
             </form>
             <div class="bubble">
@@ -760,7 +727,7 @@
             </div>
             <div class="light"></div>
         </div>
-
+    </div>
  </div>
 
 
@@ -775,7 +742,7 @@
         cursor: pointer;
         font-size: 18px;
         font-weight: bold;
-        color: #555;
+        color: #f1f1f1;
     }
 
     /* 스위치 버튼 */
@@ -868,12 +835,11 @@
 
     .gym-layout {
         position: relative;
-        width: 100%;
+        width: 80%;
         height: 780px;
         background-color: #f0f0f0;
         border: 2px solid #ccc;
-        margin-left: auto;
-        margin-right: auto;
+        margin: auto;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
     }
 
@@ -925,22 +891,35 @@
     /* 불빛 이펙트 */
     .light {
         position: absolute;
-        top: -10px;
+        top: -5px; /* 기구 맨 위쪽에 배치 */
         left: 50%;
         transform: translateX(-50%);
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
+        width: 80%; /* 길게 설정 (전체 너비의 80%) */
+        height: 8px; /* 높이는 얇게 설정 */
         background-color: transparent; /* 기본 상태: 꺼짐 */
-        transition: background-color 0.3s ease;
-        animation: blink 1s infinite; /* 깜빡이는 애니메이션 */
+        border-radius: 4px; /* 살짝 둥근 직사각형 */
+        transition: background-color 0.3s ease, box-shadow 0.3s ease; /* 전환 효과 */
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0); /* 초기 상태 */
     }
+
+
+
 
     /* machineStatus가 1일 경우 불빛이 켜짐 */
     .light.on {
         background-color: yellow;
         box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* 빛나는 효과 */
     }
+
+
+     /*.light {*/
+     /*    width: 20px; !* 원하는 크기 *!*/
+     /*    height: 20px; !* 원하는 크기 *!*/
+     /*    border-radius: 50%; !* 원 모양 *!*/
+     /*    background-color: red; !* 기본 상태: 빨간색 *!*/
+     /*    margin-top: 10px; !* 위치 조정 *!*/
+     /*}*/
+
 
     @keyframes blink {
         0% { opacity: 1; }
@@ -1012,9 +991,10 @@
         margin: 0;
         font-weight: bold; /* 제목 글씨 두껍게 */
     }
+
+    body{
+        background-color: #000000;
+    }
+
 </style>
-
-<!-- Font Awesome CDN 추가 -->
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
-
+</html>

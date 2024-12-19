@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 2024-11-06
-  Time: 오후 2:26
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -38,7 +32,7 @@
 <body id="page-top">
 
 <header class="masthead">
-  <div class="container">
+  <div class="container12">
     <div class="masthead-subheading">Welcome To Our Gym!</div>
     <div class="masthead-heading text-uppercase">커뮤니티 페이지 입니다!</div>
   </div>

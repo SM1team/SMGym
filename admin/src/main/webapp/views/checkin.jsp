@@ -43,14 +43,14 @@
             }
 
             #myVideo {
-                border: 4px solid #ae00c7;
+                border: 4px solid #67acf4;
                 border-radius: 8px;
                 box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
                 margin-bottom: 20px;
             }
 
             .scanner-button {
-                background-color: #ae00c7;
+                background-color: #67acf4;
                 color: #ffffff;
                 border: none;
                 padding: 10px 20px;
@@ -62,7 +62,7 @@
             }
 
             .scanner-button:hover {
-                background-color:#800080 ;
+                background-color: rgba(50, 127, 244, 0.6);
             }
 
             .scanner-border {
@@ -71,7 +71,7 @@
                 height: 300px;
                 margin: 0 auto 20px;
                 border: 6px solid transparent;
-                border-image: linear-gradient(45deg, #ae00c7, #ae00c7);
+                border-image: linear-gradient(45deg, #67acf4, #67acf4);
                 border-image-slice: 1;
                 border-radius: 12px;
                 display: flex;
