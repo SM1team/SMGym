@@ -93,7 +93,7 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 ***
 
 ### ✨개발 환경 및 수행 도구
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/20576f3b-10ce-4452-a8b1-aadd69f62d7f/32271991-345a-40b8-aec6-2c170f43f343/image.png)
+![image](https://github.com/user-attachments/assets/64e05e19-2880-4ecf-ae0f-4bca9b0715e0)
 
 ![개발도구](https://user-images.githubusercontent.com/117332944/219248953-8078a028-2ca4-4336-b361-169071fd5538.png)
 
@@ -123,14 +123,6 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 ### 1) QR코드 (QR 코드) 
 - QR코드를 이용하여  WEBCAM으로 사용자의 스마트폰 내 QR코드를 인식하고 각 회원을 식별하여 사용자의 입실 퇴실 기록을 저장
 - 각 운동 기구 QR 센서와 사용자의 스마트폰을 연동해 운동기록을 저장해주고 헬스장 FLOWMAP 페이지에서 대기/사용중인 운동기구를 실시간으로 확인가능
-
-<img width="100%" alt="addrAddDel" src="https://user-images.githubusercontent.com/114971312/218621174-7ab664ac-6421-43d7-9c13-7f9c179c97ad.JPG"> 
-
-  
-![FINAL 시연 영상 - 4K mov_000279333-min](https://user-images.githubusercontent.com/114971312/218620626-d9855862-8de3-4535-af29-3ccf397d5224.gif)
-
-
-![FINAL 시연 영상 - 4K mov_000294966](https://user-images.githubusercontent.com/114971312/218620635-8f4133c4-4c6f-4282-8c4b-0545f7a138ff.gif)
 
 ***
 
@@ -166,20 +158,12 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 ![shop1](https://github.com/user-attachments/assets/5d36d282-4fba-410c-8b55-e638d1945588)
 - 선택에 따른 옵션 유무(PT, 필라테스 선택시)
 ![shop2](https://github.com/user-attachments/assets/67f6e71d-a9a1-4c25-bc81-5ae59ef11078)
-- 장바구니와 찜 기능 연동  
-
-
-
-  
-![상품상세](https://user-images.githubusercontent.com/110235270/218684829-d83985fc-407a-4901-b596-d6c05bb57df1.png)
-![상품 상세 재 업로드](https://user-images.githubusercontent.com/114971312/218688929-efc6dde6-4508-448a-a0b0-8ea3957566cb.JPG)
-![3](https://user-images.githubusercontent.com/114971312/218420177-53d978dd-73ec-44e6-9e9b-c39edbc7b613.JPG)
 
 
 ***
 <br><br>
 
-### 4) 트레이너 (Trainer)
+### 4) 트레이너 
 - 고객은 각 트레이너의 프로필을 확인할 수 있음
   ![trainer](https://github.com/user-attachments/assets/c4ee5f15-bdf4-48a5-9750-b0a3cd6a757a)
 
@@ -201,11 +185,8 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 <br><br>
 
 
-### 6) 우편번호 검색 (카카오 우편번호 API)
-- 카카오 우편번호 API를 이용하여 실제 주소를 사용할 수 있도록 구현  
-  → API에서 가져온 결과를 필요한 양식으로 form 안에 들어가게 하여 DB에 저장
-![daum_zipcode_api](https://user-images.githubusercontent.com/117332944/218469125-531cbb81-c9dc-40c2-b6b0-2de81232866a.gif)
-
+### 6) PT 정보 
+- 
 
 ***
 <br><br>
