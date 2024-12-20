@@ -182,7 +182,8 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 ### 6) 1:1 채팅
 - 1:1 채팅을 통해 관리자와 소통을 할 수 있음
 ![1_1chat](https://github.com/user-attachments/assets/3d61fb4e-d89d-4b1c-9f02-53796688d8bd)
-- 
+![1_1chatt](https://github.com/user-attachments/assets/3ddd1e26-0a7e-4180-8510-035c07401be7)
+
 
 ***
 <br><br>
