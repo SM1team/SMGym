@@ -64,7 +64,8 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 ***
 
 ### ✨시스템 구성도
-![스크린샷 2024-12-20 112708](https://github.com/user-attachments/assets/ed5d0cda-2ac5-48c2-9dcb-37cdba9a0fc0)
+![image](https://github.com/user-attachments/assets/6d6af75d-96fb-45d5-9ee3-041112d8ac2f)
+
 
 
 ***  
