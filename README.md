@@ -44,7 +44,7 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
 # 2. 프로젝트 개요
 ### ✨프로젝트 계획도  
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/20576f3b-10ce-4452-a8b1-aadd69f62d7f/f1d363ee-af95-4cb4-8992-c3ac78643de1/image.png)
+
 ***
 
 ### ✨USER-FLOW
@@ -239,18 +239,16 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
 
 
-## 🎸기타   
-
-### 1) 로드밸런싱
-
-- NCP 로드밸런서를 활용한 트래픽 분산 시스템 구축
-- 로드밸런싱(Round Robin Algorithm)을 통해 총 3대의 서버에 트래픽 부하 분산 처리
-
-![스크린샷 2023-02-15 오후 2 56 21](https://user-images.githubusercontent.com/115512265/218944745-56ef97c0-c34f-41da-9cb3-26eb5eed6db9.png)
+## ✨서브 기술   
 
 
-***
-<br><br>
+### 1) QR 코드 ( QR code) 
+
+-직원에게 고유한 QR 코드를 부여하여 출퇴근 시간을 기록
+-QR 코드 스캔 시 현재 시간을 기준으로 출근 또는 퇴근 기록 생성
+-스캔한 QR 코드를 서버에서 인증하고, DB에 해당 기록 저장
+-QR 코드 스캔 실패나 잘못된 코드 입력 시 오류 메시지를 제공하여 데이터 정확성 보장
+![image](https://github.com/user-attachments/assets/00fb47f3-793b-4135-b9f6-912337afb2b2)
 
 
 ### 2) 암호화(Bcrypt)
