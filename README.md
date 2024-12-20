@@ -123,13 +123,17 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
   
 ### 1) QR코드 (QR 코드) 
 - QR코드를 이용하여  WEBCAM으로 사용자의 스마트폰 내 QR코드를 인식하고 각 회원을 식별하여 사용자의 입실 퇴실 기록을 저장
+  ![qrcode](https://github.com/user-attachments/assets/c17c30e4-61ec-46bf-9e51-56362191efa6)
+
 - 각 운동 기구 QR 센서와 사용자의 스마트폰을 연동해 운동기록을 저장해주고 헬스장 FLOWMAP 페이지에서 대기/사용중인 운동기구를 실시간으로 확인가능
+![checkout](https://github.com/user-attachments/assets/448577f0-ce3b-4d6f-8ff4-f23b05d0769d)
+
 
 ***
 
 <br><br>
 
-### 1) 지도 (카카오 지도 Api)
+### 2) 지도 (카카오 지도 Api)
 - 각 헬스장의 위치를 카카오 지도 Api를 사용하여 각 지점마다 마커를 표시 
 ![map](https://github.com/user-attachments/assets/046f760a-7fbe-459f-be08-b290afc4d1c2)
 
@@ -140,36 +144,27 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 ***
 <br><br>
 
-### 2) 회원가입/로그인(Register/Login) 
-- 양식을 통한 회원가입 진행 후 계정 생성성 
-    
-  <br>  
-![regis](https://github.com/user-attachments/assets/5c2f1c7b-cad7-4cf3-b9aa-c11c629b889b)
-![image](https://github.com/user-attachments/assets/01c2a645-8300-409b-9a3e-17c55301ec08)
 
-- 회원가입을 통해서 만든 아이디를 입력
-- 로그인 성공 시, 로그인을 하여 계정을 통하여 다양한 기능 사용
-  
-***
-<br><br>
-
-
-### 3) 상품 상세
-- 상품 선택시 구매 창으로 이동
-![shop1](https://github.com/user-attachments/assets/5d36d282-4fba-410c-8b55-e638d1945588)
-- 선택에 따른 옵션 유무(PT, 필라테스 선택시)
-![shop2](https://github.com/user-attachments/assets/67f6e71d-a9a1-4c25-bc81-5ae59ef11078)
-
+### 3) 플로어 맵
+- 마우스 커서 이동 시, 각 기구의 자세한 정보를 알 수 있음
+  ![floorr](https://github.com/user-attachments/assets/b5b4fe66-9733-410d-bfc1-5733d16060a0)
+- 다국어 번역 기능을 지원
+![lan](https://github.com/user-attachments/assets/dfa56c42-eedf-4c00-bb0e-6498aea154de)
+- 운동 기구의 실시간 사용을 알 수 있음
+![imm](https://github.com/user-attachments/assets/f18fd3cc-5836-4514-a72f-ab47966eb461)
+![chanimm](https://github.com/user-attachments/assets/00ec8dd4-8e6d-453e-b8f1-30dbff046113)
 
 ***
 <br><br>
 
-### 4) 트레이너 
-- 고객은 각 트레이너의 프로필을 확인할 수 있음
-  ![trainer](https://github.com/user-attachments/assets/c4ee5f15-bdf4-48a5-9750-b0a3cd6a757a)
+### 4) 출석
+- 월별 출석률을 확인할 수 있음
+![month](https://github.com/user-attachments/assets/296c8159-92c9-4938-8c65-8960cf55f6e9)
+- 출석 체크인/체크 아웃 시간을 확인할 수 있음      
+![checkinoutlog](https://github.com/user-attachments/assets/732cb428-44bb-448a-86eb-8d9b760a7daa)
+- 검색을 통해 날짜를 찾아볼 수 있음
+![searchcheckout](https://github.com/user-attachments/assets/bea65397-b3a6-4d18-963f-11fc7fca9d18)
 
-- 트레이너와 실시간으로 채팅하거나 피드백을 주고받으며 운동에 대한 전문적인 조언을 구할 수 있음.      
-  ![trainerdetail](https://github.com/user-attachments/assets/57f6024b-9d99-410f-ac8e-b92b3f7daee7)
 
 
 ***
@@ -186,7 +181,9 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 <br><br>
 
 
-### 6) PT 정보 
+### 6) 1:1 채팅
+- 1:1 채팅을 통해 관리자와 소통을 할 수 있음
+![1_1chat](https://github.com/user-attachments/assets/3d61fb4e-d89d-4b1c-9f02-53796688d8bd)
 - 
 
 ***
