@@ -5,7 +5,9 @@ PL (Project Leader) : 곽인성 <br>
 Front&Back DEV : 박주민, 황민우, 고윤재  
 기간: 2024.11.10~2024.12.24  
 <br>
+
 💿[웹 시연영상](https://youtu.be/11111111111)  
+
 🔗[노션 링크][(https://www.notion.so/246758c62a5b4e728cd50f89d021ba07?v=78f471175d4a49ea93b0195f26fa602a&pvs=4)](https://www.notion.so/2024-SW-12ea3b9e4551807eb729dfcc03fff17b)  
 
 <br>
@@ -280,18 +282,14 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
 ### 1)  메인(시작)페이지    
    	      
-      트레이너 소개 
+    **  트레이너 소개 **
 ![trainer](https://github.com/user-attachments/assets/5ac62947-9d09-48a8-aabf-5dc4bdcd6174)
 
    
         
-      헬스장 위치 소개 
+ **     헬스장 위치 소개 **
  ![map](https://github.com/user-attachments/assets/e3025486-5aa2-46ac-8432-1fb17183672f)
 
-
-<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/115512265/218914203-62db5e24-1326-4489-9493-8c8b7651a61e.gif">
-<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/115512265/218914231-eb5ae9ee-0dd1-4b91-b809-08aeb5f27547.gif">
-<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/115512265/218914241-197fe814-723c-4d76-bc42-3daeee6af3eb.gif">
 
 ***
 <br><br>
@@ -299,101 +297,47 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
 ### 2) 마이페이지
 
-  QR코드 생성 페이지         
-  QR코드 출/퇴근 기록 페이지     
-  운동 일지 페이지     
-  구매 목록 페이지 
+**  QR코드 생성 페이지      **  
+**  QR코드 출/퇴근 기록 페이지    ** 
+**  운동 일지 페이지   **  
+**  구매 목록 페이지 **
+
+![image](https://github.com/user-attachments/assets/d61550bc-fa3e-4ad0-98f8-eed7560c55fb)
 
 
-
-
-![중복체크](https://user-images.githubusercontent.com/110235270/218476271-c228cde0-0fcd-4256-908b-41b731c498e1.gif)
-<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/110235270/218756372-4b773b35-a4ff-4136-9469-fbb55ecb8352.gif"> 
-<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/110235270/218728083-8801d773-c50a-4b25-bf3c-de33999515a6.gif"> 
-***
 <br><br>
 
 
 ### 3) 헬스장 플로우 맵 (단면도 페이지)
-
-
-
+    **헬스장 단면도 **
+![floorr](https://github.com/user-attachments/assets/9cf916b0-6e1d-4cc0-aaff-cf6079caeac4)
 
 
 ### 4) 상품 페이지 
 
-      구매 페이지      
-      결제완료 페이지   
+  **    구매 페이지      **
+      ![payapi](https://github.com/user-attachments/assets/9562563d-e180-49b8-966b-a45a46492a87)
+
+**      결제완료 페이지   **
+![payapi2](https://github.com/user-attachments/assets/e194f07a-3869-49f0-ba95-a3278508a7f7)
 
 ### 5) 게시판 페이지
 
-         공지사항       
-         자유게시판
+**         공지사항       **
+![board](https://github.com/user-attachments/assets/2db3a941-8c9e-4505-9f04-59d9d8dbef1a)
+
+   **      자유게시판**
+![searchcommu](https://github.com/user-attachments/assets/93e6054b-9b3d-48b1-99be-8447336883ba)
 
 ### 6) 문의&예약 페이지
 
-         1:1 채팅 페이지
+   **      1:1 채팅 페이지
+
          문의 내역 페이지
-         예약 내역 페이지
 
+         예약 내역 페이지**
 
-- 비밀번호 변경, 찜 내역, 나의 주문/후기/문의 내역, 회원 탈퇴 기능
-- 후기 및 문의 조회/수정/삭제 가능 
-- 회원 탈퇴 시 회원 테이블의 signout 컬럼을 'N' -> ' Y'로 변경
- → 해당 아이디로 로그인 및 가입 불가
-<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/110235270/218730073-6f85346b-5702-442e-ae1c-bc268d0c7f07.gif"> 
-<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/110235270/218730078-40374225-dff5-4607-8a1a-98ae84c0869f.gif"> 
-
-
-***
-<br><br>
-
-
-### 4)  상품리스트
-- 음식 카테고리별 / 최신 등록순 / 판매량순 / 이름순 / 낮은 가격순 등 필터 및 정렬을 중복하여 적용 가능하게 구현
-- 정가와 할인가가 다른 경우, 할인율 및 가격 표시  
-- 페이지네이션 및 검색 기능 구현  
-![1](https://user-images.githubusercontent.com/114971312/218422029-547948fc-be82-43bc-8dbd-6faf8aacc77b.JPG)
-![2](https://user-images.githubusercontent.com/114971312/218421397-feb5f483-1866-41ea-8c4b-1c01dd2d4dfc.JPG)
-
-***
-<br><br>
-
-### 5) 장바구니
-- AJAX를 활용한 비동기식 요청으로 장바구니에 제품 추가 및 수정, 삭제 기능 구현
-- 기존에 추가되있는 제품이면, 수량 증가
-- 수량 추가 및 감소 버튼을 통해서 조절이 가능하며 직접 입력하여서 가능함.
-
-<img width="100%" alt="cart1" src="https://user-images.githubusercontent.com/115512265/218653614-2b6e0b50-fe45-4974-a3b8-f51fcbbf142a.gif"> 
-
-<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/115512265/218653642-f96cbbd5-44ca-4289-96d4-32e1a0981e91.gif"> 
-
-<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/115512265/218653657-10ad8486-a6ff-4da5-ba6a-3c01b5aff79d.gif"> 
-
-<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/115512265/218653664-1283d62a-8a64-40cf-89c5-c3df6e91ab5c.gif"> 
-
-
-
-***
-<br><br>
-
-
-### 6) 배송지 관리  
-- 팝업창을 띄워 배송지를 관리할 수 있게 구현 (배송지 선택, 기본 배송지 설정, 생성, 삭제)  
-- 배송지 선택 클릭 시 부모창으로 배송지 주소를 submit하고 자식창은 닫히게 구현  
-- controller에서 전달받은 배송지 리스트를 이용해 해당 사용자가 등록한 배송지가 3개 이상일 시 배송지 추가 불가능
-<img width="100%" alt="addrAddDel" src="https://user-images.githubusercontent.com/117332944/218751565-6492c3fd-c0f1-4b34-aafd-d690312a517f.gif">  
-
-***
-<br><br>
-
-
-### 7) 공지/이벤트/회사소개
-<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/115512265/218750797-11f3d0e2-0962-4e3b-b345-f6ff33112b1b.gif">
-- 회사소개 페이지에서 총 회원수와 팔린 제품 수를 AJAX통신을 통해 실시간으로 보여줌.
-
-<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/115512265/218751070-09fa802c-4885-4f4a-a416-ee65fdde0541.gif">
-- 공지/이벤트 페이지를 통해 관리자가 편하게 내용을 전달할 수 있음.
+![image](https://github.com/user-attachments/assets/cf78cfb7-2fc7-4632-9de6-2d93a737fd8c)
 
 
 ***
