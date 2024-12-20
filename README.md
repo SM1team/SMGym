@@ -94,7 +94,8 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 ### ✨개발 환경 및 수행 도구
 ![image](https://github.com/user-attachments/assets/64e05e19-2880-4ecf-ae0f-4bca9b0715e0)
 
-![image](https://github.com/user-attachments/assets/18e82581-3e02-4a70-8d7e-a1f0a2a64bc9)
+![image](https://github.com/user-attachments/assets/fe1098b6-8b15-4c7c-b3c4-ba608155618b)
+
 
 
 
