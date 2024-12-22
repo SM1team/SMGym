@@ -282,12 +282,12 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
 ### 1)  메인(시작)페이지    
    	      
-        **트레이너 소개** 
+   **트레이너 소개**
 ![trainer](https://github.com/user-attachments/assets/5ac62947-9d09-48a8-aabf-5dc4bdcd6174)
 
    
         
-        **헬스장 위치 소개**
+   **헬스장 위치 소개**
  ![map](https://github.com/user-attachments/assets/e3025486-5aa2-46ac-8432-1fb17183672f)
 
 ***
@@ -307,33 +307,33 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
 
 ### 3) 헬스장 플로우 맵 (단면도 페이지)
-    **헬스장 단면도**
+  **헬스장 단면도**
 ![floorr](https://github.com/user-attachments/assets/9cf916b0-6e1d-4cc0-aaff-cf6079caeac4)
 
 
 ### 4) 상품 페이지 
 
-  **    구매 페이지      **
+  **구매 페이지**
       ![payapi](https://github.com/user-attachments/assets/9562563d-e180-49b8-966b-a45a46492a87)
 
-**      결제완료 페이지   **
+**결제완료 페이지**
 ![payapi2](https://github.com/user-attachments/assets/e194f07a-3869-49f0-ba95-a3278508a7f7)
 
 ### 5) 게시판 페이지
 
-**         공지사항       **
+**공지사항**
 ![board](https://github.com/user-attachments/assets/2db3a941-8c9e-4505-9f04-59d9d8dbef1a)
 
-   **      자유게시판**
+**자유게시판**
 ![searchcommu](https://github.com/user-attachments/assets/93e6054b-9b3d-48b1-99be-8447336883ba)
 
 ### 6) 문의&예약 페이지
 
-   **      1:1 채팅 페이지
+   **1:1 채팅 페이지**
 
-         문의 내역 페이지
+  **문의 내역 페이지**
 
-         예약 내역 페이지**
+   **예약 내역 페이지**
 
 ![image](https://github.com/user-attachments/assets/cf78cfb7-2fc7-4632-9de6-2d93a737fd8c)
 
@@ -346,7 +346,8 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
 ### 1) 메인(시작)페이지  
 
- **    대시 보드 페이지      **
+ **대시 보드 페이지**
+
 - 필터와 정렬을 중복으로 적용하여 상품 조회 가능
 - 상품의 이미지 파일을 포함한 모든 요소를 등록/수정이 가능
 - 중복된 파일명이 있을 경우 뒤에 숫자를 계속하여 추가하는 식으로 재귀함수로 구현 (ex: (1), (2), (3))
@@ -361,10 +362,10 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 <br><br>
 
 
-### 2) 회원 관리
-- 차단된 회원 / 생년월일 순 정렬 기능  
-- 이메일 / 이름 / 전화번호 검색 기능
-- 차단 / 탈퇴 여부 조회와 차단 설정 기능 
+### 2) 월별 차트 페이지
+
+
+**매출, 회원 통계그래프** 
 ![회원관리-min](https://user-images.githubusercontent.com/114971312/218416472-07d821de-5bb6-467d-b2e7-2129f09fb9c2.gif)
 ![차단된 회원](https://user-images.githubusercontent.com/114971312/218690751-bf6a5f65-456a-4fec-9c49-88dfad5f8f80.JPG)
 
@@ -373,37 +374,26 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 <br><br>
 
 
-### 3) 공지/이벤트 관리
-- 필터와 정렬을 중복으로 적용하여 공지/이벤트 조회 가능
-- 중복된 파일명이 있을 경우 뒤에 숫자를 계속하여 추가하는 식으로 재귀함수로 구현 (ex: (1), (2), (3))
+### 3) 공지사항 페이지
+
+**게시판 페이지**
+
+
+**게시글 작성 페이지**
 <img width="100%" alt="boardmanage" src="https://user-images.githubusercontent.com/117332944/218490427-2e2e4f9a-0800-4c98-942f-335ac4cdaf40.gif"> 
 
-
 ***
 <br><br>
 
 
-### 4) 후기/문의 관리
-- 검색 기능을 통해 해당 키워드에 맞는 글을 가져오도록 구현 
-- 일부 선택 or 전체 선택하여 삭제 
-- 문의글의 경우, 관리자가 답변을 쓸 수 있도록 댓글 입력/수정/삭제 기능 구현
+### 4) 회원/트레이너 관리
+
+**회원 관리**
+
+
+**트레이너 관리**
+
 <img width="100%" alt="addrAddDel" src="https://user-images.githubusercontent.com/110235270/218756207-acc460dc-eb3e-4f9e-a539-b98299fe6459.gif">  
-
-
-***
-<br><br>
-
-
-
-### 5) 주문 관리
-
-
-- 체크박스를 통해 상품을 원하는 만큼 선택해서 상태를 변경할 수 있음.
-- 검색기능을 통해 원하는 주문내역을 볼 수 있음.
-- 상세보기를 들어가면 운송장번호를 업데이트 할 수 있음 또한 관리자측에서도 배송조회는 가능.
-- 사용자의 환불요청 내용을 보고 처리할 수 있음.
-
-<img width="100%" alt="orderManage" src="https://user-images.githubusercontent.com/115512265/218656591-688fa477-1085-41c5-b595-779b48230eda.gif">
 
 
 ***
