@@ -79,6 +79,10 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 ***
 
 ### ✨DB 설계
+<br>
+
+**🔗[ERD 보러가기](https://www.erdcloud.com/d/bHWFLdMGJ9n9cqBnA)**  
+
 ![ERD](https://github.com/SM1team/SMGym/blob/main/erd.png).
 
 ***
