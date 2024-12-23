@@ -273,25 +273,23 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
 ### 1)  메인(시작)페이지    
    	      
-    **  트레이너 소개 **
+   **트레이너 소개**
 ![trainer](https://github.com/user-attachments/assets/5ac62947-9d09-48a8-aabf-5dc4bdcd6174)
 
    
         
- **     헬스장 위치 소개 **
+   **헬스장 위치 소개**
  ![map](https://github.com/user-attachments/assets/e3025486-5aa2-46ac-8432-1fb17183672f)
-
 
 ***
 <br><br>
 
-
 ### 2) 마이페이지
 
-**  QR코드 생성 페이지      **  
-**  QR코드 출/퇴근 기록 페이지    ** 
-**  운동 일지 페이지   **  
-**  구매 목록 페이지 **
+ **QR코드 생성 페이지**  
+ **QR코드 출/퇴근 기록 페이지** 
+ **운동 일지 페이지**  
+ **구매 목록 페이지**
 
 ![image](https://github.com/user-attachments/assets/d61550bc-fa3e-4ad0-98f8-eed7560c55fb)
 
@@ -300,33 +298,33 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
 
 ### 3) 헬스장 플로우 맵 (단면도 페이지)
-    **헬스장 단면도 **
+  **헬스장 단면도**
 ![floorr](https://github.com/user-attachments/assets/9cf916b0-6e1d-4cc0-aaff-cf6079caeac4)
 
 
 ### 4) 상품 페이지 
 
-  **    구매 페이지      **
+  **구매 페이지**
       ![payapi](https://github.com/user-attachments/assets/9562563d-e180-49b8-966b-a45a46492a87)
 
-**      결제완료 페이지   **
+**결제완료 페이지**
 ![payapi2](https://github.com/user-attachments/assets/e194f07a-3869-49f0-ba95-a3278508a7f7)
 
 ### 5) 게시판 페이지
 
-**         공지사항       **
+**공지사항**
 ![board](https://github.com/user-attachments/assets/2db3a941-8c9e-4505-9f04-59d9d8dbef1a)
 
-   **      자유게시판**
+**자유게시판**
 ![searchcommu](https://github.com/user-attachments/assets/93e6054b-9b3d-48b1-99be-8447336883ba)
 
 ### 6) 문의&예약 페이지
 
-   **      1:1 채팅 페이지
+   **1:1 채팅 페이지**
 
-         문의 내역 페이지
+  **문의 내역 페이지**
 
-         예약 내역 페이지**
+   **예약 내역 페이지**
 
 ![image](https://github.com/user-attachments/assets/cf78cfb7-2fc7-4632-9de6-2d93a737fd8c)
 
