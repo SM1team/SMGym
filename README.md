@@ -79,7 +79,7 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 ***
 
 ### ✨DB 설계
-![밀키트 쇼핑몰](https://user-images.githubusercontent.com/117332944/218619937-f4350539-3c01-48bc-966e-7930759e1389.png)
+https://github.com/SM1team/SMGym/blob/main/erd.png
 
 ***
 
