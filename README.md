@@ -198,48 +198,29 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 ## 관리자 페이지 🧐
 ### 1) 실시간 통계
 - 당일 시간대별 실시간 데이터와 누적 데이터 표시
-- Jquery를 활용한 AJAX 통신과, JS의 SET INTERVAL 함수를 활용하여 실시간 통계 구현
+- Jquery를 활용한 AJAX 통신 구
 - JAVA의 Date 객체를 활용하여 서버 기준 현재 시간으로 설정, 데이터는 JSON형태로 전달받아 처리 
-- 실시간 배송량, 판매량, 판매액, 구매확정률, 평균 판매 개수, 평균 판매 금액 데이터 표시
-- 실시간 시간별 매출 차트, 전일 대비 매출차트, 인기 상품 TOP 10, 나이대 별 - 남녀 성별 판매 비율 데이터 표시
+- 일별 방문자 수, 이용중인 회원 수, 사용 중인 운동 기구 수 데이터 표시
+![admain](https://github.com/user-attachments/assets/d9331ef1-ca40-4f27-8a4e-15df87dee39e)
 
-![FINAL 시연 영상 - 4K mov_000422100](https://user-images.githubusercontent.com/114971312/218614171-e06267c3-d579-4c7c-a4ba-3aab5a6bce21.gif)
-![FINAL 시연 영상 - 4K mov_000541233](https://user-images.githubusercontent.com/114971312/218614241-9ca92892-de03-4421-b1c6-e3f89b65f000.gif)
-  
-![FINAL 시연 영상 - 4K mov_000483466](https://user-images.githubusercontent.com/114971312/218614207-61b9949d-1d25-4a4d-9faf-4affef00f508.gif)
-![FINAL 시연 영상 - 4K mov_000500633](https://user-images.githubusercontent.com/114971312/218614211-80f8002d-b070-4445-9f45-7d10cb748b14.gif)
-  
-![FINAL 시연 영상 - 4K mov_000516266](https://user-images.githubusercontent.com/114971312/218614364-9a7946b1-1fb3-4b19-a05d-41758728c578.gif)
-![FINAL 시연 영상 - 4K mov_000525566](https://user-images.githubusercontent.com/114971312/218614386-5025d45c-2e61-4ab3-b125-4c9647923c8f.gif)
+
+
 
 
 ***
 <br><br>
 
 
-### 2) 년도/월/일별 통계
-- 시간별 배송량, 판매액, 판매수, 구매확정률, 인기 상품, 매출 차트 등 정보 확인 가능
+### 2) 성별/월/나별 통계
+- 월별 매출 통계, 성별 매출 통계, 나이대별 매출 통계 등 정보 확인 가능
 - 정규식을 이용하여 금액 3자리 마다 컴마(,)를 통해 관리자가 쉽게 파악
-- 날짜를 선택하여 조회버튼 클릭시 태그 value값에 선택 날짜가 문자열로 들어가게 되며 해당 태그 class에 ‘selected’가 추가됨으로써 'selected' 클래스를 가진 태그의 value값을 서버로 전송 
 - 1일, 31일/1월, 12월 등 월 또는 년도가 바뀌는 시기에는 그에 맞춰 날짜가 변경되게 구현
-<img width="100%" alt="addrAddDel" src="https://user-images.githubusercontent.com/110235270/218685092-d6b29b19-3ca3-4927-a9ae-a6cc2c1f9d44.gif">  
+![adcal](https://github.com/user-attachments/assets/c28d28ef-9aff-4e84-9f31-8fd560270ec7)
 
 
 
 ***
 <br><br>
-
-
-### 3) 통계 상세 검색  
-- 음식카테고리별/나이대별/성별/날짜등의 조건을 중복으로 선택하여 데이터 상세 검색 가능
-- 선택한 조건에 CSS 가 추가되게 하여 관리자가 쉽게 파악할 수 있도록 구현  
-<img width="100%" alt="addrAddDel" src="https://user-images.githubusercontent.com/110235270/218916333-366ba6c8-aa8f-4677-be97-fa5bb16706cd.gif">  
-
-
-***
-<br><br>
-
-
 
 
 ## ✨서브 기술   
@@ -247,11 +228,14 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
 ### 1) QR 코드 ( QR code) 
 
--직원에게 고유한 QR 코드를 부여하여 출퇴근 시간을 기록
+-트레이너에게 고유한 QR 코드를 부여하여 출퇴근 시간을 기록
 -QR 코드 스캔 시 현재 시간을 기준으로 출근 또는 퇴근 기록 생성
 -스캔한 QR 코드를 서버에서 인증하고, DB에 해당 기록 저장
 -QR 코드 스캔 실패나 잘못된 코드 입력 시 오류 메시지를 제공하여 데이터 정확성 보장
 ![image](https://github.com/user-attachments/assets/00fb47f3-793b-4135-b9f6-912337afb2b2)
+![adtrainerqrcheckin](https://github.com/user-attachments/assets/9986fa4d-1771-4390-98d5-cbd7b8087871)
+![adqrcheckout](https://github.com/user-attachments/assets/81c9191f-4b2e-4bfe-b4bd-b34f88d5268e)
+
 
 
 ### 2) 암호화(Bcrypt)
@@ -267,10 +251,12 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
 
 ### 3) 로그인 인터셉터(Interceptor)
-- 로그인한 사용자만 볼 수 있도록 일부 페이지들에 대한 접근을 막음   
-- 세션을 통해 로그인 여부를 체크해서 로그인하지 않은 회원은 로그인 폼으로 보냄 
+- 로그인한 사용자의 권한에 따른 지정된 페이지만 볼 수 있도록 일부 페이지들에 대한 접근을 막음   
+- 세션을 통해 로그인 여부를 체크해서 로그인하지 않은 트레이너는 로그인 폼으로 보냄 
 ![image](https://user-images.githubusercontent.com/110235270/218664894-b87fa846-3b1b-432a-bb68-8bfc58a72977.png)
- 
+![adlogin](https://github.com/user-attachments/assets/51423622-a50c-476b-84be-7edb045703ab)
+![adlogin2](https://github.com/user-attachments/assets/e9100701-98be-4dd8-b150-1bb57213a7a8)
+
 
 ***
 <br><br>
@@ -347,48 +333,51 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
 ## 관리자 페이지 🧐
 
-### 1) 상품 관리  
-- 필터와 정렬을 중복으로 적용하여 상품 조회 가능
-- 상품의 이미지 파일을 포함한 모든 요소를 등록/수정이 가능
-- 중복된 파일명이 있을 경우 뒤에 숫자를 계속하여 추가하는 식으로 재귀함수로 구현 (ex: (1), (2), (3))
-<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/117332944/218488653-8f012552-f61e-4231-b46a-d446ad49923b.gif"> 
+### 1) 예약 관리  
+- 사용자 페이지에서 예약 신청 시, 관리자 페이지에서 예약 상태를 변경 가능
+- ![adreserva](https://github.com/user-attachments/assets/8928be57-cd1f-4960-89cd-7b6803525bb1)
 
+- 변경 시 예약 중 -> 예약 완료 로 변경
 ![image](https://user-images.githubusercontent.com/117332944/218489047-f4afb805-8e16-4e31-9519-94ff35b0d414.png)
 
-- 상품 삭제 시 실제로 데이터를 삭제하면 여러 문제가 발생할 수 있기 때문에 테이블의 'deleted' 필드를 'Y'으로 변경하게 구현
+
+***
+<br><br>
+
+
+### 2) 트레이너 관리
+- 트레이너 조회, 삭제 기능
+- 트레이너 출결 또한 관리 및 조회 가능
+ 
+![adtrainer](https://github.com/user-attachments/assets/bd2f289e-449e-4ff0-9d15-5cb72eb8f72c)
+![adtraineradd](https://github.com/user-attachments/assets/866c255d-06b3-4e9c-85a1-9df20a6f670f)
+![adtrainerdel](https://github.com/user-attachments/assets/e936398c-bef0-4cb1-b590-13ed09dce108)
+![adtrainercheck](https://github.com/user-attachments/assets/c825ce6b-5c64-4af6-88ec-1548f40cc4ac)
+
 
 
 ***
 <br><br>
 
 
-### 2) 회원 관리
-- 차단된 회원 / 생년월일 순 정렬 기능  
-- 이메일 / 이름 / 전화번호 검색 기능
-- 차단 / 탈퇴 여부 조회와 차단 설정 기능 
-![회원관리-min](https://user-images.githubusercontent.com/114971312/218416472-07d821de-5bb6-467d-b2e7-2129f09fb9c2.gif)
-![차단된 회원](https://user-images.githubusercontent.com/114971312/218690751-bf6a5f65-456a-4fec-9c49-88dfad5f8f80.JPG)
+### 3) 공지 관리
+- 공지사항 추가/삭제 가능
+- 관리자가 작성한 공지사항은 사용자 페이지에서 볼 수 있음
+![adnotice](https://github.com/user-attachments/assets/e4c04c0b-50d2-4606-8b37-2ec6ec66b3b7)
+![adnoticedel](https://github.com/user-attachments/assets/516ac720-4c9d-4509-867a-22bd45210378)
+![userpage](https://github.com/user-attachments/assets/2aa434ec-4513-4459-bf98-2a2049248efb)
+![image](https://github.com/user-attachments/assets/2883fc97-ea5e-4094-bb0c-cb8416a8d1fe)
 
 
 ***
 <br><br>
 
 
-### 3) 공지/이벤트 관리
-- 필터와 정렬을 중복으로 적용하여 공지/이벤트 조회 가능
-- 중복된 파일명이 있을 경우 뒤에 숫자를 계속하여 추가하는 식으로 재귀함수로 구현 (ex: (1), (2), (3))
-<img width="100%" alt="boardmanage" src="https://user-images.githubusercontent.com/117332944/218490427-2e2e4f9a-0800-4c98-942f-335ac4cdaf40.gif"> 
+### 4) 1:1 문의 관리
+- 사용자와 관리자가 일대일로 상담을 진행 가능
+- websocket을 활용하여 채팅 기능 구현
 
-
-***
-<br><br>
-
-
-### 4) 후기/문의 관리
-- 검색 기능을 통해 해당 키워드에 맞는 글을 가져오도록 구현 
-- 일부 선택 or 전체 선택하여 삭제 
-- 문의글의 경우, 관리자가 답변을 쓸 수 있도록 댓글 입력/수정/삭제 기능 구현
-<img width="100%" alt="addrAddDel" src="https://user-images.githubusercontent.com/110235270/218756207-acc460dc-eb3e-4f9e-a539-b98299fe6459.gif">  
+![ad1_1chat](https://github.com/user-attachments/assets/b91cfc21-12ea-45c1-80cc-1860ce2a6ab4)
 
 
 ***
@@ -396,16 +385,12 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 
 
 
-### 5) 주문 관리
-
-
-- 체크박스를 통해 상품을 원하는 만큼 선택해서 상태를 변경할 수 있음.
-- 검색기능을 통해 원하는 주문내역을 볼 수 있음.
-- 상세보기를 들어가면 운송장번호를 업데이트 할 수 있음 또한 관리자측에서도 배송조회는 가능.
-- 사용자의 환불요청 내용을 보고 처리할 수 있음.
-
-<img width="100%" alt="orderManage" src="https://user-images.githubusercontent.com/115512265/218656591-688fa477-1085-41c5-b595-779b48230eda.gif">
-
+### 5) PT 관리
+- 트레이너는 본인이 관리하는 회원을 관리
+- 일지를 통해 회원에게 공지 또는 수업 내용 전달
+![adptpage](https://github.com/user-attachments/assets/c66aa117-5ad3-49d0-a2df-5fc5a1ea3312)
+![adptupdate](https://github.com/user-attachments/assets/cc7844bc-7cce-4575-87fe-8460a43c388f)
+![adptshare](https://github.com/user-attachments/assets/b80bde87-a9f4-47fe-9118-e99c6c68d9d0)
 
 ***
 <br><br>
