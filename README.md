@@ -93,7 +93,7 @@ QR 코드 센서를 통해 회원의 출석을 자동으로 기록하며, 운동
 **🔗[WBS 보러가기][(https://docs.google.com/spreadsheets/d/10XEy3CGtHanto6_02__epn6dyyra8y609xpw5IACge8/edit?usp=share_link)](https://docs.google.com/spreadsheets/d/1aBiMceFBWgk4G_PaUQ91IMN7DcHUL00PPaj56Venu3o/edit?usp=sharing)**  
   
   
-!![image](https://github.com/user-attachments/assets/fc2977ad-225e-482b-8818-0855af6c063a)
+![image](https://github.com/user-attachments/assets/fc2977ad-225e-482b-8818-0855af6c063a)
 
 
 
