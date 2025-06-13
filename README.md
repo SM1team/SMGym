@@ -6,7 +6,7 @@ Front&Back DEV : 박주민, 황민우, 고윤재
 기간: 2024.11.10~2024.12.24  
 <br>
 
-💿[웹 시연영상](https://youtu.be/11111111111)  
+💿[웹 시연영상](https://www.youtube.com/watch?v=hMeB0Avo4s8)  
 
 🔗[노션 링크][(https://www.notion.so/246758c62a5b4e728cd50f89d021ba07?v=78f471175d4a49ea93b0195f26fa602a&pvs=4)](https://www.notion.so/2024-SW-12ea3b9e4551807eb729dfcc03fff17b)  
 
